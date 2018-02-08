@@ -1,0 +1,32 @@
+# Anything in application/ #
+############################
+application/*
+
+# misc LaTeX files #
+####################
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+*.log
+*.nav
+*.pdf
+*.snm
+*.toc
+
+
+# misc R files #
+################
+*.Rdata
+*.RData
+*.rds
+*.Rhistory
+*.Rapp.history
+*.Rproj.user/
+
+# powerpoint files #
+####################
+*.pptx
+*.doc
+*.docx
