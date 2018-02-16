@@ -14,7 +14,7 @@ The course covers linear regression, logistic regression, and proportional hazar
 
 Please contact us using the Canvas Messages system---make sure to include both of us on all communication!
 
-(https://canvas.uw.edu/courses/1203588)[Here] is a link to the Canvas page.
+[Here](https://canvas.uw.edu/courses/1203588) is a link to the Canvas page.
 
 
 (This page will have syllabus information, links to canvas, etc.)
