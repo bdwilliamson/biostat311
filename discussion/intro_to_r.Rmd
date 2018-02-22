@@ -1,0 +1,13 @@
+---
+title: "Introduction to R and RStudio"
+subtitle: "BIOST 311 Discussion Section 01"
+author: "Kelsey Grinde and Brian Williamson"
+date: "27 March 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R 
