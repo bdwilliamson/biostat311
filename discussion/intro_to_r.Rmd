@@ -1,13 +1,92 @@
 ---
 title: "Introduction to R and RStudio"
-subtitle: "BIOST 311 Discussion Section 01"
+subtitle: "BIOST 311, Discussion Section 01"
 author: "Kelsey Grinde and Brian Williamson"
 date: "27 March 2018"
-output: html_document
+output: 
+  html_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+## function to color text
+colFmt = function(x,color){
+  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
 ```
 
-## R 
+## R: the big picture
+
+R is a `r colFmt("free", "blue")`, `r colFmt("open source", "green")` software package that can be used for data analysis, graphics, and programming.
+
+At its core, R is an interactive, command-driven `r colFmt("language", "blue")`: you type a command, R executes the command, and then returns results.
+
+While it may take some time to develop a mastery of R, it is relatively easy to get set up with the basics and start analyzing data.
+
+Learning R is worth your time, and has many advantages, including:
+
+  * R is free and open source
+  * there is an active group of contributors to R software
+  * you can do flexible things with your data
+  * many people have written packages that make data analysis easier
+
+## RStudio: the interface to R
+
+While R is the `r colFmt("language", "blue")` we will use to analyze data, it does not come packaged with the best `r colFmt("interface", "green")`. An interface connects you to the program: for example, your operating system lets you point and click on icons (and read things easily) rather than writing in 0's and 1's, the language that the computer understands.
+
+Instead of using the R interface packaged with the download, we will use RStudio. This is also a `r colFmt("free", "blue")`, `r colFmt("open source", "green")` software package, but is only an interface to R---this means that even if we type into RStudio, the commands will be executed in R.
+
+RStudio adds many things over the basic R interface, including:
+
+  * An improved layout of tools for data analysis
+  * Support for embedding reproducible research tools into data analysis
+  * Support for building your own R packages
+  * Integrated R help and documentation
+  * De-bugging tools
+  
+The combination of R and RStudio makes it easy to:
+
+  * write R scripts containing all code for an analysis, along with comments describing what the code does
+  * write reports with code embedded (in Rmarkdown, more on this later)
+  * organize your data analysis workflow (e.g., reading in data, accessing help files)
+
+When you open RStudio for the first time, the window will display three `r colFmt("panels", "blue")`---these have different functions, as we'll now discover.
+
+### The console
+
+The default position of the console is in the upper right-hand pane of RStudio. This pane is our real window into R: any commands that we want R to execute must be entered in the console, and any results that are output by these commands, with the exception of plots, will appear in the console.
+
+To enter a command into the console, move your cursor to the `>` and click. When there is a flashing `|` in the console, you're ready to enter a command. From now on, we'll call the `>` the execution line. Once you've entered a command on the execution line, hit `Enter` to run the command.
+
+For example, we could type in the number `47` and hit enter, which prints out the number `47`:
+```{r example-47, include = TRUE, echo = TRUE}
+47
+```
+
+### The script editor
+
+### The environment/history pane
+
+### The files/plots/packages/help pane
+
+## R: commands
+
+### Functions
+
+### Creating objects
+
+### Reading in a dataset
+
+### Manipulating datasets
+
+## Getting help
+
+## R packages
