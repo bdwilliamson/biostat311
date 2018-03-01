@@ -40,9 +40,9 @@ Learning R is worth your time, and has many advantages, including:
 
 ## RStudio: the interface to R
 
-While R is the `r colFmt("language", "blue")` we will use to analyze data, it does not come packaged with the best `r colFmt("interface", "green")`. An interface connects you to the program: for example, your operating system lets you point and click on icons (and read things easily) rather than writing in 0's and 1's, the language that the computer understands.
+While R is the `r colFmt("language", "blue")` you will use to analyze data, it does not come packaged with the best `r colFmt("interface", "green")`. An interface connects you to the program: for example, your operating system lets you point and click on icons (and read things easily) rather than writing in 0's and 1's, the language that the computer understands.
 
-Instead of using the R interface packaged with the download, we will use RStudio. This is also a `r colFmt("free", "blue")`, `r colFmt("open source", "green")` software package, but is only an interface to R---this means that even if we type into RStudio, the commands will be executed in R.
+Instead of using the R interface packaged with the download, you will use RStudio. This is also a `r colFmt("free", "blue")`, `r colFmt("open source", "green")` software package, but is only an interface to R---this means that even if you type into RStudio, the commands will be executed in R.
 
 RStudio adds many things over the basic R interface, including:
 
@@ -58,13 +58,13 @@ The combination of R and RStudio makes it easy to:
   * write reports with code embedded (in Rmarkdown, more on this later)
   * organize your data analysis workflow (e.g., reading in data, accessing help files)
 
-When you open RStudio for the first time, the window will display three `r colFmt("panels", "blue")`---these have different functions, as we'll now discover.
+When you open RStudio for the first time, the window will display three `r colFmt("panels", "blue")`---these have different functions, as you'll now discover.
 
 ### The console
 
-The default position of the console is in the upper right-hand pane of RStudio. This pane is your real window into R: any commands that we want R to execute must be entered in the console, and any results that are output by these commands, with the exception of plots, will appear in the console.
+The default position of the console is in the upper right-hand pane of RStudio. This pane is your real window into R: any commands that you want R to execute must be entered in the console, and any results that are output by these commands, with the exception of plots, will appear in the console.
 
-To enter a command into the console, move your cursor to the `>` and click. When there is a flashing `|` in the console, you're ready to enter a command. From now on, we'll call the `>` the execution line. Once you've entered a command on the execution line, hit `Enter` to run the command.
+To enter a command into the console, move your cursor to the `>` and click. When there is a flashing `|` in the console, you're ready to enter a command. From now on, you'll call the `>` the execution line. Once you've entered a command on the execution line, hit `Enter` to run the command.
 
 For example, you could type in the number `47` and hit enter, which prints out the number `47`:
 ```{r example-47, include = TRUE, echo = TRUE}
@@ -125,7 +125,7 @@ The final panel, in the bottom right, by default hosts files/plots/packages/help
 
 ## R: commands
 
-R commands relate `r colFmt("functions", "blue")` to `r colFmt("objects", "green")`. Functions `r colFmt("do", "blue")` things, while objects `r colFmt("store", "green")` values. Everything in R is done by a function---for example, the code we entered in before ran the `print()` function; for example, both of the following commands return the same value:
+R commands relate `r colFmt("functions", "blue")` to `r colFmt("objects", "green")`. Functions `r colFmt("do", "blue")` things, while objects `r colFmt("store", "green")` values. Everything in R is done by a function---for example, the code you entered in before ran the `print()` function; for example, both of the following commands return the same value:
 ```{r example-print, include = TRUE, echo = TRUE}
 45 + 2
 print(45 + 2)
@@ -148,9 +148,11 @@ R objects are (basically) the result of calling functions. However, there are tw
 
 You assign a value to an object using the special character `<-`. The value, on the right-hand side, can now by accessed using its object name (on the left-hand side).
 
+I suggest naming your objects so that the name gives you some information about the object---don't go too overboard, but this practice has saved me lots of time.
+
 ### Reading in a dataset
 
-Our example for today is the FEV data, which we'll see many times this quarter. First, we need to read the data into R:
+Our example for today is the FEV data, which you'll see many times this quarter. First, you need to read the data into R:
 ```{r read-data, echo = TRUE, include = TRUE}
 ## load the FEV data
 fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
@@ -158,12 +160,101 @@ fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
 head(fev)
 ```
 
-What happened here? First, the `read.delim()` function read in the data; we then used `<-` to assign those data, as a value, to the object called `fev`. Finally, we used the `head()` function to print the first six rows of the `fev` object.
+What happened here? First, the `read.delim()` function read in the data; you then used `<-` to assign those data, as a value, to the object called `fev`. Finally, you used the `head()` function to print the first six rows of the `fev` object.
 
-You'll also see that we added a new argument to `read.delim`; `header = TRUE` tells R to read in the first row of a dataset as the column names, rather than as actual data.
+You'll also see that you added a new argument to `read.delim`; `header = TRUE` tells R to read in the first row of a dataset as the column names, rather than as actual data.
 
 ### Manipulating datasets
 
+Reading a dataset into R isn't the end of the story---often, you'll need to compute `r colFmt("descriptive statistics", "blue")`, `r colFmt("plot", "green")` certain variables, and `r colFmt("run statistical analyses", "cyan")`, sometimes on only `r colFmt("part of the data", "red")`. Throughout this quarter, you'll learn tools to do all of these things. 
+
+I mentioned earlier that vectors are the building block of R objects---vectors are 1-dimensional, so they only have a length. 
+
+`r colFmt("Data frames", "blue")`, R's way of storing datasets, are collections of vectors: each column of a data frame is a `r colFmt("variable", "green")`, which is stored as a vector; similarly, each row of a data frame is an `r colFmt("observation", "red")`, which is also stored as a vector. 
+
+You access values in vectors using open and closed square brackets `[]`. Youaccess values in data frames using the same square brackets---however, since data frames have rows and columns, you access a value using `[<replace row number here>, <replace with column number>]` (without the `<>` symbols!). 
+
+For example, access the 5th element in the 3rd column of the FEV data:
+```{r example-access-value, echo = TRUE, include = TRUE}
+fev[3, 5]
+```
+
+A shortcut to accessing variables in a data frame is the `$` symbol; if you know the name of a variable, you can now access it. For example, access the first five elements of the `age` variable:
+```{r example-dollar, echo = TRUE, include = TRUE}
+## get the names of the data frame
+names(fev)
+## access the first five values of age
+fev$age[c(1, 2, 3, 4, 5)]
+## this is equivalent!
+fev$age[1:5]
+```
+
+The `names()` function returns the variable names in a data frame; the `c()` function creates a vector; and the `:` means "through", so `1:5` means "one through 5".
+
+The final major concept in manipulating datasets is `r colFmt("logical expressions", "blue")`. The two logical values are `TRUE` and `FALSE`; we can make comparisons that will return these values. For example, is 3 > 5?
+```{r example-logical-comp, echo = TRUE, include = TRUE}
+3 > 5
+```
+
+You can now `r colFmt("subset", "green")` our data by making logical comparisons. For example, you might be interested only in those study participants who are less than or equal to 8 years old. This means you're interested in `r colFmt("all columns", "blue")` from the FEV data, but only for the participants (i.e., `r colFmt("observations", "red")`) whose `age` value is `<= 8`.
+
+```{r example-subset, echo = TRUE, include = TRUE}
+## subset the data, keep all columns
+sub_less_equal_8 <- fev[fev$age <= 8, ]
+## simple summary statistics
+summary(sub_less_equal_8)
+```
+The `summary()` function you just used displays simple descriptive statistics. This is a great way to get a quick snapshot of the data, and make sure they have been read in correctly. You should see three (or more) interesting things with these data. What do you see?
+
+You should fix two of these things now. Create two new columns, one called `female` and one called `smoker`; these columns should have a `1` if the participant is female, and a `0` if the participant is a male; and similarly, a `1` if the participant smokes, and a `0` otherwise:
+```{r example-create-var, echo = TRUE, include = TRUE}
+## create the female variable
+fev$female <- fev$sex - 1
+## we could also do ^ for smoker, but I'll show you a different function
+fev$smoker <- ifelse(fev$smoke == 2, 1, 0)
+```
+
+This made use of the fact that I knew that `2` in the original data meant female and smoker, respectively. Thus I could either subtract one from each observation, or use `ifelse()`: this takes a logical comparison (e.g., is `smoke` equal to 2?), what to assign if the expression is true (e.g., `1`), and what to assign if the expression is false (e.g., `0`).
+
+Also, we created variables by just using `$` combined with a new variable name!
+
 ## Getting help
 
+Until now, you've had functions provided to you, with the relevant arguments filled out. But what if you don't know what arguments a function has? 
+
+Typing `?` in the console, followed by the function name, calls up the help file for the function. All R functions are required to have help files.
+
+```{r example-help, echo = TRUE, include = TRUE}
+?summary
+```
+
+If you don't know the name of the function, you aren't out of luck. If you know what you'd like to do, you can use `??`, followed by a one-word description, to pull up all help files that mention the word.
+
+```{r example-help-2, echo = TRUE, include = TRUE}
+??summarize
+```
+
+Finally, Google, Stack Exchange, Canvas, and your friends are your best resource: if you have an R problem, I can almost guarantee that someone else has had it before, and the answer is either on the internet or with your friend!
+
 ## R packages
+
+Since R is open source software, many people contribute to its development. This comes in the form of `r colFmt("packages", "blue")`: bundles of functions that supplement the functions always loaded into R. 
+
+You will use two packages extensively throughout this course: `uwIntroStats`, for descriptive statistics; and `survival`, for proportional hazards regression.
+
+The first time you want to use a package, you'll have to install it. Most packages (including the two above) can be installed using `install.packages("<replace with package name>")`. 
+
+Once the package is installed, each subsequent time you want to use functions from the package, you have to load it using `library`---and you have to do this `r colFmt("each time", "red")` you close and re-open R or RStudio.
+
+For example, load the uwIntroStats package:
+```{r example-package-load, echo = TRUE, include = TRUE}
+library("uwIntroStats")
+```
+
+## Conclusion
+
+You're now on your journey to becoming true data scientists! 
+
+Today, you've learned that R is a powerful software package that gives you flexible options for analyzing your data. You've also learned how to do simple arithmetic, read in a dataset, create objects, add variables to data sets, calculate simple descriptive statistics, access help files, and load packages. 
+
+While it may be frustrating at times, learning R is worth your time. Additionally, using Rmarkdown and RStudio is a great first step to making sure that all of your analyses are reproducible---and being fully reproducible is important for science!

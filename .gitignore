@@ -24,9 +24,17 @@ application/*
 *.Rhistory
 *.Rapp.history
 *.Rproj.user/
+*.Rproj
 
 # powerpoint files #
 ####################
 *.pptx
 *.doc
 *.docx
+.Rproj.user
+
+# Any text files, csvs, HTMLs #
+###############################
+*.txt
+*.html
+*.csv
