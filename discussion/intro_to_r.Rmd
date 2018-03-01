@@ -62,28 +62,105 @@ When you open RStudio for the first time, the window will display three `r colFm
 
 ### The console
 
-The default position of the console is in the upper right-hand pane of RStudio. This pane is our real window into R: any commands that we want R to execute must be entered in the console, and any results that are output by these commands, with the exception of plots, will appear in the console.
+The default position of the console is in the upper right-hand pane of RStudio. This pane is your real window into R: any commands that we want R to execute must be entered in the console, and any results that are output by these commands, with the exception of plots, will appear in the console.
 
 To enter a command into the console, move your cursor to the `>` and click. When there is a flashing `|` in the console, you're ready to enter a command. From now on, we'll call the `>` the execution line. Once you've entered a command on the execution line, hit `Enter` to run the command.
 
-For example, we could type in the number `47` and hit enter, which prints out the number `47`:
+For example, you could type in the number `47` and hit enter, which prints out the number `47`:
 ```{r example-47, include = TRUE, echo = TRUE}
 47
 ```
 
+Or, you could use R as a calculator:
+```{r example-calculator, include = TRUE, echo = TRUE}
+32 + 15
+52 - 5
+94/2
+23*2 # This is a comment! Everything after a '#' isn't run by R; instead, it's printed out. Here, you could say that the result isn't 47!
+```
+
+Each of these lines returns an `r colFmt("object", "blue")`---in each case, the object is the result of the computation. In fact, these objects are called `r colFmt("vectors", "blue")`. Vectors are the building block of R objects.
+
 ### The script editor
+
+It is possible to do all of your work in the console. However, this isn't advisable, because:
+
+* you may forget the commands you've run, and
+* you may forget the objects you've created;
+
+both of these (and other reasons) make `r colFmt("reproducibility", "blue")` difficult if you only use the console. 
+
+Reproducibility is important both for yourself and for others: 
+
+* you should always structure your code so that future you can come back in 6 months and figure out what you are doing
+* you may have to run your code more than once, so why not write it down only once?
+* someone else should be able to take your code and data and obtain the same results as you did
+
+The `r colFmt("script editor", "blue")` is one place to write down and save your code. By default, it is located in the upper left panel of RStudio. This pane serves as a text editor; it allows you to edit and save code and Rmarkdown documents, among other things.
+
+To create a new Rmarkdown file, click on `File > New File > R Markdown`. Rmarkdown files are saved with the file extension `.Rmd`. These files allow you to seamlessly integrate code with text (this document is written in Rmarkdown!). You can then output your Rmarkdown file to Word (.docx), PDF (.pdf), or HTML (.html). You create the output by clicking `Knit`.
+
+To create an R script file, click on `File > New File > R Script`. These files, saved with the file extension `.R`, allow you to save R code and execute it in the console. One advantage of using Rmarkdown over R scripts is that you can write text explaining what your code does!
+
+To run code from the source editor, use `Run > Run Selected Lines`, which allows you to either run a single line (whichever line your cursor is on); or multiple lines, by highlighting multiple lines.
+
+Practice running the following line of code from your .Rmd file into the console:
+```{r example-run-line, echo = TRUE, include = TRUE}
+45 + 2
+```
+
+The places in the .Rmd file that begin and end with three back-ticks are called `r colFmt("code chunks", "blue")`. This is where you enter any code that you want to be executed by R when you knit your .Rmd file. You can also test your code by running the code from the chunks in the console, using `Run`.
 
 ### The environment/history pane
 
+The environment/history pane is, by default, located in the lower left-hand panel of RStudio. The `r colFmt("Environment", "green")` tab shows any functions or data that you have in your `r colFmt("blue", "workspace")`; that is, any objects created by running R code. Up to now, your workspace only includes the function `colFmt()`, which allows me to color text in Rmarkdown.
+
+The `r colFmt("History", "green")` tab shows all of the commands that have been entered into the console. 
+
+While the environment/history panel can sometimes be helpful, it is `r colFmt("not", "red")` a substitute for using R scripts or Rmarkdown!
+
 ### The files/plots/packages/help pane
+
+The final panel, in the bottom right, by default hosts files/plots/packages/help. This is where any plots that you generate will be displayed, and any help files that you access will appear (more on both of these later!).
 
 ## R: commands
 
+R commands relate `r colFmt("functions", "blue")` to `r colFmt("objects", "green")`. Functions `r colFmt("do", "blue")` things, while objects `r colFmt("store", "green")` values. Everything in R is done by a function---for example, the code we entered in before ran the `print()` function; for example, both of the following commands return the same value:
+```{r example-print, include = TRUE, echo = TRUE}
+45 + 2
+print(45 + 2)
+```
+
 ### Functions
+
+Functions take in `r colFmt("arguments", "blue")` and return `r colFmt("values", "green")`. A function is accessed by typing its name, followed by an open and closed set of parentheses: for example, `read.delim()` is a function that can read in data in a text file (.txt). 
+
+`r colFmt("Arguments", "blue")` to functions go between the parentheses, and are separated by commas. You specify what values the arguments should take on by using `=`; for example, `read.delim(file = "fev.txt", sep = "")` reads in the data in `fev.txt`, and creates a new column each time it sees white space.
+
+`r colFmt("Values", "green")` are returned by functions, and are generally a combination of objects, plots, and printout. The value of `read.delim(file = "fev.txt", sep = "")` is a special R object called a `data.frame`, which is essentially equivalent to a dataset.
 
 ### Creating objects
 
+R objects are (basically) the result of calling functions. However, there are two general ways this can be done:
+
+* `r colFmt("loading data", "blue")` (e.g., from a .txt or .csv file)
+* `r colFmt("manipulating another object", "green")` using a function
+
+You assign a value to an object using the special character `<-`. The value, on the right-hand side, can now by accessed using its object name (on the left-hand side).
+
 ### Reading in a dataset
+
+Our example for today is the FEV data, which we'll see many times this quarter. First, we need to read the data into R:
+```{r read-data, echo = TRUE, include = TRUE}
+## load the FEV data
+fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
+## check that you've read it in correctly:
+head(fev)
+```
+
+What happened here? First, the `read.delim()` function read in the data; we then used `<-` to assign those data, as a value, to the object called `fev`. Finally, we used the `head()` function to print the first six rows of the `fev` object.
+
+You'll also see that we added a new argument to `read.delim`; `header = TRUE` tells R to read in the first row of a dataset as the column names, rather than as actual data.
 
 ### Manipulating datasets
 
