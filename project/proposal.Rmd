@@ -1,0 +1,44 @@
+---
+title: 'Data Analysis Project, Part 1: Proposal'
+subtitle: "BIOST 311: Regression Methods in the Health Sciences"
+author: "Kelsey Grinde and Brian Williamson"
+date: "Spring Quarter 2018; due 13 April 2018, submit on Canvas"
+output: pdf_document
+---
+
+## Instructions
+
+Here, we want to make sure that you have a dataset chosen, and that you have decided on scientific questions to answer. 
+
+See the Canvas page for sample places to find datasets. The criteria for a dataset are
+
+1. The dataset must have more than five variables
+2. The dataset must have an outcome variable that is continuous, binary, or time-to-event
+3. You must be able to pose at least two interesting scientific questions (judged by us) that you can answer using the data
+
+You should include a brief description of the data, and the scientific problem, along with the scientific questions that you are choosing to answer. 
+
+This assignment is limited to **one page**, and your written text should use at least 12-point font.
+
+This assignment is graded. **Do not discuss with students outside of your group (within-group discussion is encouraged!) and do not use the Canvas discussion board for questions about this project**.
+
+## Template:
+
+### Title
+
+Make up a title for your proposed study!
+
+### Background and Introduction
+
+Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team.
+
+### Scientific questions
+
+This section lays out the scientific agenda of your analysis. You should state both the overall scientific goal and the specific scientific objectives.
+
+Example: a study of smoking and lung function in children
+
+The overall scientific goal is to assess the association between smoking and lung function in children. Specifically, we will address the following questions:
+
+1. Is smoking associated with decreased lung function in children?
+2. If there is an association between smoking and decreased lung function, is this effect different in older versus younger children?

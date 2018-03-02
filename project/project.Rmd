@@ -1,5 +1,5 @@
 ---
-title: "Group Data Analysis Project"
+title: "Data Analysis Project"
 subtitle: "BIOST 311: Regression Methods in the Health Sciences"
 author: "Kelsey Grinde and Brian Williamson"
 date: "Spring Quarter 2018"
@@ -24,7 +24,7 @@ We encourage you to find a dataset that interests you---since being excited abou
 
 1. The dataset must have more than five variables
 2. The dataset must have an outcome variable that is continuous, binary, or time-to-event
-3. You must be able to pose an interesting scientific question (judged by us) that you can answer using the data
+3. You must be able to pose at least two interesting scientific questions (judged by us) that you can answer using the data
 
 Some of you may already be involved in research---if you can get permission to use these data, we highly encourage it!
 

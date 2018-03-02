@@ -1,0 +1,60 @@
+---
+title: 'Data Analysis Project, Part 4: Presentation'
+subtitle: "BIOST 311: Regression Methods in the Health Sciences"
+author: "Kelsey Grinde and Brian Williamson"
+date: "Spring Quarter 2018; during final discussion section, 29 May 2018"
+output: pdf_document
+---
+
+## Instructions
+
+Being able to present your work is an important skill. Here, you will give a group presentation of your data, scientific questions, statistical results, and scientific conclusions to the rest of the class. These presentations are limited to **15 minutes**.
+
+Each section in the template below will be shorter than its corresponding section in the report---remember, you have a finite amount of time for the presentation! 
+
+This assignment is graded. **Do not discuss with students outside of your group (within-group discussion is encouraged!) and do not use the Canvas discussion board for questions about this project**.
+
+## Template:
+
+### Title
+
+Make up a title for your proposed study!
+
+### Background and Introduction
+
+Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team.
+
+### Scientific questions
+
+This section lays out the scientific agenda of your analysis. You should state both the overall scientific goal and the specific scientific objectives.
+
+Example: a study of smoking and lung function in children
+
+The overall scientific goal is to assess the association between smoking and lung function in children. Specifically, we will address the following questions:
+
+1. Is smoking associated with decreased lung function in children?
+2. If there is an association between smoking and decreased lung function, is this effect different in older versus younger children.
+
+#### Statistical methods
+
+Describe all of the descriptive statistics you will compute, how you will compute them, and how you will display your results. Generally, these are used informally to evaluate and compare subgroups, identify errors in the data, and identify patterns of missing data.
+
+All statistical analyses should start with data description. Often, these descriptive analyses will support the inferential analyses you report. Figures and tables are both reasonable ways to display descriptive analyses.
+
+Describe all of the inferential analyses you will run (e.g., linear regression), along with the estimates that you will report. These are the hypothesis tests and estimates that will be used to address each of the questions you listed in the "scientific questions" section. You should state the statistical method that will be used to test each hypothesis, along with the response variable for each question and the significance level you are using. List the assumptions required for the analysis.
+
+Also, describe any variables that you adjust for as potential confounders, effect modifiers, or precision variables for each analysis. 
+
+### Results
+
+#### Description of the study cohort
+
+Actually run the descriptive analyses that you propose above, and report the results in tables or figures, as appropriate. 
+
+#### Inferential analyses
+
+Report and interpret the effect estimates, confidence intervals, and p-values corresponding to each scientific question that you address. 
+
+### Discussion
+
+Discuss what the statistical results you presented in the previous section mean in terms of the scientific questions that you posed at the beginning of the presentation.
