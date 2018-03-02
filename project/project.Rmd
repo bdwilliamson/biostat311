@@ -1,0 +1,67 @@
+---
+title: "Group Data Analysis Project"
+subtitle: "BIOST 311: Regression Methods in the Health Sciences"
+author: "Kelsey Grinde and Brian Williamson"
+date: "Spring Quarter 2018"
+output: pdf_document
+---
+
+## Overview
+The course project is a group data analysis, consisting of five parts: (1) a project proposal; (2) a statistical analysis plan; (3) a draft report; (4) a group presentation; and (5) a group report. We want you to implement components of the analysis as you learn new concepts in both class and discussion section. Our goal in having multiple parts to the project, due at different points throughout the quarter, is to provide feedback multiple times so that your final report is as polished as possible. With that in mind, please do the best job you can on each component---the better the document you hand in, the better comments we can give you!
+
+We really do want you to work in groups: not only will this mean we have less overlap on datasets, but also you will gain valuable experience both working in a group and analyzing data as a team. We will assign groups based on scientific interest during discussion section in Week 2, and these groups will have approximately 2--3 people.
+
+Each of the following components of the project has its own guidelines, each listed in separate documents.
+
+## The project proposal (due April 13, 5% of the overall project grade)
+
+This component of the project addresses two questions: 
+
+* what dataset are you using? 
+* what scientific questions are you answering?
+
+We encourage you to find a dataset that interests you---since being excited about the data will make you more excited about analyzing it---but we have a few criteria that each dataset must meet.
+
+1. The dataset must have more than five variables
+2. The dataset must have an outcome variable that is continuous, binary, or time-to-event
+3. You must be able to pose an interesting scientific question (judged by us) that you can answer using the data
+
+Some of you may already be involved in research---if you can get permission to use these data, we highly encourage it!
+
+If you don't have a research project, a couple of options for finding datasets are
+
+* the [University of California at Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets.html?format=&task=&att=&area=life&numAtt=&numIns=&type=&sort=nameUp&view=table)
+* [Kaggle competition datasets](https://www.kaggle.com/datasets)
+* [FiveThirtyEight](https://data.fivethirtyeight.com/)
+
+We also have a handful of datasets that you can use if you're unable to find one that interests you. Please ask both of us if this is the case, and we will provide a dataset that you (hopefully) find interesting!
+
+We will provide you with an Rmarkdown template for this component of the project.
+
+## The statistical analysis plan (due April 27, 15% of the overall project grade)
+
+In a statistical analysis plan (SAP), you write down explicitly all of the statistical analyses (e.g., descriptive statistics, plots and tables, and inferential analyses) that you will conduct using the data. See the guidelines for the SAP for more information about the required elements.
+
+An additional component of the statistical analysis plan is to run one preliminary analysis on your data, using one of the techniques we have learned in class or discussion section. 
+
+We will provide you with an Rmarkdown template for this component of the project.
+
+## The first draft (due May 18, 10% of the overall project grade)
+
+The final report is due on June 1, but we think you should get started early, and we want you to have a high quality report by the end of the quarter. With that in mind, we're asking that you hand in a first draft with a few weeks worth of time for us to read your drafts and hand back comments. 
+
+See the report section for more information. We will not provide you with any templates for this component of the project.
+
+## The presentation (due May 29, 20% of the overall project grade)
+
+By this point in the course, you will have learned many statistical techniques, and will have experience implementing them in R to obtain results. We want you to showcase these skills, and teach us about the scientific discoveries you have made while working with your data. With that in mind, we will have group presentations of your results during the final discussion section. You are expected to present on the scientific questions you address, the methods you use to address them, and the results of your analyses.
+
+We will provide guidelines on the components of the presentation in a separate document, but will not provide you with a template file.
+
+## The report (due June 1, 50% of the overall project grade)
+
+You will write up a full account of your statistical analysis in this report, including: your scientific questions; your statistical hypotheses; your statistical methods, including for descriptive statistics, figures and tables, and inferential analyses; your results; and your statistical and scientific conclusions. All of this will be written in a style suitable to be included in a manuscript.
+
+By turning in a draft earlier in the quarter, we hope that you will have enough time to incorporate our feedback before handing in the final version. 
+
+We will provide guidelines on the components of the report in a separate document, but will not provide you with a template file.
