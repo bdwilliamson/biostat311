@@ -1,0 +1,22 @@
+---
+title: "Homework"
+author: "Kelsey Grinde and Brian Williamson"
+date: "March 2, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by XXpm on the due date. You are welcome to work together on the homework; however, final solutions should be written up individually. Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code (if applicable) in a .R file uploaded as a separate document.
+
+If you give an honest attempt for all of the questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+## 1. (XX points)
+
+```{r code-for-prob-1, echo = FALSE, include = FALSE}
+
+```

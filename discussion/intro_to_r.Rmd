@@ -211,7 +211,7 @@ You should fix two of these things now. Create two new columns, one called `fema
 ## create the female variable
 fev$female <- fev$sex - 1
 ## we could also do ^ for smoker, but I'll show you a different function
-fev$smoker <- ifelse(fev$smoke == 2, 1, 0)
+fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
 ```
 
 This made use of the fact that I knew that `2` in the original data meant female and smoker, respectively. Thus I could either subtract one from each observation, or use `ifelse()`: this takes a logical comparison (e.g., is `smoke` equal to 2?), what to assign if the expression is true (e.g., `1`), and what to assign if the expression is false (e.g., `0`).
