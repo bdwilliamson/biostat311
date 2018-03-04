@@ -1,13 +1,9 @@
 ---
 title: "Homework"
 author: "Kelsey Grinde and Brian Williamson"
-date: "March 2, 2018"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: pdf_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Instructions
 
@@ -20,3 +16,19 @@ If you give an honest attempt for all of the questions, you will receive 2 point
 ```{r code-for-prob-1, echo = FALSE, include = FALSE}
 
 ```
+
+## R Code
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names to reflect the names of this R Markdown file (rmd.name) and the name of the R file where you want to send your R code (code.name). #####
+rmd.name <- 'hw_template.Rmd' # name of this file
+code.name <- 'hw_template.R' # name of R code file
+```
+
+```{r extract-code, include = FALSE, eval = FALSE}
+##### STEP 2: Once you have completed your assignment, run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+Please upload the file `r code.name` along with your completed assignment. 
