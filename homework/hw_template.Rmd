@@ -14,7 +14,9 @@ If you give an honest attempt for all of the questions, you will receive 2 point
 ## 1. (XX points)
 
 ```{r code-for-prob-1, echo = FALSE, include = FALSE}
-
+## This is a sample code chunk! 
+## Fill this in with code executing the R commands you need for this problem
+## Comment your code so that you (and us, if necessary) know what you're doing
 ```
 
 ## R Code
