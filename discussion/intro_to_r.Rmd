@@ -4,8 +4,10 @@ subtitle: "BIOST 311, Discussion Section 01"
 author: "Kelsey Grinde and Brian Williamson"
 date: "27 March 2018"
 output: 
-  html_document:
+  pdf_document:
     toc: true
+header-includes:
+  - \usepackage{color}
 ---
 
 ```{r setup, include=FALSE}
@@ -113,7 +115,7 @@ The places in the .Rmd file that begin and end with three back-ticks are called 
 
 ### The environment/history pane
 
-The environment/history pane is, by default, located in the lower left-hand panel of RStudio. The `r colFmt("Environment", "green")` tab shows any functions or data that you have in your `r colFmt("blue", "workspace")`; that is, any objects created by running R code. Up to now, your workspace only includes the function `colFmt()`, which allows me to color text in Rmarkdown.
+The environment/history pane is, by default, located in the lower left-hand panel of RStudio. The `r colFmt("Environment", "green")` tab shows any functions or data that you have in your `r colFmt("workspace", "blue")`; that is, any objects created by running R code. Up to now, your workspace only includes the function `colFmt()`, which allows me to color text in Rmarkdown.
 
 The `r colFmt("History", "green")` tab shows all of the commands that have been entered into the console. 
 
