@@ -11,7 +11,9 @@ The course project is a group data analysis, consisting of five parts: (1) a pro
 
 We really do want you to work in groups: not only will this mean we have less overlap on datasets, but also you will gain valuable experience both working in a group and analyzing data as a team. We will assign groups based on scientific interest during discussion section in Week 2, and these groups will have approximately 2--3 people.
 
-Each of the following components of the project has its own guidelines, each listed in separate documents.
+**There are multiple correct methods to choose from for this project.** You may choose to analyze the data differently from us; spend your time choosing a method that you can justify, implement, and interpret correctly.
+
+Each of the following components of the project has its own guidelines, each listed in separate documents. **The project is worth 20% of your overall course grade.**
 
 ## The project proposal (due April 13, 5% of the overall project grade)
 
