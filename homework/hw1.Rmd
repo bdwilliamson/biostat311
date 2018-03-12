@@ -1,0 +1,93 @@
+---
+title: "Homework 1"
+author: "Kelsey Grinde and Brian Williamson"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+---
+
+## Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on March 30th. You are welcome to work together on the homework; however, final solutions should be written up individually. Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code (if applicable) in a .R file uploaded as a separate document.
+
+If you give an honest attempt for all of the questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+## 1. Create an .Rmd file (2.5 points)
+
+We will use `R` and `RStudio` extensively throughout the quarter, so for this homework assignment we want to make sure that you are able to generate a PDF or Word document containing your homework solutions using `R Markdown` and the `knitr` package. 
+
+To complete your assignment, please complete the following steps: 
+
+1. Download `hw1.Rmd` from Canvas.
+
+2. Open this file in RStudio: start RStudio > File > Open File > find `hw1.Rmd` in your files
+
+3. Update the author: on the third line of the file, change the author name from "Kelsey Grinde and Brian Williamson" to "Your Name"
+
+4. Enter your answers to Questions 2 and 3. 
+
+5. Install the knitr package if you haven't done so already.
+
+6. Once you have completed all steps above, create a PDF or Word document: click the **Knit** button at the top of this screen.
+
+To get credit for this problem, please turn in this `.Rmd` file along with  the final PDF or Word document you generated.
+
+## 2. Study design (1.5 points)
+
+For each of the following scientific questions, propose an appropriate study design. (You may use the same design at most twice.) Provide a one-sentence explanation of your reasoning. 
+
+### a. Among people who are already heavy smokers, can running reduce the effect of smoking on incidence of lung cancer? 
+
+### b.	How does risk of severe influenza differ between men and women?
+
+### c. Is a common genetic mutation associated with colon cancer? 
+
+
+## 3. Background survey (4 points)
+
+We want to know a little more about you! Please answer the following questions. Credit for this question will be assigned entirely on the basis of completion.
+
+### a. What is your preferred name?
+
+
+### b. What is your year and major?
+
+
+### c. What are your career and/or post-graduation goals?
+
+
+### d. What previous statistics/biostatistics courses have you taken and when? 
+
+
+### e. Do you have any other experience with statistics (e.g., job or research)?
+
+
+### f. Do you have any previous computing experience (e.g., Excel, R, Stata, Matlab)? If so, in what context?
+
+
+### g. Do you have a dataset in mind that you would like to use for the course project? If so, please briefly describe here. 
+
+
+### h. Why are you taking this course? What are you hoping to learn from this class? 
+
+
+### i. What is one thing you enjoy doing during your free time?
+
+
+### j. Is there anything else you would like us to know about you?
+
+
+## R Code
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names to reflect the names of this R Markdown file (rmd.name) and the name of the R file where you want to send your R code (code.name). #####
+rmd.name <- 'hw1.Rmd' # name of this file
+code.name <- 'hw1.R' # name of R code file
+```
+
+```{r extract-code, include = FALSE, eval = FALSE}
+##### STEP 2: Once you have completed your assignment, run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+Please upload the file `r code.name` along with your completed assignment. 
