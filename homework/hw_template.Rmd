@@ -7,28 +7,45 @@ output: pdf_document
 
 ## Instructions
 
-This assignment should be submitted on Canvas as a .pdf or Word document by XXpm on the due date. You are welcome to work together on the homework; however, final solutions should be written up individually. Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code (if applicable) in a .R file uploaded as a separate document.
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on the due date. You are welcome to work together on the homework; however, final solutions should be written up individually. 
 
-If you give an honest attempt for all of the questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+Make sure you update the document header to reflect the assignment number (e.g., "Homework 1"), your name ("Kelsey Grinde and Brian Williamson" > "Your Name"), and the type of document you want to create (pdf_document or word_document). Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code (if applicable) in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
 
 ## 1. (XX points)
 
-```{r code-for-prob-1, echo = FALSE, include = FALSE}
+Type your answer to this problem here.
+
+```{r code-for-prob-1, include = FALSE}
 ## This is a sample code chunk! 
+## Fill this in with code executing the R commands you need for this problem
+## Comment your code so that you (and us, if necessary) know what you're doing
+```
+
+## 2. (YY points)
+
+Type your answer to this problem here.
+
+```{r code-for-prob-2, include = FALSE}
 ## Fill this in with code executing the R commands you need for this problem
 ## Comment your code so that you (and us, if necessary) know what you're doing
 ```
 
 ## R Code
 
+(If you did not need any R code to complete this assignment, skip this.)
+
+Once you have completed your assignment, update and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+
 ```{r define-file-names, include = FALSE}
-##### STEP 1: Update these file names to reflect the names of this R Markdown file (rmd.name) and the name of the R file where you want to send your R code (code.name). #####
+##### STEP 1: Update these file names #####
 rmd.name <- 'hw_template.Rmd' # name of this file
 code.name <- 'hw_template.R' # name of R code file
 ```
 
-```{r extract-code, include = FALSE, eval = FALSE}
-##### STEP 2: Once you have completed your assignment, run these commands #####
+```{r extract-code, eval = FALSE, include = FALSE}
+##### STEP 2: Run these commands #####
 library('knitr') 
 purl(input = rmd.name, output = code.name) # send your R code to code.name 
 ```
