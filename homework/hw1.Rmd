@@ -5,17 +5,20 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: pdf_document
 ---
 
-## Instructions
+# Instructions
 
-This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on March 30th. You are welcome to work together on the homework; however, final solutions should be written up individually. Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code (if applicable) in a .R file uploaded as a separate document.
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on March 30th. You are welcome to work together on the homework; however, final solutions should be written up individually. 
 
-If you give an honest attempt for all of the questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code (if applicable) in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
 
-## 1. Create an .Rmd file (2.5 points)
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
 
-We will use `R` and `RStudio` extensively throughout the quarter, so for this homework assignment we want to make sure that you are able to generate a PDF or Word document containing your homework solutions using `R Markdown` and the `knitr` package. 
 
-To complete your assignment, please complete the following steps: 
+# 1. Create an .Rmd file (4 points)
+
+We will use `R` and `RStudio` extensively throughout the quarter, so for this homework assignment we want to make sure that you are able to generate a .pdf or Word document containing your homework solutions using `R Markdown`. 
+
+To complete your assignment, please follow these steps: 
 
 1. Download `hw1.Rmd` from Canvas.
 
@@ -23,71 +26,83 @@ To complete your assignment, please complete the following steps:
 
 3. Update the author: on the third line of the file, change the author name from "Kelsey Grinde and Brian Williamson" to "Your Name"
 
-4. Enter your answers to Questions 2 and 3. 
+4. Update the output format (if desired): this `.Rmd` file is set up to create a .pdf document. If you would like to create a Word document instead, change line 5 from `output: pdf_document` to `output: word_document`.
 
-5. Install the knitr package if you haven't done so already.
+5. Answer Questions 2 and 3: replace 'Type your answer here.' with your answers.
 
-6. Once you have completed all steps above, create a PDF or Word document: click the **Knit** button at the top of this screen.
+6. "Knit" your document to .pdf or Word: click the `Knit` button at the top of this screen. 
+    - It is often helpful to Knit your document before you've completed the assignment to check how things look after word processing. **We strongly encourage you to try this step before office hours on Wednesday so we can help you troubleshoot any problems that come up.**
+    - A dialogue box may pop up asking you if you want to install some packages: click "Yes"
+    - If you are trying to Knit to .pdf, you will see error messages if you do not have TeX/LaTeX (a document preparation system) installed on your computer. You can either [install TeX](https://www.latex-project.org/get/#tex-distributions) or try knitting to Word instead.
 
-To get credit for this problem, please turn in this `.Rmd` file along with  the final PDF or Word document you generated.
+To get credit for this problem, please turn in this `.Rmd` file (in addition to the .pdf or Word document you generated in Step 6). 
 
-## 2. Study design (1.5 points)
+
+
+\newpage
+
+# 2. Study design (2 points)
 
 For each of the following scientific questions, propose an appropriate study design. (You may use the same design at most twice.) Provide a one-sentence explanation of your reasoning. 
 
-### a. Among people who are already heavy smokers, can running reduce the effect of smoking on incidence of lung cancer? 
+## a. Among people who are already heavy smokers, can running reduce the effect of smoking on incidence of lung cancer? 
 
-### b.	How does risk of severe influenza differ between men and women?
+Type your answer here.
 
-### c. Is a common genetic mutation associated with colon cancer? 
+## b.	How does risk of severe influenza differ between men and women?
 
+Type your answer here.
 
-## 3. Background survey (4 points)
+## c. Is a common genetic mutation associated with colon cancer? 
 
-We want to know a little more about you! Please answer the following questions. Credit for this question will be assigned entirely on the basis of completion.
-
-### a. What is your preferred name?
-
-
-### b. What is your year and major?
+Type your answer here.
 
 
-### c. What are your career and/or post-graduation goals?
 
 
-### d. What previous statistics/biostatistics courses have you taken and when? 
+\newpage
 
+# 3. Background survey (2 points)
 
-### e. Do you have any other experience with statistics (e.g., job or research)?
+We want to know a little more about you! Please answer the following questions. 
 
+## a. What is your preferred name?
 
-### f. Do you have any previous computing experience (e.g., Excel, R, Stata, Matlab)? If so, in what context?
+Type your answer here.
 
+## b. What is your year and major?
 
-### g. Do you have a dataset in mind that you would like to use for the course project? If so, please briefly describe here. 
+Type your answer here.
 
+## c. What are your career and/or post-graduation goals? 
 
-### h. Why are you taking this course? What are you hoping to learn from this class? 
+Type your answer here.
 
+## d. What previous statistics/biostatistics courses have you taken and when? 
 
-### i. What is one thing you enjoy doing during your free time?
+Type your answer here.
 
+## e. Do you have any other prior experience with statistics (e.g., job or research)?
 
-### j. Is there anything else you would like us to know about you?
+Type your answer here.
 
+## f. Do you have any previous computing experience (e.g., Excel, R, Stata, Matlab)? If so, in what context?
 
-## R Code
+Type your answer here.
 
-```{r define-file-names, include = FALSE}
-##### STEP 1: Update these file names to reflect the names of this R Markdown file (rmd.name) and the name of the R file where you want to send your R code (code.name). #####
-rmd.name <- 'hw1.Rmd' # name of this file
-code.name <- 'hw1.R' # name of R code file
-```
+## g. Do you have a dataset in mind that you would like to use for the course project? If so, please briefly describe here. 
 
-```{r extract-code, include = FALSE, eval = FALSE}
-##### STEP 2: Once you have completed your assignment, run these commands #####
-library('knitr') 
-purl(input = rmd.name, output = code.name) # send your R code to code.name 
-```
+Type your answer here.
 
-Please upload the file `r code.name` along with your completed assignment. 
+## h. Why are you taking this course? What are you hoping to learn/gain from this class? 
+
+Type your answer here.
+
+## i. What is one thing you enjoy doing during your free time?
+
+Type your answer here.
+
+## j. Is there anything else you would like us to know about you?
+
+Type your answer here.
+
