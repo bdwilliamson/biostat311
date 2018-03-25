@@ -1,30 +1,34 @@
 ---
-title: 'Data Analysis Project, Part 5: Report'
+title: 'Data Analysis Project, Parts 3 & 5: Report'
 subtitle: "BIOST 311: Regression Methods in the Health Sciences"
 author: "Kelsey Grinde and Brian Williamson"
-date: "Spring Quarter 2018; draft due 18 May 2018, final report due 1 June 2018, submit on Canvas"
+date: "Spring Quarter 2018; Submit on Canvas by 18 May 2018 (Draft) and 1 June 2018 (Final)"
 output: pdf_document
 ---
 
-## Instructions
+# Instructions
 
 A report detailing your conclusions is an integral part of any statistical analysis. You must be able to describe your conclusions, along with the methods that you used to address your questions, to your collaborators.
 
-This assignment is graded. **Do not discuss with students outside of your group (within-group discussion is encouraged!) and do not use the Canvas discussion board for questions about this project**.
+This assignment is limited to **ten pages (not including tables and figures)**, and your written text should use at least 12-point font. See the template below for a list of components that need to be included.
 
-## Template:
+Submit your *First Draft* on Canvas by 11:59pm on May 18, and your *Final Report* by 11:59 on June 1. **Do not discuss your project with students outside of your group or post questions about your project on the Canvas discussion board.** But, feel free to ask us any questions in person/over email instead!
+ 
+This assignment is graded. The *First Draft* is worth 10% of your project grade, is graded on effort/completion, and is not binding: you are welcome (and encouraged!) to incorporate any of our feedback into your final report. The *Final Report* is worth 50% of your project grade.
 
-### Title
+# Template:
+
+## Title
 
 Make up a title for your proposed study!
 
-### Background and Introduction
+## Background and Introduction
 
-Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team.
+Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team (so make sure that there's enough detail here that someone outside your group could read this section and understand the big picture).
 
-### Scientific questions
+## Scientific Questions
 
-This section lays out the scientific agenda of your analysis. You should state both the overall scientific goal and the specific scientific objectives.
+In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.
 
 Example: a study of smoking and lung function in children
 
@@ -33,17 +37,17 @@ The overall scientific goal is to assess the association between smoking and lun
 1. Is smoking associated with decreased lung function in children?
 2. If there is an association between smoking and decreased lung function, is this effect different in older versus younger children.
 
-### Statistical hypotheses
+## Statistical Hypotheses
 
 Connect the scientific questions listed above with statistical hypotheses, that you can test using your statistical tools. Make sure to list both the variables that you will use in each analysis, and how you plan to make your statistical inference (e.g., confidence intervals and p-values).
 
-### Methods:
+## Methods
 
-#### Study Design
+### Study Design
 
 How were the data collected? How many subjects are in the study? Include all necessary information for interpreting your analysis.
 
-#### Statistical methods
+### Statistical Methods
 
 Describe all of the descriptive statistics you will compute, how you will compute them, and how you will display your results. Generally, these are used informally to evaluate and compare subgroups, identify errors in the data, and identify patterns of missing data.
 
@@ -53,16 +57,16 @@ Describe all of the inferential analyses you will run (e.g., linear regression),
 
 Also, describe any variables that you adjust for as potential confounders, effect modifiers, or precision variables for each analysis. 
 
-### Results
+## Results
 
-#### Description of the study cohort
+### Description of the study cohort
 
 Actually run the descriptive analyses that you propose above, and report the results in tables or figures, as appropriate. 
 
-#### Inferential analyses
+### Inferential analyses
 
 Report and interpret the effect estimates, confidence intervals, and p-values corresponding to each scientific question that you address. Write each formally.
 
-### Discussion
+## Discussion
 
 Discuss what the statistical results you presented in the previous section mean in terms of the scientific questions that you posed at the beginning of the report.
