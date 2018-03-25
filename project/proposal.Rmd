@@ -1,26 +1,26 @@
 ---
-title: 'Data Analysis Project, Part 1: Proposal'
+title: "Data Analysis Project, Part 1: Project Proposal"
 subtitle: "BIOST 311: Regression Methods in the Health Sciences"
 author: "Kelsey Grinde and Brian Williamson"
-date: "Spring Quarter 2018; due 13 April 2018, submit on Canvas"
+date: "Spring Quarter 2018; Submit on Canvas by 13 April 2018"
 output: pdf_document
 ---
 
 ## Instructions
 
-Here, we want to make sure that you have a dataset chosen, and that you have decided on scientific questions to answer. 
+The goal of the first component of your Data Analysis Project, the *Project Proposal*, is to ensure that you have chosen a dataset and decided on the scientific questions you would like to answer through your analysis.
 
-See the Canvas page for sample places to find datasets. The criteria for a dataset are
+See the Canvas page for a list of places you can start looking for datasets. The criteria for a dataset are:
 
 1. The dataset must have more than five variables
 2. The dataset must have an outcome variable that is continuous, binary, or time-to-event
 3. You must be able to pose at least two interesting scientific questions (judged by us) that you can answer using the data
 
-You should include a brief description of the data, and the scientific problem, along with the scientific questions that you are choosing to answer. 
+Your final *Proposal* should be a **one page** (single-spaced, 12 point font) Word or .pdf document that contains a brief description of the data, the scientific problem, and the scientific questions that you want to answer.
 
-This assignment is limited to **one page**, and your written text should use at least 12-point font.
+Please submit on Canvas by 11:59pm on April 13. Only one submission per group. **Do not discuss your project with students outside of your group or post questions about your project on the Canvas discussion board.** But, feel free to ask us any questions in person/over email instead!
 
-This assignment is graded. **Do not discuss with students outside of your group (within-group discussion is encouraged!) and do not use the Canvas discussion board for questions about this project**.
+This assignment is graded and is worth 5% of your total project grade.  
 
 ## Template:
 
@@ -28,13 +28,13 @@ This assignment is graded. **Do not discuss with students outside of your group 
 
 Make up a title for your proposed study!
 
-### Background and Introduction
+### (Brief) Background and Introduction
 
-Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team.
+Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? Also, make sure you mention the source of your data: if you found it online, provide the link; otherwise, upload a copy of your dataset to Canvas along with your *Proposal*.
 
-### Scientific questions
+### Scientific Questions
 
-This section lays out the scientific agenda of your analysis. You should state both the overall scientific goal and the specific scientific objectives.
+In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.
 
 Example: a study of smoking and lung function in children
 
