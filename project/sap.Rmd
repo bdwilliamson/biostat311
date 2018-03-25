@@ -2,33 +2,33 @@
 title: 'Data Analysis Project, Part 2: SAP'
 subtitle: "BIOST 311: Regression Methods in the Health Sciences"
 author: "Kelsey Grinde and Brian Williamson"
-date: "Spring Quarter 2018; due 27 April 2018, submit on Canvas"
+date: "Spring Quarter 2018; Submit on Canvas by 27 April 2018"
 output: pdf_document
 ---
 
-## Instructions
+# Instructions
 
-Statistical analysis plans (SAPs) are an integral part of any statistical analysis. In this document, you outline all of the statistical analyses you plan to run and any output that you plan to create. 
+Statistical Analysis Plans (SAPs) are an integral part of any statistical analysis. In this document, you will outline the statistical analyses you plan to run and any output that you plan to create. SAPs are especially important for reproducibility of your results---the goal is that anyone should be able to exactly re-create your analysis after reading your SAP.
 
-These are especially important for reproducibility of your results---anyone should be able to exactly re-create your analysis by reading your SAP.
+This assignment is limited to **three pages (not including dummy tables and figures)**, and your written text should use at least 12-point font. See the template below for a list of components that need to be included in your final *Statistical Analysis Plan.*
 
-This assignment is limited to **three pages (not including dummy tables and figures)**, and your written text should use at least 12-point font.
+Submit your SAP on Canvas by 11:59pm on April 27. Only one submission per group. **Do not discuss your project with students outside of your group or post questions about your project on the Canvas discussion board.** But, feel free to ask us any questions in person/over email instead!
 
-This assignment is graded. **Do not discuss with students outside of your group (within-group discussion is encouraged!) and do not use the Canvas discussion board for questions about this project**.
+This assignment is graded and is worth 15% of your total project grade.
 
-## Template:
+# Template:
 
-### Title
+## Title
 
 Make up a title for your proposed study!
 
-### Background and Introduction
+## Background and Introduction
 
-Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team.
+Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team (so make sure that there's enough detail here that someone outside your group could read this section and understand the big picture).
 
-### Scientific questions
+## Scientific Questions
 
-This section lays out the scientific agenda of your analysis. You should state both the overall scientific goal and the specific scientific objectives.
+In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.
 
 Example: a study of smoking and lung function in children
 
@@ -37,15 +37,15 @@ The overall scientific goal is to assess the association between smoking and lun
 1. Is smoking associated with decreased lung function in children?
 2. If there is an association between smoking and decreased lung function, is this effect different in older versus younger children?
 
-### Study Design
+## Study Design
 
 How were the data collected? How many subjects are in the study? Include all necessary information for interpreting your analysis.
 
-### Statistical hypotheses
+## Statistical Hypotheses
 
 Connect the scientific questions listed above with statistical hypotheses, that you can test using your statistical tools. Make sure to list both the variables that you will use in each analysis, and how you plan to make your statistical inference (e.g., confidence intervals and p-values).
 
-### Variables
+## Variables
 
 List and briefly describe all variables that you will consider in any part of the analysis. For each variable, provide: a name, a brief description, classification according to type (quantitative for continuous or discrete variables; qualitative for nominal or ordinal variables), and a unit of measurement. Additionally, define new variables that are created from other measurements in the data, or variables that have been re-coded (e.g., creating a binary "female" variable from a "sex" variable taking on values 1 for male and 2 for female). Finally, classify each variable according to its scientific meaning and use in the analysis.
 
@@ -57,7 +57,7 @@ Examples of scientific meaning
 * measures of treatment intervention (in an experiment) or exposure (in an observational study)
 * measures of treatment outcome (in an experiment) or exposure effect (in an observational study)
 
-Examples of use in an analysis (variables may have multiple uses, if they are used in multiple analyses!):
+Examples of use in an analysis (note: variables may have multiple uses, if they are used in multiple analyses!):
 
 * response (outcome)
 * predictors of interest, identifying treatment groups (experiment) or exposure (observational study)
@@ -66,18 +66,24 @@ Examples of use in an analysis (variables may have multiple uses, if they are us
 * variables which may increase precision
 * surrogates for the response or intermediate outcomes
 
-### Statistical analysis:
+## Statistical Analysis
 
-#### Descriptive analyses
+### Descriptive Analyses
 
 Describe all of the descriptive statistics you will compute, how you will compute them, and how you will display your results. Generally, these are used informally to evaluate and compare subgroups, identify errors in the data, and identify patterns of missing data.
 
 All statistical analyses should start with data description. Often, these descriptive analyses will support the inferential analyses you report. Figures and tables are both reasonable ways to display descriptive analyses.
 
-#### Inferential analyses
+### Inferential Analyses
 
 Describe all of the inferential analyses you will run (e.g., linear regression), along with the estimates that you will report. These are the hypothesis tests and estimates that will be used to address each of the questions you listed in the "scientific questions" section. You should state the statistical method that will be used to test each hypothesis, along with the response variable for each question and the significance level you are using. List the assumptions required for the analysis.
 
-### Dummy tables and figures
+## Dummy Tables and Figures
 
-Include a sample of the tables and figures you expect to see here, so that you can make sure you know what you want!
+Include a sample of the tables and figures you expect to see here, so that you can make sure you know what you want! The tables and figures can be empty: just provide a rough sketch of what will be displayed. For example, you might present a figure with a title and axis labels, but no actual data plotted.
+
+## Preliminary Analysis
+
+Please run one regression analysis on your dataset. You might run one of the analyses you propose in your *Statistical Analysis* section, or you could just run a sinmple, unadjusted analysis of your outcome versus the predictor of interest. 
+
+In this section, describe what analysis you've run and interpret the results (regression coefficient(s), confidence interval(s), p-values(s)). Upload your .R code along with your final *Statistical Analysis Plan*.
