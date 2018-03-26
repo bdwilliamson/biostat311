@@ -174,7 +174,7 @@ I mentioned earlier that vectors are the building block of R objects---vectors a
 
 `r colFmt("Data frames", "blue")`, R's way of storing datasets, are collections of vectors: each column of a data frame is a `r colFmt("variable", "green")`, which is stored as a vector; similarly, each row of a data frame is an `r colFmt("observation", "red")`, which is also stored as a vector. 
 
-You access values in vectors using open and closed square brackets `[]`. Youaccess values in data frames using the same square brackets---however, since data frames have rows and columns, you access a value using `[<replace row number here>, <replace with column number>]` (without the `<>` symbols!). 
+You access values in vectors using open and closed square brackets `[]`. You access values in data frames using the same square brackets---however, since data frames have rows and columns, you access a value using `[<replace row number here>, <replace with column number>]` (without the `<>` symbols!). 
 
 For example, access the 5th element in the 3rd column of the FEV data:
 ```{r example-access-value, echo = TRUE, include = TRUE}
