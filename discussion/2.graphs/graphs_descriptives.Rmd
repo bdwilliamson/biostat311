@@ -9,38 +9,6 @@ output:
 urlcolor: Lavender
 header-includes:
   - \usepackage[dvipsnames]{xcolor}
-references:
-- id: tufte1983
-  title: The Visual Display of Quantitative Information
-  author:
-  - family: Tufte
-    given: ER
-  publisher: Graphics Press
-  type: book
-  issued:
-   year: 1983
-- id: wainer1984
-  title: How to display data badly
-  author:
-  - family: Wainer
-    given: H
-  container-title: The American Statistician
-  volume: 38
-  page: 137-147
-  type: article-journal
-  issued:
-   year: 1984
-- id: proschan2016
-  title: "FDA Advisory Committees: The role of statisticians"
-  author:
-  - family: Proschan
-    given: M
-  container-title: Chance
-  volume: 29
-  page: 31-40
-  type: article-journal
-  issued:
-   year: 2016
 ---
 
 ```{r setup, include=FALSE}
@@ -58,46 +26,4 @@ colFmt = function(x,color){
 }
 ```
 
-## Overview
-
-These guidelines are based in part on @tufte1983, with selected examples from Prof. James Hughes' BIOST 511 course offered in Autumn 2017; other good discussion can be found in @wainer1984, @proschan2016, and on [Karl Broman's webpage](https://www.biostat.wisc.edu/~kbroman/topten_worstgraphs/), among other places.
-
-In general, graphs are good for showing `r colFmt("qualitative trends", "blue")`, with `r colFmt("large amounts of data", "red")`; tables are good for showing `r colFmt("exact values", "green")`, with `r colFmt("small amounts of data", "red")`. Today, we'll go through some guidelines for graphical integrity, and for displaying data in tables. We'll also learn how to create graphs and compute descriptive statistics in R.
-
-We use both graphs and tables to `r colFmt("describe the data", "blue")`, and `r colFmt("provide visual evidence supporting statistical results", "green")`: both of these are crucial components of any data analysis, and adhering to good practices helps your reader to understand your analysis and results.
-
-## Guidelines for graphical integrity
-
-### Representing numbers graphically
-
-The representation of numbers, `r colFmt("as physically measured", "blue")` on the surface of the graphic, should be `r colFmt("directly proportional", "green")` to the numerical quantities represented.
-
-Consider the following graphic, from the Los Angeles Times (August 5, 1979):
-
-```{r proportional_1, echo = FALSE, fig.align="center", out.height="3in"}
-knitr::include_graphics("figs/proportional_1.png")
-```
-
-What's wrong with this graph? 
-
-### Reference points
-
-Provide `r colFmt("an appropriate reference point", "blue")`, `r colFmt("spacing", "green")`, and `r colFmt("labeling", "red")` for axes.
-
-### Context
-
-`r colFmt("Do not quote data out of context!", "red")`
-
-### Focus on the data
-
-Focus on the data, `r colFmt("not the design", "red")`, and maximize the data:ink ratio. 
-
-### Labels
-
-Use `r colFmt("clear, detailed, and thorough labeling", "blue")` to `r colFmt("defeat graphical distortion and ambiguity", "red")`. `r colFmt("Write out explanations", "green")` of the data on the graphic itself. `r colFmt("Label important events", "cyan")` in the data.
-
-## Guidelines for tables
-
 ## Activity: graphs and descriptive statistics in R
-
-## References

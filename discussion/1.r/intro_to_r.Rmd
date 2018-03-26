@@ -148,7 +148,7 @@ R objects are (basically) the result of calling functions. However, there are tw
 * `r colFmt("loading data", "blue")` (e.g., from a .txt or .csv file)
 * `r colFmt("manipulating another object", "green")` using a function
 
-You assign a value to an object using the special character `<-`. The value, on the right-hand side, can now by accessed using its object name (on the left-hand side).
+You assign a value to an object using the special character `<-`. The value, on the right-hand side, can now be accessed using its object name (on the left-hand side).
 
 I suggest naming your objects so that the name gives you some information about the object---don't go too overboard, but this practice has saved me lots of time.
 
@@ -176,10 +176,12 @@ I mentioned earlier that vectors are the building block of R objects---vectors a
 
 You access values in vectors using open and closed square brackets `[]`. You access values in data frames using the same square brackets---however, since data frames have rows and columns, you access a value using `[<replace row number here>, <replace with column number>]` (without the `<>` symbols!). 
 
-For example, access the 5th element in the 3rd column of the FEV data:
+For example, access the 3rd element in the 5th column of the FEV data:
 ```{r example-access-value, echo = TRUE, include = TRUE}
 fev[3, 5]
 ```
+
+From your earlier call to the `head()` function, you'll notice that this output corresponds to the 3rd observation on the variable `height`.
 
 A shortcut to accessing variables in a data frame is the `$` symbol; if you know the name of a variable, you can now access it. For example, access the first five elements of the `age` variable:
 ```{r example-dollar, echo = TRUE, include = TRUE}
@@ -208,17 +210,19 @@ summary(sub_less_equal_8)
 ```
 The `summary()` function you just used displays simple descriptive statistics. This is a great way to get a quick snapshot of the data, and make sure they have been read in correctly. You should see three (or more) interesting things with these data. What do you see?
 
+REPLACE WITH YOUR ANSWER TO THIS QUESTION
+
 You should fix two of these things now. Create two new columns, one called `female` and one called `smoker`; these columns should have a `1` if the participant is female, and a `0` if the participant is a male; and similarly, a `1` if the participant smokes, and a `0` otherwise:
 ```{r example-create-var, echo = TRUE, include = TRUE}
 ## create the female variable
 fev$female <- fev$sex - 1
-## we could also do ^ for smoker, but I'll show you a different function
+## we could also do ^ for nonsmoker, but I'll show you a different function for smokers
 fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
 ```
 
-This made use of the fact that I knew that `2` in the original data meant female and smoker, respectively. Thus I could either subtract one from each observation, or use `ifelse()`: this takes a logical comparison (e.g., is `smoke` equal to 2?), what to assign if the expression is true (e.g., `1`), and what to assign if the expression is false (e.g., `0`).
+This made use of the fact that I knew that `2` in the original data meant female and nonsmoker, respectively. Thus I could either subtract one from each observation, or use `ifelse()`: this takes a logical comparison (e.g., is `smoke` equal to 2?), what to assign if the expression is true (e.g., `0`), and what to assign if the expression is false (e.g., `1`).
 
-Also, we created variables by just using `$` combined with a new variable name!
+Also, we created variables in the `fev` dataframe by just using `$` combined with a new variable name! *This does not, however, save these variables into the underlying .txt file: for that, you'll need a different function, `write()`*. 
 
 ## Getting help
 
@@ -250,6 +254,8 @@ Once the package is installed, each subsequent time you want to use functions fr
 
 For example, load the uwIntroStats package:
 ```{r example-package-load, echo = TRUE, include = TRUE}
+# run this next line (uncommented!) if you haven't installed it yet
+# install.packages("uwIntroStats")
 library("uwIntroStats")
 ```
 
