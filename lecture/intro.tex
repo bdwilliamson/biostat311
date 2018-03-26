@@ -190,8 +190,8 @@ Final grades will be determined by converting percentages to 4-point scale. At m
 \begin{frame}
 \frametitle{Syllabus: Joint Responsibilities}
 \begin{itemize}
-\item \textit{Classroom climate}: respectful and incusive of all students, active participation, minimize distractions % to minimize distractions: people with laptops sit in back; for participation: bring notebook
-\item \textit{Academic integrity}: cheating and plagiarims will not be tolerated (we encourage collaboration, but assignments should be written in your own words)
+\item \textit{Classroom climate}: respectful and inclusive of all students, active participation, minimize distractions % to minimize distractions: people with laptops sit in back; for participation: bring notebook
+\item \textit{Academic integrity}: cheating and plagiarism will not be tolerated; collaboration is encouraged, but assignments should be written in your own words.
 \item \textit{Access and accommodations}: please communicate DRS accommodations to us at your earliest convenience
 \end{itemize}
 
@@ -249,68 +249,71 @@ Concerns? Feedback? Let us know!
 \center \Large Any Questions?
 \end{frame}
 
-% motivate regression (from Anna)
+% motivating example: FEV data
 \begin{frame}
 \frametitle{Why regression?}
 Motivating example:
-\begin{itemize}  % change to FEV data
-\item Survey data from intro stats classes (194 students) at Calvin College in Michigan
-\item Collected the following information: sex (M/F/O), birth order, height, weight, heart rate, hours of sleep per night, hours worked per week, ate breakfast today, exercise $\ge$ 3 times per week, age at first cell phone, read all Harry Potter books, favorite kind of food, type of computer, cost of last haircut, been given a ticket (y/n), texted while driving (y/n), fastest speed driven, current GPA, plans after graduation
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Why regression?}
-We can already answer some interesting questions about these data using the tools from previous stats courses: \vspace{-0.3cm}
-\begin{itemize} % change to FEV data
-\item Do at least half of all undergraduate stats students eat breakfast?
+\begin{itemize} 
+\item Observational study of lung function and smoking: 654 kids who came in for routine check-up at pediatric clinic
+\item Information collected:
 	\begin{itemize}
-	\item \textbf{One-sample test of proportion} ($H_0: p_0 = 0.5$)
-	\end{itemize}
-\item Do undergraduate stats students, on average, get 8 hours of sleep per night?
-	\begin{itemize}
-	\item \textbf{One-sample t-test} ($H_0: \mu_0 = 8$)
-	\end{itemize}
-\item Does the average amount of sleep differ between groups who do and do not east breakfast?
-	\begin{itemize}
-	\item \textbf{Two-sample t-test} ($H_0: \mu_{eat} = \mu_{don't eat}$)
-	\end{itemize}
-\item Do plans after graduation vary based on birth order?
-	\begin{itemize}
-	\item \textbf{Chi-squared test of independence} ($H_0:$ variables are independent)
+	\item Age (years)
+	\item Forced Expiratory Volume, or FEV (liters per second) 
+	\item Height (inches)
+	\item Sex (M/F)
+	\item Smoking habits (yes/no)
 	\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Why regression?}
+\frametitle{Why regression?} % FEV data
+We can already answer some interesting questions using the tools you've learned in previous stats courses: 
+\begin{itemize} 
+\item In 2015, it was estimated that 15\% of US adults were smokers. Is smoking less likely among children? 
+	\begin{itemize}
+	\item \textbf{One-sample test of proportion} ($H_0: p_0 = 0.15$)
+	\end{itemize}
+\item Are girls and boys equally likely to smoke?
+	\begin{itemize}
+	\item \textbf{Two-sample test of proportions} ($H_0: p_{boys} = p_{girls}$) \\ \textbf{Chi-squared test of independence} ($H_0:$ sex and smoking habits are independent)
+	\end{itemize}
+\item Does the average FEV differ between smokers and non-smokers?
+	\begin{itemize}
+	\item \textbf{Two-sample t-test} ($H_0: \mu_{smokers} = \mu_{nonsmokers}$)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why regression?} % FEV data
 What about other types of questions?
-\begin{itemize} % change to FEV data
-\item E.g., is amount of sleep associated with GPA?
+\begin{itemize} 
+\item E.g., is age associated with FEV?
 \end{itemize}
 How would you assess this?
-\begin{itemize} % change to FEV data
-\item Could divide amount of sleep into $< 8$ hours and $\ge$ 8 hours
-\item Two-sample t-test (difference in means between the two groups)
+\begin{itemize}
+\item Could divide age into pre-teens ($< 13$) and teens ($\ge 13$) 
+\item Two-sample t-test (difference in average FEV between the two age groups): $H_0: \mu_{teen} = \mu_{preteen}$
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Example: Sleep and GPA} % change to FEV data
-\center \includegraphics[height=0.8\textheight]{./intro_boxplot} %boxplot from Anna
+\frametitle{Example: Age and FEV} % FEV data
+\center \includegraphics[height=0.9\textheight]{./intro_boxplot} % boxplot of age grp vs FEV
 \end{frame}
 
 \begin{frame}
-\frametitle{Example: Sleep and GPA} % change to FEV data
+\frametitle{Example: Age and FEV} % FEV data
 The question is: why regression?
 \begin{itemize}
-\item What if we wanted to understand how students differ in their GPA across different levels of sleep (not just two categories, but on a continuous scale?)
+\item What if we wanted to understand how children differ in their lung capacity (FEV) across different levels of age (not just two categories, but on a continuous scale?)
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Example: Sleep and GPA} % change to FEV data
-\center \includegraphics[height=0.8\textheight]{./intro_scatterplot} %scatterplot from Anna
+\frametitle{Example: Age and FEV} % FEV data
+\center \includegraphics[height=0.9\textheight]{./intro_scatterplot} %scatterplot of age vs FEV; why isn't this the same as the dataset we used on our poster?????
 \end{frame}
 
 \begin{frame}
@@ -318,32 +321,34 @@ The question is: why regression?
 Linear regression
 \begin{itemize}
 \item In BIOST 310, you learned about linear regression to answer questions like this
-	\begin{itemize} % change to FEV data
-	\item E.g., amount of sleep and GPA
-	\item Can adjust for other variables (e.g., breakfast)
+	\begin{itemize} 
+	\item E.g., age and FEV
+	\item \textbf{Can also adjust for other variables} (e.g., smoking) % like our course poster!
 	\end{itemize}
-\item (Approximately three weeks of the course will cover linear regression and it will be covered in much more detail than in BIOST 310)
+\item (Approximately three weeks of our course will cover linear regression and we will go into much more detail than in BIOST 310)
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Why regression?}
-Other types of outcomes
-\begin{itemize} % update to FEV data
+Other types of outcomes:
+\begin{itemize}
 \item What if your outcome is a simple yes/no?
 	\begin{itemize}
-	\item Ticket/no ticket, based on driving speed?
-	\item Induced cancer remission in chemotherapy patients, or not?
+	\item Smoker or non-smoker?
 	\item Diabetes or no diabetes?
-	\item Cardiovascular death or no cardiovascular death?
+	\item Death or no death?
 	\end{itemize}
 \item What if your outcome is a time-to-event, in which not everyone achieves that event?
 	\begin{itemize}
 	\item Time to promotion?
 	\item Time to cancer remission?
 	\item Time to death?
+	\item Age at which you start smoking? % this work?
 	\end{itemize}
 \end{itemize}
+
+Later in the course, we'll learn about other types of regression that are often useful in these settings.
 \end{frame}
 
 % puase for questions
