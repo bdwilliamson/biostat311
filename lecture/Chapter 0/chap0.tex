@@ -44,14 +44,13 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 	\end{itemize}
 \item Grades for index card 1 are posted % everyone has 100%! moving forward: grading is always credit/no credit; about once per week
 	\begin{itemize}
-	\item Future index cards/activities $\approx$ once/week
-	\item FYI: grading is credit/no credit
+	\item Future index cards/activities that you hand in for credit/no credit $\approx$ once/week
 	\end{itemize}
 \item Starting your \href{https://canvas.uw.edu/courses/1203588/assignments/4098142}{first assignment} % can you access? can you knit? after today, should be able to do everything; please don't save knitting until the last minute!
 	\begin{itemize}
 	\item Download the \texttt{.Rmd} file
 	\item Update the author, output type, type in your answers % (should be able to answer everything after class today)
-	\item \texttt{Knit} (try this early!)
+	\item \texttt{Knit} (try this early!) % if time, could do together at end of class
 	\item Turn in .pdf/Word doc that gets created \textit{and} \texttt{.Rmd} file
 	\end{itemize}
 \item Questions? Come to office hours today (2--4) % check if time works for most people
@@ -77,7 +76,7 @@ By the end of Chapter 0 you should be able to: \vspace{-0.2cm}
 \item Define a sampling distribution
 \item State the Central Limit Theorem and understand its importance for statistical inference
 \item Construct and interpret confidence intervals
-\item Formulate null and alternative hypothesis
+\item Formulate null and alternative hypotheses
 \item Choose, implement, and interpret hypothesis tests
 \end{itemize}
 \end{frame}
@@ -107,7 +106,7 @@ By the end of Chapter 0 you should be able to: \vspace{-0.2cm}
 \begin{itemize} % this example is a bit contrived, but demonstrates some of why we care so much about study design
 \item What questions can I answer using these data? 
 \item What statistical methods can I use to analyze these data? 
-\item What conclusions can I draw about public opinion of biostatstics using these data? 
+\item What conclusions can I draw using these data? 
 \end{itemize} 
 
 \end{frame}
@@ -116,12 +115,12 @@ By the end of Chapter 0 you should be able to: \vspace{-0.2cm}
 \begin{frame}
 \frametitle{Study Design: Experimental vs Observational}
 
-\color{blue} Experimental: \color{black} exposure/treatment is \textit{controlled} by the researcher (e.g., we randomly assign people to drug or placebo) \vspace{-0.3cm}
+\color{blue} Experimental: \color{black} exposure/treatment is \textit{controlled} by researcher (e.g., randomly assign people to drug or placebo) \vspace{-0.3cm}
 	\begin{itemize}
 	\item Randomized controlled trial % aka randomized control trial, randomized clinical trial
 	\end{itemize}
 
-\color{blue} Observational: \color{black} exposure/treatment is \textit{not contrlled} by the researcher (e.g., we look at a group of people and \textit{observe} who smokes and who doesn't smoke)  \vspace{-0.3cm}
+\color{blue} Observational: \color{black} exposure/treatment is \textit{not controlled} by the researcher (e.g., we look at a group of people and \textit{observe} who smokes and who doesn't smoke)  \vspace{-0.3cm}
 	\begin{itemize}
 	\item Cross-sectional study
 	\item Cohort study
@@ -132,12 +131,14 @@ By the end of Chapter 0 you should be able to: \vspace{-0.2cm}
 \begin{frame}
 \frametitle{Study Design: Experimental vs Observational}
 
-In \textit{experimental} studies, we can talk about \color{blue} \textit{causation}\color{black}. In \textit{observational} studies we have to talk instead about \color{blue} \textit{association} \color{black}(because we worry about \color{blue} \textit{confounding}\color{black}). % we'll come back to this when we talk about interpreting results
+In \textit{experimental} studies, we can talk about \color{blue} \textit{causation}\color{black}. In \textit{observational} studies we  talk instead about \color{blue} \textit{association} \color{black}(because we worry about \color{blue} \textit{confounding}\color{black}). % we'll come back to this when we talk about interpreting results
 
 A \color{blue} \textit{confounder} \color{black} is a variable that is causally associated with our outcome and also associated with the exposure in our sample. \vspace{-0.2cm}
 \begin{itemize}
-\item[] For example: suppose we're interested in the relationship between smoking and lung function in kids. We know that age is causally associated with lung function: as you get older, your lung function improves. If age is also associatd with smoking in our sample (i.e., if older kids are more likely to smoke), then age is a confounder.
-\end{itemize} % lots more on confounding to come, stay tuned!
+\item[] \textit{Example:} suppose we're interested in the relationship between smoking and lung function in kids. We know that age is causally associated with lung function: as children grow and develop, their lung function improves. If age is also associated with smoking in our sample (e.g., if older kids are more likely to smoke), then age is a confounder.
+\end{itemize} 
+
+\begin{small} \textit{Much more on this topic to come. Stay tuned!} \end{small}
 
 \end{frame}
 
@@ -145,22 +146,24 @@ A \color{blue} \textit{confounder} \color{black} is a variable that is causally 
 \frametitle{Experimental studies: randomized controlled trial}
 Description:\vspace{-0.3cm}
 \begin{itemize}
-\item Take a sample of the population, \textbf{assign} to treatment (\textit{exposed}) or control/placebo (\textit{unexposed}), and follow for disease outcomes (death yes/no, time to death)
+\item Take a sample of the population, \textbf{randomly assign} to treatment (\textit{exposed}) or control/placebo (\textit{unexposed}), and follow for disease outcomes (death yes/no, time to death)
 \end{itemize}
 
+\pause
 Pros:\vspace{-0.3cm}
 \begin{itemize}
 \item With a large enough sample, no confounding!
-\item Gold standard for causality
+\item Gold standard for establishing causality
 \end{itemize}
 
+\pause
 Cons:\vspace{-0.3cm}
 \begin{itemize}
 \item Often very expensive
 \item Not always possible or ethical to randomize
 	\begin{itemize}
 	\item Can't randomize sex, race, age, genetic variants
-	\item Unethical to randomize to harmful exposures
+	\item Unethical to randomize to harmful exposures % e.g., smoking (FEV data), pollution (air pollution)
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -179,20 +182,22 @@ Examples:
 \frametitle{Observational studies: cross-sectional study}
 Description: \vspace{-0.3cm}
 \begin{itemize}
-\item Randomly sample individuals, record exposure and outcome at a \textit{single time point} (no follow-up) % take a snapshot
+\item Randomly sample individuals, record their exposure and outcome at a \textit{single time point} (no follow-up) % take a snapshot, taking a cross-section of the population
 \end{itemize}
 
+\pause
 Pros:\vspace{-0.3cm}
 \begin{itemize}
 \item Relatively cheap and easy
-\item Can study multiple outcomes and exposures
+\item Can study multiple outcomes and exposures % easy to collect a lot of data on each pers
 \end{itemize}
 
+\pause
 Cons:\vspace{-0.3cm}
 \begin{itemize}
 \item Inefficient for rare exposure or disease % you won't have very many (or any) people in your sample with the thing you're interested in
 \item Time sequence of exposure and outcome (i.e., which came first) is not always clear % did low exercise lead to obesity, or obesity lead to low exercise?
-\item Potential confounding
+\item Potential confounding (so no conclusions about causality)
 \end{itemize}
 \end{frame}
 
@@ -211,20 +216,22 @@ Examples:
 \frametitle{Observational studies: cohort study}
 Description: \vspace{-0.3cm}
 \begin{itemize}
-\item Sample \textit{people without the outcome}, measure their exposure, then \textit{follow} those individuals and see who gets outcome % often called longitudinal cohort study
+\item Sample \textit{people without the outcome} (sometimes based on exposure, sometimes random), record their exposure, then \textit{follow} those individuals and see who gets outcome % often called longitudinal cohort study, often outcome is death
 \end{itemize}
 
+\pause
 Pros:\vspace{-0.3cm}
 \begin{itemize}
 \item Time sequence is known (exposure came first)
 \item Can study multiple outcomes 
 \end{itemize}
 
+\pause
 Cons:\vspace{-0.3cm}
 \begin{itemize}
 \item Inefficient for rare outcomes % have to wait a lont time to get enough people with disease
-\item Often expensive and time-consuming % and more time for people to drop out
-\item Potential confounding
+\item Often expensive and time-consuming to follow people, and oppportunities for people to drop out
+\item Potential confounding (so no conclusions about causality)
 \end{itemize}
 \end{frame}
 
@@ -242,7 +249,7 @@ Examples:
 \frametitle{Observational studies: case-control study}
 Description: \vspace{-0.3cm}
 \begin{itemize}
-\item Sample individuals with and without the disease \textit{(based on outcome)}, look back in time (usually) for exposure status % when you look back in time = retrospective case-control study
+\item \textit{Sample individuals based on the outcome} (some with, some without), look back in time (usually) for exposure status % when you look back in time = retrospective case-control study
 \end{itemize}
 
 Pros:\vspace{-0.3cm}
@@ -254,9 +261,10 @@ Pros:\vspace{-0.3cm}
 
 Cons:\vspace{-0.3cm}
 \begin{itemize}
+%\item Recall bias
 \item May not know time sequence of disease and exposure
 \item Cannot use to estimate relative risk or disease prevalence
-\item Potential confounding
+\item Potential confounding (so no conclusions about causality)
 \end{itemize}
 \end{frame}
 
@@ -273,7 +281,7 @@ Examples:
 \begin{frame}
 \frametitle{Study Design: Let's practice!}
 
-Recent (June 2017) \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{air pollution study} in the news: \vspace{-0.3cm}
+Recent (June 2017) \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{air pollution study} that has received a lot of attention in the news: \vspace{-0.3cm}
 \begin{itemize} % headlines
 \item ``U.S. air pollution still kills thousands every year, study concludes" -- NPR
 \item ``Even 'safe' pollution levels can be deadly" --- NYT
@@ -281,26 +289,28 @@ Recent (June 2017) \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{air poll
 
 From the article: \textit{We conducted a nationwide ... study involving all Medicare benficiaries from 2000 through 2012, a population of 61 million, with 460 million person-years of follow-up.}
 
-\color{blue} What kind of study design is this? Why do you think they chose this design? What are potential limitations of this study design? \color{black} % (think $\rightarrow$ pair $\rightarrow$ share). NOTE: this is the type of thing you'll need to be able to do on HW/exams
+\begin{small} \color{blue} What kind of study design is this? Why do you think they chose this design? What are potential limitations of this study design? \color{black} \end{small} % (think/write $\rightarrow$ pair $\rightarrow$ share). NOTE: this is the type of thing you'll need to be able to do on HW/exams
 \end{frame}
 
 % types of variables (brief reminders before we get to summarizing data)
 \begin{frame}
-\frametitle{Types of Variables} % why do we care
+\frametitle{Summarizing Data (Step 1): Types of Variables} % why do we care
 
-\textit{How you summarize/analyze your data often depends on what type of data you've collected.}
+\textit{How you summarize/analyze your data often depends on what type of data you've collected.} 
 
-\color{blue} Extreme Example: \color{black} Suppose I'm intereseted in summarizing one of the variables we collected in our FEV dataset: smoking habits (smoker/nonsmoker).  What numerical summaries can I use to get a sense of ``typical" smoking habits in our study? \vspace{-0.3cm}
-\begin{itemize}
-\item Mean/average
-\item Median
-\item Mode
-\item Proportion in each category
+So, the first step to summarizing/describing your data is making sure you know what kind of data you have!
+
+\color{blue} Extreme Example: \color{black} Suppose I'm intereseted in summarizing one of the variables in our FEV dataset: smoking habits (smoker/nonsmoker).  What numerical summaries can I use to get a sense of ``typical" smoking habits in our study? \vspace{-0.3cm}
+\begin{itemize} % sketch what it looks like on board
+\item Mean/average \pause \color{red} (No) \color{black}
+\item Median \pause \color{red} (No) \color{black}
+\item Mode \pause \color{red} (Yes) \color{black}
+\item Proportion in each category \pause \color{red} (Yes) \color{black}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Types of Variables}
+\frametitle{Summarizing Data (Step 1): Types of Variables}
 
 \color{blue} Categorical: \color{black} limited number of possible values
 \begin{itemize}
@@ -314,31 +324,35 @@ From the article: \textit{We conducted a nationwide ... study involving all Medi
 \item \textit{Discrete:} values are integers; often counts (e.g., \#  teeth)
 \item \textit{Continuous:} values on continuum (e.g., height)
 \end{itemize}
-
 \end{frame}
 
-\begin{frame} % air pollution example
-\frametitle{Types of Variables: Let's practice!}
 
-From \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{``Air pollution and mortality in the medicare population."}
+% Air pollution activity
+\begin{frame}
+\frametitle{Summarizing Data: Activity}
 
-Some variables they collected:
-\begin{itemize}
-\item Death/mortality
-\item Daily PM$_{2.5}$ concentration (micrograms per cubic meter)
-\item Age
-\item Race 
-\end{itemize}
+Let's read (parts of) the \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{Di et al., ``Air pollution and mortality in the Medicare population."} paper. \vspace{-0.2cm}
 
-\color{blue} Classify these variables according to their type. \color{black}
+\begin{enumerate}
+\item Read: Abstract, Results (``Cohort Analyses" -- Figure 1)
+\item Write down answers to the following questions:
+	\begin{enumerate}
+	\item What scientific question does this study address?
+	\item List 3 variables that the authors collected and record their type.
+	\item How did the authors summarize their data? (e.g., What numerical summaries did they present? How were they displayed? What graphical summaries did they present?)
+	\item Is there any information that you wish they would have provided in their summary but did not?
+	\end{enumerate}
+\item Discuss with your neighbor, prepare to share
+\end{enumerate}
+
 
 \end{frame}
 
 % summarizing data
 \begin{frame} % why do we care?
-\frametitle{Summarizing Data}
+\frametitle{Summarizing Data: Motivation}
 
-\textit{Why is it so important to know how to summarize data? Because we can't look at all of it, but we still want to make sense of it/draw conclusions from it.}
+\textit{Why is it so important to know how to summarize data?} One answer: because we can't look at all of it, but we still want to make sense of it/draw conclusions from it.
 
 \color{blue} Extreme example: \color{black} The Human Genome
 
@@ -497,6 +511,8 @@ Stratified descriptive statistics can help us:\vspace{-0.3cm}
 \item begin to demonstrate the association between two variables
 \end{itemize}
 
+It is often helpful to present descriptive statistics stratified by your exposure or outcome in ``Table 1."
+
 % examples in air pollution Table 1
 \end{frame}
 
@@ -538,22 +554,6 @@ A useful tool for summarizing the relationship between two quantitative variable
 This is just a small taste of the many possibilities when it comes to tools for summarizing data.
 
 We'll spend more time discussing descriptive statistics in Discussion Section next week, including how to generate numerical summaries and figures like these (or better ones!). 
-\end{frame}
-
-% practice: air pollution (can continue to next lecture if needed); move to beginning of descriptives section?
-\begin{frame}
-\frametitle{Descriptive Statistics: Let's Practice!}
-
-Read parts of the air pollution and mortality paper: Results on page 2515, Table 1, and Figure 1
-
-Answer the following questions:
-\begin{itemize}
-\item What numerical summaries are presented for categorical variables? For continuous variables?
-\item What numerical summaries are missing for categorical variables? For continuous variables?
-\item Are any stratified descriptive statistics presented? If so, why do you think they presented these?
-\item Are any graphical summaries presented? If so, why do you think they presented these?
-\end{itemize}
-% pair > share
 \end{frame}
 
 % What's next?
