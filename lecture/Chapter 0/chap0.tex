@@ -249,9 +249,10 @@ Examples:
 \frametitle{Observational studies: case-control study}
 Description: \vspace{-0.3cm}
 \begin{itemize}
-\item \textit{Sample individuals based on the outcome} (some with, some without), look back in time (usually) for exposure status % when you look back in time = retrospective case-control study
+\item \textit{Sample individuals based on the outcome} (some with, some without), look back in time (usually) for exposure % when you look back in time = retrospective case-control study
 \end{itemize}
 
+\pause
 Pros:\vspace{-0.3cm}
 \begin{itemize}
 \item Efficient for rare diseases % (don't have to recruit as many people)
@@ -259,6 +260,7 @@ Pros:\vspace{-0.3cm}
 \item Can study multiple exposures
 \end{itemize}
 
+\pause
 Cons:\vspace{-0.3cm}
 \begin{itemize}
 %\item Recall bias
@@ -344,52 +346,56 @@ Let's read (parts of) the \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{D
 	\end{enumerate}
 \item Discuss with your neighbor, prepare to share
 \end{enumerate}
-
-
 \end{frame}
 
-% summarizing data
-\begin{frame} % why do we care?
-\frametitle{Summarizing Data: Motivation}
+% sidebar: advertise Francesca's talk tomorrow
+\begin{frame}
+\frametitle{Think this research is interesting?}
 
-\textit{Why is it so important to know how to summarize data?} One answer: because we can't look at all of it, but we still want to make sense of it/draw conclusions from it.
+One of the senior authors, \href{https://sites.sph.harvard.edu/francesca-dominici/}{Francesca Dominici}, is coming to campus this week as one of three finalists to be the next Dean of the School of Public Health!
+
+Dr. Dominici will be giving a talk, titled ``How Data, Technology, and Infectious Optimism can Shape the Future of Public Health," at 3pm on Thursday (March 29) in HUB 332.
+
+Details about each of the finalists and links to the livestreams of their talks \href{http://www.washington.edu/provost/leadership-searches/deanship-of-the-school-of-public-health/}{here}.
+\end{frame}
+
+% summarizing data, why do we care? (human genome example)
+\begin{frame} 
+\frametitle{Summarizing Data: Motivation}
+\textit{Why is it so important to know how to summarize data?} \\ One answer: because we can't look at all of it, but we still want to make sense of it and draw conclusions from it.
 
 \color{blue} Extreme example: \color{black} The Human Genome
-
-\center \includegraphics[height=4cm]{./dna}
-
+\vspace{-0.4cm} \begin{center} \includegraphics[height=4cm]{./dna} \end{center}
+\vspace{-0.8cm} \begin{scriptsize} A single human DNA sequence consists of $\approx$ 3 billion A's, C's, T's, and G's. \end{scriptsize}
 \end{frame}
 
+% human genome example (cont)
 \begin{frame}
 \frametitle{Summarizing Data: The Human Genome}
-
-A single human DNA sequence consists of over 3 billion A's, C's, T's, and G's. 
-
-If we were to write out one sequence in \begin{tiny} tiny \end{tiny} font, what would that look like? \vspace{-0.3cm}
+If we were to write out one sequence in \begin{tiny} tiny \end{tiny} font, what would that look like? 
 
 \center \includegraphics[height=4cm]{./book}
 
 How many pages will it take? How many books?
 \end{frame}
 
+% human genome example (cont)
 \begin{frame}
 \frametitle{Summarizing Data: The Human Genome}
-
-\vspace{-0.4cm}
+\vspace{-0.5cm}
 \center \includegraphics[height=0.65\textheight, angle = 270]{./bookcase}
-
 \end{frame}
 
+% why do we need descriptive stats
 \begin{frame}
-\frametitle{Summarizing Data}
-
+\frametitle{Summarizing Data: Descriptive Statistics}
 Why do we need descriptive statistics?\vspace{-0.2cm}
 \begin{itemize}
 \item Making sense of large amounts of data
 \item Checking data quality
 	\begin{itemize}
-	\item Values outside reasonable range (e.g., height = nine feet, age = 200)
-	\item Implausible combinations of variables (e.g., pregnant men)
+	\item Values outside reasonable range \begin{footnotesize} (e.g., height = 9') \end{footnotesize}
+	\item Implausible combinations of variables \begin{footnotesize} (e.g., pregnant men) \end{footnotesize}
 	\end{itemize}
 \item Observe distribution of variables in dataset
 	\begin{itemize}
@@ -401,7 +407,6 @@ Why do we need descriptive statistics?\vspace{-0.2cm}
 	\item Descriptive statistics and inferential analysis should contribute to the same story
 	\end{itemize}
 \end{itemize}
-
 \end{frame}
 
 % types of descriptive statistics
@@ -415,8 +420,11 @@ Why do we need descriptive statistics?\vspace{-0.2cm}
 	\item Numerical (quantitative variables)
 	\item Graphical
 	\end{itemize}
-\item Stratified
-\item Bivariate (mostly graphical)
+\item Stratified/Bivariate
+	\begin{itemize}
+	\item Numerical summaries, broken down by subgroup
+	\item Graphical
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -428,11 +436,21 @@ Why do we need descriptive statistics?\vspace{-0.2cm}
 Summary should include:
 \begin{itemize}
 \item Number and percent in each group
-\item If binary, only need to summarize one group (other can be inferred)
-\item Also good to summarize missing data (e.g., \#  and proportion missing values)
+	\begin{itemize}
+	\item If outcome of interest is binary, make sure to mention number of events
+	\end{itemize}
+\item If binary, only need to summarize one group
+	\begin{itemize}
+	\item The other can be inferred
+	\end{itemize}
+\item Also good to summarize missing data
+	\begin{itemize}
+	\item e.g., \#  and proportion of missing values
+	\end{itemize}
 \end{itemize}
 
-% look at Table 1 in air pollution paper for example: what's there, what's missing (# and # missing)
+How did the air pollution paper do? (Table 1, specifically.) % what's there (pct in each group, # events for outcome), what's missing (# and # missing)
+
 \end{frame}
 
 % numerical descrip for quantitative variables
@@ -441,7 +459,7 @@ Summary should include:
 
 Summary should include (some of):
 \begin{itemize}
-\item Sample size
+\item Sample size/number of observations
 \item Number of missing observations
 \item Measures of center: 
 	\begin{itemize}
@@ -457,18 +475,18 @@ Summary should include (some of):
 %\item Note: you can detect skewness by comparing mean to median, IQR to median
 %\item Note: you can detect outliers by looking at range
 \end{itemize}
-% look at Table 1 in air pollution paper for example: what's there, what's missing (spread, missing)
+How did the air pollution paper do? (Table 1, specifically.) % what's there (average, # obs), what's missing (spread, # missing)
 \end{frame}
 
 % histograms
 \begin{frame}
 \frametitle{Univariate Descriptive Statistics: Graphical}
 
-Histograms are useful for describing the shape of a distribution:\vspace{-0.8cm}
+Histograms are useful for describing the shape of the distribution (for a quantitative variable):\vspace{-0.7cm}
 
-\center \includegraphics[height=0.7\textheight]{./histogram-age}
+\center \includegraphics[height=0.6\textheight]{./histogram-age}
 
-\vspace{-0.5cm} \begin{scriptsize} R code:  \texttt{hist(fev\$age, xlab="Age (years)", ylab="Frequency", main="Histogram of Age")} \end{scriptsize}
+\vspace{-0.45cm} \begin{scriptsize} R code:  \texttt{hist(fev\$age, xlab="Age (years)", ylab="Frequency", main="Histogram of Age")\\} \end{scriptsize}
 
 \end{frame}
 
@@ -476,10 +494,11 @@ Histograms are useful for describing the shape of a distribution:\vspace{-0.8cm}
 \begin{frame}
 \frametitle{Univariate Descriptive Statistics: Graphical}
 
-Boxplots are useful for seeing outliers and central location:\vspace{-0.8cm}
+Boxplots are useful for seeing outliers and central location (for a quantitative variable):\vspace{-0.8cm}
 
 \center \includegraphics[height=0.7\textheight]{./boxplot-age}
 
+% R code: 
 \vspace{-1cm} \begin{scriptsize} \texttt{boxplot(fev\$age, xlab="", ylab="Age (years)", main="Boxplot of Age")} \end{scriptsize}
 
 \end{frame}
@@ -488,30 +507,30 @@ Boxplots are useful for seeing outliers and central location:\vspace{-0.8cm}
 \begin{frame}
 \frametitle{Univariate Descriptive Statistics: Graphical}
 
-Barplots can be used to summarize categorical variables: \\ \begin{footnotesize} (but often don't provide much/any more info than numerical summary) \end{footnotesize}\vspace{-0.8cm}
+Barplots can be used to summarize categorical variables: \\ \begin{footnotesize} (but here doesn't provide any more info than numerical summary) \end{footnotesize}\vspace{-0.8cm} % numerical summary = #/prop  in each category (smoke = 65 (9.9%), no smoke = 589 (90.1%))
 
-\center \includegraphics[height=0.7\textheight]{./barplot-smoke}
+\center \includegraphics[height=0.6\textheight]{./barplot-smoke}
 
-\vspace{-0.8cm} \begin{scriptsize} \texttt{barplot(table(fev\$smoke), xlab='Smoking (1 = yes, 2 = no)', ylab='Count', main='Bar Plot of Smoking')} \end{scriptsize}
+% R code: 
+\vspace{-0.5cm} \begin{scriptsize} \texttt{barplot(table(fev\$smoke), xlab="Smoking (1 = yes, 2 = no)", ylab="Count", main="Bar Plot of Smoking")\\} \end{scriptsize}
 \end{frame}
 
 % stratified descriptive statistics
 \begin{frame}
 \frametitle{Stratified Descriptive Statistics} % useful for categorical vs quantitative comparisons
 
-Rather than looking at the distribution of a variable across the entire dataset, we might be interested in the distribution of that variable within certain subgroups defined by another variable. \vspace{-0.3cm}
+Sometimes we're interested in the distribution of a variable within certain subgroups: \vspace{-0.3cm}
 \begin{itemize}
-\item e.g., how does the distribution of age differ between smokers and non-smokers in our FEV dataset?
-\item e.g., how does the distribution of FEV between smokers and non-smokers?
+\item e.g., how does the distribution of age differ between smokers and non-smokers in our FEV dataset? % from Monday, how does distribution of FEV differ between teens and pre-teens
 \end{itemize}
 
 Stratified descriptive statistics can help us:\vspace{-0.3cm}
 \begin{itemize}
 \item understand the role of that  stratification variable (e.g., is it a confounder?)
-\item begin to demonstrate the association between two variables
+\item begin to demonstrate the association between two variables (one quantitative, one categrical)
 \end{itemize}
 
-It is often helpful to present descriptive statistics stratified by your exposure or outcome in ``Table 1."
+\begin{footnotesize} \textit{It's often helpful to present stratified descriptive statistics in your ``Table 1" (stratified by outcome or exposure, depending on application). Did the air pollution paper do this?} \end{footnotesize}
 
 % examples in air pollution Table 1
 \end{frame}
@@ -520,8 +539,12 @@ It is often helpful to present descriptive statistics stratified by your exposur
 \begin{frame}
 \frametitle{Stratified Descriptive Statistics}
 
+\vspace{-0.5cm}
 \begin{center} \includegraphics[width=\textwidth]{./histogram-age-stratified} \end{center}
 
+% R code: 
+\vspace{-0.75cm} \begin{scriptsize} \texttt{\#plot on left: \\ hist(subset(fev,smoke==1)\$age, xlab="Age (years)", ylab="Frequency", main="Histogram of Age (Smokers)")} \\
+\texttt{\#plot on right: \\ hist(subset(fev,smoke==2)\$age, xlab="Age (years)", ylab="Frequency", main="Histogram of Age (Non-Smokers)")\\} \end{scriptsize}
 \end{frame}
 
 % stratified boxplots
@@ -530,7 +553,7 @@ It is often helpful to present descriptive statistics stratified by your exposur
 
 \vspace{-0.4cm} \center \includegraphics[height=0.6\textheight]{./boxplot-age-stratified}
 
-\begin{scriptsize} \texttt{boxplot(fev\$age~fev\$smoke, xlab='Smoking (1=yes, 2=no)', ylab='Age (years)', main = 'Boxplot of Age by Smoking')} \end{scriptsize}
+\begin{scriptsize} \texttt{boxplot(fev\$age $\sim$ fev\$smoke, xlab='Smoking (1=yes, 2=no)', ylab='Age (years)', main = 'Boxplot of Age by Smoking')\\} \end{scriptsize}
 
 \end{frame}
 
@@ -538,12 +561,11 @@ It is often helpful to present descriptive statistics stratified by your exposur
 \begin{frame}
 \frametitle{Bivariate Descriptive Statistics}
 
-A useful tool for summarizing the relationship between two quantitative variables:
+Scatterplots are a useful tool for summarizing the relationship between two quantitative variables:
 
-\vspace{-0.4cm} \center \includegraphics[height=0.6\textheight]{./scatterplot-fev-age}
+\vspace{-0.8cm} \center \includegraphics[height=0.65\textheight]{./scatterplot-fev-age}
 
-\begin{scriptsize} \texttt{plot(fev\$fev ~ fev\$age, xlab='Age (years)', ylab='FEV (liters per sec)', main = 'Scatterplot of FEV vs Age')
-} \end{scriptsize}
+\vspace{-0.4cm} \begin{scriptsize} \texttt{plot(fev\$fev $\sim$ fev\$age, xlab='Age (years)', ylab='FEV (liters per sec)', main = 'Scatterplot of FEV vs Age')\\} \end{scriptsize}
 
 \end{frame}
 
@@ -553,7 +575,7 @@ A useful tool for summarizing the relationship between two quantitative variable
 
 This is just a small taste of the many possibilities when it comes to tools for summarizing data.
 
-We'll spend more time discussing descriptive statistics in Discussion Section next week, including how to generate numerical summaries and figures like these (or better ones!). 
+We'll spend more time discussing descriptive statistics in Discussion Section next week, including how to generate numerical summaries and graphical summaries like these (or better ones!) in \texttt{R}.
 \end{frame}
 
 % What's next?
@@ -568,5 +590,6 @@ We'll spend more time discussing descriptive statistics in Discussion Section ne
 \end{itemize}
 \end{frame}
 
+% advertise statNW
 
 \end{document}
