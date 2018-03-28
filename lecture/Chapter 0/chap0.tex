@@ -19,6 +19,7 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage[UKenglish]{isodate}
+\usepackage{color}
 \cleanlookdateon
 
 % the preamble
@@ -32,13 +33,540 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 \titlepage\thispagestyle{empty}
 \end{frame}
 
+% do de-brief discusion section, mention index card grade, check that everyone has been able to knit, reminder about OH and HW
+\begin{frame}
+\frametitle{Checking in...}
+\begin{itemize}
+\item Yesterday's discussion section % everyone has submitted; don't worry about submission time -- just by end of day; grading is just credit/no credit; congrats on surviving day 1: everyone did REALLY well -- we're very impressed by how quickly you picked things up; we'll continue to work on this throughout the quarter, so it might feel like a lot right now but it will get easier!
+	\begin{itemize}
+	\item Congrats on creating your first R Mardown document!
+	\item FYI: grading is credit/no credit
+	\end{itemize}
+\item Grades for index card 1 are posted % everyone has 100%! moving forward: grading is always credit/no credit; about once per week
+	\begin{itemize}
+	\item Future index cards/activities $\approx$ once/week
+	\item FYI: grading is credit/no credit
+	\end{itemize}
+\item Starting your \href{https://canvas.uw.edu/courses/1203588/assignments/4098142}{first assignment} % can you access? can you knit? after today, should be able to do everything; please don't save knitting until the last minute!
+	\begin{itemize}
+	\item Download the \texttt{.Rmd} file
+	\item Update the author, output type, type in your answers % (should be able to answer everything after class today)
+	\item \texttt{Knit} (try this early!)
+	\item Turn in .pdf/Word doc that gets created \textit{and} \texttt{.Rmd} file
+	\end{itemize}
+\item Questions? Come to office hours today (2--4) % check if time works for most people
+\end{itemize}
+\end{frame}
+
+
 % make it 0.something
 \setbeamertemplate{footline}{%
   \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[10pt]{\scriptsize 0.\insertframenumber~~}}}}
 \newcounter{chap0}{\value{1}}
 \setcounter{framenumber}{\value{chap0}}
-\begin{frame}
+
+% Chapter 0 learning objectives
+\begin{frame} 
 \frametitle{CHAPTER 0: BIOST 310 REVIEW}
+By the end of Chapter 0 you should be able to: \vspace{-0.2cm}
+\begin{itemize}
+\item Identify and describe common study designs
+\item Classify variables according to their type (e.g., binary)
+\item Use numerical and graphical tools to summarize data
+\item Explain features of and calculate probabilities using important probability distributions (Normal, t)
+\item Define a sampling distribution
+\item State the Central Limit Theorem and understand its importance for statistical inference
+\item Construct and interpret confidence intervals
+\item Formulate null and alternative hypothesis
+\item Choose, implement, and interpret hypothesis tests
+\end{itemize}
 \end{frame}
+
+% Chapter 0 motivation
+\begin{frame}
+\frametitle{Why spend time reviewing these concepts?} % different courses, different instructors (and refresh for those for whom it's been awhile)
+1. So everyone starts on the same page \\
+2. These concepts are \textit{very} important for data analysis: \vspace{-0.35cm} % key components of data analysis
+	\begin{itemize} \small \itemsep -0.5pt
+	\item Understanding the data you have and its limititations: how (\textit{study design}) and what  (\textit{classifying variables}) was collected
+	\item Converting your scientific questions into statistical ones (\textit{formulating hypotheses})
+	\item Choosing appropriate statistical methods (based on $\uparrow$) 
+	\item Summarizing your data (\textit{numerical and graphical summaries})
+	\item \begin{footnotesize} (Most minor of all: running your chosen statistical methods) \end{footnotesize}
+	\item Correctly interpreting your statistical results (\textit{parameter estimates, confidence intervals, p-values})
+	\end{itemize}
+\end{frame}
+
+% Study design motivation
+\begin{frame}
+\frametitle{Study Design}
+\textit{How you collect data impacts what questions you can (cannot) answer, what statistical methods you can (cannot) use, and what conclusions you can (cannot) draw.}
+
+\color{blue} Extreme Example: \color{black} Suppose I'm interested in understanding public opinion about biostatistics. I  randomly select one individual from our class and ask if he/she likes biostatistics. \vspace{-0.3cm}
+
+\begin{itemize} % this example is a bit contrived, but demonstrates some of why we care so much about study design
+\item What questions can I answer using these data? 
+\item What statistical methods can I use to analyze these data? 
+\item What conclusions can I draw about public opinion of biostatstics using these data? 
+\end{itemize} 
+
+\end{frame}
+
+% types of study designs
+\begin{frame}
+\frametitle{Study Design: Experimental vs Observational}
+
+\color{blue} Experimental: \color{black} exposure/treatment is \textit{controlled} by the researcher (e.g., we randomly assign people to drug or placebo) \vspace{-0.3cm}
+	\begin{itemize}
+	\item Randomized controlled trial % aka randomized control trial, randomized clinical trial
+	\end{itemize}
+
+\color{blue} Observational: \color{black} exposure/treatment is \textit{not contrlled} by the researcher (e.g., we look at a group of people and \textit{observe} who smokes and who doesn't smoke)  \vspace{-0.3cm}
+	\begin{itemize}
+	\item Cross-sectional study
+	\item Cohort study
+	\item Case-control study
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Study Design: Experimental vs Observational}
+
+In \textit{experimental} studies, we can talk about \color{blue} \textit{causation}\color{black}. In \textit{observational} studies we have to talk instead about \color{blue} \textit{association} \color{black}(because we worry about \color{blue} \textit{confounding}\color{black}). % we'll come back to this when we talk about interpreting results
+
+A \color{blue} \textit{confounder} \color{black} is a variable that is causally associated with our outcome and also associated with the exposure in our sample. \vspace{-0.2cm}
+\begin{itemize}
+\item[] For example: suppose we're interested in the relationship between smoking and lung function in kids. We know that age is causally associated with lung function: as you get older, your lung function improves. If age is also associatd with smoking in our sample (i.e., if older kids are more likely to smoke), then age is a confounder.
+\end{itemize} % lots more on confounding to come, stay tuned!
+
+\end{frame}
+
+\begin{frame} % RCT
+\frametitle{Experimental studies: randomized controlled trial}
+Description:\vspace{-0.3cm}
+\begin{itemize}
+\item Take a sample of the population, \textbf{assign} to treatment (\textit{exposed}) or control/placebo (\textit{unexposed}), and follow for disease outcomes (death yes/no, time to death)
+\end{itemize}
+
+Pros:\vspace{-0.3cm}
+\begin{itemize}
+\item With a large enough sample, no confounding!
+\item Gold standard for causality
+\end{itemize}
+
+Cons:\vspace{-0.3cm}
+\begin{itemize}
+\item Often very expensive
+\item Not always possible or ethical to randomize
+	\begin{itemize}
+	\item Can't randomize sex, race, age, genetic variants
+	\item Unethical to randomize to harmful exposures
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experimental studies: randomized controlled trial}
+Examples:
+\begin{itemize}
+\item \href{https://jamanetwork.com/journals/jama/article-abstract/2613159}{Effect of Vitamin D and Calcium Supplementation on Cancer Incidence in Older Women}
+\item \href{http://stroke.ahajournals.org/content/36/8/1764.short}{Daily Functioning and Quality of Life in a Randomized Controlled Trial of Therapeutic Exercise for Subacute Stroke Survivors}
+\end{itemize}
+\end{frame}
+
+% cross-sectional studies
+\begin{frame}
+\frametitle{Observational studies: cross-sectional study}
+Description: \vspace{-0.3cm}
+\begin{itemize}
+\item Randomly sample individuals, record exposure and outcome at a \textit{single time point} (no follow-up) % take a snapshot
+\end{itemize}
+
+Pros:\vspace{-0.3cm}
+\begin{itemize}
+\item Relatively cheap and easy
+\item Can study multiple outcomes and exposures
+\end{itemize}
+
+Cons:\vspace{-0.3cm}
+\begin{itemize}
+\item Inefficient for rare exposure or disease % you won't have very many (or any) people in your sample with the thing you're interested in
+\item Time sequence of exposure and outcome (i.e., which came first) is not always clear % did low exercise lead to obesity, or obesity lead to low exercise?
+\item Potential confounding
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Observational studies: cross-sectional study}
+Examples:
+\begin{itemize}
+\item \href{http://ajph.aphapublications.org/doi/abs/10.2105/AJPH.78.10.1336}{Job strain, work place social support, and cardiovascular disease in a random sample of the Swedish working population}
+\item \href{onlinelibrary.wiley.com/doi/10.1111/add.12623/full}{Real-world effectiveness of e-cigarettes when used to aid smoking cessation}
+\end{itemize}
+\end{frame}
+
+
+% cohort studies
+\begin{frame}
+\frametitle{Observational studies: cohort study}
+Description: \vspace{-0.3cm}
+\begin{itemize}
+\item Sample \textit{people without the outcome}, measure their exposure, then \textit{follow} those individuals and see who gets outcome % often called longitudinal cohort study
+\end{itemize}
+
+Pros:\vspace{-0.3cm}
+\begin{itemize}
+\item Time sequence is known (exposure came first)
+\item Can study multiple outcomes 
+\end{itemize}
+
+Cons:\vspace{-0.3cm}
+\begin{itemize}
+\item Inefficient for rare outcomes % have to wait a lont time to get enough people with disease
+\item Often expensive and time-consuming % and more time for people to drop out
+\item Potential confounding
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Observational studies: cohort study}
+Examples:
+\begin{itemize}
+\item \href{https://www.medicalnewstoday.com/articles/316619.php}{Drinking tea could help stave off cognitive decline}
+\item \href{https://www.medicalnewstoday.com/articles/316565.php}{Birth control pills may protect against some cancers for decades}
+\end{itemize}
+\end{frame}
+
+% case-control studies
+\begin{frame}
+\frametitle{Observational studies: case-control study}
+Description: \vspace{-0.3cm}
+\begin{itemize}
+\item Sample individuals with and without the disease \textit{(based on outcome)}, look back in time (usually) for exposure status % when you look back in time = retrospective case-control study
+\end{itemize}
+
+Pros:\vspace{-0.3cm}
+\begin{itemize}
+\item Efficient for rare diseases % (don't have to recruit as many people)
+\item Cheaper and faster than cohort studies
+\item Can study multiple exposures
+\end{itemize}
+
+Cons:\vspace{-0.3cm}
+\begin{itemize}
+\item May not know time sequence of disease and exposure
+\item Cannot use to estimate relative risk or disease prevalence
+\item Potential confounding
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Observational studies: case-control study}
+Examples:
+\begin{itemize}
+\item \href{https://www.sciencedirect.com/science/article/pii/S0140673605676635}{Obesity and the risk of myocardial infarction in 27,000 participants from 52 countries}
+\item \href{http://www.nejm.org/doi/full/10.1056/NEJMoa065497\#t=article}{Case control study of human papillomavirus and oropharyngeal cancer}
+\end{itemize}
+\end{frame}
+
+% let's practice
+\begin{frame}
+\frametitle{Study Design: Let's practice!}
+
+Recent (June 2017) \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{air pollution study} in the news: \vspace{-0.3cm}
+\begin{itemize} % headlines
+\item ``U.S. air pollution still kills thousands every year, study concludes" -- NPR
+\item ``Even 'safe' pollution levels can be deadly" --- NYT
+\end{itemize}
+
+From the article: \textit{We conducted a nationwide ... study involving all Medicare benficiaries from 2000 through 2012, a population of 61 million, with 460 million person-years of follow-up.}
+
+\color{blue} What kind of study design is this? Why do you think they chose this design? What are potential limitations of this study design? \color{black} % (think $\rightarrow$ pair $\rightarrow$ share). NOTE: this is the type of thing you'll need to be able to do on HW/exams
+\end{frame}
+
+% types of variables (brief reminders before we get to summarizing data)
+\begin{frame}
+\frametitle{Types of Variables} % why do we care
+
+\textit{How you summarize/analyze your data often depends on what type of data you've collected.}
+
+\color{blue} Extreme Example: \color{black} Suppose I'm intereseted in summarizing one of the variables we collected in our FEV dataset: smoking habits (smoker/nonsmoker).  What numerical summaries can I use to get a sense of ``typical" smoking habits in our study? \vspace{-0.3cm}
+\begin{itemize}
+\item Mean/average
+\item Median
+\item Mode
+\item Proportion in each category
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of Variables}
+
+\color{blue} Categorical: \color{black} limited number of possible values
+\begin{itemize}
+\item \textit{Nominal:} order doesn't matter (e.g., blood type)
+\item \textit{Ordinal:} order does matter (e.g., level of education)
+\item \textit{Binary:} two possible values; nominal or ordinal (e.g., sex)
+\end{itemize}
+
+\color{blue} Quantitative: \color{black} infinite possible values
+\begin{itemize}
+\item \textit{Discrete:} values are integers; often counts (e.g., \#  teeth)
+\item \textit{Continuous:} values on continuum (e.g., height)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame} % air pollution example
+\frametitle{Types of Variables: Let's practice!}
+
+From \href{http://www.nejm.org/doi/10.1056/NEJMoa1702747}{``Air pollution and mortality in the medicare population."}
+
+Some variables they collected:
+\begin{itemize}
+\item Death/mortality
+\item Daily PM$_{2.5}$ concentration (micrograms per cubic meter)
+\item Age
+\item Race 
+\end{itemize}
+
+\color{blue} Classify these variables according to their type. \color{black}
+
+\end{frame}
+
+% summarizing data
+\begin{frame} % why do we care?
+\frametitle{Summarizing Data}
+
+\textit{Why is it so important to know how to summarize data? Because we can't look at all of it, but we still want to make sense of it/draw conclusions from it.}
+
+\color{blue} Extreme example: \color{black} The Human Genome
+
+\center \includegraphics[height=4cm]{./dna}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Summarizing Data: The Human Genome}
+
+A single human DNA sequence consists of over 3 billion A's, C's, T's, and G's. 
+
+If we were to write out one sequence in \begin{tiny} tiny \end{tiny} font, what would that look like? \vspace{-0.3cm}
+
+\center \includegraphics[height=4cm]{./book}
+
+How many pages will it take? How many books?
+\end{frame}
+
+\begin{frame}
+\frametitle{Summarizing Data: The Human Genome}
+
+\vspace{-0.4cm}
+\center \includegraphics[height=0.65\textheight, angle = 270]{./bookcase}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Summarizing Data}
+
+Why do we need descriptive statistics?\vspace{-0.2cm}
+\begin{itemize}
+\item Making sense of large amounts of data
+\item Checking data quality
+	\begin{itemize}
+	\item Values outside reasonable range (e.g., height = nine feet, age = 200)
+	\item Implausible combinations of variables (e.g., pregnant men)
+	\end{itemize}
+\item Observe distribution of variables in dataset
+	\begin{itemize}
+	\item Measures of center and spread
+	%\item Skewness
+	\end{itemize}
+\item Start to understand direction and strength of association
+	\begin{itemize}
+	\item Descriptive statistics and inferential analysis should contribute to the same story
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+% types of descriptive statistics
+\begin{frame}
+\frametitle{Descriptive Statistics: Outline}
+
+\begin{itemize}
+\item Univariate
+	\begin{itemize}
+	\item Numerical (categorical variables)
+	\item Numerical (quantitative variables)
+	\item Graphical
+	\end{itemize}
+\item Stratified
+\item Bivariate (mostly graphical)
+\end{itemize}
+
+\end{frame}
+
+% numerical descrip for categorical variables
+\begin{frame}
+\frametitle{Univariate Descriptive Statistics: Categorical}
+
+Summary should include:
+\begin{itemize}
+\item Number and percent in each group
+\item If binary, only need to summarize one group (other can be inferred)
+\item Also good to summarize missing data (e.g., \#  and proportion missing values)
+\end{itemize}
+
+% look at Table 1 in air pollution paper for example: what's there, what's missing (# and # missing)
+\end{frame}
+
+% numerical descrip for quantitative variables
+\begin{frame}
+\frametitle{Univariate Descriptive Statistics: Quantitative}
+
+Summary should include (some of):
+\begin{itemize}
+\item Sample size
+\item Number of missing observations
+\item Measures of center: 
+	\begin{itemize}
+	\item Sample mean
+	\item Sample median
+	\end{itemize}
+\item Measures of spread:
+	\begin{itemize}
+	\item Sample standard deviation
+	\item Interquartile range (IQR): (Q1,Q3) or (Q3 - Q1)
+	\item Range: (Min,Max) or (Max - Min)
+	\end{itemize}
+%\item Note: you can detect skewness by comparing mean to median, IQR to median
+%\item Note: you can detect outliers by looking at range
+\end{itemize}
+% look at Table 1 in air pollution paper for example: what's there, what's missing (spread, missing)
+\end{frame}
+
+% histograms
+\begin{frame}
+\frametitle{Univariate Descriptive Statistics: Graphical}
+
+Histograms are useful for describing the shape of a distribution:\vspace{-0.8cm}
+
+\center \includegraphics[height=0.7\textheight]{./histogram-age}
+
+\vspace{-0.5cm} \begin{scriptsize} R code:  \texttt{hist(fev\$age, xlab="Age (years)", ylab="Frequency", main="Histogram of Age")} \end{scriptsize}
+
+\end{frame}
+
+% boxplots
+\begin{frame}
+\frametitle{Univariate Descriptive Statistics: Graphical}
+
+Boxplots are useful for seeing outliers and central location:\vspace{-0.8cm}
+
+\center \includegraphics[height=0.7\textheight]{./boxplot-age}
+
+\vspace{-1cm} \begin{scriptsize} \texttt{boxplot(fev\$age, xlab="", ylab="Age (years)", main="Boxplot of Age")} \end{scriptsize}
+
+\end{frame}
+
+% barplots
+\begin{frame}
+\frametitle{Univariate Descriptive Statistics: Graphical}
+
+Barplots can be used to summarize categorical variables: \\ \begin{footnotesize} (but often don't provide much/any more info than numerical summary) \end{footnotesize}\vspace{-0.8cm}
+
+\center \includegraphics[height=0.7\textheight]{./barplot-smoke}
+
+\vspace{-0.8cm} \begin{scriptsize} \texttt{barplot(table(fev\$smoke), xlab='Smoking (1 = yes, 2 = no)', ylab='Count', main='Bar Plot of Smoking')} \end{scriptsize}
+\end{frame}
+
+% stratified descriptive statistics
+\begin{frame}
+\frametitle{Stratified Descriptive Statistics} % useful for categorical vs quantitative comparisons
+
+Rather than looking at the distribution of a variable across the entire dataset, we might be interested in the distribution of that variable within certain subgroups defined by another variable. \vspace{-0.3cm}
+\begin{itemize}
+\item e.g., how does the distribution of age differ between smokers and non-smokers in our FEV dataset?
+\item e.g., how does the distribution of FEV between smokers and non-smokers?
+\end{itemize}
+
+Stratified descriptive statistics can help us:\vspace{-0.3cm}
+\begin{itemize}
+\item understand the role of that  stratification variable (e.g., is it a confounder?)
+\item begin to demonstrate the association between two variables
+\end{itemize}
+
+% examples in air pollution Table 1
+\end{frame}
+
+% stratified histograms
+\begin{frame}
+\frametitle{Stratified Descriptive Statistics}
+
+\begin{center} \includegraphics[width=\textwidth]{./histogram-age-stratified} \end{center}
+
+\end{frame}
+
+% stratified boxplots
+\begin{frame}
+\frametitle{Stratified Descriptive Statistics}
+
+\vspace{-0.4cm} \center \includegraphics[height=0.6\textheight]{./boxplot-age-stratified}
+
+\begin{scriptsize} \texttt{boxplot(fev\$age~fev\$smoke, xlab='Smoking (1=yes, 2=no)', ylab='Age (years)', main = 'Boxplot of Age by Smoking')} \end{scriptsize}
+
+\end{frame}
+
+% scatterplot
+\begin{frame}
+\frametitle{Bivariate Descriptive Statistics}
+
+A useful tool for summarizing the relationship between two quantitative variables:
+
+\vspace{-0.4cm} \center \includegraphics[height=0.6\textheight]{./scatterplot-fev-age}
+
+\begin{scriptsize} \texttt{plot(fev\$fev ~ fev\$age, xlab='Age (years)', ylab='FEV (liters per sec)', main = 'Scatterplot of FEV vs Age')
+} \end{scriptsize}
+
+\end{frame}
+
+% descrip in R
+\begin{frame}
+\frametitle{Descriptive Statistics in R}
+
+This is just a small taste of the many possibilities when it comes to tools for summarizing data.
+
+We'll spend more time discussing descriptive statistics in Discussion Section next week, including how to generate numerical summaries and figures like these (or better ones!). 
+\end{frame}
+
+% practice: air pollution (can continue to next lecture if needed); move to beginning of descriptives section?
+\begin{frame}
+\frametitle{Descriptive Statistics: Let's Practice!}
+
+Read parts of the air pollution and mortality paper: Results on page 2515, Table 1, and Figure 1
+
+Answer the following questions:
+\begin{itemize}
+\item What numerical summaries are presented for categorical variables? For continuous variables?
+\item What numerical summaries are missing for categorical variables? For continuous variables?
+\item Are any stratified descriptive statistics presented? If so, why do you think they presented these?
+\item Are any graphical summaries presented? If so, why do you think they presented these?
+\end{itemize}
+% pair > share
+\end{frame}
+
+% What's next?
+\begin{frame}
+\frametitle{What's Next?}
+\begin{itemize}
+\item Probability distributions: Normal, $t$
+\item Sampling distributions
+\item Central Limit Theorem
+\item Confidence intervals
+\item Hypothesis testing
+\end{itemize}
+\end{frame}
+
 
 \end{document}
