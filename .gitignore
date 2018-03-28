@@ -1,6 +1,9 @@
-# Anything in application/ #
+# Anything in application/, #
+# planning/, and project/examples #
 ############################
 application/*
+planning/*
+project/examples/*
 
 # misc LaTeX files #
 ####################

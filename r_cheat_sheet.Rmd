@@ -1,0 +1,29 @@
+---
+title: "R cheat sheet"
+subtitle: "BIOST 311, Regression Methods in the Health Sciences"
+author: "Kelsey Grinde and Brian Williamson"
+date: "Last updated `r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This document contains R commands that you have learned, as well as a description of what the function does; an example of the function in use; an explanation, in words, of what this usage accomplishes; and where you encountered this function (e.g., "In discussion section 1"). Throughout the quarter, as you learn new R functions, they will be added to this cheat sheet.
+
+| R function name                      | Description                   | Example usage                                                        | Explanation                     | First encountered              |
+|:------------------------------------:|:----------------------------- |:-------------------------------------------------------------------- |:------------------------------- |:------------------------------ |
+| `print`         | Prints results to the console | `print(32 + 15)` | Print the result of 32 plus 15 | Discussion section 1, line 133 |
+| `<-`            | Assign a value (on the right-hand side) to an object name (on the left-hand side) | `fifteen <- 15` | Assign the value "15" to the object called `fifteen` | Discussion section 1, line 160 |
+| `read.delim`    | Read in a dataset from `.txt` | `read.delim(file = "fev.txt", sep = "", header = TRUE)` | Read in data from the file `fev.txt`; treat any whitespace as a column separator; and read in the first row of the dataset as the column names | Discussion section 1, line 160 |
+| `head` | Print out the first six observations from a dataset (or vector) | `head(fev)` | Print the first six observations from all columns of the `fev` dataset | Discussion section 1, line 162 |
+| `[]` | Access values within a dataset (or vector) | `fev[3, 5]` | Access the third observation (row) in the fifth variable (column) of the `fev` dataset | Discussion section 1, line 181 |
+| `$` | Access a variable (column) within a dataset | `fev$age` | Access the `age` variable within the `fev` dataset | Discussion section 1, line 193 |
+| `>` | Is the object on the left-hand side greater than the object on the right-hand side? | `3 > 5` | Is `3` greater than `5`? (returns `FALSE`) | Discussion section 1, line 200 |
+| `<=` | Is the object on the left-hand side less than or equal to the object on the right-hand side? | `fev$age <= 8` | For each observation of the variable `age` in the `fev` dataset, is this value less than or equal to `8`? (returns `TRUE` or `FALSE` for *each* value in `fev$age`) | Discussion section 1, line 207 |
+| `summary` | Display simple summary statistics (minimum, quartiles, median, mean, maximum) of variables within a dataset | `summary(fev)` | Return summary statistics for all variables in the `fev` dataset | Discussion section 1, line 209 |
+| `ifelse` | Perform a logical expression; if true, take one action; if false, take another action | `ifelse(fev$smoke == 2, 0, 1)` | If `fev$smoke` is equal to 2, return 0; otherwise, return 1 (performs this action for each observation of `fev$smoke`) | Discussion section 1, line 220 |
+| `?` | Access a help file | `?summary` | Pull up the help file for the `summary` function | Discussion section 1, line 234 |
+| `install.packages` | Install an R package | `install.packages("survival")` | Install the package `survival`, which contains functions for survival analysis | Discussion section 1, line 258 |
+| `library` | Load an R package into the current R session (this must be done each time you open R!) | `library("uwIntroStats")` | Load the `uwIntroStats` package of functions into the current session | Discussion section 1, line 259 |
