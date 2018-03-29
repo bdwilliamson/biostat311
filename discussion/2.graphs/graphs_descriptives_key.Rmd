@@ -1,17 +1,17 @@
 ---
-title: "Graphs and Descriptive Statistcs"
+title: "Graphs and Descriptive Statistcs: Key"
 author: "Kelsey Grinde and Brian Williamson"
-date: "3 April 2018"
+date: "4 April 2018"
 output: 
   pdf_document:
-    toc: true
-    toc_depth: 3
+  toc: true
+toc_depth: 3
 urlcolor: Lavender
 header-includes:
   - \usepackage[dvipsnames]{xcolor}
 ---
-
-```{r setup, include=FALSE}
+  
+  ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 ## function to color text
@@ -70,7 +70,7 @@ One of the easiest functions to use is `descrip`. Uncomment the line in the code
 descrip(fev)
 ```
 
-*Replace this sentence.*
+*Here, I am looking for you to mention the extra columns that `descrip` gives you, namely `N` (the total sample size for each variable), `Msng` (the number of missing observations in each variable), and `Std Dev` (the standard deviation of each variable). I personally think that this extra information is incredibly helpful: the total sample size is important when making generalizations and interpreting the summary statistics (e.g., mean, median) that are computed; the number of missing observations tells us a bit more about the data, and whether or not we need to worry about our inferences (a bit outside the scope of this class, but important to notice nonetheless); and the standard deviation gives us a second measure of how variable (or spread out) our data are.*
 
 One of the most powerful features of `descrip` is its ability to compute and easily display `r colFmt("stratified", "blue")` descriptive statistics---here, summary measures are computed within each level of a variable (e.g., `smoker = 0` and `smoker = 1`), and displayed. Add the argument `strata = fev$smoker` to the call to `descrip` in the next code chunk, and report the mean FEV among smokers and nonsmokers. Also, why might you want to stratify by smoking status in these data? (Hint: what is the scientific question?)
 
@@ -80,7 +80,7 @@ One of the most powerful features of `descrip` is its ability to compute and eas
 descrip(fev)
 ```
 
-*Replace this text with your answers to the previous question.*
+*The scientific question in these data is: is smoking status associated with lung function in kids? We are using FEV as a measure of lung function, and we have smoking status on each of the kids in the study. Stratifying our descriptive statistics by smoking status allows us to easily compare FEV levels between smokers and nonsmokers---this descriptive analysis is important, because it shows in a couple of numbers how the data back up any statistical inference we perform.*
 
 ## 2. Improving the boxplot
 
@@ -90,6 +90,7 @@ You first have to create a variable in the FEV data that denotes pre-teens (defi
 
 ```{r create-teen, echo = TRUE}
 ## create the teen variable here! Hint: use the ifelse() function
+fev$teen <- ifelse(fev$age < 13, 0, 1)
 ```
 
 Now that you have a variable that differentiates teens from pre-teens, you can re-create the boxplot from slide 27 with the following code: `boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))`. Here's what each component of that line of code means, in English:
@@ -101,20 +102,21 @@ Now that you have a variable that differentiates teens from pre-teens, you can r
 * `ylab = "FEV (liters per second)"`: Make a label for the $y$-axis, and have it display "FEV (liters per second)"
 * `names = c("Pre-teen (< 13)", "Teen (13 +)")`: label the tickmarks on the $x$-axis using "Pre-teen (< 13)" and "Teen (13 +)"
 
-Copy the code for the boxplot into the next code chunk, and run it to create the boxplot. What is this boxplot telling us about the data? What do the solid black line, box, and "whiskers" mean?
+Copy the code for the boxplot into the next code chunk, and run it to create the boxplot. What is this boxplot telling us about the data? What do the solid black line, box, and "whiskers" (the dashed lines) mean?
 
 ```{r boxplot-1, echo = TRUE}
-## paste the boxplot code under this comment, 
-## and change the comment to something that will help you 
-## remember what the code is doing!
+## make a boxplot of FEV versus age, categorized into pre-teen and teen
+boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))
 ```
 
-*Replace this sentence with your answers to the questions above.*
+*The boxplot shows that pre-teens tend to have lower FEV than teens---we can see this by looking at the medians (the solid black line), and the interquartile range (given by the upper and lower edges of the boxes). Since both the median and the interquartile range for teens is higher than those for pre-teens, we are justified in saying that pre-teens tend to have lower FEV than teens.*
+
+*The "whiskers" are telling us something different, and the way they are computed is dependent on the software used to create the boxplot. In R, the default is to make the whiskers 1.5 times the interquartile range, but this is somewhat arbitrary. The solid horizontal line at the end of the whiskers must be a point in the dataset, and any data outside of the whisker is plotted separately. A common misconception is that these datapoints are "outliers" (defined as points that are far away from the rest of the data, in terms of the outcome); however, since R is using an arbitrary rule to draw these whiskers, be careful with whether or not you label the points as outliers.*
 
 What would happen if we forgot some of these options? Uncomment the code in the next code chunk and run that line. Replace the text in italics below with your observations on what changed between this plot and the previous one: specifically, which plot is more informative, and why?
 
 ```{r boxplot-2, echo = TRUE}
-# boxplot(fev$fev ~ fev$teen)
+boxplot(fev$fev ~ fev$teen)
 ```
 
 *Replace this sentence with your answers to the questions above.*
