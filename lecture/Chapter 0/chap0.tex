@@ -39,7 +39,7 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 \begin{itemize}
 \item Yesterday's discussion section % everyone has submitted; don't worry about submission time -- just by end of day; grading is just credit/no credit; congrats on surviving day 1: everyone did REALLY well -- we're very impressed by how quickly you picked things up; we'll continue to work on this throughout the quarter, so it might feel like a lot right now but it will get easier!
 	\begin{itemize}
-	\item Congrats on creating your first R Mardown document!
+	\item Congrats on creating your first R Markdown document!
 	\item FYI: grading is credit/no credit
 	\end{itemize}
 \item Grades for index card 1 are posted % everyone has 100%! moving forward: grading is always credit/no credit; about once per week
@@ -303,7 +303,7 @@ From the article: \textit{We conducted a nationwide ... study involving all Medi
 So, the first step to summarizing/describing your data is making sure you know what kind of data you have!
 
 \color{blue} Extreme Example: \color{black} Suppose I'm intereseted in summarizing one of the variables in our FEV dataset: smoking habits (smoker/nonsmoker).  What numerical summaries can I use to get a sense of ``typical" smoking habits in our study? \vspace{-0.3cm}
-\begin{itemize} % sketch what it looks like on board
+\begin{itemize} % sketch what it looks like on board (note for future reference: this example needs more work)
 \item Mean/average \pause \color{red} (No) \color{black}
 \item Median \pause \color{red} (No) \color{black}
 \item Mode \pause \color{red} (Yes) \color{black}
@@ -372,7 +372,7 @@ Details about each of the finalists and links to the livestreams of their talks 
 % human genome example (cont)
 \begin{frame}
 \frametitle{Summarizing Data: The Human Genome}
-If we were to write out one sequence in \begin{tiny} tiny \end{tiny} font, what would that look like? 
+If we were to write out one human DNA sequence in \begin{tiny} tiny \end{tiny} font, what would that look like? 
 
 \center \includegraphics[height=4cm]{./book}
 
@@ -404,7 +404,7 @@ Why do we need descriptive statistics?\vspace{-0.2cm}
 	\end{itemize}
 \item Start to understand direction and strength of association
 	\begin{itemize}
-	\item Descriptive statistics and inferential analysis should contribute to the same story
+	\item Descriptive statistics and inferential statistics should contribute to the same story
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -449,7 +449,7 @@ Summary should include:
 	\end{itemize}
 \end{itemize}
 
-How did the air pollution paper do? (Table 1, specifically.) % what's there (pct in each group, # events for outcome), what's missing (# and # missing)
+Which of these did the air pollution paper present? % what's there (pct in each group, # events for outcome), what's missing (# and # missing)
 
 \end{frame}
 
@@ -475,7 +475,7 @@ Summary should include (some of):
 %\item Note: you can detect skewness by comparing mean to median, IQR to median
 %\item Note: you can detect outliers by looking at range
 \end{itemize}
-How did the air pollution paper do? (Table 1, specifically.) % what's there (average, # obs), what's missing (spread, # missing)
+Which of these did the air pollution paper present? % what's there (average, # obs), what's missing (spread, # missing)
 \end{frame}
 
 % histograms
@@ -486,6 +486,7 @@ Histograms are useful for describing the shape of the distribution (for a quanti
 
 \center \includegraphics[height=0.6\textheight]{./histogram-age}
 
+\pause
 \vspace{-0.45cm} \begin{scriptsize} R code:  \texttt{hist(fev\$age, xlab="Age (years)", ylab="Frequency", main="Histogram of Age")\\} \end{scriptsize}
 
 \end{frame}
@@ -507,7 +508,7 @@ Boxplots are useful for seeing outliers and central location (for a quantitative
 \begin{frame}
 \frametitle{Univariate Descriptive Statistics: Graphical}
 
-Barplots can be used to summarize categorical variables: \\ \begin{footnotesize} (but here doesn't provide any more info than numerical summary) \end{footnotesize}\vspace{-0.8cm} % numerical summary = #/prop  in each category (smoke = 65 (9.9%), no smoke = 589 (90.1%))
+Barplots can\footnote[frame]{Sometimes, though, a numerical summary can be more informative: \\ \hfill \texttt{table(fev\$smoke)} = 65 589} be used to summarize categorical variables: \vspace{-0.8cm} % numerical summary = #/prop  in each category (smoke = 65 (9.9%), no smoke = 589 (90.1%))
 
 \center \includegraphics[height=0.6\textheight]{./barplot-smoke}
 
@@ -519,7 +520,7 @@ Barplots can be used to summarize categorical variables: \\ \begin{footnotesize}
 \begin{frame}
 \frametitle{Stratified Descriptive Statistics} % useful for categorical vs quantitative comparisons
 
-Sometimes we're interested in the distribution of a variable within certain subgroups: \vspace{-0.3cm}
+Sometimes we're interested in the distribution of a variable within certain subgroups, rather than across all the data: \vspace{-0.3cm}
 \begin{itemize}
 \item e.g., how does the distribution of age differ between smokers and non-smokers in our FEV dataset? % from Monday, how does distribution of FEV differ between teens and pre-teens
 \end{itemize}
@@ -537,7 +538,7 @@ Stratified descriptive statistics can help us:\vspace{-0.3cm}
 
 % stratified histograms
 \begin{frame}
-\frametitle{Stratified Descriptive Statistics}
+\frametitle{Stratified Descriptive Statistics: Graphical}
 
 \vspace{-0.5cm}
 \begin{center} \includegraphics[width=\textwidth]{./histogram-age-stratified} \end{center}
@@ -549,11 +550,13 @@ Stratified descriptive statistics can help us:\vspace{-0.3cm}
 
 % stratified boxplots
 \begin{frame}
-\frametitle{Stratified Descriptive Statistics}
+\frametitle{Stratified Descriptive Statistics: Graphical}
 
-\vspace{-0.4cm} \center \includegraphics[height=0.6\textheight]{./boxplot-age-stratified}
+You could also use side-by-side boxplots rather than side-by-side histograms (can be easier to compare): 
 
-\begin{scriptsize} \texttt{boxplot(fev\$age $\sim$ fev\$smoke, xlab='Smoking (1=yes, 2=no)', ylab='Age (years)', main = 'Boxplot of Age by Smoking')\\} \end{scriptsize}
+\vspace{-0.6cm} \center \includegraphics[height=0.6\textheight]{./boxplot-age-stratified}
+
+\vspace{-0.3cm} \begin{scriptsize} \texttt{boxplot(fev\$age $\sim$ fev\$smoke, xlab='Smoking (1=yes, 2=no)', ylab='Age (years)', main = 'Boxplot of Age by Smoking')\\} \end{scriptsize}
 
 \end{frame}
 
@@ -576,20 +579,256 @@ Scatterplots are a useful tool for summarizing the relationship between two quan
 This is just a small taste of the many possibilities when it comes to tools for summarizing data.
 
 We'll spend more time discussing descriptive statistics in Discussion Section next week, including how to generate numerical summaries and graphical summaries like these (or better ones!) in \texttt{R}.
+
+You'll also get practice on your next homework assignment, future assignments, and your data analysis project!
+
 \end{frame}
 
-% What's next?
+% descriptive vs inferential stats
 \begin{frame}
-\frametitle{What's Next?}
+\frametitle{Descriptive Statistics vs Inferential Statistics}
+
+\color{blue} Descriptive Statistics: \color{black}
 \begin{itemize}
-\item Probability distributions: Normal, $t$
-\item Sampling distributions
-\item Central Limit Theorem
-\item Confidence intervals
-\item Hypothesis testing
+\item Goal = \color{blue} describe \color{black} what's happening \color{blue} \textit{in our sample} \color{black}
+\end{itemize}
+
+\color{orange} Inferential Statistics: \color{black}
+\begin{itemize}
+\item Goal = use our data to \color{orange} infer \color{black} something about \color{orange} \textit{our population of interest} \color{black}
+\end{itemize}
+
+Often when people talk about ``doing statistics," they're talking about inferential statistics, and this will be the focus of much of our course. \begin{footnotesize} (But, there are many other important components, including study design, translating scientific questions into statistical questions/hypotheses, and descriptive statistics.) \end{footnotesize}
+
+\end{frame}
+
+% intro to statistical inference
+\begin{frame}
+\frametitle{Statistical Inference}
+Why do we do statistics? \vspace{-0.3cm}
+\begin{itemize}
+\item We can't (usually\footnote[frame]{If we could, then we have no need for inferential statistics!}) measure everyone in our \textbf{population}
+	\begin{itemize}
+	\item \textit{Example}: all children in the US
+	\end{itemize}
+\pause
+\item Instead, we take a \textbf{sample}
+	\begin{itemize}
+	\item \textit{Example:} 654 children who came into a particular pediatric clinic for a routine check-up
+	\item Note: important to sample well so that the sample truly reflects (is \textit{representative} of) our population of interest
+	\end{itemize}
+\pause
+\item We hope that what we estimate from the sample also applies to the population
+	\begin{itemize}
+	\item The process of translating from the \textit{sample} to the \textit{population} is \textbf{statistical inference}
+	\item What we estimate in the sample = \textbf{estimate} or \textbf{statistic}
+	\item Corresponding value in population = \textbf{parameter}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
-% advertise statNW
+% stat inference: flowchart
+\begin{frame}
+\frametitle{Statistical Inference: Work Flow} % modify to start with scientific question?
+
+\includegraphics[width=\textwidth]{./inference}
+
+\end{frame}
+
+% stat inference work-flow: FEV example
+\begin{frame}
+\frametitle{Statistical Inference: FEV Example} % by the end of this class, you should be able to do this!
+
+\begin{itemize}
+\item \textbf{Scientific question:} what is the typical FEV for children in the US? \pause
+\item \textbf{Statistical question:} what is the average FEV among children in the US? \pause
+\item \textbf{Population of interest:} all children in the US \pause
+	\begin{itemize}
+	\item \textbf{Parameter:} population mean \pause
+	\end{itemize}
+\item \textbf{Sample:} 654 children who came into a particular pediatric clinic for a routine check-up \pause
+	\begin{itemize}
+	\item \textbf{Statistic/estimate}: sample mean \pause
+	\item[]\begin{footnotesize} \texttt{mean(fev\$fev)} = 2.64 liters per second \end{footnotesize}
+	\end{itemize}
+\end{itemize}
+
+\vspace{-0.4cm} \textbf{Next step:} use what we see in our sample to draw conclusions about population of interest.\\ \begin{footnotesize}In our sample, the average FEV is 2.64 l/sec. What can we conclude about the population average? Is it \textit{exactly} 2.64 l/sec?\\ \end{footnotesize}
+
+% could have them practice this process with air pollution study? or try it at start of next class? or do it on the HW?
+\end{frame}
+
+% precision and inference
+\begin{frame}
+\frametitle{Precision and Inference}
+\begin{itemize}
+\item Using descriptive statistics, we can get sample estimates
+	\begin{itemize}
+	\item e.g., the \textbf{mean} FEV is 2.64 liters per second
+	\item e.g., the \textbf{proportion} of kids who smoke is 0.099 (9.9\%)
+	\end{itemize}
+\pause
+\item We want to use these sample estimates to infer something about the population
+\pause
+\item To assess how well these estimates represent the population of interest, we need to know how \textbf{accurate} and \textbf{precise} they are
+	\begin{itemize}
+	\item Accuracy: are we estimating the right thing? % on average, will our statitstic be close to the parameter we're trying to estimate? 
+	\item Precision: how variable are our estimates? 
+	\end{itemize}
+\end{itemize}
+\vspace{-0.3cm} \textit{Just like we want to describe the center and spread of variables when we summarize our data, we also want to understand the center (accuracy) and spread (precision) of our estimates.}
+\end{frame}
+
+% precision and inference
+\begin{frame}
+\frametitle{Precision and Inference}
+\includegraphics[width=\textwidth]{./accuracy} % start in upper left, describe what each point represents (new estimate from repeated sampling); tie back to this figure when we talk about standard errors and confidence intervals
+\end{frame}
+
+% precision and inference
+\begin{frame}
+\frametitle{Precision and Inference}
+How do we know how precise our estimate is?
+\begin{itemize}
+\item For precision, we need to know how our statistic (estimated from a sample) would vary in repeated samples
+\item i.e., if I were to sample from this population another time, how different would the estimate be? And if I sampled from the population a third time, or a fourth time, or...?
+\item Our statistics are \textit{random}: the value you get will change depending on which sample you've ended up with
+	\begin{itemize}
+	\item The \textbf{distribution} of a random quantity describes how that random quantity behaves
+	\item The spread of the distribution of our statistic will tell us about the precision of our statistic
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+% quick detour: probability distributions
+\begin{frame}
+\frametitle{Probability Distributions}
+
+The \textbf{distribution} of a random quantity tells you what values that quantity can take and how likely it is to take each of those values.
+
+\begin{figure}
+\includegraphics[height=0.4\textheight]{./normal-density}
+\caption{\color{orange} Area under curve \color{black}= probability that our random quantity takes values between 0.5 and 3}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Probability Distributions: Normal Distribution}
+
+\begin{center} \includegraphics[height=0.4\textheight]{./Normal} \end{center}
+
+\vspace{-0.3cm} \color{blue} Useful property: \color{black} if a random quantity is Normally distributed ($\sim N(\mu,\sigma)$), then 95\% of the time that quantity will take values within two standard deviations ($\sigma$) of its mean ($\mu$)
+
+\begin{footnotesize} (Many of the random quantitites we care about have a Normal distn!)\\ \end{footnotesize}
+
+\end{frame}
+
+% sampling distn = distn of a statistic; center of this distn = accuracy; spread of distn = precision 
+\begin{frame}
+\frametitle{Precision and Inference: Sampling Distributions}
+
+Recall: \vspace{-0.3cm}
+\begin{itemize}
+\item We have an estimate, which we've calculated from our sample, and we want to use that estimate to infer something about the general population.
+\item To assess how well this estimate represents our population of interest, it's important to know how precise our estimate is. 
+\item To figure out the precision of our estimate, it helps to know its distribution.
+\end{itemize}
+
+The distribution of an estimate/statistic is called a \textbf{sampling distribution}.
+
+\end{frame}
+
+% sampling distributions: CLT
+\begin{frame}
+\frametitle{Precision and Inference: Sampling Distributions}
+
+The \textbf{Central Limit Theorem} tells us the sampling distribution of some statistics that we often care about:
+
+\begin{itemize}
+\item \textbf{Mean:} For large samples, the sampling distribution of the sample mean is approximately Normal: $\bar{X} \sim N(\mu,\frac{\sigma^2}{n})$
+	\begin{itemize}
+	\item $\mu =$ population mean
+	\item $\sigma =$ population variance
+	\item $n =$ sample size
+	\end{itemize}
+\item \textbf{Proportion:}  For large samples, the sampling distribution of the sample proportion is approximately Normal: $\hat{p} \sim N(p,\frac{p(1-p)}{n})$
+	\begin{itemize}
+	\item $p =$ population proportion
+	\item $n =$ sample size/number of trials
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+% back to precision: standard error
+\begin{frame}
+\frametitle{Precision and Inference: Standard Error}
+
+Once we know the sampling distribution of our estimate, it's fairly straightforward to figure out how precise it is.
+
+\color{blue} Example: \color{black} Suppose we have two estimates. The first has sampling distribution $N(2,5)$ and the second has sampling distribution $N(2,1)$. \textit{Which of these estimates is more precise?}
+
+\pause
+\begin{footnotesize} (Hint: precision and variance are inversely related) \end{footnotesize}
+
+\pause
+We typically describe the precision of an estimate via its \textbf{standard error}. (Standard error = standard deviation of an estimate/statistic.) 
+
+Estimates with \textit{smaller} standard errors are \textit{more precise}! %(so they vary less from sample-to-sample); refer back to bullseye picture
+\end{frame}
+
+% sampling distribution of \frac{\bar{X}-\mu}{s}: t
+\begin{frame}
+\frametitle{Other Sampling Distributions of Interest}
+
+Back to the topic of sampling distributions...
+
+Sometimes we are interested in the statistic $$T = \frac{\bar{X}-\mu}{s},$$ where $s$ is the standard deviation calculated in our sample and $\mu$ is the population mean. 
+
+While the sampling distribution of $\bar{X}$ is Normal, the sampling distribution of $T$ is not. Instead, it follows a $t$-distribution with $n-1$ degrees of freedom, where $n$ is the sample size.
+
+(But, the $t$-distribution is actually very similar to a Normal distribution, especially for large sample sizes...
+
+\end{frame}
+
+% properties of a t-distribution (how it relates to normal, why we care (which stat follows t))
+\begin{frame}
+\frametitle{Other Sampling Distributions of Interest: $t$}
+
+\center \includegraphics[height=0.8\textheight]{./t-normal}
+
+\end{frame}
+
+
+% up next: confidence intervals, hypothesis tests
+\begin{frame}
+\frametitle{What's Next?}
+
+More on statistical inference:
+\begin{itemize}
+\item Confidence intervals
+\item Hypothesis tests
+\item Linear regression
+\end{itemize}
+
+\end{frame}
+
+% Friday wrap-up
+\begin{frame}
+\frametitle{``Index Card" \# 2}
+On a piece of paper, please write:
+\begin{enumerate}
+\item Your name
+\item Something you learned this week.
+\item Something you struggled with this week and/or something you have questions about. 
+	\begin{itemize}
+	\item[] \begin{footnotesize} (Could be course content, a particular homework problem, course logistics, ..., anything.) \end{footnotesize}
+	\end{itemize}
+\item Would you find it helpful if we recorded lectures and discussion sections?
+\end{enumerate}
+Turn in this piece of paper at the end of classs.
+\end{frame}
+
 
 \end{document}

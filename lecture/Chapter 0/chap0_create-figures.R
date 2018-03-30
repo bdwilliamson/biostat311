@@ -11,7 +11,7 @@ hist(fev$age, xlab="Age (years)", ylab="Frequency", main="Histogram of Age")
 boxplot(fev$age, xlab="", ylab="Age (years)", main="Boxplot of Age")
 
 #### barplot of smoking ####
-smoke_count <- table(fev$smoke)
+(smoke_count <- table(fev$smoke))
 barplot(smoke_count,xlab='Smoking (1 = yes, 2 = no)',ylab='Count',main='Bar Plot of Smoking')
 
 #### stratified age vs smoking ####
