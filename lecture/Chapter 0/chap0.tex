@@ -495,7 +495,7 @@ Histograms are useful for describing the shape of the distribution (for a quanti
 \begin{frame}
 \frametitle{Univariate Descriptive Statistics: Graphical}
 
-Boxplots are useful for seeing outliers and central location (for a quantitative variable):\vspace{-0.8cm}
+Boxplots are useful for seeing central tendancy, sometimes outliers (for a quantitative variable):\vspace{-0.8cm}
 
 \center \includegraphics[height=0.7\textheight]{./boxplot-age}
 
@@ -527,11 +527,11 @@ Sometimes we're interested in the distribution of a variable within certain subg
 
 Stratified descriptive statistics can help us:\vspace{-0.3cm}
 \begin{itemize}
-\item understand the role of that  stratification variable (e.g., is it a confounder?)
+\item understand the role of that  stratification variable
 \item begin to demonstrate the association between two variables (one quantitative, one categrical)
 \end{itemize}
 
-\begin{footnotesize} \textit{It's often helpful to present stratified descriptive statistics in your ``Table 1" (stratified by outcome or exposure, depending on application). Did the air pollution paper do this?} \end{footnotesize}
+\begin{footnotesize} \textit{It's often helpful to present stratified descriptive statistics in your ``Table 1" (stratified by  exposure, often). Did the air pollution paper do this?} \end{footnotesize}
 
 % examples in air pollution Table 1
 \end{frame}
@@ -588,17 +588,16 @@ You'll also get practice on your next homework assignment, future assignments, a
 \begin{frame}
 \frametitle{Descriptive Statistics vs Inferential Statistics}
 
-\color{blue} Descriptive Statistics: \color{black}
+Next up: \textit{Statistical Inference.} Some terms you should know:
+
 \begin{itemize}
-\item Goal = \color{blue} describe \color{black} what's happening \color{blue} \textit{in our sample} \color{black}
+\item \color{blue} Descriptive \color{black} statistics: summarize or \color{blue} describe \color{black} what's happening \color{blue} \textit{in our sample} \color{black}
+\item \color{orange} Inferential \color{black} statistics: use our data to \color{orange} infer \color{black} something about \color{orange} \textit{our population of interest} \color{black}
 \end{itemize}
 
-\color{orange} Inferential Statistics: \color{black}
-\begin{itemize}
-\item Goal = use our data to \color{orange} infer \color{black} something about \color{orange} \textit{our population of interest} \color{black}
-\end{itemize}
+Often when people talk about ``doing statistics," they're talking about inferential statistics. 
 
-Often when people talk about ``doing statistics," they're talking about inferential statistics, and this will be the focus of much of our course. \begin{footnotesize} (But, there are many other important components, including study design, translating scientific questions into statistical questions/hypotheses, and descriptive statistics.) \end{footnotesize}
+But, statistics is much more that. In fact, \textbf{the most important part of statistics} (and often the hardest) \textbf{is translating your scientific question into a statistical question.} Once you've done this, the rest follows!
 
 \end{frame}
 
@@ -640,20 +639,21 @@ Why do we do statistics? \vspace{-0.3cm}
 \frametitle{Statistical Inference: FEV Example} % by the end of this class, you should be able to do this!
 
 \begin{itemize}
-\item \textbf{Scientific question:} what is the typical FEV for children in the US? \pause
-\item \textbf{Statistical question:} what is the average FEV among children in the US? \pause
+\item \textbf{Scientific question:} what is the \color{orange} typical \color{black} \color{blue} lung function \color{black} of children in the US? \pause 
+\item \textbf{Statistical question:} what is the \color{orange} average \color{black} \color{blue} FEV \color{black} among children in the US? \pause % what have we done here? more specific, specify question in terms of a summary measure that we can actually calculate; make sure we clearly specify outcome
 \item \textbf{Population of interest:} all children in the US \pause
 	\begin{itemize}
-	\item \textbf{Parameter:} population mean \pause
+	\item \textbf{Parameter:} population average \pause
 	\end{itemize}
 \item \textbf{Sample:} 654 children who came into a particular pediatric clinic for a routine check-up \pause
 	\begin{itemize}
-	\item \textbf{Statistic/estimate}: sample mean \pause
+	\item \textbf{Statistic/estimate}: sample average 
 	\item[]\begin{footnotesize} \texttt{mean(fev\$fev)} = 2.64 liters per second \end{footnotesize}
 	\end{itemize}
 \end{itemize}
 
-\vspace{-0.4cm} \textbf{Next step:} use what we see in our sample to draw conclusions about population of interest.\\ \begin{footnotesize}In our sample, the average FEV is 2.64 l/sec. What can we conclude about the population average? Is it \textit{exactly} 2.64 l/sec?\\ \end{footnotesize}
+\pause
+\vspace{-0.2cm} \textbf{Next step:} use what we see in our sample to draw conclusions about population of interest. \begin{footnotesize}\textit{In our sample, the average FEV is 2.64 l/sec. What can we conclude about the population average FEV? Is it \textbf{exactly} 2.64 l/sec?}\\ \end{footnotesize}
 
 % could have them practice this process with air pollution study? or try it at start of next class? or do it on the HW?
 \end{frame}
@@ -778,6 +778,8 @@ We typically describe the precision of an estimate via its \textbf{standard erro
 Estimates with \textit{smaller} standard errors are \textit{more precise}! %(so they vary less from sample-to-sample); refer back to bullseye picture
 \end{frame}
 
+%% introduce robust SEs??
+
 % sampling distribution of \frac{\bar{X}-\mu}{s}: t
 \begin{frame}
 \frametitle{Other Sampling Distributions of Interest}
@@ -788,7 +790,7 @@ Sometimes we are interested in the statistic $$T = \frac{\bar{X}-\mu}{s},$$ wher
 
 While the sampling distribution of $\bar{X}$ is Normal, the sampling distribution of $T$ is not. Instead, it follows a $t$-distribution with $n-1$ degrees of freedom, where $n$ is the sample size.
 
-(But, the $t$-distribution is actually very similar to a Normal distribution, especially for large sample sizes...
+But, the $t$-distribution is actually very similar to a Normal distribution, especially for large sample sizes...
 
 \end{frame}
 
@@ -796,7 +798,7 @@ While the sampling distribution of $\bar{X}$ is Normal, the sampling distributio
 \begin{frame}
 \frametitle{Other Sampling Distributions of Interest: $t$}
 
-\center \includegraphics[height=0.8\textheight]{./t-normal}
+\center \includegraphics[height=0.8\textheight]{./t-normal} % come back to this to explain why t intervals are wider
 
 \end{frame}
 
@@ -825,10 +827,12 @@ On a piece of paper, please write:
 	\begin{itemize}
 	\item[] \begin{footnotesize} (Could be course content, a particular homework problem, course logistics, ..., anything.) \end{footnotesize}
 	\end{itemize}
-\item Would you find it helpful if we recorded lectures and discussion sections?
+\item Would you find it helpful if we recorded lectures?
+\item Would you find it helpful if we recorded discussion sections?
 \end{enumerate}
 Turn in this piece of paper at the end of classs.
 \end{frame}
 
+% Monday morning: discuss any issues from HW 1, introduce project groups
 
 \end{document}
