@@ -7,21 +7,6 @@ header-includes:
   - \usepackage{color}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-## function to color text
-colFmt = function(x,color){
-  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
-  if(outputFormat == 'latex')
-    paste("\\textcolor{",color,"}{",x,"}",sep="")
-  else if(outputFormat == 'html')
-    paste("<font color='",color,"'>",x,"</font>",sep="")
-  else
-    x
-}
-```
-
 # Instructions
 
 This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on March 30th. You are welcome to work together on the homework; however, final solutions should be written up individually. 
