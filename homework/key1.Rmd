@@ -1,0 +1,168 @@
+---
+title: "Homework 1: Answer Key"
+author: "Kelsey Grinde and Brian Williamson"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+header-includes:
+  - \usepackage{color}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+## function to color text
+colFmt = function(x,color){
+  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+```
+
+# Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on March 30th. You are welcome to work together on the homework; however, final solutions should be written up individually. 
+
+Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code (if applicable) in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+
+# 1. Create an .Rmd file (4 points)
+
+We will use `R` and `RStudio` extensively throughout the quarter, so for this homework assignment we want to make sure that you are able to generate a .pdf or Word document containing your homework solutions using `R Markdown`. 
+
+To complete your assignment, please follow these steps: 
+
+1. Download `hw1.Rmd` from Canvas.
+
+2. Open this file in RStudio: start RStudio > File > Open File > find `hw1.Rmd` in your files
+
+3. Update the author: on the third line of the file, change the author name from "Kelsey Grinde and Brian Williamson" to "Your Name"
+
+4. Update the output format (if desired): this `.Rmd` file is set up to create a .pdf document. If you would like to create a Word document instead, change line 5 from `output: pdf_document` to `output: word_document`.
+
+5. Answer Questions 2 and 3: replace 'Type your answer here.' with your answers.
+
+6. "Knit" your document to .pdf or Word: click the `Knit` button at the top of this screen. 
+    - It is often helpful to Knit your document before you've completed the assignment to check how things look after word processing. **We strongly encourage you to try this step before office hours on Wednesday so we can help you troubleshoot any problems that come up.**
+    - A dialogue box may pop up asking you if you want to install some packages: click "Yes"
+    - If you are trying to Knit to .pdf, you will see error messages if you do not have TeX/LaTeX (a document preparation system) installed on your computer. You can either [install TeX](https://www.latex-project.org/get/#tex-distributions) or try knitting to Word instead.
+
+To get credit for this problem, please turn in this `.Rmd` file (in addition to the .pdf or Word document you generated in Step 6). 
+
+\color{blue} **You got full credit for this problem if you (1) submitted your .Rmd file and (2) we could Knit it to create the .pdf or Word document you submitted.** \color{black}
+
+\newpage
+
+# 2. Study design (2 points)
+
+For each of the following scientific questions, propose an appropriate study design. (You may use the same design at most twice.) Provide a one-sentence explanation of your reasoning.
+
+\color{blue} **For this question, any answer was accepted provided that the reasoning given was sensible and relevant. Minus one point if you did not provide any explanations.** \color{black}
+
+## a. Among people who are already heavy smokers, can running reduce the effect of smoking on incidence of lung cancer? 
+
+\color{blue} **Possible Answers:**
+
+- **Randomized controlled trial:** enroll heavy smokers without lung cancer and randomize either to a particular exercise program or to no intervention (participants can do whatever they would do anyway). Follow to see if/when subjects get lung cancer. 
+    - *This would establish causality! If you can get funding for it, this would be our preference. Otherwise, a cohort or case-control study would be reasonable.*
+- Case-control study: enroll people with lung cancer and people without lung cancer who have been heavy smokers at some point in the past [population of interest]. Compare how many runners are in each group. 
+    - *This study design is attractive for rare outcomes like cancer, but would show association rather than causation; also, it may be difficult to find the people in your population of interest (i.e., heavy smokers at some particular point in the past).* 
+- Cohort study: enroll heavy smokers without lung cancer, follow for a set period of time and see whether they get lung cancer, and compare risk of lung cancer between runners and non-runners.
+    - *Easier to define population of interest (current smokers), but would need a large sample to see many cases of the rare disease outcome.*
+- Cross-sectional study: enroll a random sample of heavy smokers. Ask them whether they run or not (either in the present or in the past) and whether they have lung cancer or not. 
+    - *This study design is likely to be inefficient. Lung cancer is rare, so you'd need a very large sample.* 
+
+\color{black}
+
+## b.	How does risk of severe influenza differ between men and women?
+
+\color{blue} **Possible Answers:**
+
+- **Cohort study:** enroll adult men and women without flu and see how many get the flu during a set period of time [e.g., one flu season]. 
+    - *This would be our preference, since flu is a common and fairly rapidly-occurring outcome, so it's not terribly difficult or expensive to watch people and record whether they get the flu.* 
+- We can't use an RCT here, since you can't randomize someone to being male or female. 
+- Case-control study: enroll people with and without the flu, then see what proportion of each is male vs. female.
+- Cross-sectional study: enroll people randomly and see what proportion of men vs women has the flu. 
+
+\color{black}
+
+## c. Is a common genetic mutation associated with colon cancer? 
+\color{blue} **Possible Answers:**
+
+- A **case-control study** is your best bet. This gives higher efficiency for the rare outcome, and you still know the temporal sequence of exposure $\rightarrow$ outcome because this genetic mutation is present at birth. 
+- We can't use an RCT here, since you can't randomize someone to have or not have a genetic mutation. 
+- It doesn't really make sense to do a cohort study here; we already know the temporal sequence of genetics $\rightarrow$ colon cancer, so there's no particular advantage and the study would need to be much larger and more expensive.  
+- It doesn't really make sense to do a cross-sectional survey here, since it would be highly inefficient for a rare outcome like colon cancer (and a rare exposure, if the genetic mutation we're interested in is rare). The context in which you'd do a cross-sectional study for genetic association analysis is when you are planning to take a very large sample and look at a wide variety of genetic markers and outcomes/diseases.  
+
+\color{black}
+
+
+# 3. Background survey (2 points)
+
+We want to know a little more about you! Please answer the following questions. 
+
+\color{blue} **You got full credit for this problem as long as you answered the questions. Thanks for sharing! If you want to know our answers to the same questions, see below.** \color{black}
+
+## a. What is your preferred name?
+
+\color{blue} Kelsey
+
+\color{red} Brian \color{black}
+
+## b. What is your year and major?
+
+\color{blue} Fourth year, Biostatistics PhD student (formerly: math major and stats minor at St. Olaf College in MN)
+
+\color{red} Fourth year, Biostatistics PhD student (formerly: math major at Pomona College in CA) \color{black}
+
+## c. What are your career and/or post-graduation goals? 
+
+\color{blue} Become a professor at a small college, teaching and doing research with undergraduate students.
+
+\color{red} Type your answer here.\color{black}
+
+## d. What previous statistics/biostatistics courses have you taken and when? 
+
+\color{blue} I have taken lots of statistics/biostatistics courses throughout college and grad school. My first experience with statistics was AP Stats in high school, then I took my first college stats course (which was very similar to this one, actually!) at the end of my sophomore year.
+
+\color{red} Type your answer here. \color{black}
+
+## e. Do you have any other prior experience with statistics (e.g., job or research)?
+
+\color{blue} I have been working as a researcher in the field of statistical genetics for 5 years and also have some experience as a statistical consultant.
+
+\color{red} Type your answer here.\color{black}
+
+## f. Do you have any previous computing experience (e.g., Excel, R, Stata, Matlab)? If so, in what context?
+
+\color{blue} I first learned R in my statistics courses in college. I now use it every day for my research and consulting work (and when I need a calculator)! Besides R, I often use shell scripting and occasionally Python. 
+
+\color{red} Type your answer here.\color{black}
+
+## g. Do you have a dataset in mind that you would like to use for the course project? If so, please briefly describe here. 
+
+\color{blue} *Once we assign groups, chat about this with your group members. If you're having a hard time finding a dataset, let us know: we have a couple that you can use.* \color{black}
+
+## h. Why are you taking this course? What are you hoping to learn/gain from this class? 
+
+\color{blue} I'm very excited about teaching this course: it was a course like this that first got me interested in being a statistician! Learning how to use statistics to answer important scientific questions and getting hands-on experience with data analysis showed me how powerful and exciting statistics can be. I hope you all are able to gain the same insight from this course!
+
+\color{red} Type your answer here.\color{black}
+
+## i. What is one thing you enjoy doing during your free time?
+
+\color{blue} I love all things related to soccer (playing, watching, coaching). 
+
+\color{red} Type your answer here.\color{black}
+
+## j. Is there anything else you would like us to know about you?
+
+\color{blue} I am always happy to chat about questions you have about course material, ways we can make this class better for you, career/post-grad planning, or anything else! Catch me before or after class, come to office hours, or email me to set up a time to talk!
+
+\color{red} Type your answer here.\color{black}
+
