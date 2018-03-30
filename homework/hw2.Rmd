@@ -13,16 +13,14 @@ Make sure you update the document header to reflect your name and the type of do
 
 If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
 
-# 1. FEV Descriptive Statistics (5.5 points) 
+# 1. FEV: descriptive statistics and t-tests (5.5 points) 
 Forced expiratory volume (FEV) is a measure of lung capacity. Higher values indicate higher lung capacity (the ability to blow out more air in one second), and therefore indicate better lung function. In this problem, you will use R to perform an analysis to examine the difference in mean FEV between smokers and nonsmokers, among children ages 3-19. 
-
 
 ## a. (0.5 points) Explain in one sentence why you cannot use a randomized controlled trial to answer this question about the relationship between smoking and FEV in kids.
 
 Type your answer to this problem here.
 
 ## b. (0 points) Load the FEV dataset into R.
-
 Download the FEV dataset from Canvas (Files > Data > fev.txt). Move the fev.txt file **to the folder where this .Rmd document is saved** (otherwise the code below won't work). Then, load the dataset by running the following code chunk (either highlight lines XX--XX and click the "Run" button at the top right of this *pane*, or click the "Play" button at the top right corner of the *chunk*).
 
 If you've done everything correctly, you should see this:
@@ -34,13 +32,12 @@ fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
 head(fev)
 ```
 
-(No answer required for this problem.)
+**(No answer required for this problem.)**
 
 ## c. (0.5 points) Create a table of descriptive statistics in R.
-
 We want to characterize the distribution of FEV overall and stratified by smoking status. We will use some functions from the "uwIntroStats" package to do this.
 
-First, make sure you've installed the "uwIntroStats" package: run the command `install.packages("uwIntroStats")`).
+First, make sure you've installed the "uwIntroStats" package: run the command `install.packages("uwIntroStats")`). 
 
 Now, run the following code to create a table of descriptive statistics:
 
@@ -51,11 +48,13 @@ library('uwIntroStats')
 descrip(fev$fev, strata=fev$smoke)
 ```
 
-*(You do not need to report the table, just run the command and look at what's created in the console so you can answer the following questions.)* Note that in this dataset, "smoke = 1" denotes smokers and "smoke = 2" denotes nonsmokers. **Looking at the table you created using the `descrip` function, what are the lung capacities in each group? Is this result surprising?**
+*(You do not need to report the table, just run the commands and look at the result so you can answer the following questions. Note that in this dataset, "smoke = 1" denotes smokers and "smoke = 2" denotes nonsmokers.)*
+
+**Looking at the table you created, how does lung capacity differ between the two groups? Is this result surprising?**
 
 Type your answer to this problem here.
 
-## d. (0.5 points) Provide a histogram of FEV for smokers and nonsmokers, separately. Use the histograms to qualitatiely characterize the difference in the distribution of FEV between smokers and nonsmokers.
+## d. (0.5 points) Provide a histogram of FEV for smokers and nonsmokers, separately. Use the histograms to qualitatively characterize the difference in the distribution of FEV between smokers and nonsmokers.
 
 To do this, run the following commands:
 
@@ -78,19 +77,19 @@ Type your answer to this problem here.
 
 Perform a $t$-test which presumes equal variances between groups. Run the following code:
 
-```{r code-for-prob-1e, inlcude=FALSE}
+```{r code-for-prob-1e, eval=FALSE}
 ttest(fev$fev, by = fev$smoke, var.eq = TRUE)
 ```
 
 **Briefly state and interpret the results (difference in means between the two groups, 95% confidence interval, p-value, conclusion).**
 
-Type your answer to this problem here. (Do  *not* include R ouptut; answers should be in paragraph form instead.)
+Type your answer to this problem here.
 
 ## f. (0.5 points) Repeat problem (e), except with the test that allows for unequal variances between smokers and nonsmokers. 
 
 This can be done with the following command:
 
-```{r codde-for-prob-1f, include=FALSE}
+```{r codde-for-prob-1f, eval=FALSE}
 ttest(fev$fev, by = fev$smoke, var.eq = FALSE)
 ```
 
