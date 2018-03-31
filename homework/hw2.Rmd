@@ -13,7 +13,7 @@ Make sure you update the document header to reflect your name and the type of do
 
 If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
 
-# 1. FEV: descriptive statistics and t-tests (5.5 points) 
+# 1. Descriptive statistics and t-tests (5.5 points) 
 Forced expiratory volume (FEV) is a measure of lung capacity. Higher values indicate higher lung capacity (the ability to blow out more air in one second), and therefore indicate better lung function. In this problem, you will use R to perform an analysis to examine the difference in mean FEV between smokers and nonsmokers, among children ages 3-19. 
 
 ## a. (0.5 points) Explain in one sentence why you cannot use a randomized controlled trial to answer this question about the relationship between smoking and FEV in kids.
@@ -21,25 +21,26 @@ Forced expiratory volume (FEV) is a measure of lung capacity. Higher values indi
 Type your answer to this problem here.
 
 ## b. (0 points) Load the FEV dataset into R.
-Download the FEV dataset from Canvas (Files > Data > fev.txt). Move the fev.txt file **to the folder where this .Rmd document is saved** (otherwise the code below won't work). Then, load the dataset by running the following code chunk (either highlight lines XX--XX and click the "Run" button at the top right of this *pane*, or click the "Play" button at the top right corner of the *chunk*).
+Download the FEV dataset from Canvas. Move the `fev.txt` file **to the folder where this .Rmd document is saved** (otherwise the code below won't work). Then, load the dataset by running the following code chunk.
 
 If you've done everything correctly, you should see this:
 
 ```{r code-for-prob-1b, include = TRUE}
 ## load the FEV data
 fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
-## check that you've read it in correctly:
-head(fev)
+## look at the first five rows
+head(fev, 5)
 ```
 
-**(No answer required for this problem.)**
-
 ## c. (0.5 points) Create a table of descriptive statistics in R.
-We want to characterize the distribution of FEV overall and stratified by smoking status. We will use some functions from the "uwIntroStats" package to do this.
+We want to characterize the distribution of FEV overall and stratified by smoking status.
 
-First, make sure you've installed the "uwIntroStats" package: run the command `install.packages("uwIntroStats")`). 
+First, make sure you've installed the `uwIntroStats` package. Run this command:
+```{r install-uwIntroStats, eval = FALSE}
+install.packages("uwIntroStats")
+```
 
-Now, run the following code to create a table of descriptive statistics:
+Then, run the following code to create a table of descriptive statistics:
 
 ```{r code-for-prob-1c, eval = FALSE}
 # load uwIntroStats package
@@ -48,7 +49,7 @@ library('uwIntroStats')
 descrip(fev$fev, strata=fev$smoke)
 ```
 
-*(You do not need to report the table, just run the commands and look at the result so you can answer the following questions. Note that in this dataset, "smoke = 1" denotes smokers and "smoke = 2" denotes nonsmokers.)*
+*(You do not need to report the table, just run the commands and use the output to answer the following questions. Note that in this dataset, "smoke = 1" denotes smokers and "smoke = 2" denotes nonsmokers.)*
 
 **Looking at the table you created, how does lung capacity differ between the two groups? Is this result surprising?**
 
@@ -67,9 +68,9 @@ hist(subset(fev,smoke==1)$fev, xlab='FEV (l/sec)', main="Histogram (smokers)")
 hist(subset(fev,smoke==2)$fev, xlab='FEV (l/sec)', main="Histogram (nonsmokers)") 
 ```
 
-**Please include your histograms in your report:** to do this, you simply need to change the statement `eval = FALSE` to `eval = TRUE` at the end of line XX and the histograms will automatically appear in your .pdf or Word document once you hit the Knit button! *(Try this now and make sure it works.)*
+**Please include your histograms in your report:** to do this, you simply need to change the statement `eval = FALSE` to `eval = TRUE` in the code chunk above (look 9 lines above this one in the .Rmd file) and the histograms will automatically appear in your .pdf or Word document once you hit the Knit button! *(Try this now and make sure it works.)*
 
-**What differences do you see between smokers and nonsmokers in the histograms you created? Is there evidence of unequal variances between groups?**
+**Looking at your histograms, what differences do you see between smokers and nonsmokers? Is there evidence of unequal variances between the two groups?**
 
 Type your answer to this problem here.
 
@@ -113,21 +114,33 @@ Type your answer to this problem here.
 
 Type your answer to this problem here.
 
-## 2. (YY points) (HW2, Q1)
+\newpage
+
+# 2. Linear regression interpretation (2.5 points)
+Suppose we use a cross-sectional study of 100 men and women, ages 55-85, to estimate the association between age and marijuana use (*Mar*, grams per year). We fit the following linear model: $$E[Mar|age] = \beta_0 + \beta_1 \times age$$
+
+## a. (1 point) Does the intercept, $\beta_0$, have a sensible scientific interpretation? If so, what is it? Explain why you should not trust an estimate of $\beta_0$ from this sort of data.
 
 Type your answer to this problem here.
 
-```{r code-for-prob-2, include = FALSE}
-## Fill this in with code executing the R commands you need for this problem
-## Comment your code so that you (and us, if necessary) know what you're doing
-```
+## b. (1 point) Does the coefficient $\beta_1$ have a sensible scientific interpretation? If so, what is it?
 
+Type your answer to this problem here.
 
-## 3. (ZZ points) (HW2, Q2)
+## c. (0.5 points) Suppose we estimate $\beta_1$ to be -1.0 grams per year, with a 95\% confidence interval of (-1.5, -0.5 and a p-value smaller than 0.001. Are we justified in reaching the conclusion that marijuana use decreases as people age? If not, provide a short alternative conclusion from this analysis.
+
+Type your answer to this problem here.
+
+## d. (Optional, 0 points) Linear regression with a transformed predictor
+Suppose we first computed $\bar{age}$ (the average age in the dataset) and then subtracted it from the observed ages, fitting the model: $$E[Mar|age] = \beta_0 + \beta_1 \times (age - \bar{age}).$$ Repeat parts (a) and (b) with this modificaiton in mind.
+
+Type your answer to this problem here. (Or skip.)
+
+\newpage
 
 # R Code
 
-Once you have completed your assignment, update and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+Once you have completed your assignment, update and run the `define-file-names` and `extract-code` code chunks (if needed) to extract the R code from this .Rmd file and send it to a .R file. 
 
 ```{r define-file-names, include = FALSE}
 ##### STEP 1: Update these file names #####
