@@ -109,25 +109,25 @@ We want to know a little more about you! Please answer the following questions.
 
 \color{blue} Become a professor at a small college, teaching and doing research with undergraduate students.
 
-\color{red} Type your answer here.\color{black}
+\color{red} I don't quite have this nailed down yet. I want to continue doing research, but this could be with undergraduate and/or graduate students. I also want to continue teaching. I'm not sure yet what balance I want to strike between teaching and research, but I want to end up at a small college or mid-size university.\color{black}
 
 ## d. What previous statistics/biostatistics courses have you taken and when? 
 
 \color{blue} I have taken lots of statistics/biostatistics courses throughout college and grad school. My first experience with statistics was AP Stats in high school, then I took my first college stats course (which was very similar to this one, actually!) at the end of my sophomore year.
 
-\color{red} Type your answer here. \color{black}
+\color{red} I also have taken many statistics and biostatistics courses throughout college and graduate school. My first experience with statistics was in a Statistical Theory course during my junior year at Pomona; I then took a similar course to this one, which solidified my interest in statistics. \color{black}
 
 ## e. Do you have any other prior experience with statistics (e.g., job or research)?
 
 \color{blue} I have been working as a researcher in the field of statistical genetics for 5 years and also have some experience as a statistical consultant.
 
-\color{red} Type your answer here.\color{black}
+\color{red} Over the last five years, I have worked on a variety of projects in market research, cancer research, and HIV/AIDS research. I also have some experience as a statistical consultant. \color{black}
 
 ## f. Do you have any previous computing experience (e.g., Excel, R, Stata, Matlab)? If so, in what context?
 
 \color{blue} I first learned R in my statistics courses in college. I now use it every day for my research and consulting work (and when I need a calculator)! Besides R, I often use shell scripting and occasionally Python. 
 
-\color{red} Type your answer here.\color{black}
+\color{red} My first computing experience was learning Java during my sophomore year at Pomona. I first learned R in a summer internship at a market research company. R has been my statistical software of choice for much of graduate school---however, I have recently started simultaneously building software in both R and Python. \color{black}
 
 ## g. Do you have a dataset in mind that you would like to use for the course project? If so, please briefly describe here. 
 
@@ -137,17 +137,17 @@ We want to know a little more about you! Please answer the following questions.
 
 \color{blue} I'm very excited about teaching this course: it was a course like this that first got me interested in being a statistician! Learning how to use statistics to answer important scientific questions and getting hands-on experience with data analysis showed me how powerful and exciting statistics can be. I hope you all are able to gain the same insight from this course!
 
-\color{red} Type your answer here.\color{black}
+\color{red} Like Kelsey, I am also very excited to be teaching you all. I think that the ideas we hope to emphasize throughout the course will prepare you all to do great scientific work, and you will have a greater understanding of the statistical tools that you use.\color{black}
 
 ## i. What is one thing you enjoy doing during your free time?
 
 \color{blue} I love all things related to soccer (playing, watching, coaching). 
 
-\color{red} Type your answer here.\color{black}
+\color{red} I enjoy swimming (I competed in college, and still train with a local Masters team), hiking and backpacking, and reading (mostly fiction).\color{black}
 
 ## j. Is there anything else you would like us to know about you?
 
 \color{blue} I am always happy to chat about questions you have about course material, ways we can make this class better for you, career/post-grad planning, or anything else! Catch me before or after class, come to office hours, or email me to set up a time to talk!
 
-\color{red} Type your answer here.\color{black}
+\color{red} I also would love to hear from any of you, on any of the topics that Kelsey mentioned (or anything else, within reason). If you can't make it to office hours, email me to set up a time to meet (and if it's about the course, email me and Kelsey!).\color{black}
 
