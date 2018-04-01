@@ -154,5 +154,4 @@ library('knitr')
 purl(input = rmd.name, output = code.name) # send your R code to code.name 
 ```
 
->>>>>>> 9d1e2710e41afe37b70034564eca0fb6234cd713
 Please upload the file `r code.name` along with your completed assignment. 
