@@ -56,9 +56,9 @@ fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
 summary(fev)
 ```
 
-However, typically you will report more than just the descriptive statistics from summary: for example, knowing the number of observations for each variable, and the number of missing observations, is often helpful.
+However, typically you will report more than just the descriptive statistics from `summary`: for example, knowing the number of observations for each variable, and the number of missing observations, is often helpful.
 
-The `uwIntroStats` package contains functions that compute descriptive statistics easily. Load that package now.
+The `uwIntroStats` package contains functions that compute descriptive statistics easily. Load that package now. If you haven't installed `uwIntroStats` yet, make sure to run `install.packages("uwIntroStats")` prior to running line 64.
 
 ```{r load-uwIntroStats, echo = TRUE}
 library("uwIntroStats")
@@ -67,7 +67,7 @@ library("uwIntroStats")
 One of the easiest functions to use is `descrip`. Uncomment the line in the code chunk below that only has a single `#` preceding the code, and run it. Replace the text in italics below with your observations on what information `descrip` gives you that `summary` does not, and whether or not you think this additional information is helpful.
 
 ```{r descrip-1, echo = TRUE}
-descrip(fev)
+# descrip(fev)
 ```
 
 *Replace this sentence.*
@@ -77,7 +77,7 @@ One of the most powerful features of `descrip` is its ability to compute and eas
 ```{r descrip-2, echo = TRUE}
 ## descriptive statistics stratified by smoking status
 ## you have to add the argument strata = fev$smoker!
-descrip(fev)
+# descrip(fev)
 ```
 
 *Replace this text with your answers to the previous question.*
@@ -127,11 +127,11 @@ You'll proceed in three stages to add data to the boxplot:
 2. Using the `boxplot` function (with new options!) add the boxplots to the empty plot
 3. Using the `points` function, add data points for both pre-teens and teens
 
-First, focus on plotting the `fev` values for pre-teens (uncomment the line of code, which only has a single `#` in front of it, and run it):
+First, focus on plotting the `fev` values for pre-teens (change the code chunk option from `eval = FALSE` to `eval = TRUE`):
 
-```{r boxplot-3, echo = TRUE}
+```{r boxplot-3, eval = FALSE}
 ## plot the fev values for pre-teens only
-# plot(fev$teen[fev$teen == 0], fev$fev[fev$teen == 0], xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
+plot(fev$teen[fev$teen == 0], fev$fev[fev$teen == 0], xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
 
 ```
 
@@ -139,50 +139,49 @@ What do you notice about this plot? Is it informative? What does the code `fev$f
 
 *Replace this sentence with your answers to the questions above.*
 
-Correct one of the issues that you should have identified, by adding some random noise to the `fev$teen` values, so that there is some visual separation between the points (this is also called `r colFmt("jittering", "blue")`). Uncomment the next code chunk (only those lines with single `#` characters at the beginning) and run it; do you think that this has improved the visual layout of the plot? Can you gain a bit more information now than you had before?
+Correct one of the issues that you should have identified, by adding some random noise to the `fev$teen` values, so that there is some visual separation between the points (this is also called `r colFmt("jittering", "blue")`). Change the code chunk option for the next chunk to `eval = TRUE` and run it; do you think that this has improved the visual layout of the plot? Can you gain a bit more information now than you had before?
 
-```{r boxplot-4, echo = TRUE}
+```{r boxplot-4, eval = FALSE}
 ## set a random number seed (so that your results are reproducible; can be any number)
-# set.seed(1234)
+set.seed(1234)
 ## add some random noise (from a uniform distribution) to the values
-# pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
+pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
 ## plot the fev values for pre-teens only
-# plot(pre_teen_noisy, fev$fev[fev$teen == 0], xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
+plot(pre_teen_noisy, fev$fev[fev$teen == 0], xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
 
 ```
 *Replace this sentence with your answers to the questions above.*
 
-Now create an empty plot, using similar code to before, and add the boxplots on top (uncomment and run this code, similar to before):
+Now create an empty plot, using similar code to before, and add the boxplots on top (again, change to `eval = TRUE`):
 
-```{r boxplot-5, echo = TRUE}
+```{r boxplot-5, eval = FALSE}
 ## create any empty plot (type = "n"), but give it x- and y-axis limits, and labels
-# plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
+plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
 ## add the boxplots (set add to TRUE, but other things to FALSE since we are adding)
-# boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, at = c(0, 1), axes = FALSE, outline = FALSE)
+boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, at = c(0, 1), axes = FALSE, outline = FALSE)
 ```
 
-Finally, uncomment (similar to before) and run the next code chunk. In words, what is each line of code doing?
+Finally, run the next code chunk (after changing `eval` to `TRUE`). Comment on this plot: what do the data tell you about the relationship between FEV and age? Would you change anything about this plot (including changing the type of plot altogether) to better tell this story?
 
-```{r boxplot-6, echo = TRUE}
+```{r boxplot-6, eval = FALSE}
 ## create any empty plot (type = "n"), but give it x- and y-axis limits, and labels
-# plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
+plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
 ## add the boxplots (set add to TRUE, but other things to FALSE since we are adding)
-# boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, at = c(0, 1), axes = FALSE, outline = FALSE)
+boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, at = c(0, 1), axes = FALSE, outline = FALSE)
 ## create jittered data for pre-teens and teens
-# set.seed(1234)
-# pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
-# teen_noisy <- fev$teen[fev$teen == 1] + runif(length(fev$teen[fev$teen == 1]), -0.05, 0.05)
+set.seed(1234)
+pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
+teen_noisy <- fev$teen[fev$teen == 1] + runif(length(fev$teen[fev$teen == 1]), -0.05, 0.05)
 ## add the data points
-# points(pre_teen_noisy, fev$fev[fev$teen == 0], pch = 16)
-# points(teen_noisy, fev$fev[fev$teen == 1], pch = 16)
+points(pre_teen_noisy, fev$fev[fev$teen == 0], pch = 16)
+points(teen_noisy, fev$fev[fev$teen == 1], pch = 16)
 ## add x-axis and labels
-# axis(side = 1, at = c(0, 1), labels = c("Pre-teen (< 13)", "Teen (13 +)"))
+axis(side = 1, at = c(0, 1), labels = c("Pre-teen (< 13)", "Teen (13 +)"))
 ## add y-axis
-# axis(side = 2, at = seq(0, 6, by = 1))
+axis(side = 2, at = seq(0, 6, by = 1))
 ## add a box around everything
-# box()
+box()
 ```
-
 *Replace this sentence with your answers to the questions above.*
 
 ## 3. Stratified scatterplots
@@ -195,7 +194,7 @@ First, why might you want to show smokers and nonsmokers in two different colors
 
 To color the points for smokers and nonsmokers differently, you'll use some of the tools you learned in the previous exercise by: (1) plotting the FEV values for all ages, among nonsmokers, and coloring the points blue; and (2) adding the points corresponding to the FEV values for all ages, among smokers, and coloring the points red. The next code chunk does the first part for you---your task is to add the points corresponding to smokers.
 
-```{r scatter-1, echo = TRUE}
+```{r scatter-1, eval = FALSE}
 ## plot FEV values for all ages, among nonsmokers
 plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0], xlab = "Age (years)", ylab = "FEV (liters per second)", main = "FEV versus age, stratified by smoking status", pch = 16, col = "blue")
 ## add in code to add the points for smokers, colored red (Hint: use the points() function)
@@ -214,13 +213,13 @@ In the previous section, you plotted FEV versus age and stratified by smoking st
 
 It is a bit difficult to describe these trends based on the data alone. `r colFmt("Trend lines", "blue")` (e.g., lines of best fit) can help to visualize these trends. Today, you'll fit a particular type of trend line, called a `r colFmt("loess smooth", "blue")`.
 
-To understand loess smooths, first you have to understand best fitting lines. Best fitting lines minimize the squared difference between each data point and the line: the idea is that the best fitting line should not be too far away from any of the data points.
+To understand loess smooths, first you have to understand best fitting lines. Best fitting lines minimize the squared difference between each data point and the line: the idea is that the best fitting line should not be too far away from any of the data points. If you draw a vertical line from each data point to the line, and square it (this makes sure that being above and below the line don't cancel each other out), you have a measure of the distance between the line and each data point. Making this difference small means that the line describes the data fairly well.
 
 Loess smooths break up the $x$-axis of the data into small chunks, and fit a best fitting line within each chunk. The best fitting lines are then connected together. These smooths are thus a bit more flexible than just fitting a straight line to the data---they can help determine if there are more complex patterns going on.
 
 I have reproduced the scatter plot from before, and added a loess smooth for the nonsmokers. Copy your code that adds the points for smokers into the next code chunk, and add code to make a loess smooth for smokers. Make sure to color the line for smokers red!
 
-```{r scatter-2, echo = TRUE}
+```{r scatter-2, eval = FALSE}
 ## plot FEV values for all ages, among nonsmokers
 plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0], xlab = "Age (years)", ylab = "FEV (liters per second)", main = "FEV versus age, stratified by smoking status", pch = 16, col = "blue")
 ## add a loess smooth
