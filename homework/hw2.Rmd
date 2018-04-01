@@ -127,12 +127,12 @@ Type your answer to this problem here.
 
 Type your answer to this problem here.
 
-## c. (0.5 points) Suppose we estimate $\beta_1$ to be -1.0 grams per year, with a 95\% confidence interval of (-1.5, -0.5 and a p-value smaller than 0.001. Are we justified in reaching the conclusion that marijuana use decreases as people age? If not, provide a short alternative conclusion from this analysis.
+## c. (0.5 points) Suppose we estimate $\beta_1$ to be -1.0 grams per year, with a 95\% confidence interval of (-1.5, -0.5) and a p-value smaller than 0.001. Are we justified in reaching the conclusion that marijuana use decreases as people age? If not, provide a short alternative conclusion from this analysis.
 
 Type your answer to this problem here.
 
-## d. (Optional, 0 points) Linear regression with a transformed predictor
-Suppose we first computed $\bar{age}$ (the average age in the dataset) and then subtracted it from the observed ages, fitting the model: $$E[Mar|age] = \beta_0 + \beta_1 \times (age - \bar{age}).$$ Repeat parts (a) and (b) with this modificaiton in mind.
+## d. (Optional) Linear regression with a transformed predictor
+Suppose we first computed $\overline{age}$ (the average age in the dataset) and then subtracted it from the observed ages, fitting the model: $$E[Mar|age] = \beta_0 + \beta_1 \times (age - \overline{age}).$$ **Repeat parts (a) and (b) with this modificaiton in mind.**
 
 Type your answer to this problem here. (Or skip.)
 
@@ -140,7 +140,7 @@ Type your answer to this problem here. (Or skip.)
 
 # R Code
 
-Once you have completed your assignment, update and run the `define-file-names` and `extract-code` code chunks (if needed) to extract the R code from this .Rmd file and send it to a .R file. 
+Once you have completed your assignment, update (if needed) and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
 
 ```{r define-file-names, include = FALSE}
 ##### STEP 1: Update these file names #####
@@ -154,4 +154,4 @@ library('knitr')
 purl(input = rmd.name, output = code.name) # send your R code to code.name 
 ```
 
-Please upload the file `r code.name` along with your completed assignment. 
+**Please upload the file `r code.name` along with your completed assignment.**
