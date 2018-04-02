@@ -92,7 +92,7 @@ You first have to create a variable in the FEV data that denotes pre-teens (defi
 ## create the teen variable here! Hint: use the ifelse() function
 ```
 
-Now that you have a variable that differentiates teens from pre-teens, you can re-create the boxplot from slide 27 with the following code: `boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))`. Here's what each component of that line of code means, in English:
+Now that you have a variable that differentiates teens from pre-teens, you can re-create the boxplot from slide 17 with the following code: `boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))`. Here's what each component of that line of code means, in English:
 
 * `boxplot`: Use the `boxplot` function
 * `fev$fev ~ fev$teen`: Plot the `fev` variable from the `fev` dataset on the $y$-axis, since it is on the left-hand side of the tilde (`~`)
@@ -136,7 +136,7 @@ plot(fev$teen[fev$teen == 0], fev$fev[fev$teen == 0], xlim = c(-1, 2),
      xlab = "Age Group", axes = FALSE, pch = 16)
 ```
 
-What do you notice about this plot? Is it informative? What does the code `fev$fev[fev$teen == 0]` do? (Hint: `==` means "compare the left- and right-hand sides and check if they are equal")
+What do you notice about this plot? Is it informative? What does the code `fev$fev[fev$teen == 0]` do? What does the code `fev$teen[fev$teen == 0]` do? (Hint: `==` means "compare the left- and right-hand sides and check if they are equal")
 
 *Replace this sentence with your answers to the questions above.*
 
