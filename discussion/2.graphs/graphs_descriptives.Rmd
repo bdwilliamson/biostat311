@@ -209,7 +209,8 @@ plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0],
      xlab = "Age (years)",ylab = "FEV (liters per second)", 
      main = "FEV versus age, stratified by smoking status", 
      pch = 16, col = "blue")
-## add in code to add the points for smokers, colored red (Hint: use the points() function)
+## add in code to add the points for smokers, 
+## colored red (Hint: use the points() function)
 
 ## add a legend
 legend("topleft", legend = c("Smoker", "Nonsmoker"), col = c("red", "blue"), pch = 16)
@@ -218,35 +219,3 @@ legend("topleft", legend = c("Smoker", "Nonsmoker"), col = c("red", "blue"), pch
 Based on this plot, describe the trends in FEV with age for smokers and nonsmokers, separately. Additionally, describe the difference in the trends in FEV with age between smokers and nonsmokers.
 
 *Replace this sentence with your description.*
-
-## 4. Trend lines
-
-In the previous section, you plotted FEV versus age and stratified by smoking status. In the final component, you described the trends in FEV with age for smokers and nonsmokers. 
-
-It is a bit difficult to describe these trends based on the data alone. `r colFmt("Trend lines", "blue")` (e.g., lines of best fit) can help to visualize these trends. Today, you'll fit a particular type of trend line, called a `r colFmt("loess smooth", "blue")`.
-
-To understand loess smooths, first you have to understand best fitting lines. Best fitting lines minimize the squared difference between each data point and the line: the idea is that the best fitting line should not be too far away from any of the data points. If you draw a vertical line from each data point to the line, and square it (this makes sure that being above and below the line don't cancel each other out), you have a measure of the distance between the line and each data point. Making this difference small means that the line describes the data fairly well.
-
-Loess smooths break up the $x$-axis of the data into small chunks, and fit a best fitting line within each chunk. The best fitting lines are then connected together. These smooths are thus a bit more flexible than just fitting a straight line to the data---they can help determine if there are more complex patterns going on.
-
-I have reproduced the scatter plot from before, and added a loess smooth for the nonsmokers. Copy your code that adds the points for smokers into the next code chunk, and add code to make a loess smooth for smokers. Make sure to color the line for smokers red!
-
-```{r scatter-2, eval = FALSE}
-## plot FEV values for all ages, among nonsmokers
-plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0], 
-     xlab = "Age (years)", ylab = "FEV (liters per second)", 
-     main = "FEV versus age, stratified by smoking status", pch = 16, col = "blue")
-## add a loess smooth
-nonsmoker_loess <- lowess(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0])
-lines(nonsmoker_loess, col = "blue", lty = 2)
-## add in code to add the points for smokers, colored red (Hint: use the points() function)
-
-## add in code to add the loess smooth for smokers, colored red
-
-## add a legend
-legend("topleft", legend = c("Smoker", "Nonsmoker"), col = c("red", "blue"), pch = 16)
-```
-
-Based on this plot, describe the trends in FEV with age for smokers and nonsmokers, separately. Additionally, describe the difference in the trends in FEV with age between smokers and nonsmokers. How do the loess smooths make answering these questions easier? 
-
-*Replace this sentence with your description, and the answer to the final question.*

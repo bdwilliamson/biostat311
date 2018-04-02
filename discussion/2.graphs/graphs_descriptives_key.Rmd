@@ -4,14 +4,14 @@ author: "Kelsey Grinde and Brian Williamson"
 date: "4 April 2018"
 output: 
   pdf_document:
-  toc: true
-toc_depth: 3
+    toc: true
+    toc_depth: 3
 urlcolor: Lavender
 header-includes:
   - \usepackage[dvipsnames]{xcolor}
 ---
   
-  ```{r setup, include=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 ## function to color text
@@ -77,7 +77,7 @@ One of the most powerful features of `descrip` is its ability to compute and eas
 ```{r descrip-2, eval = TRUE}
 ## descriptive statistics stratified by smoking status
 ## you have to add the argument strata = fev$smoker!
-descrip(fev)
+descrip(fev, strata = fev$smoker)
 ```
 
 *The scientific question in these data is: is smoking status associated with lung function in kids? We are using FEV as a measure of lung function, and we have smoking status on each of the kids in the study. Stratifying our descriptive statistics by smoking status allows us to easily compare FEV levels between smokers and nonsmokers---this descriptive analysis is important, because it shows in a couple of numbers how the data back up any statistical inference we perform.*
@@ -93,7 +93,7 @@ You first have to create a variable in the FEV data that denotes pre-teens (defi
 fev$teen <- ifelse(fev$age < 13, 0, 1)
 ```
 
-Now that you have a variable that differentiates teens from pre-teens, you can re-create the boxplot from slide 27 with the following code: `boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))`. Here's what each component of that line of code means, in English:
+Now that you have a variable that differentiates teens from pre-teens, you can re-create the boxplot from slide 17 with the following code: `boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))`. Here's what each component of that line of code means, in English:
 
 * `boxplot`: Use the `boxplot` function
 * `fev$fev ~ fev$teen`: Plot the `fev` variable from the `fev` dataset on the $y$-axis, since it is on the left-hand side of the tilde (`~`)
@@ -106,7 +106,8 @@ Copy the code for the boxplot into the next code chunk, and run it to create the
 
 ```{r boxplot-1, eval = TRUE}
 ## make a boxplot of FEV versus age, categorized into pre-teen and teen
-boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))
+boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", 
+        names = c("Pre-teen (< 13)", "Teen (13 +)"))
 ```
 
 *The boxplot shows that pre-teens tend to have lower FEV than teens---we can see this by looking at the medians (the solid black line), and the interquartile range (given by the upper and lower edges of the boxes). Since both the median and the interquartile range for teens is higher than those for pre-teens, we are justified in saying that pre-teens tend to have lower FEV than teens.*
@@ -133,8 +134,9 @@ First, focus on plotting the `fev` values for pre-teens (change the code chunk o
 
 ```{r boxplot-3, eval = TRUE}
 ## plot the fev values for pre-teens only
-plot(fev$teen[fev$teen == 0], fev$fev[fev$teen == 0], xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
-
+plot(fev$teen[fev$teen == 0], fev$fev[fev$teen == 0], xlim = c(-1, 2), 
+     ylim = c(0, 6), ylab = "FEV (liters per second)", 
+     xlab = "Age Group", axes = FALSE, pch = 16)
 ```
 
 What do you notice about this plot? Is it informative? What does the code `fev$fev[fev$teen == 0]` do? What does the code `fev$teen[fev$teen == 0]` do? (Hint: `==` means "compare the left- and right-hand sides and check if they are equal")
@@ -147,9 +149,12 @@ Correct one of the issues that you should have identified, by adding some random
 ## set a random number seed (so that your results are reproducible; can be any number)
 set.seed(1234)
 ## add some random noise (from a uniform distribution) to the values
-pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
+pre_teen_noisy <- fev$teen[fev$teen == 0] + 
+  runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
 ## plot the fev values for pre-teens only
-plot(pre_teen_noisy, fev$fev[fev$teen == 0], xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
+plot(pre_teen_noisy, fev$fev[fev$teen == 0], xlim = c(-1, 2), 
+     ylim = c(0, 6), ylab = "FEV (liters per second)", 
+     xlab = "Age Group", axes = FALSE, pch = 16)
 
 ```
 
@@ -159,27 +164,38 @@ Now create an empty plot, using similar code to before, and add the boxplots on 
 
 ```{r boxplot-5, eval = TRUE}
 ## create any empty plot (type = "n"), but give it x- and y-axis limits, and labels
-plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
+plot(1, type = "n", xlim = c(-1, 2), 
+     ylim = c(0, 6), ylab = "FEV (liters per second)", 
+     xlab = "Age Group", axes = FALSE, pch = 16)
 ## add the boxplots (set add to TRUE, but other things to FALSE since we are adding)
-boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, at = c(0, 1), axes = FALSE, outline = FALSE)
+boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, 
+        at = c(0, 1), axes = FALSE, outline = FALSE)
 ```
 
 Finally, run the next code chunk (after changing `eval` to `TRUE`). Comment on this plot: what do the data tell you about the relationship between FEV and age? Would you change anything about this plot (including changing the type of plot altogether) to better tell this story?
 
 ```{r boxplot-6, eval = TRUE}
-## create any empty plot (type = "n"), but give it x- and y-axis limits, and labels
-plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), ylab = "FEV (liters per second)", xlab = "Age Group", axes = FALSE, pch = 16)
-## add the boxplots (set add to TRUE, but other things to FALSE since we are adding)
-boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, at = c(0, 1), axes = FALSE, outline = FALSE)
+## create any empty plot (type = "n"), 
+## but give it x- and y-axis limits, and labels
+plot(1, type = "n", xlim = c(-1, 2), 
+     ylim = c(0, 6), ylab = "FEV (liters per second)", 
+     xlab = "Age Group", axes = FALSE, pch = 16)
+## add the boxplots (set add to TRUE, but 
+## other things to FALSE since we are adding)
+boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, 
+        at = c(0, 1), axes = FALSE, outline = FALSE)
 ## create jittered data for pre-teens and teens
 set.seed(1234)
-pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
-teen_noisy <- fev$teen[fev$teen == 1] + runif(length(fev$teen[fev$teen == 1]), -0.05, 0.05)
+pre_teen_noisy <- fev$teen[fev$teen == 0] + 
+  runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
+teen_noisy <- fev$teen[fev$teen == 1] + 
+  runif(length(fev$teen[fev$teen == 1]), -0.05, 0.05)
 ## add the data points
 points(pre_teen_noisy, fev$fev[fev$teen == 0], pch = 16)
 points(teen_noisy, fev$fev[fev$teen == 1], pch = 16)
 ## add x-axis and labels
-axis(side = 1, at = c(0, 1), labels = c("Pre-teen (< 13)", "Teen (13 +)"))
+axis(side = 1, at = c(0, 1), 
+     labels = c("Pre-teen (< 13)", "Teen (13 +)"))
 ## add y-axis
 axis(side = 2, at = seq(0, 6, by = 1))
 ## add a box around everything
@@ -206,13 +222,33 @@ To color the points for smokers and nonsmokers differently, you'll use some of t
 
 ```{r scatter-1, eval = TRUE}
 ## plot FEV values for all ages, among nonsmokers
-plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0], xlab = "Age (years)", ylab = "FEV (liters per second)", main = "FEV versus age, stratified by smoking status", pch = 16, col = "blue")
-## add in code to add the points for smokers, colored red (Hint: use the points() function)
+plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0], 
+     xlab = "Age (years)", ylab = "FEV (liters per second)", 
+     main = "FEV versus age, stratified by smoking status", pch = 16, col = "blue")
+## add in code to add the points for smokers, 
+## colored red (Hint: use the points() function)
 # note that using "subsest" is equivalent to using the brackets as I did above
-points(subset(fev$age, fev$smoker == 1), subset(fev$fev, fev$smoker == 1), col = "red", pch = 18)
+points(subset(fev$age, fev$smoker == 1), 
+       subset(fev$fev, fev$smoker == 1), col = "red", pch = 18)
 
 ## add a legend
-legend("topleft", legend = c("Smoker", "Nonsmoker"), col = c("red", "blue"), pch = c(18, 16))
+legend("topleft", legend = c("Smoker", "Nonsmoker"), 
+       col = c("red", "blue"), pch = c(18, 16))
+```
+
+*I had you use the above code because I had already taught you the `points` function, and often in my own work I do add points to a plot. However, the following code chunk produces the same graphic, in less lines of code (and it is a bit more intuitive to read):*
+
+```{r scatter-1-equiv, eval = TRUE}
+## plot FEV values for all ages, among smokers (red diamonds)
+## and nonsmokers (blue circles)
+plot(fev$age, fev$fev, xlab = "Age (years)", 
+     ylab = "FEV (liters per second)", 
+     main = "FEV versus age, stratified by smoking status",
+     pch = ifelse(fev$smoker == 0, 16, 18),
+     col = ifelse(fev$smoker == 0, "blue", "red"))
+## add a legend
+legend("topleft", legend = c("Smoker", "Nonsmoker"), 
+       col = c("red", "blue"), pch = c(18, 16))
 ```
 
 Based on this plot, describe the trends in FEV with age for smokers and nonsmokers, separately. Additionally, describe the difference in the trends in FEV with age between smokers and nonsmokers.
@@ -220,42 +256,3 @@ Based on this plot, describe the trends in FEV with age for smokers and nonsmoke
 *FEV tends to increase with age, for nonsmokers. When we restrict our attention to smokers, it seems that FEV either remains constant with age or perhaps decreases with age.*
 
 *There is a striking difference in the relationship between FEV and age between smokers and nonsmokers, where in smokers, FEV appears to decrease with increasing age, while the opposite is true in nonsmokers.*
-
-## 4. Trend lines
-
-In the previous section, you plotted FEV versus age and stratified by smoking status. In the final component, you described the trends in FEV with age for smokers and nonsmokers. 
-
-It is a bit difficult to describe these trends based on the data alone. `r colFmt("Trend lines", "blue")` (e.g., lines of best fit) can help to visualize these trends. Today, you'll fit a particular type of trend line, called a `r colFmt("loess smooth", "blue")`.
-
-To understand loess smooths, first you have to understand best fitting lines. Best fitting lines minimize the squared difference between each data point and the line: the idea is that the best fitting line should not be too far away from any of the data points. If you draw a vertical line from each data point to the line, and square it (this makes sure that being above and below the line don't cancel each other out), you have a measure of the distance between the line and each data point. Making this difference small means that the line describes the data fairly well.
-
-Loess smooths break up the $x$-axis of the data into small chunks, and fit a best fitting line within each chunk. The best fitting lines are then connected together. These smooths are thus a bit more flexible than just fitting a straight line to the data---they can help determine if there are more complex patterns going on.
-
-I have reproduced the scatter plot from before, and added a loess smooth for the nonsmokers. Copy your code that adds the points for smokers into the next code chunk, and add code to make a loess smooth for smokers. Make sure to color the line for smokers red!
-
-```{r scatter-2, eval = TRUE}
-## plot FEV values for all ages, among nonsmokers
-plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0], xlab = "Age (years)", ylab = "FEV (liters per second)", main = "FEV versus age, stratified by smoking status", pch = 16, col = "blue")
-## add a loess smooth
-nonsmoker_loess <- lowess(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0])
-lines(nonsmoker_loess, col = "blue", lty = 2)
-## add in code to add the points for smokers, colored red (Hint: use the points() function)
-# note that using "subsest" is equivalent to using the brackets as I did above
-points(subset(fev$age, fev$smoker == 1), subset(fev$fev, fev$smoker == 1), col = "red", pch = 18)
-## add in code to add the loess smooth for smokers, colored red
-smoker_loess <- lowess(subset(fev$age, fev$smoker == 1), subset(fev$fev, fev$smoker == 1))
-lines(smoker_loess, col = "red", lty = 2)
-
-## add a legend
-legend("topleft", legend = c("Smoker", "Nonsmoker"), col = c("red", "blue"), pch = c(18, 16))
-```
-
-Based on this plot, describe the trends in FEV with age for smokers and nonsmokers, separately. Additionally, describe the difference in the trends in FEV with age between smokers and nonsmokers. How do the loess smooths make answering these questions easier? 
-
-*FEV tends to increase with age, for nonsmokers. When we restrict our attention to smokers, it seems that FEV still increases with age, but the increase in FEV is much smaller.*
-
-*There appears to be a different relationship between FEV and age for smokers and nonsmokers. For nonsmokers, FEV appears to increase dramatically with age. For smokers, this increase seems to be a much smaller magnitude.*
-
-*The loess smooths made answering these questions much easier for me. Looking at the slopes of the trend lines (i.e., how quickly are things changing) alerted me to the fact that FEV isn't actually decreasing with age in smokers. This is an interesting finding, and one that we'll explore more!*
-
-*We've seen before that our brains can only comprehend so much information. By adding trend lines to this scatterplot, you make the story easier for your reader to understand. Always try to make it as easy as possible for your reader to reach the conclusion you want them to reach!*
