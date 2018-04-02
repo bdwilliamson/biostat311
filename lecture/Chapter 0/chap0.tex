@@ -685,137 +685,6 @@ Why do we do statistics? \vspace{-0.3cm}
 \includegraphics[width=\textwidth]{./accuracy} % start in upper left, describe what each point represents (new estimate from repeated sampling); tie back to this figure when we talk about standard errors and confidence intervals
 \end{frame}
 
-% precision and inference
-\begin{frame}
-\frametitle{Precision and Inference}
-How do we know how precise our estimate is?
-\begin{itemize}
-\item For precision, we need to know how our statistic (estimated from a sample) would vary in repeated samples
-\item i.e., if I were to sample from this population another time, how different would the estimate be? And if I sampled from the population a third time, or a fourth time, or...?
-\item Our statistics are \textit{random}: the value you get will change depending on which sample you've ended up with
-	\begin{itemize}
-	\item The \textbf{distribution} of a random quantity describes how that random quantity behaves
-	\item The spread of the distribution of our statistic will tell us about the precision of our statistic
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-% quick detour: probability distributions
-\begin{frame}
-\frametitle{Probability Distributions}
-
-The \textbf{distribution} of a random quantity tells you what values that quantity can take and how likely it is to take each of those values.
-
-\begin{figure}
-\includegraphics[height=0.4\textheight]{./Normal-density.jpg}
-\caption{\color{orange} Area under curve \color{black}= probability that our random quantity takes values between 0.5 and 3}
-\end{figure}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Probability Distributions: Normal Distribution}
-
-\begin{center} \includegraphics[height=0.4\textheight]{./Normal} \end{center}
-
-\vspace{-0.3cm} \color{blue} Useful property: \color{black} if a random quantity is Normally distributed ($\sim N(\mu,\sigma)$), then 95\% of the time that quantity will take values within two standard deviations ($\sigma$) of its mean ($\mu$)
-
-\begin{footnotesize} (Many of the random quantitites we care about have a Normal distn!)\\ \end{footnotesize}
-
-\end{frame}
-
-% sampling distn = distn of a statistic; center of this distn = accuracy; spread of distn = precision 
-\begin{frame}
-\frametitle{Precision and Inference: Sampling Distributions}
-
-Recall: \vspace{-0.3cm}
-\begin{itemize}
-\item We have an estimate, which we've calculated from our sample, and we want to use that estimate to infer something about the general population.
-\item To assess how well this estimate represents our population of interest, it's important to know how precise our estimate is. 
-\item To figure out the precision of our estimate, it helps to know its distribution.
-\end{itemize}
-
-The distribution of an estimate/statistic is called a \textbf{sampling distribution}.
-
-\end{frame}
-
-% sampling distributions: CLT
-\begin{frame}
-\frametitle{Precision and Inference: Sampling Distributions}
-
-The \textbf{Central Limit Theorem} tells us the sampling distribution of some statistics that we often care about:
-
-\begin{itemize}
-\item \textbf{Mean:} For large samples, the sampling distribution of the sample mean is approximately Normal: $\bar{X} \sim N(\mu,\frac{\sigma^2}{n})$
-	\begin{itemize}
-	\item $\mu =$ population mean
-	\item $\sigma =$ population variance
-	\item $n =$ sample size
-	\end{itemize}
-\item \textbf{Proportion:}  For large samples, the sampling distribution of the sample proportion is approximately Normal: $\hat{p} \sim N(p,\frac{p(1-p)}{n})$
-	\begin{itemize}
-	\item $p =$ population proportion
-	\item $n =$ sample size/number of trials
-	\end{itemize}
-\end{itemize}
-
-\end{frame}
-
-% back to precision: standard error
-\begin{frame}
-\frametitle{Precision and Inference: Standard Error}
-
-Once we know the sampling distribution of our estimate, it's fairly straightforward to figure out how precise it is.
-
-\color{blue} Example: \color{black} Suppose we have two estimates. The first has sampling distribution $N(2,5)$ and the second has sampling distribution $N(2,1)$. \textit{Which of these estimates is more precise?}
-
-\pause
-\begin{footnotesize} (Hint: precision and variance are inversely related) \end{footnotesize}
-
-\pause
-We typically describe the precision of an estimate via its \textbf{standard error}. (Standard error = standard deviation of an estimate/statistic.) 
-
-Estimates with \textit{smaller} standard errors are \textit{more precise}! %(so they vary less from sample-to-sample); refer back to bullseye picture
-\end{frame}
-
-%% introduce robust SEs??
-
-% sampling distribution of \frac{\bar{X}-\mu}{s}: t
-\begin{frame}
-\frametitle{Other Sampling Distributions of Interest}
-
-Back to the topic of sampling distributions...
-
-Sometimes we are interested in the statistic $$T = \frac{\bar{X}-\mu}{s},$$ where $s$ is the standard deviation calculated in our sample and $\mu$ is the population mean. 
-
-While the sampling distribution of $\bar{X}$ is Normal, the sampling distribution of $T$ is not. Instead, it follows a $t$-distribution with $n-1$ degrees of freedom, where $n$ is the sample size.
-
-But, the $t$-distribution is actually very similar to a Normal distribution, especially for large sample sizes...
-
-\end{frame}
-
-% properties of a t-distribution (how it relates to normal, why we care (which stat follows t))
-\begin{frame}
-\frametitle{Other Sampling Distributions of Interest: $t$}
-
-\center \includegraphics[height=0.8\textheight]{./t-normal} % come back to this to explain why t intervals are wider
-
-\end{frame}
-
-
-% up next: confidence intervals, hypothesis tests
-\begin{frame}
-\frametitle{What's Next?}
-
-More on statistical inference:
-\begin{itemize}
-\item Confidence intervals
-\item Hypothesis tests
-\item Linear regression
-\end{itemize}
-
-\end{frame}
-
 % Friday wrap-up
 \begin{frame}
 \frametitle{``Index Card" \# 2}
@@ -833,6 +702,347 @@ On a piece of paper, please write:
 Turn in this piece of paper at the end of classs.
 \end{frame}
 
-% Monday morning: discuss any issues from HW 1, introduce project groups
+% Monday morning: discuss any issues from HW 1, introduce project groups, explain grading philosophy, respond to Index Card 2s
+\begin{frame}
+\frametitle{Checking in...}
+
+\begin{itemize}
+\item Homework 1 % walk through key
+	\begin{itemize}
+	\item Grading philosophy
+	\item Study design question
+	\end{itemize}
+\item Homework 2: start early, don't forget to submit code % walk through assignment
+\item Friday Index Cards
+	\begin{itemize}
+	\item \textbf{Recordings:} we'll record lectures and discussion sections, sound quality sometimes bad (sorry!) 
+	\item \textbf{Study design:} what you need to know for this class
+	\item \textbf{R and R Markdown:} lots more practice to come, what you need to know for exams, ask us anything
+	\item \textbf{Converting scientific questions into statistical questions:} the goal of this course!
+	\item \textbf{Group projects:} group assignments soon, talk to us about dataset ideas
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+% precision and inference
+\begin{frame}
+\frametitle{Precision, Accuracy, and Inference}
+\includegraphics[width=\textwidth]{./accuracy} % start in upper left, describe what each point represents (new estimate from repeated sampling); tie back to this figure when we talk about standard errors and confidence intervals
+\end{frame}
+
+% precision and inference
+\begin{frame}
+\frametitle{Precision, Accuracy, and Inference}
+How do we know how precise or accurate our statistic is?
+\begin{itemize}
+\item We need to know how our statistic (estimated from a sample) would vary in repeated samples
+	\begin{itemize}
+	\item i.e., if we went out and collected another sample from this population, how different would the estimate be? And if we did this a third time, or a fourth time, or...?
+	\end{itemize}
+\item Our statistics are \textit{random}: the value you get will change depending on which sample you've ended up with
+	\begin{itemize}
+	\item The \textbf{distribution} of a random quantity describes how that random quantity behaves
+	\item If we know the distribution of our statistic, the center tells us about the accuracy and the spread tells us about the precision of our statistic
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+% quick detour: probability distributions
+\begin{frame}
+\frametitle{Probability Distributions}
+
+The \textbf{distribution} of a random quantity tells you what values that quantity can take and how likely it is to take each of those values.
+
+\begin{figure}
+\includegraphics[height=0.4\textheight]{./normal-density}
+\caption{\color{orange} Area under curve \color{black}= probability that our random quantity takes values between 0.5 and 3}
+\end{figure}
+
+\end{frame}
+
+% Normal distribution
+\begin{frame}
+\frametitle{Probability Distributions: Normal Distribution}
+
+\begin{center} \includegraphics[height=0.4\textheight]{./Normal} \end{center}
+
+\vspace{-0.3cm} \color{blue} Useful property: \color{black} if a random quantity is Normally distributed ($\sim N(\mu,\sigma)$), then 95\% of the time that quantity will take values within 1.96 standard deviations ($\sigma$) of its mean ($\mu$)
+
+\begin{footnotesize} \color{blue} (Many of the random quantitites we care about have a Normal dist'n!) \color{black} \\ \end{footnotesize}
+
+\end{frame}
+
+% t distribution
+\begin{frame}
+\frametitle{Probability Distributions: $t$ Distribution}
+
+\begin{center} \includegraphics[height=0.6\textheight]{./t-normal}  \end{center}
+
+\vspace{-0.4cm} \begin{small} The $t$ distribution is similar to a normal, but with heavier tails. How close it is to a normal depends on the \textit{degrees of freedom} ($n$). \end{small}
+
+\end{frame}
+
+% sampling distributions: CLT
+\begin{frame}
+\frametitle{Precision and Inference: Sampling Distributions}
+
+The \textbf{Central Limit Theorem} tells us the \textit{sampling distribution}\footnote[frame]{\textit{Sampling distribution} = distribution of an estimate/statistic} of some statistics that we often care about: \vspace{-0.3cm}
+
+\begin{itemize}
+\item \textbf{Mean:} For large samples, \color{blue}the sampling distribution of the sample mean is approximately Normal\color{black}: $\bar{X} \sim N(\mu,\frac{\sigma^2}{n})$
+	\begin{itemize}
+	\item $\mu =$ population mean
+	\item $\sigma =$ population variance
+	\item $n =$ sample size
+	\end{itemize}
+\item \textbf{Proportion:}  For large samples, \color{blue}the sampling distribution of the sample proportion is approximately Normal\color{black}: $\hat{p} \sim N(p,\frac{p(1-p)}{n})$
+	\begin{itemize}
+	\item $p =$ population proportion
+	\item $n =$ sample size/number of trials
+	\end{itemize}
+\end{itemize} \vspace{-0.2cm}
+Another statistic that we often care about: $\frac{\bar{X}-\mu}{s} ~\sim t_{n-1}$.
+\end{frame}
+
+% back to precision: standard error
+\begin{frame}
+\frametitle{Precision and Inference: Standard Error}
+
+Once we know the sampling distribution of our estimate, it's fairly straightforward to figure out how precise it is.
+
+\color{blue} Example: \color{black} Suppose we have two estimates. The first has sampling distribution $N(2,5)$ and the second has sampling distribution $N(2,1)$. \textit{Which of these estimates is more precise?}
+
+\pause
+\begin{footnotesize} (Hint: precision and variance are inversely related) \end{footnotesize}
+
+\pause
+We typically describe the precision of an estimate via its \textit{standard error} (\textit{standard error} = standard deviation of an estimate/statistic).
+
+Estimates with \textit{smaller} standard errors are \textit{more precise}!
+\end{frame}
+
+
+% bring it back to FEV example
+\begin{frame}
+\frametitle{Statistical Inference: FEV Example}
+
+\begin{enumerate}
+\item Start with \textbf{scientific question}: what is the typical lung function of children in the US?
+\item Convert to \textbf{statistical question:} what is the average FEV among children in the US?
+	\begin{itemize}
+	\item Identify the \textbf{population} (all children in US) and \textbf{parameter} (population mean) of interest
+	\end{itemize}
+\item Take a \textbf{sample} from the population: 654 children who came into a pediatric clinic for a routine check-up
+\item Perform \textit{statistical inference}:
+	\begin{itemize}
+	\item Calculate the corresponding \textbf{statistic} (sample mean): \texttt{mean(fev\$fev) = 2.64}
+	\item Quantify the uncertainty in your statistic
+	\end{itemize}
+\item Make conclusions about your original scientific and statistical questions
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Statistical Inference: FEV Example}
+\begin{enumerate}
+\item Start with \textbf{scientific quesiton}: what is the typical lung function of children in the US?
+\item Convert to \textbf{statistical question:} what is the average FEV among children in the US?
+	\begin{itemize}
+	\item Identify the \textbf{population} (all children in US) and \textbf{parameter} (population mean) of interest
+	\end{itemize}
+\item Take a \textbf{sample} from the population: 654 children who came into a pediatric clinic for a routine check-up
+\item Perform \textit{statistical inference}:
+	\begin{itemize}
+	\item Calculate the corresponding \textbf{statistic} (sample mean): \texttt{mean(fev\$fev) = 2.64}
+	\item Quantify the uncertainty in your statistic \color{blue} $\leftarrow$ two options \color{black}
+	\end{itemize}
+\item Make conclusions about your original scientific and statistical questions
+\end{enumerate}
+\end{frame}
+
+% reporting SE or confidence intervals
+\begin{frame}
+\frametitle{Statistical Inference: Reporting Uncertainty}
+
+We've calculated our statistic: average FEV = 2.64
+
+Now we need to quantify our uncertainty in this estimate. 
+
+\color{blue}Option 1: \color{black} use the standard error \vspace{-0.2cm} 
+
+\textit{We estimate that the average FEV is 2.64 liters per second, with standard error 0.0339.} \pause
+
+
+\color{blue}Option 2: \color{black} use a 95\% \textit{confidence interval} ($stat \pm 1.96 \times SE$) \vspace{-0.2cm} 
+
+\textit{We estimate that the average FEV is 2.64 liters per second. Based on a 95\% confidence interval, this observed average would not be judged unusual if the true average FEV were between 2.57 and 2.70 liters per second.} % CIs give us a range of values for which our data are consistent.
+
+\end{frame}
+
+% definining confidence intervals
+\begin{frame}
+\frametitle{Confidence Intervals}
+
+A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population parameter for 95\% of samples:
+
+\includegraphics[width=\textwidth]{./ci_1} 
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Confidence Intervals}
+
+A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population paramter for 95\% of samples:
+
+\includegraphics[width=\textwidth]{./ci_2} 
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Confidence Intervals}
+
+A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population paramter for 95\% of samples:
+
+\includegraphics[width=\textwidth]{./ci_3} 
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Confidence Intervals}
+
+A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population paramter for 95\% of samples:
+
+\includegraphics[width=\textwidth]{./ci_4} % if time, ask them how to get 99% coverage, or what happens to coverage if we make wider, talk about what impacts width
+\end{frame}
+
+% Interpreting confidence intervals: FEV
+\begin{frame}
+\frametitle{Interpreting Confidence Intervals: FEV}
+
+95\% CI for mean FEV in liters per second: (2.57, 2.70)
+
+Which of these is a correct interpretation? 
+\begin{enumerate}
+\item 95\% of children have FEV between 2.57 and 2.70 liters per second
+\item Our observed sample mean of 2.64 liters per second would not be judged unusual if the true population mean were between 2.57 and 2.70 liters per second
+\item There is a 95\% chance that the true population mean FEV is between 2.57 and 2.70 liters per second
+\end{enumerate}
+
+\end{frame}
+
+% Interpreting confidence intervals
+%\begin{frame}
+%\frametitle{Interpreting Confidence Intervals}
+%\begin{itemize}
+%\item Interpretation: \textit{your estimate of the parameter would not be surprising if the true parameter were anywhere in your confidence interval}
+%\item We can think of the confidence interval as the set of parmater values with which the data are consistent
+%	\begin{itemize}
+%	\item Alternative interpretation: \textit{your observed data are consistent with the true parameter lying anywere in your confidence interval}
+%	\end{itemize}
+%\item The confidence interval does \color{red}  not \color{black} say that there is a 95\% chance that the true parameter lies in the interval
+%\item The confidence interval does \color{red} not \color{black} say that there is a 95\% chance that the value for an individual subject lies in the interval
+%\end{itemize}
+%\end{frame}
+
+% t-tests: motivating example
+\begin{frame}
+\frametitle{Statistical Inference: A New Example}
+\begin{enumerate}
+\item \textbf{Scientific question}: do boys and girls (in the US) have \color{orange} different \color{blue} lung function\color{black}? \pause
+\item \textbf{Statistical question:} is there a \color{orange} difference in average \color{blue} FEV \color{orange} \color{black} between girls and boys? \pause
+	\begin{itemize}
+	\item \textbf{Population} = all US children, \textbf{parameter} = difference in population means (between girls and boys) \pause
+	\end{itemize}
+\item Take a \textbf{sample} from the population: 654 children who came into a pediatric clinic for a routine check-up \pause
+\item Perform \textit{statistical inference}:
+	\begin{itemize}
+	\item Calculate the corresponding \textbf{statistic} (difference in sample means between girls and boys)
+	\item Quantify the uncertainty in your statistic 
+	\item Perform hypothesis test \pause
+	\end{itemize}
+\item Make conclusions in context of original questions
+\end{enumerate}
+\end{frame}
+
+% t-test: description
+\begin{frame}
+\frametitle{Statistical Inference: FEV vs Sex}
+
+\textbf{Statistic:} difference in average FEV between boys and girls
+
+\textbf{Uncertainty in statistic:} 95\% confidence interval for difference in average FEV
+
+Our \textbf{null and alternative hypotheses} are: \vspace{-0.3cm}
+\begin{itemize}
+\item $H_0: \mu_{boys}-\mu_{girls} = 0$
+\item $H_1: \mu_{boys}-\mu_{girls} \not= 0$
+\end{itemize}
+
+\textbf{Choice of test}: two-sample t-test \vspace{-0.3cm}
+\begin{itemize}
+\item Test if the averages in two independent groups are equal
+\item Option 1: variance in FEV is the same in boys and girls (\textit{equal variances})
+\item Option 2: variance in FEV could be different in boys and girls (\textit{unequal variances})
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistical Inference: FEV vs Sex}
+
+\includegraphics[width=\textwidth]{./t-test}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistical Inference: FEV vs Sex}
+
+\includegraphics[width=\textwidth]{./t-test-highlights}
+
+\end{frame}
+
+% interpreting p-values
+\begin{frame}
+\frametitle{Interpreting p-values}
+
+\textbf{Definition:} a p-value is a number betwen 0 and 1 which quantifies the statistical strength of your evidence against the null hypothesis
+
+Values closer to 0 correspond to stronger evidence\vspace{-0.3cm}
+	\begin{itemize}
+	\item Reject $H_0$ if p is smaller than some threshold $\alpha$ (e.g., 0.05)
+	\item If $p < \alpha$ we ``declare statistical significance" and reject $H_0$
+	\item \color{red} We never accept the null hypthesis: \color{black} either ``reject $H_0$" or ``fail to reject $H_0$"
+	\end{itemize}
+\textbf{Interpretation:} the probability, under the null hypothesis, that we would observe a statistic ``at least this extreme"\vspace{-0.3cm}
+	\begin{itemize}
+	\item \color{red} Not \color{black} the probability that the hypothesis is true
+	\end{itemize}
+
+\end{frame}
+
+% tying it all together
+\begin{frame}
+\frametitle{Statistical Inference: FEV vs Sex}
+
+Interpreting our results:\vspace{-0.3cm}
+
+\begin{itemize}
+\item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 (with boys tending to have the higher mean FEV). 
+\item \textit{Uncertainty:} Based on a 95\% confidence interval, this difference would not be judged unusual if the true difference were between 0.232 and 0.490.
+\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups is different from zero (p $<$ 0.001).
+\item \textit{Conclusion:} These data provide evidence to suggest that sex is associated with FEV in children. \pause
+\end{itemize}
+
+\vspace{-0.3cm} \color{blue} Always give 4 numbers: \color{black} point estimate, confidence interval (lower, upper), p-value (even when not significant!)
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What's Next?}
+ 
+\center \color{blue} \begin{LARGE} Chapter 1: Linear regression! \end{LARGE} \color{black}
+
+\end{frame}
+
 
 \end{document}
