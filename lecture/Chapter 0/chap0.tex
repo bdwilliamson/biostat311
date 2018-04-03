@@ -33,6 +33,8 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 \titlepage\thispagestyle{empty}
 \end{frame}
 
+\setbeamertemplate{footline}{%
+  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[10pt]{\scriptsize 0.0~~}}}}
 % do de-brief discusion section, mention index card grade, check that everyone has been able to knit, reminder about OH and HW
 \begin{frame}
 \frametitle{Checking in...}
@@ -789,7 +791,7 @@ The \textbf{distribution} of a random quantity tells you what values that quanti
 \begin{frame}
 \frametitle{Precision and Inference: Sampling Distributions}
 
-The \textbf{Central Limit Theorem} tells us the \textit{sampling distribution}\footnote[frame]{\textit{Sampling distribution} = distribution of an estimate/statistic} of some statistics that we often care about: \vspace{-0.3cm}
+The \textbf{Central Limit Theorem} tells us the \textit{sampling distribution}\footnote[frame]{\textit{Sampling distribution} = distribution of an estimate/statistic} of some statistics that we often care about: \vspace{-0.4cm}
 
 \begin{itemize}
 \item \textbf{Mean:} For large samples, \color{blue}the sampling distribution of the sample mean is approximately Normal\color{black}: $\bar{X} \sim N(\mu,\frac{\sigma^2}{n})$
@@ -798,13 +800,18 @@ The \textbf{Central Limit Theorem} tells us the \textit{sampling distribution}\f
 	\item $\sigma =$ population variance
 	\item $n =$ sample size
 	\end{itemize}
+\pause
 \item \textbf{Proportion:}  For large samples, \color{blue}the sampling distribution of the sample proportion is approximately Normal\color{black}: $\hat{p} \sim N(p,\frac{p(1-p)}{n})$
 	\begin{itemize}
 	\item $p =$ population proportion
 	\item $n =$ sample size/number of trials
 	\end{itemize}
-\end{itemize} \vspace{-0.2cm}
-Another statistic that we often care about: $\frac{\bar{X}-\mu}{s} ~\sim t_{n-1}$.
+\end{itemize} \vspace{-0.4cm}
+\pause
+Another statistic that we often care about: $\frac{\bar{X}-\mu}{s} ~\sim t_{n-1}$ \vspace{-0.4cm}
+\begin{itemize}
+\item $s$ = sample standard deviation
+\end{itemize}
 \end{frame}
 
 % back to precision: standard error
@@ -886,15 +893,16 @@ Now we need to quantify our uncertainty in this estimate.
 \begin{frame}
 \frametitle{Confidence Intervals}
 
-A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population parameter for 95\% of samples:
+The procedure of creating a 95\% confidence interval ($stat \pm 1.96 \times SE$) gives us a range of values.
 
 \includegraphics[width=\textwidth]{./ci_1} 
+
 \end{frame}
 
 \begin{frame}[noframenumbering]
 \frametitle{Confidence Intervals}
 
-A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population paramter for 95\% of samples:
+The particular range of values that we get depends on the sample data, and will change if we go collect a 2nd sample.... 
 
 \includegraphics[width=\textwidth]{./ci_2} 
 \end{frame}
@@ -902,7 +910,7 @@ A 95\% confidence interval is a range of values, computed from sample data, that
 \begin{frame}[noframenumbering]
 \frametitle{Confidence Intervals}
 
-A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population paramter for 95\% of samples:
+... or a 3rd... \\
 
 \includegraphics[width=\textwidth]{./ci_3} 
 \end{frame}
@@ -910,9 +918,12 @@ A 95\% confidence interval is a range of values, computed from sample data, that
 \begin{frame}[noframenumbering]
 \frametitle{Confidence Intervals}
 
-A 95\% confidence interval is a range of values, computed from sample data, that includes the true (but unknown) value of the population paramter for 95\% of samples:
+Over (hypothetical) repeated sampling, 95\% of these intervals will cover the truth.
 
 \includegraphics[width=\textwidth]{./ci_4} % if time, ask them how to get 99% coverage, or what happens to coverage if we make wider, talk about what impacts width
+
+\begin{footnotesize} \color{blue}Important: \color{black} it is not \textit{our interval} that contains the truth 95\% of the time, but the \textit{procedure} of computing CIs that gives us 95\% coverage.  \end{footnotesize}
+
 \end{frame}
 
 % Interpreting confidence intervals: FEV
@@ -989,14 +1000,14 @@ Our \textbf{null and alternative hypotheses} are: \vspace{-0.3cm}
 \begin{frame}
 \frametitle{Statistical Inference: FEV vs Sex}
 
-\includegraphics[width=\textwidth]{./t-test}
+\hspace*{-1cm} \includegraphics[width=\paperwidth]{./t-test}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Statistical Inference: FEV vs Sex}
 
-\includegraphics[width=\textwidth]{./t-test-highlights}
+\hspace*{-1cm} \includegraphics[width=\paperwidth]{./t-test-highlights}
 
 \end{frame}
 
@@ -1004,13 +1015,13 @@ Our \textbf{null and alternative hypotheses} are: \vspace{-0.3cm}
 \begin{frame}
 \frametitle{Interpreting p-values}
 
-\textbf{Definition:} a p-value is a number betwen 0 and 1 which quantifies the statistical strength of your evidence against the null hypothesis
+\textbf{Definition:} a \textit{p-value} is a number betwen 0 and 1 which quantifies the statistical strength of your evidence against the null hypothesis
 
 Values closer to 0 correspond to stronger evidence\vspace{-0.3cm}
 	\begin{itemize}
-	\item Reject $H_0$ if p is smaller than some threshold $\alpha$ (e.g., 0.05)
+	\item Reject $H_0$ if p is smaller than some pre-specified threshold $\alpha$ (usually 0.05)
 	\item If $p < \alpha$ we ``declare statistical significance" and reject $H_0$
-	\item \color{red} We never accept the null hypthesis: \color{black} either ``reject $H_0$" or ``fail to reject $H_0$"
+	\item \color{red} We never accept the null hypthesis: \color{black} our options are to either ``reject $H_0$" or ``fail to reject $H_0$"
 	\end{itemize}
 \textbf{Interpretation:} the probability, under the null hypothesis, that we would observe a statistic ``at least this extreme"\vspace{-0.3cm}
 	\begin{itemize}
@@ -1026,8 +1037,8 @@ Values closer to 0 correspond to stronger evidence\vspace{-0.3cm}
 Interpreting our results:\vspace{-0.3cm}
 
 \begin{itemize}
-\item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 (with boys tending to have the higher mean FEV). 
-\item \textit{Uncertainty:} Based on a 95\% confidence interval, this difference would not be judged unusual if the true difference were between 0.232 and 0.490.
+\item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 liters per second (with boys tending to have the higher mean FEV). 
+\item \textit{Uncertainty:} Based on a 95\% confidence interval, this observed difference would not be judged unusual if the true difference were between 0.232 and 0.490 liters per second.
 \item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups is different from zero (p $<$ 0.001).
 \item \textit{Conclusion:} These data provide evidence to suggest that sex is associated with FEV in children. \pause
 \end{itemize}
