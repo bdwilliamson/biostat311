@@ -65,6 +65,7 @@ By the end of Chapter 1, you should be able to: \vspace{-0.3cm}
 
 \end{frame}
 
+% y = a + bx interpretation
 \begin{frame}
 \frametitle{Determining the slope and intercept of a line}
 
@@ -75,6 +76,18 @@ By the end of Chapter 1, you should be able to: \vspace{-0.3cm}
 
 \end{frame}
 
+% FEV vs age example
+\begin{frame}
+\frametitle{Simple linear regression}
+
+\center
+\begin{large} \color{red} $E[Y|X] = \beta_0 + \beta_1 X$ \end{large} 
+
+\vspace{-0.2cm} \includegraphics{./plots/plot_fev_vs_age}
+
+\end{frame}
+
+% what is linear regression
 \begin{frame}
 \frametitle{Simple linear regression}
 
@@ -82,7 +95,7 @@ By the end of Chapter 1, you should be able to: \vspace{-0.3cm}
  \color{red} $E[Y|X] = \beta_0 + \beta_1 X$ \color{black}
 \end{center} \vspace{-0.3cm}
 
-\begin{small} \textit{Let's take our data, and fit the ``best" line through it. That line models the average outcome $Y$ (e.g., FEV), given the predictor $X$ (e.g., age), as a linear function of $X$ (e.g., age).} \end{small}
+\begin{small} \textit{Let's take our data and fit the ``best" line through it. That line models the average outcome $Y$ (e.g., FEV), given the predictor $X$ (e.g., age), as a linear function of $X$ (e.g., age).} \end{small}
 
 \center
 \vspace{-0.3cm} \center \includegraphics[height=0.65\textheight]{./plots/plot_fev_vs_age}
@@ -137,15 +150,18 @@ And now the slope, $\beta_1$: \textit{how would you interpret this coefficient?}
 
 \begin{center} $E[\text{FEV} | \text{age}] = 0.43 + 0.22 \times \text{age}$ \end{center} 
 
-Which of these is correct? \vspace{-0.3cm}
+\vspace{-0.3cm} Which of these is correct? \vspace{-0.3cm}
 \begin{enumerate}
-\item A newborn child will have FEV equal to 0.43 liters per second
-\item Among all newborn children, the average FEV is 0.43 liters per second
+\item A child with age = $0$ will have FEV equal to 0.43 liters per second
+\item Among all children of age 0, the average FEV is 0.43 liters per second \vspace{-0.2cm}
 \end{enumerate} \pause
 
-\textit{Does this interpretation make sense  scientifically?} \\ \pause  % Yes, age = 0 <--> birth
-\textit{What if I replaced age with height in the formula above?} \\ \pause % No, height = 0 <-- DNE
-\textit{What if we did this study on adults (ages 40--60), and got the same intercept? Would you trust the intercept?} %% No! Be careful not to extrapolate too far beyond range of data
+\color{red} Questions to consider when interpreting intercepts: \vspace{-0.3cm} \color{black}
+\begin{itemize}
+\item \textit{What is the scientific interpretation of ``children with age = 0``? Does our intercept make scientific sense?} \\ \pause  % Yes, age = 0 <--> birth
+\item \textit{What if I replaced age with height in the formula above?} \\ \pause % No, height = 0 <-- DNE\
+\item \textit{What if we did this study on adults (ages 40--60), and got the same intercept? Would you trust the intercept?} %% No! Be careful not to extrapolate too far beyond range of data
+\end{itemize}
 
 \end{frame}
 
@@ -161,7 +177,10 @@ Which of these is correct? \vspace{-0.3cm}
 \item Comparing two groups of children that differ in age by one year, the difference in average FEV will be 0.22 liters per second, with higher average FEV in the older of the two groups
 \end{itemize} \pause
 
-\textit{Which do you think is correct?} \pause (Hint: this was an observational study)
+\textit{Which do you think is correct?} \vspace{-0.3cm} \pause 
+\begin{itemize}
+\item[] (Hint: this was an observational study)
+\end{itemize}
 
 % give a couple examples, some with interpretations that are ``too causal"
 \end{frame}
@@ -170,23 +189,28 @@ Which of these is correct? \vspace{-0.3cm}
 \begin{frame}
 \frametitle{Why do we care about the slope?}
 
-\begin{small} \textit{In which example(s) is there no association between FEV and age?} \vspace{-0.2cm} \end{small}
+\begin{small} \textit{In which example(s) is there \textbf{no} association between FEV and age?} \vspace{-0.6cm} \end{small}
 
-\includegraphics[width=\textwidth]{./plots/association}
+\hspace*{-0.6cm} \includegraphics[width=0.9\paperwidth]{./plots/association}
+
 \pause
-\textit{What is the slope in those cases?}
+ \vspace{-0.7cm} \textit{What is the slope in those cases?}
 \end{frame}
 
 \begin{frame}
 \frametitle{Why do we care about the slope?}
 
-When $\beta_1 = 0$: there is no association between $X$ \& $Y$
+When... \\
+$\beta_1 = 0$: there is no linear association between $X$ and $Y$ \\
+$\beta_1 > 0$: there is a positive linear association between $X$ and $Y$ \\
+$\beta_1 < 0$: there is a negative linear association between $X$ and $Y$
 
-When $\beta_1 > 0$: there is a positive association between $X$ \& $Y$
+\pause
+Suppose we have a \textbf{scientific question:} \textit{is there an association between FEV and age?}
 
-When $\beta_1 < 0$: there is a negative association between $X$ \& $Y$
+Then, we can use linear regression to answer this question.
 
-So... if our scientific question is \textit{is there an association between FEV and age?}, we can use linear regression to answer this question, by checking whether $\beta_1$ in the model $E[FEV|age] = \beta_0 + \beta_1 \times age$ is 0!
+ How? (1) Fit the model $E[FEV|age] = \beta_0 + \beta_1 \times age$, then (2) check whether or not $\beta_1 = 0$!
 
 \end{frame} 
 
@@ -195,13 +219,13 @@ So... if our scientific question is \textit{is there an association between FEV 
 \begin{frame}
 \frametitle{Interpreting slopes: mathematical explanation}
 
-For a regression model $E[Y|X] = \beta_0 + \beta_1 X$, we interpret the slope $\beta_1$ as the difference in mean value of $Y$ for two groups differing in $X$ by one unit.
+For a regression model $E[Y|X] = \beta_0 + \beta_1 X$, \color{blue} we interpret the slope $\beta_1$ as the difference in mean value of $Y$ for two groups differing in $X$ by one unit. \color{black}
 
 Why is this true?
 \begin{itemize}
 \item $E[Y|X = x] = \beta_0 + \beta_1 x$ \pause
 \item $E[Y|X = (x+1)] = \beta_0 + \beta_1(x+1) = \beta_0 + \beta_1 x + \beta_1$ \pause
-\item $E[Y|X = (x+1)] - E[Y|X = x] = \beta_1$ \pause
+\item $E[Y|X = (x+1)] - E[Y|X = x] = \beta_1$
 \end{itemize}
 
 \end{frame}
@@ -211,6 +235,9 @@ Why is this true?
 
 \begin{itemize}
 \item Confidence intervals and hypothesis tests for regression parameters
+	\begin{itemize}
+	\item \color{blue} Please read the confidence intervals analogy handout and come prepared to discuss on Friday \color{black}
+	\end{itemize}
 \item What it means to find the line of ``best" fit
 \item Using \texttt{R} to fit linear regression models 
 \end{itemize}
