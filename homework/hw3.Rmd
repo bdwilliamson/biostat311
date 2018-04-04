@@ -1,0 +1,154 @@
+---
+title: "Homework 3"
+author: "Kelsey Grinde and Brian Williamson"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+---
+
+# Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on the due date. You are welcome to work together on the homework; however, final solutions should be written up individually. 
+
+Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+# 1. Connecting simple linear regression with the t-test (3 points) 
+Forced expiratory volume (FEV) is a measure of lung capacity. Higher values indicate higher lung capacity (the ability to blow out more air in one second), and therefore indicate better lung function. In this problem, you will use R to perform an analysis to examine the difference in mean FEV between smokers and nonsmokers, among children ages 3-19. 
+
+In the first homework, you analyzed the FEV data with two different versions of the t-test. **In this problem, you will perform simple linear regression to accomplish the same goal of estimating the difference in mean FEV between smokers and non-smokers.**
+
+First, load the `uwIntroStats` package and load the FEV data into R: move the `fev.txt` file **to the folder where this .Rmd document is saved** (otherwise the code below won't work). Then, load the dataset and the package by running the following code chunk.
+```{r load-data, echo = TRUE, eval = FALSE}
+## load the FEV data
+fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
+## re-code sex, smoke as binary variables 
+## (with female = 1 and smoker = 1)
+fev$female <- fev$sex - 1
+fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
+## load the uwIntroStats package
+library("uwIntroStats")
+```
+
+Throughout this problem, ignore the variables `age`, `height`, and `sex`, and ignore the labels `seqnbr` and `subjid`.
+
+## a. (0.5 points)  Perform a regression analysis with FEV as the outcome and smoking status as the predictor.
+
+Run the following code chunk to perform this analysis. You do not need to set `eval = TRUE` in the chunk options; rather, **show the meaningful part of the output in a table**. For how to create a table in R markdown, see the Rmarkdown cheat sheet on Canvas (Pages > Computing in R > Cheat sheets).
+
+```{r code-for-1a, eval = FALSE}
+## run a linear regression of FEV on smoking status
+regress("mean", fev ~ smoker, data = fev)
+```
+
+Create your table here.
+
+## b. (0.5 points) Does the intercept have a sensible scientific interpretation? If so, what is it?
+
+Type your answer to the problem here.
+
+## c. (0.5 points) Does the slope have a sensible scientific interpretation? If so, what is it?
+
+Type your answer to this problem here.
+
+## d. (1 point) Write a short write-up of the results from this analysis.
+
+Type your answer to this problem here.
+
+## e. (0.5 points) In class, we mentioned that with a binary predictor, linear regression with robust standard errors is approximately equivalent to the t-test that allows unequal variances. Compare your previous response to the answer to 2(f) from HW1.
+
+Type your answer to this problem here.
+
+\newpage
+
+# 2. Interpreting scatterplots and reporting results (2.5 points)
+
+Again consider the FEV data, but this time consider the association between FEV and `height` (ignore the other variables in this problem).
+
+## a. (1 point) Provide a scatterplot with height on the x-axis and FEV on the y-axis.
+
+Run the following code chunk to create this scatterplot (and use `eval = TRUE` to include it in your report).
+
+```{r code-for-2a, eval = FALSE}
+## create a scatterplot of FEV versus height
+plot(fev$height, fev$fev, xlab = "Height (in.)", 
+     ylab = "FEV (liters per second)", main = "FEV versus height",
+     pch = 16)
+```
+
+### i. Is there evidence of an overall positive trend between height and FEV?
+
+### ii. Add a loess smooth to the plot. What does the loess smooth indicate about the trend between height and FEV?
+
+Run the following code chunk to create this scatterplot (and use `eval = TRUE` to include it in your report).
+
+```{r code-for-2aii, eval = FALSE}
+## create a scatterplot of FEV versus height
+plot(fev$height, fev$fev, xlab = "Height (in.)", 
+     ylab = "FEV (liters per second)", main = "FEV versus height",
+     pch = 16)
+## add a loess smooth
+height_loess <- lowess(fev$height, fev$fev)
+lines(height_loess, col = "red", lty = 2)
+```
+
+## b. (1 point) Perform a linear regression with FEV as the response and height as the predictor, and report your results in a few short sentences.
+
+Run the following code chunk:
+
+```{r code-for-2b, eval = FALSE}
+## linear regression of FEV on height
+regress("mean", fev ~ height, data = fev)
+```
+
+## c. (0.5 points) You should have been able to graphically see a slightly nonlinear relationship in part (a). Conjecture why this relationship might not be linear. (You will be graded on effort for this part, and we will discuss in class).
+
+Type your answer to this problem here.
+
+# 3. Confounders, effect modifiers, and precision variables (2.5 points) 
+
+The kidneys extract waste from the blood. When they are not functioning properly, patients experience a wide range of unpleasant symptoms, and left untreated, kidney disease can be fatal. Serum creatinine is used as a measure of kidney function; high levels tend to indicate that the kidneys are not functioning as they should. Having done your background research, you know the following information: 
+
+* *Known risk factors* for chronic kidney disease include diabetes, smoking, high blood pressure, obesity, race/ethnicity, family history of kidney disease, and older age. 
+* *Symptoms* of chronic kidney disease include fluid retention, anemia, nausea and vomiting, decreased immune response, and high levels of potassium in the blood. 
+
+You are interested in clarifying the association between **high blood pressure** (predictor of interest) and **creatinine** (outcome). For each subject, you also have data on **family history** of kidney disease, the level of **potassium** in the blood, and **smoking status**. 
+
+## a. (1 point) Draw the causal diagram that you think applies in this setting (it should include all five variables). 
+
+Create your diagram, and load it in here using the following code: `![Image caption here.](sample_image.png)` (replace the text in the square brackets with your image caption, replace `sample_image.png` with the name of your diagram, and remove the back-ticks)
+
+## b. (1.5 points) For each of the three “extra” variables (family history, potassium, smoking): 
+
+### i. Classify the variable as a confounder, precision variable, effect modifier, or none of the above based on your scientific understanding. 
+
+Type your answer to this problem here.
+
+### ii. State whether or not you would include the variable in your regression analysis. 
+
+Type your answer to this problem here.
+
+### iii. Provide a brief explanation of your choices in (i) and (ii). You may refer to the causal diagram from (a) to help your explanation. 
+
+Type your answer to this problem here.
+
+If you provide a reasonable answer and justify it appropriately, you will receive full credit, even if it’s not the answer I give in the key. The primary goal of this problem is for you to think through what you’d want to include in a multiple regression model and why (what roles those variables might be playing). 
+
+
+# R Code
+
+Once you have completed your assignment, update (if needed) and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names #####
+rmd.name <- 'hw2.Rmd' # name of this file; update if you changed the name of this file
+code.name <- 'hw2.R' # name of R code file; you can change if desired
+```
+
+```{r extract-code, eval = FALSE, include = FALSE}
+##### STEP 2: Run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+**Please upload the file `r code.name` along with your completed assignment.**
