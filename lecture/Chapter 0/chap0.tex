@@ -1004,12 +1004,50 @@ Our \textbf{null and alternative hypotheses} are: \vspace{-0.3cm}
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Statistical Inference: FEV vs Sex}
+% highlight the important pieces of information
+% this is no longer relevant (used older version of uwIntroStats package)
+%\begin{frame}
+%\frametitle{Statistical Inference: FEV vs Sex}
+%
+%\hspace*{-1cm} \includegraphics[width=\paperwidth]{./t-test-highlights}
+%
+%\end{frame}
 
-\hspace*{-1cm} \includegraphics[width=\paperwidth]{./t-test-highlights}
+% point out bug in uwIntroStats package
+\begin{frame}
+\frametitle{What's wrong here?}
+
+\begin{footnotesize} \texttt{mean(subset(fev,sex==1)\$fev) = 2.812}  \\ \texttt{mean(subset(fev,sex==2)\$fev) = 2.451} \end{footnotesize} \vspace{-0.3cm}
+
+\hspace*{-0.5cm} \includegraphics[width=0.9\paperwidth]{./t-test}
 
 \end{frame}
+
+% re-run with updates uwIntroStats package
+\begin{frame}[noframenumbering]
+\frametitle{What's wrong here?}
+
+\begin{footnotesize} \texttt{mean(subset(fev,sex==1)\$fev) = 2.812} \color{red} (Male average FEV) \color{black} \\ \texttt{mean(subset(fev,sex==2)\$fev) = 2.451} \color{red} (Female average FEV) \color{black}\end{footnotesize} \vspace{-0.3cm}
+
+\hspace*{-0.5cm} \includegraphics[width=0.9\paperwidth]{./t-test-bug}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Update \texttt{uwIntroStats} from v0.0.4 to v0.0.5}
+
+\hspace*{-0.5cm} \includegraphics[height=0.88\paperheight]{./t-test-bug-fixed}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Now... back to statistical inference}
+
+\hspace*{-1cm} \includegraphics[width=\paperwidth]{./t-test-bug-fixed-highlights}
+
+\end{frame}
+
+
 
 % interpreting p-values
 \begin{frame}
@@ -1037,9 +1075,9 @@ Values closer to 0 correspond to stronger evidence\vspace{-0.3cm}
 Interpreting our results:\vspace{-0.3cm}
 
 \begin{itemize}
-\item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 liters per second (with boys tending to have the higher mean FEV). 
-\item \textit{Uncertainty:} Based on a 95\% confidence interval, this observed difference would not be judged unusual if the true difference were between 0.232 and 0.490 liters per second.
-\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups is different from zero (p $<$ 0.001).
+\item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 liters per second (with boys tending to have the higher mean FEV). \pause
+\item \textit{Uncertainty:} Based on a 95\% confidence interval, this observed difference would not be judged unusual if the true difference were between 0.232 and 0.490 liters per second.\pause
+\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups is different from zero (p $<$ 0.001).\pause
 \item \textit{Conclusion:} These data provide evidence to suggest that sex is associated with FEV in children. \pause
 \end{itemize}
 
@@ -1051,7 +1089,7 @@ Interpreting our results:\vspace{-0.3cm}
 \begin{frame}
 \frametitle{What's Next?}
  
-\center \color{blue} \begin{LARGE} Chapter 1: Linear regression! \end{LARGE} \color{black}
+\center \color{blue} \begin{LARGE} Chapter 1: Linear Regression \end{LARGE} \color{black}
 
 \end{frame}
 
