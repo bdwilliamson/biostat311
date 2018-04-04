@@ -206,11 +206,15 @@ $\beta_1 > 0$: there is a positive linear association between $X$ and $Y$ \\
 $\beta_1 < 0$: there is a negative linear association between $X$ and $Y$
 
 \pause
-Suppose we have a \textbf{scientific question:} \textit{is there an association between FEV and age?}
+Suppose we have a \textbf{scientific question:} \textit{is there an association between lung function and age?}
 
-Then, we can use linear regression to answer this question.
+Then, we can use linear regression to answer this question: \vspace{-0.3cm}
+\begin{enumerate}
+\item Fit the model $E[FEV|age] = \beta_0 + \beta_1 \times age$
+\item Check whether or not $\beta_1 = 0$
+\end{enumerate}
 
- How? (1) Fit the model $E[FEV|age] = \beta_0 + \beta_1 \times age$, then (2) check whether or not $\beta_1 = 0$!
+What \textbf{statistical question} are we answering? \textit{Is there an association between FEV and age, where association is quantified by difference in mean FEV between age groups}
 
 \end{frame} 
 
