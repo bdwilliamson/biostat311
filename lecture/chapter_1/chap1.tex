@@ -103,6 +103,7 @@ By the end of Chapter 1, you should be able to: \vspace{-0.3cm}
 \end{frame}
 
 % explain linear regression notation
+\subsection{Regression Model Notation}
 \begin{frame}
 \frametitle{Simple linear regression: notation and terminology}
 $$\color{blue} E[Y|X] \color{black} = \color{orange} \beta_0 \color{black} + \color{red} \beta_1 \color{yellow} \ X$$ \vspace{-0.6cm}
@@ -125,6 +126,7 @@ $$\color{blue} E[Y|X] \color{black} = \color{orange} \beta_0 \color{black} + \co
 \end{frame}
 
 % interpreting slope and intercept
+\subsection{Interpreting Regression Coeffients}
 \begin{frame}
 \frametitle{Simple linear regression: interpretation}
 
@@ -208,7 +210,7 @@ $\beta_1 < 0$: there is a negative linear association between $X$ and $Y$
 \pause
 Suppose we have a \textbf{scientific question:} \textit{is there an association between lung function and age?}
 
-Then, we can use linear regression to answer this question: \vspace{-0.3cm}
+We can use linear regression to answer this question: \vspace{-0.3cm}
 \begin{enumerate}
 \item Fit the model $E[FEV|age] = \beta_0 + \beta_1 \times age$
 \item Check whether or not $\beta_1 = 0$ \color{blue} (estimate, CI, p-value) \color{black}
@@ -235,6 +237,7 @@ Why is this true?
 
 \end{frame}
 
+% end of Wednesday lecture
 \begin{frame}
 \frametitle{What's next?}
 
@@ -248,6 +251,77 @@ Why is this true?
 \end{itemize}
 
 \end{frame}
+
+% start of Friday lecture
+\begin{frame}
+\frametitle{Statistical inference: linear regression}
+
+\color{blue} What do we know so far? \color{black}% interpreting coefficients; distinguish between truth and estimate
+\begin{itemize}
+\item \textbf{Estimate/statistic:} estimated regression coefficient
+\item[] (We know how to interpret. Today we'll talk about how to calculate.)
+\end{itemize}
+
+\color{blue} What's missing? \color{black}\pause %ask them about the 4 numbers we always want them to report
+\begin{itemize}
+\item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
+\item \textbf{Hypothesis test:} p-value for regression coefficient \pause
+\item \textit{What types of scientific questions can we answer using linear regression?}
+\item \textit{How do I do all this in R?}
+\end{itemize}
+
+\end{frame}
+
+
+% standard errors
+\subsection{Confidence intervals for regression coefficents}
+\begin{frame}
+\frametitle{Quantifying uncertainty: standard errors}
+
+\end{frame}
+
+
+% confidence intervals
+\begin{frame}
+\frametitle{Quantifying uncertainty: 95\% confidence intervals}
+
+% how to construct CI
+% include discussion of CI interpretation dice rolling anlogy
+
+\end{frame}
+
+% hypothesis tests
+\subsection{Hypothesis tests for regression coefficents}
+\begin{frame}
+\frametitle{Hypothesis tests}
+
+\end{frame}
+
+
+% putting it in context: from scientific question to conclusions (FEV vs age)
+\subsection{From scientific question to conclusions: continuous predictor}
+\begin{frame}
+\frametitle{Evaluating the association between lung function and age}
+
+% include discussion of R code and output
+% aside: connect to correlation
+
+\end{frame}
+
+% putting it in context: from scientific question to conclusions (FEV vs sex) = special case with binary predictor
+%%%% if time: use genetics example instead
+\subsection{From scientific question to conclusions: binary predictor}
+\begin{frame}
+\frametitle{Evaluating the association between lung function and sex}
+
+% aside: connect to t-tests
+
+\end{frame}
+
+% "Under the hood" -- how do we get a linear regression line?
+%%% explain ideas behind least squares estimation
+
+
 
 
 
