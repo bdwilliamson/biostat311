@@ -1,7 +1,7 @@
 ---
 title: "Homework 3"
 author: "Kelsey Grinde and Brian Williamson"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: "`r format(Sys.time(), '%B %d, %Y')`; Due 13 April 2018"
 output: pdf_document
 ---
 
@@ -13,7 +13,7 @@ Make sure you update the document header to reflect your name and the type of do
 
 If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
 
-# 1. Connecting simple linear regression with the t-test (3 points) 
+# 1. Connecting simple linear regression with the t-test (2.5 points) 
 Forced expiratory volume (FEV) is a measure of lung capacity. Higher values indicate higher lung capacity (the ability to blow out more air in one second), and therefore indicate better lung function. In this problem, you will use R to perform an analysis to examine the difference in mean FEV between smokers and nonsmokers, among children ages 3-19. 
 
 In the first homework, you analyzed the FEV data with two different versions of the t-test. **In this problem, you will perform simple linear regression to accomplish the same goal of estimating the difference in mean FEV between smokers and non-smokers.**
@@ -32,10 +32,11 @@ library("uwIntroStats")
 
 Throughout this problem, ignore the variables `age`, `height`, and `sex`, and ignore the labels `seqnbr` and `subjid`.
 
-## a. (0.5 points)  Perform a regression analysis with FEV as the outcome and smoking status as the predictor.
+## a. (0.25 points)  Perform a regression analysis with FEV as the outcome and smoking status as the predictor.
 
-Run the following code chunk to perform this analysis. You do not need to set `eval = TRUE` in the chunk options; rather, **show the meaningful part of the output in a table**. For how to create a table in R markdown, see the Rmarkdown cheat sheet on Canvas (Pages > Computing in R > Cheat sheets).
+Run the following code chunk to perform this analysis. You do not need to set `eval = TRUE` in the chunk options; rather, **show the meaningful part of the output in a table**. For how to create a table in R markdown, see the Rmarkdown cheat sheet on Canvas (Pages > Computing in R > Cheat sheets). A second option is to knit to Word, and create a table in the Word document (though make sure you do not have to re-knit---R markdown will overwrite the file!).
 
+The `regress()` function performs linear regression. The first argument to the regress function defines what you want to compare; here, we want to compare mean FEV, so we use `"mean"`. The second argument defines the regression model: the outcome goes on the left-hand side of the tilde (`~`), and the predictors go on the right-hand side. Finally, the dataset is defined using the `data` argument. Altogether, the following code means: "regress FEV on smoking status, using the `fev` dataset; compare the mean FEV between groups of smoking status". 
 ```{r code-for-1a, eval = FALSE}
 ## run a linear regression of FEV on smoking status
 regress("mean", fev ~ smoker, data = fev)
@@ -43,7 +44,7 @@ regress("mean", fev ~ smoker, data = fev)
 
 Create your table here.
 
-## b. (0.5 points) Does the intercept have a sensible scientific interpretation? If so, what is it?
+## b. (0.25 points) Does the intercept have a sensible scientific interpretation? If so, what is it?
 
 Type your answer to the problem here.
 
@@ -55,7 +56,7 @@ Type your answer to this problem here.
 
 Type your answer to this problem here.
 
-## e. (0.5 points) In class, we mentioned that with a binary predictor, linear regression with robust standard errors is approximately equivalent to the t-test that allows unequal variances. Compare your previous response to the answer to 2(f) from HW1.
+## e. (0.5 points) In class, we mentioned that with a binary predictor, linear regression with robust standard errors is approximately equivalent to the t-test that allows unequal variances. Compare and contrast your response to part (d) to the answer to 2(f) from HW1.
 
 Type your answer to this problem here.
 
@@ -78,6 +79,8 @@ plot(fev$height, fev$fev, xlab = "Height (in.)",
 
 ### i. Is there evidence of an overall positive trend between height and FEV?
 
+Type your response to this question here.
+
 ### ii. Add a loess smooth to the plot. What does the loess smooth indicate about the trend between height and FEV?
 
 Run the following code chunk to create this scatterplot (and use `eval = TRUE` to include it in your report).
@@ -92,6 +95,8 @@ height_loess <- lowess(fev$height, fev$fev)
 lines(height_loess, col = "red", lty = 2)
 ```
 
+Type your response to this question here.
+
 ## b. (1 point) Perform a linear regression with FEV as the response and height as the predictor, and report your results in a few short sentences.
 
 Run the following code chunk:
@@ -101,39 +106,58 @@ Run the following code chunk:
 regress("mean", fev ~ height, data = fev)
 ```
 
+Type your answer to this problem here.
+
 ## c. (0.5 points) You should have been able to graphically see a slightly nonlinear relationship in part (a). Conjecture why this relationship might not be linear. (You will be graded on effort for this part, and we will discuss in class).
 
 Type your answer to this problem here.
 
-# 3. Confounders, effect modifiers, and precision variables (2.5 points) 
+# 3. Multiple linear regression, confounding, and transformations (3 points)
 
-The kidneys extract waste from the blood. When they are not functioning properly, patients experience a wide range of unpleasant symptoms, and left untreated, kidney disease can be fatal. Serum creatinine is used as a measure of kidney function; high levels tend to indicate that the kidneys are not functioning as they should. Having done your background research, you know the following information: 
+Again, consider the FEV data, but now consider the association between FEV and smoking status. For this problem, besides FEV and smoking, only consider the predictor variables age and height, and ignore the rest of the variables and the labels.
 
-* *Known risk factors* for chronic kidney disease include diabetes, smoking, high blood pressure, obesity, race/ethnicity, family history of kidney disease, and older age. 
-* *Symptoms* of chronic kidney disease include fluid retention, anemia, nausea and vomiting, decreased immune response, and high levels of potassium in the blood. 
+In class, we defined a **confounder** as a variable that is causally associated with our outcome and also associated with the predictor of interest (or exposure) in the sample.
 
-You are interested in clarifying the association between **high blood pressure** (predictor of interest) and **creatinine** (outcome). For each subject, you also have data on **family history** of kidney disease, the level of **potassium** in the blood, and **smoking status**. 
+## (1 point) a. Answer the following questions for both age and height: Do you think this variable is a potential confounder? If so, why? If not, why not?
 
-## a. (1 point) Draw the causal diagram that you think applies in this setting (it should include all five variables). 
+Type your response to this question here.
 
-Create your diagram, and load it in here using the following code: `![Image caption here.](sample_image.png)` (replace the text in the square brackets with your image caption, replace `sample_image.png` with the name of your diagram, and remove the back-ticks)
+## (0.25 points) b. Examine descriptive statistics for FEV, stratified by age group (pre-teen versus teen) and height (less than or greater than 60 inches). Do these results suggest that age and/or height might be associated with FEV? Explain your reasoning.
 
-## b. (1.5 points) For each of the three “extra” variables (family history, potassium, smoking): 
+Run the following code chunk. Do not include this R code in your final document. The code `fev$age < 13` tells R to check, for each value in the `age` variable in the `fev` dataset, whether or not that value is less than 13---if it is, the code returns `TRUE`, and otherwise it returns `FALSE`. The code `as.numeric()` returns a number representation---since `TRUE` is equivalent to 1, and `FALSE` to zero, `as.numeric(fev$age < 13)` returns a vector of ones and zeros. Thus, in the output of the following code chunk, `Str 0` denotes either pre-teens (age < 13) or participants with height under 60 inches.
+```{r code-for-3b, eval = FALSE}
+## fev, stratified by age group
+descrip(fev$fev, strata = as.numeric(fev$age < 13))
+## fev, stratified by height
+descrip(fev$fev, strata = as.numeric(fev$height < 60))
+```
 
-### i. Classify the variable as a confounder, precision variable, effect modifier, or none of the above based on your scientific understanding. 
+Type your response to this question here.
 
-Type your answer to this problem here.
+## (0.25 points) c. Examine descriptive statistics for age and height, stratified by smoking status. Do these results suggest that age and/or height might be associated with smoking status? Explain your reasoning.
 
-### ii. State whether or not you would include the variable in your regression analysis. 
+Run the code in the following chunk. The function `descrip` can compute descriptive statistics for multiple variables, even with stratification---by separating these with commas, you can get results for only some variables in the FEV dataset. Recall that `smoker` is zero for nonsmokers, and one for smokers.
+```{r code-for-3c, eval = FALSE}
+## age and height, stratified by smoking status
+descrip(fev$age, fev$height, strata = fev$smoker)
+```
 
-Type your answer to this problem here.
+Type your response to this question here.
 
-### iii. Provide a brief explanation of your choices in (i) and (ii). You may refer to the causal diagram from (a) to help your explanation. 
+## (1 point) d. Now fit a linear regression model with FEV as the outcome, smoking status as the predictor of interest, and adjusting for age and height. What is the coefficient of scientific interest? Provide an interpretation for this coefficient.
 
-Type your answer to this problem here.
+Run the following code chunk to get results for this problem. The code `I(height^3)` means "adjust for height cubed", which allows us to transform the height variable. Think about why cubing height makes sense, in light of your answer to 2(c) above.
+```{r code-for-3d, eval = FALSE}
+## fit a linear regression of fev on smoking,
+## adjusting for age and height^3
+regress("mean", fev ~ smoker + age + I(height^3), data = fev)
+```
 
-If you provide a reasonable answer and justify it appropriately, you will receive full credit, even if it’s not the answer I give in the key. The primary goal of this problem is for you to think through what you’d want to include in a multiple regression model and why (what roles those variables might be playing). 
+Type your response to this question here.
 
+## (0.5 points) e. Given this result, are we now justified in saying that smoking causes a decrease in FEV on the basis of this study? Justify your response.
+
+Type your response to this question here.
 
 # R Code
 
