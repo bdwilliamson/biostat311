@@ -7,7 +7,7 @@ output: pdf_document
 
 # Instructions
 
-This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on the due date. You are welcome to work together on the homework; however, final solutions should be written up individually. 
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on April 13. You are welcome to work together on the homework; however, final solutions should be written up individually. 
 
 Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
 
@@ -19,7 +19,7 @@ Forced expiratory volume (FEV) is a measure of lung capacity. Higher values indi
 In the first homework, you analyzed the FEV data with two different versions of the t-test. **In this problem, you will perform simple linear regression to accomplish the same goal of estimating the difference in mean FEV between smokers and non-smokers.**
 
 First, load the `uwIntroStats` package and load the FEV data into R: move the `fev.txt` file **to the folder where this .Rmd document is saved** (otherwise the code below won't work). Then, load the dataset and the package by running the following code chunk.
-```{r load-data, echo = TRUE, eval = FALSE}
+```{r load-data, eval = TRUE, warning = F, message = F}
 ## load the FEV data
 fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
 ## re-code sex, smoke as binary variables 
@@ -34,21 +34,29 @@ Throughout this problem, ignore the variables `age`, `height`, and `sex`, and ig
 
 ## a. (0.25 points)  Perform a regression analysis with FEV as the outcome and smoking status as the predictor.
 
-Run the following code chunk to perform this analysis. You do not need to set `eval = TRUE` in the chunk options; rather, **show the meaningful part of the output in a table**. For how to create a table in R markdown, see the Rmarkdown cheat sheet on Canvas (Pages > Computing in R > Cheat sheets). A second option is to knit to Word, and create a table in the Word document (though make sure you do not have to re-knit---R markdown will overwrite the file!).
+Run the following code chunk to perform this analysis. The `regress()` function performs linear regression. The first argument to the regress function defines what you want to compare; here, we want to compare mean FEV, so we use `"mean"`. The second argument defines the regression model: the outcome goes on the left-hand side of the tilde (`~`), and the predictors go on the right-hand side. Finally, the dataset is defined using the `data` argument. Altogether, the following code means: "regress FEV on smoking status, using the `fev` dataset; compare the mean FEV between groups of smoking status". 
 
-The `regress()` function performs linear regression. The first argument to the regress function defines what you want to compare; here, we want to compare mean FEV, so we use `"mean"`. The second argument defines the regression model: the outcome goes on the left-hand side of the tilde (`~`), and the predictors go on the right-hand side. Finally, the dataset is defined using the `data` argument. Altogether, the following code means: "regress FEV on smoking status, using the `fev` dataset; compare the mean FEV between groups of smoking status". 
 ```{r code-for-1a, eval = FALSE}
 ## run a linear regression of FEV on smoking status
 regress("mean", fev ~ smoker, data = fev)
 ```
 
-Create your table here.
+Run this code chunk and make sure to leave `eval = FALSE` in the chunk options above. Rather than displaying all the output from the `regress` function, **create a table that nicely displays just the meaningful part of the output.** Update the table title and fill in the table below with informative row and column names (e.g., replace ``Column 1``, ``Row 1``) and the pieces of information you want to present (e.g., replace ``Cell 1`` with a number). 
 
-## b. (0.25 points) Does the intercept have a sensible scientific interpretation? If so, what is it?
+
+**Table 1.** Insert title for this table here.
+
+ **Column 1** | **Column 2** | **Column 3** | **Column 4**  
+ ------------ | ------------ | ------------ | ------------ 
+ **Row 1**    | Cell 1       | Cell 2       | Cell 3        
+ **Row 2**    | Cell 4       | Cell 5       | Cell 6        
+
+
+## b. (0.25 points) Interpret the intercept. Does the intercept have a sensible scientific interpretation?
 
 Type your answer to the problem here.
 
-## c. (0.5 points) Does the slope have a sensible scientific interpretation? If so, what is it?
+## c. (0.5 points) Interpret the slope. Does the slope have a sensible scientific interpretation?
 
 Type your answer to this problem here.
 
@@ -72,9 +80,10 @@ Run the following code chunk to create this scatterplot (and use `eval = TRUE` t
 
 ```{r code-for-2a, eval = FALSE}
 ## create a scatterplot of FEV versus height
-plot(fev$height, fev$fev, xlab = "Height (in.)", 
-     ylab = "FEV (liters per second)", main = "FEV versus height",
-     pch = 16)
+plot(x = fev$height, y = fev$fev, # plot FEV on y-axis, height on x-axis
+     xlab = "Height (in.)", ylab = "FEV (liters per second)", # updated axis labels 
+     main = "FEV versus height", # update figure title
+     pch = 16) # pch defines the shape of the points (google "R pch list" for other options)
 ```
 
 ### i. Is there evidence of an overall positive trend between height and FEV?
@@ -87,12 +96,13 @@ Run the following code chunk to create this scatterplot (and use `eval = TRUE` t
 
 ```{r code-for-2aii, eval = FALSE}
 ## create a scatterplot of FEV versus height
-plot(fev$height, fev$fev, xlab = "Height (in.)", 
-     ylab = "FEV (liters per second)", main = "FEV versus height",
-     pch = 16)
+plot(x=fev$height, y=fev$fev, 
+     xlab = "Height (in.)", ylab = "FEV (liters per second)", 
+     main = "FEV versus height", 
+     pch = 16) 
 ## add a loess smooth
-height_loess <- lowess(fev$height, fev$fev)
-lines(height_loess, col = "red", lty = 2)
+height_loess <- lowess(x = fev$height, y = fev$fev)
+lines(height_loess, col = "red")
 ```
 
 Type your response to this question here.
@@ -108,7 +118,7 @@ regress("mean", fev ~ height, data = fev)
 
 Type your answer to this problem here.
 
-## c. (0.5 points) You should have been able to graphically see a slightly nonlinear relationship in part (a). Conjecture why this relationship might not be linear. (You will be graded on effort for this part, and we will discuss in class).
+## c. (0.5 points) In parts (a) and (b), we notice a slightly nonlinear relationship between FEV and height. Conjecture why this relationship might not be linear. (You will be graded on effort for this part, and we will discuss in class).
 
 Type your answer to this problem here.
 
@@ -118,44 +128,57 @@ Again, consider the FEV data, but now consider the association between FEV and s
 
 In class, we defined a **confounder** as a variable that is causally associated with our outcome and also associated with the predictor of interest (or exposure) in the sample.
 
-## (1 point) a. Answer the following questions for both age and height: Do you think this variable is a potential confounder? If so, why? If not, why not?
+## a. (1 point) Answer the following questions for both age and height: Do you think this variable is a potential confounder (when FEV is our outcome and smoking is our predictor)? If so, why? If not, why not?
 
 Type your response to this question here.
 
-## (0.25 points) b. Examine descriptive statistics for FEV, stratified by age group (pre-teen versus teen) and height (less than or greater than 60 inches). Do these results suggest that age and/or height might be associated with FEV? Explain your reasoning.
+## b. (0.25 points) Examine descriptive statistics for FEV, stratified by age (pre-teen versus teen) and height (less than or greater than 60 inches).
 
-Run the following code chunk. Do not include this R code in your final document. The code `fev$age < 13` tells R to check, for each value in the `age` variable in the `fev` dataset, whether or not that value is less than 13---if it is, the code returns `TRUE`, and otherwise it returns `FALSE`. The code `as.numeric()` returns a number representation---since `TRUE` is equivalent to 1, and `FALSE` to zero, `as.numeric(fev$age < 13)` returns a vector of ones and zeros. Thus, in the output of the following code chunk, `Str 0` denotes either pre-teens (age < 13) or participants with height under 60 inches.
-```{r code-for-3b, eval = FALSE}
+Run the following code chunk, but **do not include this R code in your final document** (so change `echo = TRUE` to `echo = FALSE` in the chunk options).
+
+The code `fev$age < 13` tells R to check, for each value in the `age` variable in the `fev` dataset, whether or not that value is less than 13---if it is, the code returns `TRUE`, and otherwise it returns `FALSE`. It's doing someting similar for `fev$height < 60`. Thus, in the `descrip` output, `Str TRUE` denotes either pre-teens (age < 13) or participants with height under 60 inches. 
+
+```{r code-for-3b, eval = FALSE, echo = TRUE}
 ## fev, stratified by age group
-descrip(fev$fev, strata = as.numeric(fev$age < 13))
+descrip(fev$fev, strata = fev$age < 13)
 ## fev, stratified by height
-descrip(fev$fev, strata = as.numeric(fev$height < 60))
+descrip(fev$fev, strata = fev$height < 60)
 ```
 
+**Do these descriptive analyses suggest that age and/or height might be associated with FEV? Explain your reasoning.**
+
 Type your response to this question here.
 
-## (0.25 points) c. Examine descriptive statistics for age and height, stratified by smoking status. Do these results suggest that age and/or height might be associated with smoking status? Explain your reasoning.
+## c. (0.25 points) Examine descriptive statistics for age and height, stratified by smoking status. 
 
-Run the code in the following chunk. The function `descrip` can compute descriptive statistics for multiple variables, even with stratification---by separating these with commas, you can get results for only some variables in the FEV dataset. Recall that `smoker` is zero for nonsmokers, and one for smokers.
+Run the code in the following chunk. Again, **hide your code from your final report** by adding the argument `echo = FALSE` to the chunk options. 
+
+The function `descrip` can compute descriptive statistics for multiple variables at once. In the code below, we are asking for descriptive statistics on both age and height, by separating these with commas, and stratifying both by smoking status. Recall that `smoker` is zero for nonsmokers, and one for smokers.
+
 ```{r code-for-3c, eval = FALSE}
 ## age and height, stratified by smoking status
 descrip(fev$age, fev$height, strata = fev$smoker)
 ```
 
+**Do these results suggest that age and/or height might be associated with smoking status? Explain your reasoning.**
+
 Type your response to this question here.
 
-## (1 point) d. Now fit a linear regression model with FEV as the outcome, smoking status as the predictor of interest, and adjusting for age and height. What is the coefficient of scientific interest? Provide an interpretation for this coefficient.
+## d. (1 point) Fit a linear regression model with FEV as the outcome, smoking status as the predictor of interest, and adjusting for age and height. 
 
-Run the following code chunk to get results for this problem. The code `I(height^3)` means "adjust for height cubed", which allows us to transform the height variable. Think about why cubing height makes sense, in light of your answer to 2(c) above.
+Run the following code chunk to fit a regression model of FEV versus smoking, adjusted for age and height. The code `I(height^3)` means "adjust for height cubed", which allows us to transform the height variable. Think about why cubing height makes sense, in light of your answer to 2(c) above.
+
 ```{r code-for-3d, eval = FALSE}
 ## fit a linear regression of fev on smoking,
 ## adjusting for age and height^3
 regress("mean", fev ~ smoker + age + I(height^3), data = fev)
 ```
 
+**What is the coefficient of scientific interest? Provide an interpretation for this coefficient.**
+
 Type your response to this question here.
 
-## (0.5 points) e. Given this result, are we now justified in saying that smoking causes a decrease in FEV on the basis of this study? Justify your response.
+## e. (0.5 points) Given the result in (d), are we now justified in saying that smoking causes a decrease in FEV on the basis of this study? Justify your response.
 
 Type your response to this question here.
 
