@@ -276,9 +276,9 @@ Why is this true?
 % standard errors
 \subsection{Confidence intervals for regression coefficents}
 \begin{frame}
-\frametitle{Quantifying uncertainty: standard errors}
+\frametitle{Quantifying uncertainty: standard errors (SEs)}
 
-When we estimate regression coefficeints, we also want to quantify the \color{blue} uncertainty \color{black} in these estimates.\vspace{-0.2cm} \pause
+When we estimate regression coefficients, we also want to quantify the \color{blue} uncertainty \color{black} in these estimates.\vspace{-0.2cm} \pause
 
 Just like we have two options for two-sample t-tests (\textit{equal} or \textit{unequal} variances), we have \color{blue} two options for calculating standard errors of regression coefficients\color{black}: \vspace{-0.3cm} \pause
 \begin{itemize}
@@ -483,7 +483,7 @@ Interpreting our results:\vspace{-0.3cm}
 \begin{itemize}
 \item \textit{Statistic:} We estimate that the difference in mean FEV comparing two groups of children that differ by one year in age is 0.22 liters per second, with higher average FEV in the older of the two groups. \pause
 \item \textit{Uncertainty:} Based on a 95\% confidence interval, this estimated difference would not be judged unusual if the true difference were between 0.20 and 0.24 liters per second.\pause
-\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups of children that differ by one year in age is significantly differnt from zero (p $<$ 0.001). \pause
+\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups of children that differ by one year in age is significantly different from zero (p $<$ 0.001). \pause
 \item \textit{Conclusion:} These data provide evidence to suggest that older children tend to have higher FEV. 
 \end{itemize}
 \end{frame}
@@ -609,7 +609,7 @@ We can write this as an optimization problem, $$ \text{argmin}_{\beta_0,\beta_1}
 \begin{frame}
 \frametitle{Simple linear regression and correlation}
 
-Notice how much our slope estimate looks like Pearson's correlation: 
+Notice how much our slope estimate looks like Pearson's correlation ($r$): 
 $$\hat\beta_1 = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sum_i \left(X_i - \bar{X}\right)^2}$$
 $$r = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sqrt{\sum_i\left(X_i - \bar{X}\right)^2} \sqrt{\sum_i \left(Y_i - \bar{Y}\right)^2}}$$ \pause
 
