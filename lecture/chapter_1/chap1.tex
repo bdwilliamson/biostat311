@@ -461,7 +461,7 @@ Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
 % show R output
 \begin{frame}
 \frametitle{Example: lung function and age}
-To fit the regression model \color{blue} $E[\text{FEV}|\text{age}] = \beta_0 + \beta_1 \text{age}$ \color{black} in \texttt{R}:\\ (1) load \texttt{uwIntroStats}, (2) use the \texttt{regress} function. \vspace{-0.3cm}
+To fit the regression model \color{blue} $E[\text{FEV}|\text{age}] = \beta_0 + \beta_1 \text{ age}$ \color{black} in \texttt{R}:\\ (1) load \texttt{uwIntroStats}, (2) use the \texttt{regress} function. \vspace{-0.3cm}
 
 \center
 \includegraphics[width=0.55\paperwidth]{./plots/regress_fev_vs_age}
@@ -491,7 +491,7 @@ Interpreting our results:\vspace{-0.3cm}
 % new example: binary predictor
 \begin{frame}
 \frametitle{Example: lung function and age}
-Why haven't we said anything about the intercept? \vspace{-0.3cm}
+\textit{Why haven't we said anything about the intercept?} \pause
 \begin{itemize}
 \item Interpretation: We estimate that the average FEV among newborns is 0.22 L/sec \pause
 \item But... 
@@ -512,7 +512,7 @@ Why haven't we said anything about the intercept? \vspace{-0.3cm}
 
 \begin{enumerate}
 \item \textbf{Scientific question:} do boys and girls (in the US) have different lung function?
-\item \textbf{Statistical question:} is there a difference in average FEV between boys and girls?
+\item \textbf{Statistical question:} is there a difference in average FEV between boys and girls in the US?
 \end{enumerate} 
 
 Earlier this week, we used the two-sample t-test (with unequal variances) to address this question.
@@ -522,7 +522,12 @@ We can also use linear regression!
 
 % show R output
 \begin{frame}
-\hspace*{-0.5cm} \includegraphics[width=0.9\paperwidth]{./plots/regress_fev_vs_sex} % ask the to id coef, CI, p-val
+\frametitle{Example: lung function and sex}
+To fit the regression model \color{blue} $E[\text{FEV}|\text{male}] = \beta_0 + \beta_1 \text{ male}$ \color{black} in \texttt{R}:\\ (1) load \texttt{uwIntroStats} (not shown here), (2) re-code \texttt{sex} to create a binary variable \texttt{male}, and (3) run \texttt{regress}. \vspace{-0.5cm}
+
+\center
+\includegraphics[width=0.6\paperwidth]{./plots/regress_fev_vs_sex}
+
 \end{frame}
 
 \begin{frame}
@@ -534,7 +539,7 @@ Our linear regression results:
 \item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 liters per second (with boys tending to have the higher mean FEV). \pause
 \item \textit{Uncertainty:} Based on a 95\% confidence interval, this observed difference would not be judged unusual if the true difference were between 0.232 and 0.490 liters per second.\pause
 \item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups is different from zero (p $<$ 0.001).\pause
-\item \textit{Conclusion:} These data provide evidence to suggest that sex is associated with FEV in children.
+\item \textit{Conclusion:} These data provide evidence to suggest that male children tend to have higher FEV.
 \end{itemize}
 
 \end{frame}
@@ -557,12 +562,12 @@ Our t-test results:
 \frametitle{Example: lung function and sex}
 
 \begin{itemize}
-\item \color{blue} If you use linear regression with a binary predictor, this is essentially the same as performing a t-test \color{black}
+\item \color{blue} If you use linear regression with a binary predictor, this is essentially the same as performing a two-sample t-test \color{black}
 	\begin{itemize}
 	\item Difference in mean between groups differing by one unit (for a binary predictor, you can only differ by one unit)
 	\end{itemize}
-\item If you use naive SE, this is exactly equivalent to the t-test which presumes equal variances
-\item If you use robust SE, this is approximately equivalent\footnote[frame]{Our results look exactly the same, but if you go out to more digits you see slight differences in, e.g., the CI: (0.23235, 0.49020) and (0.23238, 0.49017) for the t-test and linear regression, respectively\\} to the t-test which allows for unequal variances
+\item If you use naive SE, this is \textit{exactly} equivalent to the t-test which presumes equal variances
+\item If you use robust SE, this is \textit{approximately} equivalent\footnote[frame]{Our results look exactly the same, but if you go out to more digits you see slight differences in, e.g., the CI: (0.23235, 0.49020) and (0.23238, 0.49017) for the t-test and linear regression, respectively\\} to the t-test which allows for unequal variances
 \end{itemize}
 
 \vspace{-0.2cm} No matter your choice of SE, your estimates will be the same: $\beta_1$ = the differences in means, $\beta_0 = $ the mean in ``group 0"
@@ -575,16 +580,16 @@ Our t-test results:
 \subsection{Under the hood: least squares estimation}
 \begin{frame}
 \frametitle{Least squares estimation}
-What is \texttt{R} doing ``under the hood" to get these regression coefficient estimates?\vspace{-0.5cm} \pause 
+What is \texttt{R} doing \textit{under the hood} to get these regression coefficient estimates?\vspace{-0.6cm} \pause 
 
-\center \includegraphics[height=0.8\textheight]{./plots/linear-regr}
+\center \includegraphics[height=0.7\textheight]{./plots/linear-regr}
 \end{frame}
 
 \begin{frame}
 \frametitle{Least squares estimation}
-\textit{Least squares:} minimize the sum of the squared distances from the observed points to the fitted line.\vspace{-0.5cm}
+\textit{Least squares:} minimize the sum of the squared distances from the observed points to the fitted line.\vspace{-0.6cm}
 
-\center \includegraphics[height=0.8\textheight]{./plots/linear-regr-ls}
+\center \includegraphics[height=0.7\textheight]{./plots/linear-regr-ls}
 \end{frame}
 
 \begin{frame}
@@ -610,7 +615,7 @@ $$r = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sqrt{\
 
 \begin{itemize}\vspace{-0.3cm}
 \item $\hat\beta_1$ and $r$ have the same sign: both positive, both negative, or both zero
-\item Testing $H_0: r = 0$ is equivalent to testing $\beta_1 = 0$
+\item Testing $H_0: r = 0$ is equivalent to testing $H_0: \beta_1 = 0$
 \item $\hat\beta_1$ has a more meaningful (and scientifically relevant) interpretation
 \item (Coming soon:) Linear regression also lets us adjust for other variables; correlation does not
 \end{itemize}
