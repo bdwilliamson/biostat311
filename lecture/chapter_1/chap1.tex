@@ -369,7 +369,7 @@ To interpret the CI for a regression coefficient: same language as CI for the me
 
 \pause
 \begin{small}
-Recall the definition of \textbf{probability}: the relative frequency of an event in the long run (i.e., if an experiment is repeated many times, what proportion of those times does the event occur?)\\
+Recall the definition of \textbf{probability}: the relative frequency of an event in the long run (i.e., if an experiment is repeated many times, what proportion of those times does the event occur?)\\ \pause
 \color{blue} Example: \color{black} If I repeat the process of collecting data many times, and every time check if our \textit{original} confidence interval (0.20,0.24) contains the true difference in means, how often will this happen?\\ \pause \hfill \color{red} Always, or never.
 \end{small}
 
@@ -449,7 +449,7 @@ Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
 \item Take a \textbf{sample} from the population: 654 children who came into a pediatric clinic for a routine check-up \pause
 \item Perform \textit{statistical inference}:
 	\begin{itemize}
-	\item Calculate the corresponding \textbf{statistic}: difference in sample means comparing two groups that differ by one year in age = \textit{linear regression slope} \pause
+	\item Calculate the corresponding \textbf{statistic}: difference in sample means comparing two groups that differ by one year in age \pause = \textit{estimate of linear regression slope} \pause
 	\item Quantify the uncertainty in your statistic
 	\item Perform a hypothesis test \pause
 	\end{itemize}
@@ -460,12 +460,20 @@ Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
 
 % show R output
 \begin{frame}
-\hspace*{-1cm} \includegraphics[width=0.99\paperwidth]{./plots/regress_fev_vs_age}
+\frametitle{Example: lung function and age}
+To fit the regression model \color{blue} $E[\text{FEV}|\text{age}] = \beta_0 + \beta_1 \text{age}$ \color{black} in \texttt{R}:\\ (1) load \texttt{uwIntroStats}, (2) use the \texttt{regress} function. \vspace{-0.3cm}
+
+\center
+\includegraphics[width=0.55\paperwidth]{./plots/regress_fev_vs_age}
 \end{frame}
 
 % highlight what's important
 \begin{frame}
-\hspace*{-1cm} \includegraphics[width=0.99\paperwidth]{./plots/regress_fev_vs_age_highlights}
+\frametitle{Example: lung function and age}
+Which pieces do we need to answer our question about the association between FEV and age? \vspace{-0.3cm}
+
+\center
+\includegraphics[width=0.55\paperwidth]{./plots/regress_fev_vs_age_highlights}
 \end{frame}
 
 % interpret results
