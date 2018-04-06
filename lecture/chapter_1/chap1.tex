@@ -304,15 +304,15 @@ If we sample from a population with constant variance versus non-constant varian
 \end{frame}
 
 \begin{frame}
-\frametitle{Choosing between naive and robust SE}
+\frametitle{Choosing between naive and robust SEs}
 
-Naive SE assume that variance in $Y$ is constant across all values of $X$. Robust SE are appropriate if variance is constant, or if it's non-constant!
+Naive SEs assume that variance in $Y$ is constant across all values of $X$. Robust SEs are appropriate if variance is constant, or if it's non-constant!
 
 \color{blue} Important: \color{black} what matters is whether the variance is constant \textit{in the population}, which we can't tell by looking at our data.
 
-\color{blue} Conclusion: \color{black} unless you have a very solid scientific reason for variance being constant, use robust SE.
+\color{blue} Conclusion: \color{black} unless you have a very solid scientific reason for variance being constant, use robust SEs.
 
-\color{red} Warning: \color{black} Most software (inappropriately) uses \textit{naive} SE, but the \texttt{uwIntroStats} package gives us \textit{robust} SE. % they don't need to know how to calculate, just need to know where to look in regress output
+\color{red} Warning: \color{black} Most software (inappropriately) uses \textit{naive} SEs, but the \texttt{uwIntroStats} package gives us \textit{robust} SEs. % they don't need to know how to calculate, just need to know where to look in regress output
 
 \begin{footnotesize} \textit{Note: the decision about which two-sample t-test to use (equal or unequal variances) relies on a similar thought process} \end{footnotesize}
 \end{frame}
@@ -428,8 +428,8 @@ To test whether there is a \textit{statistically significant} association betwee
 Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
 \begin{small}
 \begin{itemize} \itemsep -2pt
-\item $p < 0.05$: \textbf{reject $H_0$}, ``we have strong evidence to suggest that $X$ is associated with $Y$"
-\item $p > 0.05$: \textbf{fail to reject $H_0$}, ``we do not have enough evidence to support the hypothesis that $X$ is associated with $Y$"
+\item $p < \alpha$: \textbf{reject $H_0$}, ``we have evidence to suggest that $X$ is associated with $Y$"
+\item $p > \alpha$: \textbf{fail to reject $H_0$}, ``we do not have enough evidence to support the hypothesis that $X$ is associated with $Y$"
 \end{itemize}
 \end{small}
 \end{frame}
@@ -444,12 +444,12 @@ Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
 \item \textbf{Statistical question:} is there a \color{orange} difference in average \color{blue} FEV \color{black} comparing groups of US children that differ in age? \pause
 	\begin{itemize}
 	\item \textbf{Population:} all US children
-	\item \textbf{Parameter:} difference in population means comparing two groups that differ by one year in age \pause
+	\item \textbf{Parameter:} population linear regression slope (diff. in means comparing groups that differ by one year in age) \pause
 	\end{itemize}
 \item Take a \textbf{sample} from the population: 654 children who came into a pediatric clinic for a routine check-up \pause
 \item Perform \textit{statistical inference}:
 	\begin{itemize}
-	\item Calculate the corresponding \textbf{statistic}: difference in sample means comparing two groups that differ by one year in age \pause = \textit{estimate of linear regression slope} \pause
+	\item Calculate the corresponding \textbf{statistic}: sample linear regression slope (estimated difference in means comparing groups that differ by one year in age) \pause
 	\item Quantify the uncertainty in your statistic
 	\item Perform a hypothesis test \pause
 	\end{itemize}
@@ -566,11 +566,11 @@ Our t-test results:
 	\begin{itemize}
 	\item Difference in mean between groups differing by one unit (for a binary predictor, you can only differ by one unit)
 	\end{itemize}
-\item If you use naive SE, this is \textit{exactly} equivalent to the t-test which presumes equal variances
-\item If you use robust SE, this is \textit{approximately} equivalent\footnote[frame]{Our results look exactly the same, but if you go out to more digits you see slight differences in, e.g., the CI: (0.23235, 0.49020) and (0.23238, 0.49017) for the t-test and linear regression, respectively\\} to the t-test which allows for unequal variances
+\item If you use naive SEs, this is \textit{exactly} equivalent to the t-test which presumes equal variances
+\item If you use robust SEs, this is \textit{approximately} equivalent\footnote[frame]{Our results look exactly the same, but if you go out to more digits you see slight differences in, e.g., the CI: (0.23235, 0.49020) and (0.23238, 0.49017) for the t-test and linear regression, respectively\\} to the t-test which allows for unequal variances
 \end{itemize}
 
-\vspace{-0.2cm} No matter your choice of SE, your estimates will be the same: $\beta_1$ = the differences in means, $\beta_0 = $ the mean in ``group 0"
+\vspace{-0.2cm} No matter your choice of SEs, your estimates will be the same: $\beta_1$ = the differences in means, $\beta_0 = $ the mean in ``group 0"
 
 
 \end{frame}
