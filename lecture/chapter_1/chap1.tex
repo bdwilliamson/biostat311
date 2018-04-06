@@ -259,7 +259,7 @@ Why is this true?
 \color{blue} What do we know so far? \color{black}% interpreting coefficients; distinguish between truth and estimate
 \begin{itemize}
 \item \textbf{Estimate/statistic:} estimated regression coefficient
-\item[] (We know how to interpret. Today we'll talk about how to calculate.)
+\item[] (After Wednesday, we know how to interpret. Today we'll talk about how to calculate.)
 \end{itemize}
 
 \color{blue} What's missing? \color{black}\pause %ask them about the 4 numbers we always want them to report
@@ -278,6 +278,43 @@ Why is this true?
 \begin{frame}
 \frametitle{Quantifying uncertainty: standard errors}
 
+When we estimate regression coefficeints, we also want to quantify the \color{blue} uncertainty \color{black} in these estimates.\vspace{-0.2cm} \pause
+
+Just like we have two options for two-sample t-tests (\textit{equal} or \textit{unequal} variances), we have \color{blue} two options for calculating standard errors of regression coefficients\color{black}: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item \textbf{Naive standard errors}: assume that the population variance of $Y$ is the same across all values of $X$ % assume homoskedasticity
+	\begin{itemize}
+	\item Only appropriate if this assmption is true
+	\item We have no way of knowing if this assumption is true
+	\end{itemize}
+\item \textbf{Robust standard errors}: allow the population variance of $Y$ to differ across values of $X$ % allow for heteroskedasticity
+	\begin{itemize}
+	\item Appropriate if the variances differ, or if they're constant!\pause 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+% picture explaining homoskedasticity vs heteroskedasticity
+\begin{frame}
+\frametitle{Constant vs non-constant variance}
+
+If we sample from a population with constant variance versus non-constant variance, what does this look like?
+\includegraphics[width=\textwidth]{./plots/hetero}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Choosing between naive and robust SE}
+
+Naive SE assume that variance in $Y$ is constant across all values of $X$. Robust SE are appropriate if variance is constant, or if it's non-constant!
+
+\color{blue} Important: \color{black} what matters is whether the variance is constant \textit{in the population}, which we can't tell by looking at our data.
+
+\color{blue} Conclusion: \color{black} unless you have a very solid scientific reason for variance being constant, use robust SE.
+
+\color{red} Warning: \color{black} Most software (inappropriately) uses \textit{naive} SE, but the \texttt{uwIntroStats} package gives us \textit{robust} SE. % they don't need to know how to calculate, just need to know where to look in regress output
+
+\begin{footnotesize} \textit{Note: the decision about which two-sample t-test to use (equal or unequal variances) relies on a similar thought process} \end{footnotesize}
 \end{frame}
 
 
@@ -285,9 +322,91 @@ Why is this true?
 \begin{frame}
 \frametitle{Quantifying uncertainty: 95\% confidence intervals}
 
-% how to construct CI
-% include discussion of CI interpretation dice rolling anlogy
+Once we have our standard error, we can calculate a 95\% confidence interval. 
 
+Again, there are two options: \vspace{-0.3cm}
+\begin{itemize}
+\item $\hat{\beta} \pm 1.96 \times \widehat{SE}(\hat\beta)$
+\item $\hat{\beta} \pm t_{n-2} \times \widehat{SE}(\hat\beta)$
+	\begin{itemize}
+	\item If $n = 10, t_{n-2} = 2.31$
+	\item If $n = 100, t_{n-2} = 1.98$
+	\item If $n = 1000, t_{n-2} = 1.96$
+	\end{itemize}
+\end{itemize}
+
+Most software (including \texttt{uwIntroStats}) gives you the $t$-based confidence interval. When $n$ is large, there's little difference. Either way, our interpretation remains the same.
+
+% differences between the two come from thinking about what the sampling distribution of \hat\beta is... when n is large, CLT tells us it's normal so first is good; when data are normal, \hat\beta-mu/se is t, for small or large n; in practice: t-intervals work fine in either setting because they're always wider -- may have more than 95% coverage
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpreting 95\% confidence intervals}
+
+Suppose we use linear regression to evaluate the association between FEV and age, and we estimate the slope to be 0.22, with 95\% confidence interval (0.20, 0.24).
+
+To interpret the CI for a regression coefficient: same language as CI for the mean (0.50) or difference in means (0.60, HW2)
+
+\textit{We estimate that the difference in mean FEV comparing two groups of children that differ by one year in age is 0.22 liters per second, with higher average FEV in the older of the two groups. \color{blue} Based on a 95\% confidence interval, this estimated difference would not be judged unusual if the true difference were between 0.20 and 0.24 liters per second. \color{black}}
+\end{frame}
+
+% discussion of CI interpretation dice rolling anlogy
+\begin{frame}
+\frametitle{Interpreting confidence intervals: rolling the dice}
+
+\textbf{Rolling dice}:\vspace{-0.3cm}
+\begin{itemize}
+\item \textit{What's random?The process of rolling}
+\item Once we've rolled, there's no randomness left, and any probabilites are 0 or 1 (depending on the truth)
+\end{itemize}
+
+\pause
+\textbf{Estimating quantities from data}:\vspace{-0.3cm}
+\begin{itemize}
+\item \textit{What's random?} The process of collecting data
+\item Once we've collected data, there's no randomness left, and any probabilites are 0 or 1 (depending on the truth)
+\end{itemize}
+
+\pause
+\begin{small}
+Recall the definition of \textbf{probability}: the relative frequency of an event in the long run (i.e., if an experiment is repeated many times, what proportion of those times does the event occur?)\\
+\color{blue} Example: \color{black} If I repeat the process of collecting data many times, and every time check if our \textit{original} confidence interval (0.20,0.24) contains the true difference in means, how often will this happen?\\ \pause \hfill \color{red} Always, or never.
+\end{small}
+
+\end{frame}
+
+% back to road map
+\begin{frame}
+\frametitle{Back to our linear regression roadmap...}
+\color{blue} What do we know so far? \color{black}% interpreting coefficients; distinguish between truth and estimate
+\begin{itemize}
+\item \textbf{Estimate/statistic:} estimated regression coefficient
+\item[] (After Wednesday, we know how to interpret. Today we'll talk about how to calculate.)
+\end{itemize}
+
+\color{blue} What's missing? \color{black} %ask them about the 4 numbers we always want them to report
+\begin{itemize}
+\item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
+\item \textbf{Hypothesis test:} p-value for regression coefficient 
+\item \textit{What types of scientific questions can we answer using linear regression?}
+\item \textit{How do I do all this in R?}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Back to our linear regression roadmap...}
+\color{blue} What do we know so far? \color{black}% interpreting coefficients; distinguish between truth and estimate
+\begin{itemize}
+\item \textbf{Estimate/statistic:} estimated regression coefficient
+\item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
+\end{itemize}
+
+\color{blue} What's missing? \color{black} %ask them about the 4 numbers we always want them to report
+\begin{itemize}
+\item \textbf{Hypothesis test:} p-value for regression coefficient 
+\item \textit{What types of scientific questions can we answer using linear regression?}
+\item \textit{How do I do all this in R?}
+\end{itemize}
 \end{frame}
 
 % hypothesis tests
@@ -295,31 +414,234 @@ Why is this true?
 \begin{frame}
 \frametitle{Hypothesis tests}
 
-\end{frame}
+$$\text{Regression Model: } E[Y|X] = \beta_0 + \beta_1 X$$
 
+Recall that $\beta_1$ quantifies the association between $X$ and $Y$.
+
+To test whether there is a \textit{statistically significant} association between $X$ and $Y$, \color{blue} we just need to test whether $\beta_1 = 0$: \vspace{-0.3cm} \color{black}
+\begin{itemize}
+\item $H_0: \beta_1 = 0$
+\item $H_1: \beta_1 \not= 0$
+\end{itemize}
+
+\pause
+Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
+\begin{small}
+\begin{itemize} \itemsep -2pt
+\item $p < 0.05$: \textbf{reject $H_0$}, ``we have strong evidence to suggest that $X$ is associated with $Y$"
+\item $p > 0.05$: \textbf{fail to reject $H_0$}, ``we do not have enough evidence to support the hypothesis that $X$ is associated with $Y$"
+\end{itemize}
+\end{small}
+\end{frame}
 
 % putting it in context: from scientific question to conclusions (FEV vs age)
 \subsection{From scientific question to conclusions: continuous predictor}
 \begin{frame}
-\frametitle{Evaluating the association between lung function and age}
+\frametitle{Example: lung function and age}
 
-% include discussion of R code and output
-% aside: connect to correlation
+\begin{enumerate}
+\item \textbf{Scientific question:} is \color{blue} lung function \color{orange} associated \color{black} with age among US children? \pause
+\item \textbf{Statistical question:} is there a \color{orange} difference in average \color{blue} FEV \color{black} comparing groups of US children that differ in age? \pause
+	\begin{itemize}
+	\item \textbf{Population:} all US children
+	\item \textbf{Parameter:} difference in population means comparing two groups that differ by one year in age \pause
+	\end{itemize}
+\item Take a \textbf{sample} from the population: 654 children who came into a pediatric clinic for a routine check-up \pause
+\item Perform \textit{statistical inference}:
+	\begin{itemize}
+	\item Calculate the corresponding \textbf{statistic}: difference in sample means comparing two groups that differ by one year in age = \textit{linear regression slope} \pause
+	\item Quantify the uncertainty in your statistic
+	\item Perform a hypothesis test \pause
+	\end{itemize}
+\item Make conclusions in context of original questions
+\end{enumerate}
 
 \end{frame}
+
+% show R output
+\begin{frame}
+\hspace*{-1cm} \includegraphics[width=0.99\paperwidth]{./plots/regress_fev_vs_age}
+\end{frame}
+
+% highlight what's important
+\begin{frame}
+\hspace*{-1cm} \includegraphics[width=0.99\paperwidth]{./plots/regress_fev_vs_age_highlights}
+\end{frame}
+
+% interpret results
+\begin{frame}
+\frametitle{Example: lung function and age}
+Interpreting our results:\vspace{-0.3cm}
+\begin{itemize}
+\item \textit{Statistic:} We estimate that the difference in mean FEV comparing two groups of children that differ by one year in age is 0.22 liters per second, with higher average FEV in the older of the two groups. \pause
+\item \textit{Uncertainty:} Based on a 95\% confidence interval, this estimated difference would not be judged unusual if the true difference were between 0.20 and 0.24 liters per second.\pause
+\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups of children that differ by one year in age is significantly differnt from zero (p $<$ 0.001). \pause
+\item \textit{Conclusion:} These data provide evidence to suggest that older children tend to have higher FEV. 
+\end{itemize}
+\end{frame}
+
+% new example: binary predictor
+\begin{frame}
+\frametitle{Example: lung function and age}
+Why haven't we said anything about the intercept? \vspace{-0.3cm}
+\begin{itemize}
+\item Interpretation: We estimate that the average FEV among newborns is 0.22 L/sec \pause
+\item But... 
+	\begin{itemize}
+	\item \textit{Is this scientifically relevant?} Maybe not.
+	\item Most importantly, \color{blue} the intercept has nothing to do with our scientific question \color{black} (is FEV associated with age?) \pause
+	\end{itemize}
+\item Since the intercept is not relevant to our primary scientific question, we don't care about the CI or p-value
+\end{itemize}
+\end{frame}
+
 
 % putting it in context: from scientific question to conclusions (FEV vs sex) = special case with binary predictor
 %%%% if time: use genetics example instead
 \subsection{From scientific question to conclusions: binary predictor}
 \begin{frame}
-\frametitle{Evaluating the association between lung function and sex}
+\frametitle{Example: lung function and sex}
 
-% aside: connect to t-tests
+\begin{enumerate}
+\item \textbf{Scientific question:} do boys and girls (in the US) have different lung function?
+\item \textbf{Statistical question:} is there a difference in average FEV between boys and girls?
+\end{enumerate} 
+
+Earlier this week, we used the two-sample t-test (with unequal variances) to address this question.
+
+We can also use linear regression!
+\end{frame}
+
+% show R output
+\begin{frame}
+\hspace*{-0.5cm} \includegraphics[width=0.9\paperwidth]{./plots/regress_fev_vs_sex} % ask the to id coef, CI, p-val
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: lung function and sex}
+
+Our linear regression results:
+
+\begin{itemize}
+\item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 liters per second (with boys tending to have the higher mean FEV). \pause
+\item \textit{Uncertainty:} Based on a 95\% confidence interval, this observed difference would not be judged unusual if the true difference were between 0.232 and 0.490 liters per second.\pause
+\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups is different from zero (p $<$ 0.001).\pause
+\item \textit{Conclusion:} These data provide evidence to suggest that sex is associated with FEV in children.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: lung function and sex}
+
+Our t-test results: 
+
+\begin{itemize}
+\item \textit{Statistic:} We estimate that the difference in mean FEV between girls and boys is 0.361 liters per second (with boys tending to have the higher mean FEV). 
+\item \textit{Uncertainty:} Based on a 95\% confidence interval, this observed difference would not be judged unusual if the true difference were between 0.232 and 0.490 liters per second.
+\item \textit{Hypothesis test p-value:} These data provide strong evidence that the difference in mean FEV between groups is different from zero (p $<$ 0.001).
+\item \textit{Conclusion:} These data provide evidence to suggest that sex is associated with FEV in children.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: lung function and sex}
+
+\begin{itemize}
+\item \color{blue} If you use linear regression with a binary predictor, this is essentially the same as performing a t-test \color{black}
+	\begin{itemize}
+	\item Difference in mean between groups differing by one unit (for a binary predictor, you can only differ by one unit)
+	\end{itemize}
+\item If you use naive SE, this is exactly equivalent to the t-test which presumes equal variances
+\item If you use robust SE, this is approximately equivalent\footnote[frame]{Our results look exactly the same, but if you go out to more digits you see slight differences in, e.g., the CI: (0.23235, 0.49020) and (0.23238, 0.49017) for the t-test and linear regression, respectively\\} to the t-test which allows for unequal variances
+\end{itemize}
+
+\vspace{-0.2cm} No matter your choice of SE, your estimates will be the same: $\beta_1$ = the differences in means, $\beta_0 = $ the mean in ``group 0"
+
 
 \end{frame}
 
 % "Under the hood" -- how do we get a linear regression line?
 %%% explain ideas behind least squares estimation
+\subsection{Under the hood: least squares estimation}
+\begin{frame}
+\frametitle{Least squares estimation}
+What is \texttt{R} doing ``under the hood" to get these regression coefficient estimates?\vspace{-0.5cm} \pause 
+
+\center \includegraphics[height=0.8\textheight]{./plots/linear-regr}
+\end{frame}
+
+\begin{frame}
+\frametitle{Least squares estimation}
+\textit{Least squares:} minimize the sum of the squared distances from the observed points to the fitted line.\vspace{-0.5cm}
+
+\center \includegraphics[height=0.8\textheight]{./plots/linear-regr-ls}
+\end{frame}
+
+\begin{frame}
+\frametitle{Least squares estimation: technical details}
+\textit{Least squares:} minimize the sum of the squared distances from the observed points to the fitted line. \pause
+
+We can write this as an optimization problem, $$ \text{argmin}_{\beta_0,\beta_1} \sum_{i=1}^n \left(Y_i - \left[\beta_0 + \beta_1 X_i\right]\right)^2,$$ \pause which has a closed form solution:\vspace{-0.3cm}
+\begin{itemize}
+\item $\hat\beta_1 = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sum_i \left(X_i - \bar{X}\right)^2}$
+\item $\hat\beta_0 =\bar{Y} - \hat\beta_1 \bar{X}$
+\end{itemize}
+
+\center \color{blue} \textit{You will \textbf{NOT} be tested on these!} \color{black}
+\end{frame}
+
+% aside: connect to correlation
+\begin{frame}
+\frametitle{Simple linear regression and correlation}
+
+Notice how much our slope estimate looks like Pearson's correlation: 
+$$\hat\beta_1 = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sum_i \left(X_i - \bar{X}\right)^2}$$
+$$r = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sqrt{\sum_i\left(X_i - \bar{X}\right)^2} \sqrt{\sum_i \left(Y_i - \bar{Y}\right)^2}}$$ \pause
+
+\begin{itemize}\vspace{-0.3cm}
+\item $\hat\beta_1$ and $r$ have the same sign: both positive, both negative, or both zero
+\item Testing $H_0: r = 0$ is equivalent to testing $\beta_1 = 0$
+\item $\hat\beta_1$ has a more meaningful (and scientifically relevant) interpretation
+\item (Coming soon:) Linear regression also lets us adjust for other variables; correlation does not
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Index Card \# 3}
+
+\begin{enumerate}
+\item Name
+\item Something you learned this week.
+\item Something you \textit{were} struggling with/had questions about, but now feel more confident about.
+\item Something you \textit{are} struggling with/have questions about.
+\item Does our office hours time (Wed, 2--4) work for you?
+\item Have you ever used Poll Everywhere?
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression roadmap}
+\color{blue} What do we know so far? \color{black}% interpreting coefficients; distinguish between truth and estimate
+\begin{itemize}
+\item \textbf{Estimate/statistic:} estimated regression coefficient
+\item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
+\item \textbf{Hypothesis test:} p-value for regression coefficient 
+\item \textit{What types of scientific questions can we answer using linear regression?}
+\item \textit{How do I do all this in R?} (and what R is doing)
+\end{itemize}
+
+\color{blue} What's next?
+\begin{itemize}
+\item Linear regression with a categorical predictor
+\item Transforming our predictor or outcome variables
+\end{itemize}
+
+\end{frame}
 
 
 
