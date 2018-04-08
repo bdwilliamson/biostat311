@@ -639,24 +639,190 @@ $$r = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sqrt{\
 
 \begin{frame}
 \frametitle{Linear regression roadmap}
-\color{blue} What do we know so far? \color{black}% interpreting coefficients; distinguish between truth and estimate
+\color{blue} What do we know so far? \color{black}\vspace{-0.3cm}% interpreting coefficients; distinguish between truth and estimate
 \begin{itemize}
 \item \textbf{Estimate/statistic:} estimated regression coefficient
 \item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
 \item \textbf{Hypothesis test:} p-value for regression coefficient 
 \item \textit{What types of scientific questions can we answer using linear regression?}
+	\begin{itemize}
+	\item Continuous outcome vs continuous predictor
+	\item Continuous outcome vs binary predictor
+	\end{itemize}
 \item \textit{How do I do all this in R?} (and what R is doing)
 \end{itemize}
 
-\color{blue} What's next?
+\color{blue} What's next?\vspace{-0.3cm}
 \begin{itemize}
+\item Transforming our predictor or outcome
 \item Linear regression with a categorical predictor
-\item Transforming our predictor or outcome variables
 \end{itemize}
+\end{frame}
+
+% Warm-up activity: FEV vs age
+\begin{frame}
+\frametitle{Warm-up: interpreting coefficients}
+How do we interpret $\beta_0, \beta_1$ in this linear regression model? $$E[\text{FEV}|\text{Age}] = \beta_0 + \beta_1 \text{Age}$$\pause
+
+$\beta_0$: average FEV (l/sec) among newborn children \pause
+\begin{align*}
+\color{blue} E[\text{FEV}|\text{Age} = 0] \color{black} = \beta_0 + \beta_1 (0) =  \color{blue} \beta_0 \color{black} 
+\end{align*}\pause
+
+$\beta_1$: difference in average FEV (l/sec) comparing two groups that differ in age by one year \pause
+\begin{align*}
+\color{blue} E[\text{FEV}|\text{Age} = x+1] & \color{blue} - E[\text{FEV}|\text{Age} = x]\color{black} = \\
+\left[\beta_0 + \beta_1 (x+1)\right] &- \left[\beta_0 + \beta_1 (x) \right] = \\
+\left[\beta_0 + \beta_1 (x) + \beta_1 \right] &- \left[\beta_0 + \beta_1(x)\right] =\\
+ &\color{blue}\beta_1
+\end{align*}
+\end{frame}
+
+% Warm-up activity: Age+3
+\begin{frame}
+\frametitle{Interpreting coefficients: warm-up}
+How do we interpret $\beta_0$ in this linear regression model? $$E[\text{FEV}|(\text{Age}-3)] = \beta_0 + \beta_1 \left(\text{Age}-3\right)$$\pause
+
+\vspace{-0.5cm}
+$\beta_0$: average value of $Y$ among subjects with $X = 0$ \\ \pause
+\ \ \ \ \ average FEV (l/sec) among kids with $\text{Age} -3 = 0$\\ \pause
+\ \ \ \ \ \color{blue} average FEV (l/sec) among 3 year olds \color{black} \pause
+
+Why are those last two interpretations equivalent?
+\begin{align*}
+E[\text{FEV}|(\text{Age}-3) = 0] = E[\text{FEV} | \text{Age} = 3]
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpreting coefficients: warm-up}
+How do we interpret $\beta_1$ in this linear regression model? $$E[\text{FEV}|(\text{Age}-3)] = \beta_0 + \beta_1 \left(\text{Age}-3\right)$$\pause
+
+\vspace{-0.5cm}
+$\beta_1$: difference in average value of $Y$ comparing two groups that differ in $X$ by one unit\\ \pause
+\ \ \ \ \ difference in average FEV (l/sec) comparing two groups that differ in $\text{Age}-3$ by one year\\ \pause
+\ \ \ \ \ \color{blue} difference in average FEV (l/sec) comparing two groups that differ in age by one year \color{black}\pause
+
+Why are those last two interpretations equivalent?
+\begin{align*}
+E[\text{FEV}|(\text{Age}-3) = x+1] &- E[\text{FEV} | (\text{Age}-3) = x] =\\
+E[\text{FEV}|\text{Age} = x+4] &- E[\text{FEV} | \text{Age} = x+3]
+\end{align*}
+\end{frame}
+
+% Warm-up activity
+\begin{frame}
+\frametitle{Interpreting coefficients: your turn!}
+On a piece of paper, please:\vspace{-0.3cm}
+\begin{enumerate} \itemsep +3pt
+\item Write your name
+\item Interpret $\beta_0, \beta_1$ in the following models:
+	\begin{enumerate}\itemsep +5pt
+	\item $E[\text{FEV}|\text{Age}] = \beta_0 + \beta_1 \text{Age}$ \\\begin{scriptsize}(Don't forget units: FEV = liters/second, Age = years)\end{scriptsize}
+	\item $E[\text{FEV}|\left(\text{Age}-\overline{Age}\right)] = \beta_0 + \beta_1 \left(\text{Age}-\overline{Age}\right)$ 
+	\item $E[\text{FEV}|\left(\frac{\text{Age}}{10}\right)] = \beta_0 + \beta_1 \left(\frac{\text{Age}}{10}\right)$ 
+	\item $E[\text{FEV}|\left(\frac{\text{Age}-3}{10}\right)] = \beta_0 + \beta_1 \left(\frac{\text{Age}-3}{10}\right)$ 
+	\end{enumerate}
+\item Interpret $\beta_0, \beta_1$ in the following models:
+	\begin{enumerate}\itemsep +5pt
+	\item $E[(\text{FEV}\times 60)|\text{Age}] = \beta_0 + \beta_1 \text{Age}$ 
+	\item $E[\left(\frac{\text{FEV}}{3.78541}\right)|\text{Age}] = \beta_0 + \beta_1 \text{Age}$ \begin{scriptsize}\\(Hint: 1 gallon = 3.78541 liters)\end{scriptsize}
+	\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+% pause to walk through answers
+
+% motivation for linear transformations
+\begin{frame}
+\frametitle{Linear transformations of $X$ and $Y$}
+
+\textit{Linear transformation:} adding, subtracting, multiplying, and/or dividing by some constant
+
+Which transformations change our interpretation of $\beta_0$?\vspace{-0.3cm}\pause
+\begin{itemize}
+\item[] Adding (subtracting) a constant to (from) $X$
+\item[] Any change to $Y$\pause
+\end{itemize}
+
+Which transformations changed our interpretation of $\beta_1$?\pause
+\vspace{-0.3cm}\pause
+\begin{itemize}
+\item[] Dividing (multiplying) $X$ by a constant  
+\item[] Any change to $Y$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why transform $X$ and/or $Y$?}
+Why might we want to transform our variables? \vspace{-0.3cm}
+\begin{itemize}
+\item Make interpretation of $\beta_0$ more scientifically meaningful (e.g., so we're not talking about the average FEV among people with height 0")
+\item Make estimate of $\beta_0$ more trustworhty (e.g., so we're not estimating the average FEV among newborns if all our data were collected on senior citizens)
+\item Change units (e.g., difference in FEV in liters/minute comparing two groups that differ in age by one year)\pause
+\end{itemize}
+
+\color{red} Important: \color{black} decision to transform should always be made \textit{before} looking at your data, on the basis of \textit{scientific motivations}
+\end{frame}
+
+% summary of types of transformations they should know
+\begin{frame}
+\frametitle{Types of transformations}
+
+So far we've seen:
+\begin{enumerate}
+\item Adding/subtracting a constant (e.g., $\text{Age} - \overline{Age}$)
+\item Multiplying/dividing by a constant (e.g., $\text{Age}/10$)
+\item A combination of 1. and 2. (e.g., $(\text{Age}-3)/10$)
+\end{enumerate}
+
+What other types of transformations might we use?
+\begin{enumerate}
+\item Log transformations
+\item Polynomial transformations (e.g., $x + x^2$)
+\end{enumerate}
+
+\end{frame}
+
+% log(X)
+\begin{frame}
+\frametitle{Transformations: $\log(X)$}
+
+\end{frame}
+
+% log(Y)
+\begin{frame}
+\frametitle{Transformations: $\log(Y)$}
+
+\end{frame}
+
+% both
+\begin{frame}
+\frametitle{Transformations: $\log(X), \log(Y)$}
 
 \end{frame}
 
 
+% polynomial
+\begin{frame}
+\frametitle{Transformations: polynomial}
+
+% why do this? account for non-linearity, scientific motivation
+% not that important if you just care about association, also makes interpretation very challenging!
+% more important if you care about prediction
+
+\end{frame}
+
+% dummy variables
+\begin{frame}
+\frametitle{Linear regression with a categorical predictor}
+
+% sometimes it makes sense to re-code as numbers: binary, genotype
+% even if there is a natural order, hard to know what values to assign
+% when there is no natural order, even harder!
+% what do we do? use dummy variables
+
+\end{frame}
 
 
 
