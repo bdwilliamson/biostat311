@@ -1,0 +1,385 @@
+---
+title: "Graphs and Descriptive Statistcs"
+author: "Kelsey Grinde and Brian Williamson"
+date: "3 April 2018"
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 3
+urlcolor: Lavender
+header-includes:
+  - \usepackage[dvipsnames]{xcolor}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+## function to color text
+colFmt = function(x,color){
+  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+```
+
+# Activity: graphs and descriptive statistics in R
+
+You'll use the FEV data in all of the activities today, so first read it in:
+```{r read-data, echo = TRUE}
+## you may have to change the bit that reads "fev.txt" to make sure 
+## that R can tell where your file is located!
+fev <- read.table(file = "fev.txt", header = TRUE) 
+## this is a different function than we saw before, but it does the same thing!
+## check it out, just in case
+head(fev)
+```
+
+## 1. Descriptive statistics
+
+You have already seen one method for computing simple descriptive statistics: the `summary` function. 
+
+```{r summarize, echo = TRUE}
+summary(fev)
+```
+
+In the key for the first discussion section activity, you saw that `seqnbr` and `subjid` don't have meaningful descriptive statistics, since they are subject identifiers (and hence somewhat arbitrary). You also saw that to make the output from `summary` more informative for the binary variables (`sex`, `smoke`), you can code them as 0's and 1's:
+
+```{r create-new, echo = TRUE}
+## make a variable called "female", and one called "smoker"
+fev$female <- fev$sex - 1
+fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
+## re-summarize
+summary(fev)
+```
+
+However, typically you will report more than just the descriptive statistics from `summary`: for example, knowing the number of observations for each variable, and the number of missing observations, is often helpful.
+
+The `uwIntroStats` package contains functions that compute descriptive statistics easily. Load that package now. If you haven't installed `uwIntroStats` yet, make sure to run `install.packages("uwIntroStats")` prior to running line 64.
+
+```{r load-uwIntroStats, echo = TRUE}
+library("uwIntroStats")
+```
+
+One of the easiest functions to use is `descrip`. Uncomment the line in the code chunk below that only has a single `#` preceding the code, and run it. Replace the text in italics below with your observations on what information `descrip` gives you that `summary` does not, and whether or not you think this additional information is helpful.
+
+```{r descrip-1, echo = TRUE}
+# descrip(fev)
+```
+
+*Replace this sentence.*
+
+One of the most powerful features of `descrip` is its ability to compute and easily display `r colFmt("stratified", "blue")` descriptive statistics---here, summary measures are computed within each level of a variable (e.g., `smoker = 0` and `smoker = 1`), and displayed. Add the argument `strata = fev$smoker` to the call to `descrip` in the next code chunk, and report the mean FEV among smokers and nonsmokers. Also, why might you want to stratify by smoking status in these data? (Hint: what is the scientific question?)
+
+```{r descrip-2, echo = TRUE}
+## descriptive statistics stratified by smoking status
+## you have to add the argument strata = fev$smoker!
+# descrip(fev)
+```
+
+*Replace this text with your answers to the previous question.*
+
+## 2. Improving the boxplot
+
+You have seen a couple of examples of boxplots already: in the lecture notes for the introduction section (on slide 17) and for chapter 0 (on slide 0.27). Here, you'll improve upon the boxplot by `r colFmt("adding data points", "blue")`. For this exercise, you'll improve the boxplot from slide 17 of the introduction notes. 
+
+You first have to create a variable in the FEV data that denotes pre-teens (defined as less than 13 years old) and teens (defined as greater than or equal to 13 years old). The logical expression that creates this variable is given by `fev$age < 13`: if a given value in the `age` variable of the `fev` dataset is less than 13, this logical expression returns `TRUE`, and otherwise it returns `FALSE`. Fill in the next code chunk to create a variable called `teen` in the `fev` data that takes on the value `1` if the study participant is a teen, and takes on the value `0` if the study participant is a pre-teen.
+
+```{r create-teen, echo = TRUE}
+## create the teen variable here! Hint: use the ifelse() function
+```
+
+Now that you have a variable that differentiates teens from pre-teens, you can re-create the boxplot from slide 17 with the following code: `boxplot(fev$fev ~ fev$teen, xlab = "Age Group", ylab = "FEV (liters per second)", names = c("Pre-teen (< 13)", "Teen (13 +)"))`. Here's what each component of that line of code means, in English:
+
+* `boxplot`: Use the `boxplot` function
+* `fev$fev ~ fev$teen`: Plot the `fev` variable from the `fev` dataset on the $y$-axis, since it is on the left-hand side of the tilde (`~`)
+* `fev$fev ~ fev$teen`: Plot the `teen` variable from the `fev` dataset on the $x$-axis, since it is on the right-hand side of the tilde
+* `xlab = "Age Group"`: Make a label for the $x$-axis, and have it display "Age Group"
+* `ylab = "FEV (liters per second)"`: Make a label for the $y$-axis, and have it display "FEV (liters per second)"
+* `names = c("Pre-teen (< 13)", "Teen (13 +)")`: label the tickmarks on the $x$-axis using "Pre-teen (< 13)" and "Teen (13 +)"
+
+Copy the code for the boxplot into the next code chunk, and run it to create the boxplot. What is this boxplot telling us about the data? What do the solid black line, box, and "whiskers" mean?
+
+```{r boxplot-1, echo = TRUE}
+## paste the boxplot code under this comment, 
+## and change the comment to something that will help you 
+## remember what the code is doing!
+```
+
+*Replace this sentence with your answers to the questions above.*
+
+What would happen if we forgot some of these options? Uncomment the code in the next code chunk and run that line. Replace the text in italics below with your observations on what changed between this plot and the previous one: specifically, which plot is more informative, and why?
+
+```{r boxplot-2, echo = TRUE}
+# boxplot(fev$fev ~ fev$teen)
+```
+
+*Replace this sentence with your answers to the questions above.*
+
+One way to improve upon this boxplot (there are many!) is to add the underlying data points. This gives an additional layer of information about the spread and center of the data for each group. 
+
+You'll proceed in three stages to add data to the boxplot: 
+
+1. Using the `plot` function, plot the `fev` values for pre-teens; use this to create an empty plot
+2. Using the `boxplot` function (with new options!) add the boxplots to the empty plot
+3. Using the `points` function, add data points for both pre-teens and teens
+
+First, focus on plotting the `fev` values for pre-teens (change the code chunk option from `eval = FALSE` to `eval = TRUE`):
+
+```{r boxplot-3, eval = FALSE}
+## plot the fev values for pre-teens only
+plot(fev$teen[fev$teen == 0], fev$fev[fev$teen == 0], xlim = c(-1, 2), 
+     ylim = c(0, 6), ylab = "FEV (liters per second)", 
+     xlab = "Age Group", axes = FALSE, pch = 16)
+```
+
+What do you notice about this plot? Is it informative? What does the code `fev$fev[fev$teen == 0]` do? What does the code `fev$teen[fev$teen == 0]` do? (Hint: `==` means "compare the left- and right-hand sides and check if they are equal")
+
+*Replace this sentence with your answers to the questions above.*
+
+Correct one of the issues that you should have identified, by adding some random noise to the `fev$teen` values, so that there is some visual separation between the points (this is also called `r colFmt("jittering", "blue")`). Change the code chunk option for the next chunk to `eval = TRUE` and run it; do you think that this has improved the visual layout of the plot? Can you gain a bit more information now than you had before?
+
+```{r boxplot-4, eval = FALSE}
+## set a random number seed (so that your results are reproducible; can be any number)
+set.seed(1234)
+## add some random noise (from a uniform distribution) to the values
+pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
+## plot the fev values for pre-teens only
+plot(pre_teen_noisy, fev$fev[fev$teen == 0], xlim = c(-1, 2), 
+     ylim = c(0, 6), ylab = "FEV (liters per second)", 
+     xlab = "Age Group", axes = FALSE, pch = 16)
+
+```
+*Replace this sentence with your answers to the questions above.*
+
+Now create an empty plot, using similar code to before, and add the boxplots on top (again, change to `eval = TRUE`):
+
+```{r boxplot-5, eval = FALSE}
+## create any empty plot (type = "n"), but give it x- and y-axis limits, and labels
+plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), 
+     ylab = "FEV (liters per second)", xlab = "Age Group", 
+     axes = FALSE, pch = 16)
+## add the boxplots (set add to TRUE, but other things to FALSE since we are adding)
+boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, 
+        at = c(0, 1), axes = FALSE, outline = FALSE)
+```
+
+Finally, run the next code chunk (after changing `eval` to `TRUE`). Comment on this plot: what do the data tell you about the relationship between FEV and age? Would you change anything about this plot (including changing the type of plot altogether) to better tell this story?
+
+```{r boxplot-6, eval = FALSE}
+## create any empty plot (type = "n"), but give it x- and y-axis limits, and labels
+plot(1, type = "n", xlim = c(-1, 2), ylim = c(0, 6), 
+     ylab = "FEV (liters per second)", xlab = "Age Group", 
+     axes = FALSE, pch = 16)
+## add the boxplots (set add to TRUE, but other things to FALSE since we are adding)
+boxplot(fev$fev ~ fev$teen, xlab = "", ylab = "", add = TRUE, 
+        at = c(0, 1), axes = FALSE, outline = FALSE)
+## create jittered data for pre-teens and teens
+set.seed(1234)
+pre_teen_noisy <- fev$teen[fev$teen == 0] + runif(length(fev$teen[fev$teen == 0]), -0.05, 0.05)
+teen_noisy <- fev$teen[fev$teen == 1] + runif(length(fev$teen[fev$teen == 1]), -0.05, 0.05)
+## add the data points
+points(pre_teen_noisy, fev$fev[fev$teen == 0], pch = 16)
+points(teen_noisy, fev$fev[fev$teen == 1], pch = 16)
+## add x-axis and labels
+axis(side = 1, at = c(0, 1), labels = c("Pre-teen (< 13)", "Teen (13 +)"))
+## add y-axis
+axis(side = 2, at = seq(0, 6, by = 1))
+## add a box around everything
+box()
+```
+*Replace this sentence with your answers to the questions above.*
+
+## 3. Stratified scatterplots
+
+On slide 0.32, you saw a scatterplot of FEV versus age. Here, you'll improve upon that scatterplot, by adding color to denote smokers versus nonsmokers.
+
+First, why might you want to show smokers and nonsmokers in two different colors? What are the pros and cons of displaying all of the information in a single graph, rather than in two graphs (one for smokers, and one for nonsmokers)? 
+
+*Replace this sentence with your answer to these questions.*
+
+To color the points for smokers and nonsmokers differently, you'll use some of the tools you learned in the previous exercise by: (1) plotting the FEV values for all ages, among nonsmokers, and coloring the points blue; and (2) adding the points corresponding to the FEV values for all ages, among smokers, and coloring the points red. The next code chunk does the first part for you---your task is to add the points corresponding to smokers.
+
+```{r scatter-1, eval = FALSE}
+## plot FEV values for all ages, among nonsmokers
+plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0], 
+     xlab = "Age (years)",ylab = "FEV (liters per second)", 
+     main = "FEV versus age, stratified by smoking status", 
+     pch = 16, col = "blue")
+## add in code to add the points for smokers, 
+## colored red (Hint: use the points() function)
+
+## add a legend
+legend("topleft", legend = c("Smoker", "Nonsmoker"), col = c("red", "blue"), pch = 16)
+```
+
+Based on this plot, describe the trends in FEV with age for smokers and nonsmokers, separately. Additionally, describe the difference in the trends in FEV with age between smokers and nonsmokers.
+
+*Replace this sentence with your description.*
+
+## 4. Linear regression
+
+In Chapter 1, we looked at an example where we fit the regression model $$E[\text{FEV}|\text{age}]=\beta_0+\beta_1\text{age}.$$
+
+Use `R` to fit that regression model now. (Hint: look at slide 1.24)
+
+```{r lin-reg, eval = FALSE}
+## insert code to run linear regression here
+## update the comment so you remember what each piece means
+```
+
+Interpret the results of your linear regression analysis. (**Make sure you include and interpret all 4 important numbers!**)
+
+*Type your interpretation here*
+
+Now, we will create a graphical representation of our linear regression results, by adding our fitted linear regression line to the scatterplot of FEV vs age. In the code chunk below, update `b0` with the estimated intercept from above, `b1` with the estimated slope, and change `eval=TRUE` to display your plot in your knitted document.
+
+```{r lin-reg-scatter, eval = FALSE}
+# plot FEV vs age
+plot(fev$fev ~ fev$age, pch=16,
+     xlim = c(0,20), ylim = c(0,8),
+     xlab = "Age (years)",ylab = "FEV (liters per second)", 
+     main = "FEV versus age")
+
+# add line of best fit
+b0 <- 0 # replace 0 with estimated beta_0
+b1 <- 0.3 # replace 0.3 with esimtated beta_1
+abline(a = b0, b = b1, col='red') # add line with int = b0, slope = b1
+
+# add a legend
+legend('topleft', 
+       legend=c('Data','Linear Regression Line'),
+       col = c('black','red'), lty = c(NA,1),
+       pch = c(16,NA))
+```
+
+Looking at the plot you've created, does your linear regression line seem like it provides a good fit to our observed data?
+
+*Insert answer here.*
+
+Our estimated linear regression line is one type of `r colFmt("trend line", "blue")` that shows the relationship between FEV and age (in this case, it's the `r colFmt("line of best fit", "blue")`, or the line with the smallest sum of squared residuals). Another type of trend line is a `r colFmt("loess smooth", "blue")`. 
+
+Best fitting lines (linear regression lines) minimize the squared difference between each data point and the line: the idea is that the best fitting line should not be too far away from any of the data points. If you draw a vertical line from each data point to the line, and square it (this makes sure that being above and below the line don't cancel each other out), you have a measure of the distance between the line and each data point. Making this difference small means that the line describes the data fairly well.
+
+Loess smooths break up the $x$-axis of the data into small chunks, and fit a best fitting line within each chunk. The best fitting lines are then connected together. These smooths are thus a bit more flexible than just fitting a straight line to the data---they can help determine if there are more complex patterns going on.
+
+Now, let's create the same scatterplot as above, but also add a loess smooth. Run the code chunk below, but update `b0` and `b1` and change `eval=FALSE` to `eval=TRUE`.
+
+```{r lin-reg-scatter-2, eval = FALSE}
+# plot FEV vs age
+plot(fev$fev ~ fev$age, pch=16,
+     xlim = c(0,20), ylim = c(0,8),
+     xlab = "Age (years)",ylab = "FEV (liters per second)", 
+     main = "FEV versus age")
+
+# add line of best fit
+b0 <- 0 # replace 0 with estimated beta_0
+b1 <- 0.3 # replace 0.3 with esimtated beta_1
+abline(a = b0, b = b1, col='red') # add line with int = b0, slope = b1
+
+# add a loess smooth
+loess <- lowess(x = fev$age, y = fev$fev)
+lines(loess, col = "blue", lty = 2)
+
+# add a legend
+legend('topleft',
+       legend=c('Data','Linear Regression Line','Loess Smooth'),
+       col = c('black','red','blue'), lty = c(NA,1,2),
+       pch = c(16,NA,NA))
+```
+
+Compare and contrast the two trend lines. Do you think these trend lines make it easier to describe the trends in FEV with age?
+
+*Insert answers here.*
+
+
+## 5. Linear regression with log transformed outcome
+
+Now, we will use `R` to fit a regression model with log-transformed FEV as the outcome: $$E[\log(\text{FEV})|\text{age}] = \beta_0 + \beta_1 \text{age}.$$
+
+FEV is a biological measurement, and it might be reasonable to assume that chances to FEV happen on a multiplicative scale rather than an additive scale. Let's explore how our results and interpretation change if we log transform FEV. 
+
+There are three ways that we can ask `R` to fit this model for us. 
+
+First, add the variable `logfev` to your dataset and run linear regression with `logfev` as your outcome rather than `fev`.
+
+```{r transform-1, eval = FALSE}
+## add logfev to dataset
+fev$logfev <- log(fev$fev)
+
+## run linear regression with log(fev) as outcome
+regress('mean', logfev~age, data=fev)
+
+## don't forget to exponentiate your coefficients!
+b0 <- 0 # update with estimate of beta_0
+b0_ci <- c(0,0) # update with lower and upper bounds of beta_0 CI
+exp(b0)
+exp(b0_ci)
+
+b1 <- 0 # update with estimate of beta_1
+b1_ci <- c(0,0) # update with lower and upper bounds of beta_1 CI
+exp(b1)
+exp(b1_ci)
+```
+
+*Interpret your results here.*
+
+Another option is to specify the transformation within the `regress` command. This saves us one step by eliminating the need to add the variable `logfev` do our dataset. Run the following code chunk (and add any code you need to help interpret your coefficients).
+
+```{r transform-2, eval = FALSE}
+## run linear regression with log(fev) as outcome
+regress('mean', log(fev)~age, data=fev)
+
+## don't forget to exponentiate your coefficients!
+
+```
+
+Do you get the same output using this approach as you did earlier?
+
+*Insert answer here.*
+
+We know that when we log transform our outcome, our interpretation changes from being about the average value of $Y$ to the geometric mean of $Y$. So, a third way to fit this model is to ask the `regress` function to analyze the geometric mean of FEV rather than the mean.
+
+```{r transform-3, eval = FALSE}
+## run linear regression with log(fev) as outcome
+regress('geometric mean', fev~age, data = fev)
+```
+
+Compare the results you got using this third approach to the output/ interpretation from the earlier to models.
+
+*Insert answer here.*
+
+List these three approachs in order of your preference (i.e., which do you like best? worst?), and explain your reasoning.
+
+*Insert answer here.*
+
+Finally, let's create a plot that graphically supports our linear regression results.
+
+```{r plot-transform, eval = TRUE}
+## insert code for plot
+## HINT: scatterplot + linear regression line and/or loess smooth
+```
+
+# Summary
+
+You now know how to:
+
+0. Add new variables to a dataset using `$`
+1. Generate numerical summaries using the function `descrip`
+2. Generate graphical summaries using the functions `boxplot` and `plot`
+    a. Update axis limits using the arguments `xlim`,`ylim`
+    b. Update axis labels using the arguments `xlab`,`ylab`
+    c. Update figure titles using the argument `main`
+    d. Change shapes and colors using the arguments `pch` and `col`
+    e. Add points to a figure using the function `points()`
+    f. Add lines to a figure using the functions `abline()` or `lines()`
+    g. Add a legend using the function `legend()`
+3. Run linear regression using `regress`
+4. Run linear regression with a transformed variable using `regress`
+
+Most of the analyses we conduct throughout the rest of the quarter will use these same tools, so you're now very far on your way to being able to use `R` for statistical analyses!
+
+
