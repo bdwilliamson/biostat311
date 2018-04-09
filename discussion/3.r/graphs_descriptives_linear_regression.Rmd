@@ -300,7 +300,7 @@ Compare and contrast the two trend lines. Do you think these trend lines make it
 
 Now, we will use `R` to fit a regression model with log-transformed FEV as the outcome: $$E[\log(\text{FEV})|\text{age}] = \beta_0 + \beta_1 \text{age}.$$
 
-FEV is a biological measurement, and it might be reasonable to assume that chances to FEV happen on a multiplicative scale rather than an additive scale. Let's explore how our results and interpretation change if we log transform FEV. 
+FEV is a biological measurement, and it might be reasonable to assume that changes to FEV happen on a multiplicative scale rather than an additive scale. Let's explore how our results and interpretation change if we log transform FEV. 
 
 There are three ways that we can ask `R` to fit this model for us. 
 
