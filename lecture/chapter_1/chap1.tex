@@ -882,7 +882,7 @@ Why would we want to do this type of transformation?
 \begin{center} $E[\log(FEV)|Height] = \beta_0 + \beta_1 Height$ \end{center}
 $\beta_0$: average value of $Y$ among subjects with $X = 0$\\ \pause
 \ \ \ \ \ average $\log(FEV)$ among subjects that are 0" tall \\ \pause
-\ \ \ \ \ log geometric mean FEV among subjects that are 0" tall \\ \pause
+\ \ \ \ \ log geometric mean FEV among subjects that are 0" tall \\ 
 \color{blue} $e^{\beta_0}$: geometric mean of FEV among subjects that are 0" tall \color{black}\pause
 
 Why are those interpretations equivalent?\vspace{-0.3cm}
@@ -890,7 +890,8 @@ Why are those interpretations equivalent?\vspace{-0.3cm}
 \item[] \textit{Arithmetic mean}: $\frac{1}{n} \sum_{i=1}^n a_i$
 \item[] \textit{Geometric mean}: $\left(\prod_{i=1}^n a_i\right)^{\frac{1}{n}} = e^{\frac{1}{n} \sum_{i=1}^n \log(a_i)}$
 \end{itemize}
-\begin{center} \begin{footnotesize}The ``average of $\log(Y)$" = $\frac{1}{n}\sum \log(Y_i)$ \ \textit{is the same as}\\the ``log of the geometric mean of $Y$" = $\log(e^{\frac{1}{n}\sum \log(Y_i)} = \frac{1}{n}\sum \log(Y_i)$.\end{footnotesize}\end{center}
+\vspace{-0.3cm}
+\begin{center} \begin{footnotesize}The \color{blue} ``average of $\log(Y)$" \color{black} = $\frac{1}{n}\sum \log(Y_i)$ \ \color{blue} \textit{is the same as} \color{black}\\the \color{blue}``log of the geometric mean of $Y$" \color{black}= $\log(e^{\frac{1}{n}\sum \log(Y_i)} = \frac{1}{n}\sum \log(Y_i)$.\end{footnotesize}\end{center}
 \end{frame}
 
 %log(Y) - beta_1
@@ -899,7 +900,7 @@ Why are those interpretations equivalent?\vspace{-0.3cm}
 \begin{center} $E[\log(FEV)|Height] = \beta_0 + \beta_1 Height$ \end{center}
 $\beta_1$: difference in average values of $Y$ comparing two groups that differ in $X$ by one unit\\ \pause
 \ \ \ \ \ difference in average $\log(FEV)$ comparing two ...\\ \pause
-\ \ \ \ \ difference in log geometric mean FEV comparing two ... \\ \pause
+\ \ \ \ \ difference in log geometric mean FEV comparing two ... \\ 
 \color{blue} $e^{\beta_1}$: ratio of geometric mean FEV comparing two ... \color{black} \pause
 
 Why are those interpretations equivalent?\vspace{-0.3cm}
@@ -978,7 +979,7 @@ Tying it all together...
 
 Why would we want to do this type of transformation?
 \begin{itemize}
-\item Sometimes we might have scientific reason to believe that $Y$ is related to $X^2$ (e.g., area), rather than just $X$
+\item Sometimes we might have scientific reason to believe that $Y$ is related to $X^2$ (e.g., area) or $X^3$, rather than just $X$
 \item Model non-linearity in the relationship between $X$ and $Y$
 	\begin{itemize}
 	\item Important for prediction
@@ -1019,18 +1020,18 @@ Why might we want to transform our variables? \vspace{-0.3cm}
 \begin{frame}
 \frametitle{Linear regression with a categorical predictor}
 
-What if our scientific question is about the association between a continuous outcome and a categorical predictor?
+What if our scientific question is about the association between a continuous outcome and a categorical predictor?\pause
 
 If the predictor is binary (e.g., smoker):\vspace{-0.3cm}
 \begin{itemize}
 \item Re-code as 0/1 
-\end{itemize}
+\end{itemize}\pause
 
 If the predictor is ordinal (e.g., genotype = AA, Aa, aa): \vspace{-0.3cm}
 \begin{itemize}
 \item You \textit{might} be able to find a meaningful way to represent numerically (e.g., number of A alleles: 2, 1, 0)
 \item Often not possible to do this re-coding
-\end{itemize}
+\end{itemize}\pause
 
 If the predictor is nominal (e.g., ancestry = Afr, NAm, Eur):\vspace{-0.3cm}
 \begin{itemize}
@@ -1041,7 +1042,7 @@ If the predictor is nominal (e.g., ancestry = Afr, NAm, Eur):\vspace{-0.3cm}
 \begin{frame}
 \frametitle{Linear regression with a categorical predictor}
 What can we do? \pause We use \textit{dummy variables}...
-$$E[\text{Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
 
 \vspace{-0.5cm}
 \begin{itemize}
@@ -1049,7 +1050,7 @@ $$E[\text{Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + 
 \item \textit{European} = 1 if \textit{Ancestry} = \textit{European}, and 0 otherwise
 \end{itemize}\pause
 
-$\beta_0$: average BP among subjects with \textit{Native American} ancestry
+$\beta_0$: average SBP among subjects with \textit{Native American} ancestry
 \begin{align*}
 E[\text{SBP}|\text{Ancestry} = NAm] &= \beta_0 + \beta_1(0) + \beta_2(0) \\
 & = \beta_0
@@ -1060,7 +1061,7 @@ E[\text{SBP}|\text{Ancestry} = NAm] &= \beta_0 + \beta_1(0) + \beta_2(0) \\
 \begin{frame}
 \frametitle{Linear regression with a categorical predictor}
 What can we do? We use \textit{dummy variables}...
-$$E[\text{Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
 
 \vspace{-0.5cm}
 \begin{itemize}
@@ -1068,9 +1069,9 @@ $$E[\text{Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + 
 \item \textit{European} = 1 if \textit{Ancestry} = \textit{European}, and 0 otherwise
 \end{itemize}
 
-$\beta_1$: difference in average BP between groups with Native American and African ancestry
+$\beta_1$: difference in average SBP between groups with Native American and African ancestry
 \begin{align*}
-E[&\text{SBP}|\text{Ancestry} = Afr] - E[\text{BP}|\text{Ancestry} = NAm] \\
+E[&\text{SBP}|\text{Ancestry} = Afr] - E[\text{SBP}|\text{Ancestry} = NAm] \\
 &= \left[\beta_0 + \beta_1(1) + \beta_2(0)\right] - \left[\beta_0 + \beta_1(0) + \beta_2(0) \right] \\
 & = \beta_1
 \end{align*}
@@ -1080,7 +1081,7 @@ E[&\text{SBP}|\text{Ancestry} = Afr] - E[\text{BP}|\text{Ancestry} = NAm] \\
 \begin{frame}
 \frametitle{Linear regression with a categorical predictor}
 What can we do? We use \textit{dummy variables}...
-$$E[\text{Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
 
 \vspace{-0.5cm}
 \begin{itemize}
@@ -1090,7 +1091,7 @@ $$E[\text{Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + 
 
 $\beta_2$: difference in average BP between groups with Native American and European ancestry
 \begin{align*}
-E[&\text{SBP}|\text{Ancestry} = Eur] - E[\text{BP}|\text{Ancestry} = NAm] \\
+E[&\text{SBP}|\text{Ancestry} = Eur] - E[\text{SBP}|\text{Ancestry} = NAm] \\
 &= \left[\beta_0 + \beta_1(0) + \beta_2(1)\right] - \left[\beta_0 + \beta_1(0) + \beta_2(0) \right] \\
 & = \beta_2
 \end{align*}
@@ -1098,7 +1099,7 @@ E[&\text{SBP}|\text{Ancestry} = Eur] - E[\text{BP}|\text{Ancestry} = NAm] \\
 
 \begin{frame}
 \frametitle{Linear regression with a categorical predictor}
-$$E[\text{Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
 
 \vspace{-0.3cm}
 \begin{itemize}
