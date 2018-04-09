@@ -1256,7 +1256,7 @@ E(Y \mid X_1) =& \ 6 + 2 X_1 \text{ in those with $X_2 = 0$, and } \\
 E(Y \mid X_1) =& \ 9 + 3 X_1 \text{ in those with $X_2 = 1$}.
 \end{align*}
 
-What happened when we \textcolor{red}{did not account for} $X_2$ in the analysis? \pause {\small Hint: we estimated the \textbf{pooled} coefficient for $X_1$ to be 2.62}
+What happened when we \textcolor{blue}{did not account for} $X_2$ in the analysis? \pause {\small Hint: we estimated the \textbf{pooled} coefficient for $X_1$ to be 2.62}
 \end{frame}
 
 % precision variables
@@ -1264,24 +1264,83 @@ What happened when we \textcolor{red}{did not account for} $X_2$ in the analysis
 \frametitle{Multiple regression: motivation}
 What do you think the relationship is between $X_1$ and $Y$?
 
+\centering
+\includegraphics[width=0.75\textwidth]{plots/precision_simple.png}
+\end{frame}
 
+\begin{frame}
+\frametitle{Multiple regression: motivation}
+What do you think the relationship is between $X_1$ and $Y$?
+
+\centering
+\includegraphics[width=0.75\textwidth]{plots/precision_simple_with_line.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple regression: motivation}
+How about now?
+
+\centering
+\includegraphics[width=0.75\textwidth]{plots/precision_colored.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple regression: motivation}
+How about now?
+
+\centering
+\includegraphics[width=0.75\textwidth]{plots/precision_colored_with_line.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple regression: motivation}
+How about now?
+
+\centering
+\includegraphics[width=0.75\textwidth]{plots/precision_colored_with_multiple_lines.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple regression: motivation}
+The true relationship between $Y$ and $X_1$ on the previous slides is 
+\begin{align*}
+E(Y \mid X_1) =& \ 6 + 2 X_1 \text{ in those with $X_2 = 0$, and } \\
+E(Y \mid X_1) =& \ 7 + 2 X_1 \text{ in those with $X_2 = 1$}.
+\end{align*}
+
+What happened when we \textcolor{green}{did not account for} $X_2$ in the analysis? \pause {\small Hint: we estimated the \textbf{pooled} coefficient for $X_1$ to be 1.89}
 \end{frame}
 
 \begin{frame}
 \frametitle{Multiple regression: motivation}
 Why spend so much time on linear regression?
 
-\textcolor{red}{Confounders} (slides 1.66--1.71), \textcolor{blue}{effect modifiers} (slides 1.72--1.77), and \textcolor{green}{precision variables} (slides 1.72--1.YY) all show up in other types of regression as well.
+\textcolor{red}{Confounders} (slides 1.66--1.71), \textcolor{blue}{effect modifiers} (slides 1.72--1.77), and \textcolor{green}{precision variables} (slides 1.77--1.83) all show up in other types of regression as well.
 
 Additionally, the types of considerations we will have to make when choosing variables for our analysis, and the interpretation of regression coefficients, will be similar.
 
 Linear regression is the most straightforward, so we'll spend a lot of time here!
 \end{frame}
 
+%% DO CONFOUNDING HERE
+
 \subsection{Stratified analyses}
 \begin{frame}
 \frametitle{``Multiple'' regression: stratified analyses}
-One way to account for a second predictor variable is to \textbf{stratify}
+Say we are interested in \textcolor{blue}{estimating the association} between an outcome, $Y$, and a predictor of interest $X$; however, knowledge of the scientific problem tells us that a third variable $Z$ may be related to $Y$ and/or $X$.
+
+If $Z$ is \textbf{binary}, how might we account for it? \pause
+One way to account for a second predictor variable is to \textbf{stratify} our analysis:
+\begin{itemize}
+\item Fit a linear regression of $Y$ on $X$ for those with $Z = 0$
+\item Fit a linear regression of $Y$ on $X$ for those with $Z = 1$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{``Multiple'' regression: stratified analyses}
+
 
 \end{frame}
 

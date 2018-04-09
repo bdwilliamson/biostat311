@@ -23,7 +23,15 @@ data_func_confound <- function(beta0, beta1, beta2, n) {
   return(data.frame(x1 = X[, 1], x2 = X[, 2], y = y))
 }
 ## data generating mechanism for two predictors, one is a precision variable
-
+data_func_precision <- function(beta0, beta1, beta2, n) {
+  ## generate some X data: X1 is continuous, X2 is binary
+  x2 <- sample(0:1, n, replace = TRUE)
+  x1 <- runif(n, 0, 1)
+  
+  ## generate the outcome
+  y <- beta0 + beta1*x1 + beta2*x2 + rnorm(n, 0, 1)
+  return(data.frame(x1 = x1, x2 = x2, y = y))
+}
 ## data generating mechanism for two predictors, one is an effect modifier
 data_func_em <- function(beta0, beta1, beta2, beta3, n) {
   ## generate some X data: X1 is continuous, X2 is binary
@@ -41,6 +49,7 @@ data_func_em <- function(beta0, beta1, beta2, beta3, n) {
   
   return(data.frame(x1 = X[, 1], x2 = X[, 2], y = y))
 }
+
 
 ## --------------------------
 ## Set up plot arguments
@@ -186,3 +195,77 @@ lines(x_range_1_em[, 2], x_range_1_em%*%mod_e_multiple$coefficients, col = "blue
 legend("bottomright", legend = c(expression(paste(X[2],  " = 0", sep = "")), expression(paste(X[2], " = 1", sep = ""))),
        pch = c(16, 17), col = c("red", "blue"))
 dev.off()
+
+## ---------------
+## Precision
+## ---------------
+
+beta0_p <- 6
+beta1_p <- 2
+beta2_p <- 1
+
+set.seed(4747)
+dat_p <- data_func_precision(beta0_p, beta1_p, beta2_p, n = 1000)
+dat_p_samp <- dat_p[sample.int(1000, 100), ]
+
+## plot the points
+png("lecture/chapter_1/plots/precision_simple.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0, 2) + 0.1)
+plot(dat_p_samp$x1, dat_p_samp$y, main = "", xlab = expression(X[1]), ylab = "Y",
+     pch = 16, xlim = c(0, 1), ylim = c(0, max(dat_p_samp$y) + 0.5))
+dev.off()
+
+## fit a line
+mod_p <- lm(y ~ x1, data = dat_p)
+
+## plot with the line
+png("lecture/chapter_1/plots/precision_simple_with_line.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0, 2) + 0.1)
+plot(dat_p_samp$x1, dat_p_samp$y, main = "", xlab = expression(X[1]), ylab = "Y",
+     pch = 16, xlim = c(0, 1), ylim = c(0, max(dat_p_samp$y) + 0.5))
+lines(x_range[, 2], x_range%*%mod_p$coefficients)
+text(0.2, 2, labels = paste0("estimated slope = ", round(mod_p$coefficients[2], 3)))
+dev.off()
+
+## color the points
+png("lecture/chapter_1/plots/precision_colored.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0, 2) + 0.1)
+plot(dat_p_samp$x1, dat_p_samp$y, main = "", xlab = expression(X[1]), ylab = "Y",
+     pch = ifelse(dat_p_samp$x2 == 1, 17, 16), xlim = c(0, 1), 
+     ylim = c(0, max(dat_p_samp$y) + 0.5),
+     col = ifelse(dat_p_samp$x2 == 1, "blue", "red"))
+legend("bottomright", legend = c(expression(paste(X[2],  " = 0", sep = "")), expression(paste(X[2], " = 1", sep = ""))),
+       pch = c(16, 17), col = c("red", "blue"))
+dev.off()
+
+## colored points, with line
+png("lecture/chapter_1/plots/precision_colored_with_line.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0, 2) + 0.1)
+plot(dat_p_samp$x1, dat_p_samp$y, main = "", xlab = expression(X[1]), ylab = "Y",
+     pch = ifelse(dat_p_samp$x2 == 1, 17, 16), xlim = c(0, 1), 
+     ylim = c(0, max(dat_p_samp$y) + 0.5),
+     col = ifelse(dat_p_samp$x2 == 1, "blue", "red"))
+lines(x_range[, 2], x_range%*%mod_p$coefficients)
+legend("bottomright", legend = c(expression(paste(X[2],  " = 0", sep = "")), expression(paste(X[2], " = 1", sep = ""))),
+       pch = c(16, 17), col = c("red", "blue"))
+dev.off()
+
+## multiple regression
+mod_p_multiple <- lm(y ~ x1 + x2, data = dat_p)
+x_range_0_p <- cbind(x_range, 0)
+x_range_1_p <- cbind(x_range, 1)
+
+## colored points, with line
+png("lecture/chapter_1/plots/precision_colored_with_multiple_lines.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0, 2) + 0.1)
+plot(dat_p_samp$x1, dat_p_samp$y, main = "", xlab = expression(X[1]), ylab = "Y",
+     pch = ifelse(dat_p_samp$x2 == 1, 17, 16), xlim = c(0, 1), 
+     ylim = c(0, max(dat_p_samp$y) + 0.5),
+     col = ifelse(dat_p_samp$x2 == 1, "blue", "red"))
+lines(x_range[, 2], x_range%*%mod_p$coefficients)
+lines(x_range_0_p[, 2], x_range_0_p%*%mod_p_multiple$coefficients, col = "red")
+lines(x_range_1_p[, 2], x_range_1_p%*%mod_p_multiple$coefficients, col = "blue")
+legend("bottomright", legend = c(expression(paste(X[2],  " = 0", sep = "")), expression(paste(X[2], " = 1", sep = ""))),
+       pch = c(16, 17), col = c("red", "blue"))
+dev.off()
+
