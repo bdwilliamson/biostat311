@@ -605,6 +605,7 @@ We can write this as an optimization problem, $$ \text{argmin}_{\beta_0,\beta_1}
 \center \color{blue} \textit{You will \textbf{NOT} be tested on these!} \color{black}
 \end{frame}
 
+\subsection{Regression and correlation}
 % aside: connect to correlation
 \begin{frame}
 \frametitle{Simple linear regression and correlation}
@@ -666,7 +667,7 @@ $$r = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sqrt{\
 \frametitle{Interpreting coefficients (no transformation)}
 How do we interpret $\beta_0, \beta_1$ in this linear regression model? $$E[\text{FEV}|\text{Age}] = \beta_0 + \beta_1 \text{Age}$$
 
-$\beta_0$: average value of $Y$ when $X = 0$ \\ \pause
+$\beta_0$: average value of $Y$ among subjects with $X = 0$ \\ \pause
 \ \ \ \ \ \color{blue} average FEV (l/sec) among newborns \color{black} \pause
 
 $\beta_1$: difference in average value of $Y$ comparing two groups that differ in $X$ by one unit\\ \pause
@@ -676,16 +677,17 @@ $\beta_1$: difference in average value of $Y$ comparing two groups that differ i
 % Warm-up activity: Age+3
 \begin{frame}
 \frametitle{Interpreting coefficients after a transformation}
-How do we interpret $\beta_0$ in this linear regression model? $$E[\text{FEV}|(\text{Age}-3)] = \beta_0 + \beta_1 \left(\text{Age}-3\right)$$
+How do we interpret $\beta_0$ in this linear regression model? $$E[\text{FEV}|\color{blue}(\text{Age}-3)\color{black}] = \beta_0 + \beta_1 \color{blue}\left(\text{Age}-3\right)\color{black}$$
 
 \vspace{-0.5cm}
-$\beta_0$: average value of $Y$ when $X = 0$ \\ \pause
+$\beta_0$: average value of $Y$ among subjects with $X = 0$ \\ \pause
 \ \ \ \ \ average FEV (l/sec) among kids with $\text{Age} -3 = 0$\\ \pause
 \ \ \ \ \ \color{blue} average FEV (l/sec) among 3 year olds \color{black} \pause
 
 Why are those last two interpretations equivalent?
 \begin{align*}
-E[\text{FEV}|(\text{Age}-3) = 0] = E[\text{FEV} | \text{Age} = 3]
+(\text{Age}-3) &= 0 \\ 
+\text{Age} &= 3
 \end{align*}
 \end{frame}
 
@@ -701,8 +703,8 @@ $\beta_1$: difference in average value of $Y$ comparing two groups that differ i
 
 Why are those last two interpretations equivalent?
 \begin{align*}
-E[\text{FEV}|(\text{Age}-3) = x+1] &- E[\text{FEV} | (\text{Age}-3) = x] =\\
-E[\text{FEV}|\text{Age} = x+4] &- E[\text{FEV} | \text{Age} = x+3]
+(\text{Age}-3) = x+1 &\color{red} \text{ vs } \color{black} (\text{Age}-3) = x \\
+\text{Age} = x+4 &\color{red} \text{ vs } \color{black} \text{Age} = x+3
 \end{align*}
 \end{frame}
 
@@ -823,15 +825,15 @@ An $e$-fold difference between two groups is not very intuitive. How can we make
 
 Option 1: use a different base\pause
 \begin{itemize}
-\item $E[FEV|\log_2(Height)] = \beta_0 + \beta_1 \log_2(Height)$
+\item $E[FEV|\color{blue}\log_2\color{black}(Height)] = \beta_0 + \beta_1 \color{blue}\log_2\color{black}(Height)$
 	\begin{itemize}
-	\item $\beta_0$: average FEV among subjects with Height = 1"
-	\item $\beta_1$: difference in average FEV comparing groups that differ in Height by a multiplicative factor of 2
+	\item $\beta_0$: average FEV among subjects who are 1" tall
+	\item $\beta_1$: difference in average FEV comparing groups that differ in height by a \color{blue} multiplicative factor of 2\color{black}
 	\end{itemize} \pause
-\item $E[FEV|\log_{10}(Height)] = \beta_0 + \beta_1 \log_{10}(Height)$
+\item $E[FEV|\color{blue}\log_{10}\color{black}(Height)] = \beta_0 + \beta_1 \color{blue}\log_{10}\color{black}(Height)$
 	\begin{itemize}
-	\item $\beta_0$: average FEV among subjects with Height = 1"
-	\item $\beta_1$: difference in average FEV comparing groups that differ in Height by a multiplicative factor of 10
+	\item $\beta_0$: average FEV among subjects who are 1" tall
+	\item $\beta_1$: difference in average FEV comparing groups that differ in height by a \color{blue}multiplicative factor of 10\color{black}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -843,7 +845,7 @@ An $e$-fold difference between two groups is not very intuitive. How can we make
 
 Option 2: fit the same model \begin{scriptsize}($E[FEV|\log(Height)] = \beta_0 + \beta_1\log(Height)$)\end{scriptsize} but interpret $c \times \beta_1$ rather than $\beta_1$ \pause
 
-\textit{Example:} $\log(1.1)\beta_1$ is the difference in average FEV comparing two groups that differ in height by a multiplicative factor of 1.1 (i.e., a 10\% difference)\pause
+\textit{Example:} $\color{blue}\log(1.1)\color{black}\beta_1$ is the difference in average FEV comparing two groups that differ in height by a \color{blue}multiplicative factor of 1.1 \color{black} (i.e., a 10\% difference)\pause
 	\begin{align*}
 	E[FEV|&\log(Height=1.1x)]-E[FEV|\log(Height=x)] \\
 	& = \left[\beta_0 + \beta_1\log(1.1x)\right] - \left[\beta_0 + \beta_1 \log(x) \right]\\
