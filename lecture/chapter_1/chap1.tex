@@ -740,7 +740,25 @@ How about now?
 \end{frame}
 
 \begin{frame}
+\frametitle{Multiple regression: motivation}
+Why spend so much time on linear regression?
+
+\textcolor{red}{Confounders}, \textcolor{blue}{effect modifiers}, and \textcolor{green}{precision variables} all show up in other types of regression, as well.
+
+Additionally, the types of considerations we will have to make when choosing variables for our analysis, and the interpretation of regression coefficients, will be similar.
+
+Linear regression is the most straightforward, so we'll spend a lot of time here!
+\end{frame}
+
+
+\begin{frame}
 \frametitle{Multiple regression: notation}
+In simple linear regression, we modeled the expected value of $Y$ given a single predictor $X$ as a linear function of the intercept and slope:
+\begin{align*}
+E(Y \mid X) &= \beta_0 + \beta_1 X.
+\end{align*}
+
+How might you add in an additional variable, $Z$?
 \end{frame}
 
 \begin{frame}
