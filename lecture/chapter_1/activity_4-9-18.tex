@@ -1,0 +1,148 @@
+\documentclass{article}
+
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{color}
+
+\begin{document}
+
+% the preamble
+\title{BIOST 311: \\ Intepreting coefficients after transformations}
+\author{Kelsey Grinde and Brian Williamson}
+\date{Spring 2018}
+
+% title
+\maketitle
+
+\section{Transformations of the predictor}
+
+Interpret $\beta_0, \beta_1$ in the following models:
+
+\begin{enumerate}\itemsep +5pt
+\item $E[\text{FEV}|\left(\text{Age}-\overline{Age}\right)] = \beta_0 + \beta_1 \left(\text{Age}-\overline{Age}\right)$ 
+\item[] \color{blue} \textbf{Answer:} \\
+% beta_0
+$\beta_0$: average FEV (l/sec) among subjects with average (in the dataset) age \\
+\begin{align*}
+E[\text{FEV}|\text{Age} = \overline{Age}] &= E[\text{FEV}|\left(\text{Age}-\overline{Age}\right)=\overline{Age}-\overline{Age}]\\
+& = E[\text{FEV}|\left(\text{Age}-\overline{Age}\right) =0]\\
+& = \beta_0+ \beta_1(0) \\
+& = \beta_0
+\end{align*}
+% beta_1
+$\beta_1$: difference in average FEV (l/sec) comparing two groups that differ in age by one year
+\begin{align*}
+&E[\text{FEV}|\text{Age} = x + 1] - E[\text{FEV}|\text{Age} = x ] \\
+&=E[\text{FEV}|\left(\text{Age}-\overline{Age}\right)= x + 1 - \overline{Age}] - E[\text{FEV}|\left(\text{Age}-\overline{Age}\right)= x  - \overline{Age}]\\
+&=\left[\beta_0 + \beta_1\left( x + 1 - \overline{Age}\right)\right] - \left[\beta_0 + \beta_1\left( x  - \overline{Age}\right)\right] \\
+&=\left[\beta_0 + \beta_1(x) + \beta_1 (1)  +\beta_1(-\overline{Age})\right] -\left[\beta_0 + \beta_1(x)  +\beta_1(-\overline{Age})\right]\\
+& = \beta_1
+\end{align*}
+\color{black}
+
+\newpage
+\item $E[\text{FEV}|\left(\frac{\text{Age}}{10}\right)] = \beta_0 + \beta_1 \left(\frac{\text{Age}}{10}\right)$ 
+\item[] \color{blue} \textbf{Answer:} \\
+% beta_0
+$\beta_0$: average FEV (l/sec) among newborns \\
+\begin{align*}
+E[\text{FEV}|\text{Age} =0] &= E[\text{FEV}|\left(\frac{\text{Age}}{10}\right)=\left(\frac{0}{10}\right)]\\
+& = E[\text{FEV}|\left(\frac{\text{Age}}{10}\right) =0]\\
+& = \beta_0+ \beta_1(0) \\
+& = \beta_0
+\end{align*}
+% beta_1
+$\beta_1$: difference in average FEV (l/sec) comparing two groups that differ in age by one decade (10 years)
+\begin{align*}
+&E[\text{FEV}|\text{Age} = x + 10] - E[\text{FEV}|\text{Age} = x ] \\
+&=E[\text{FEV}|\left(\frac{\text{Age}}{10}\right)= \left(\frac{x+10}{10}\right)] - E[\text{FEV}|\left(\frac{\text{Age}}{10}\right)= \left(\frac{x}{10}\right)]\\
+&=\left[\beta_0 + \beta_1\left(\frac{x+10}{10}\right)\right] - \left[\beta_0 + \beta_1\left(\frac{x}{10}\right)\right] \\
+&=\left[\beta_0 + \beta_1\left(\frac{x}{10}\right) + \beta_1\left(\frac{10}{10}\right)\right] -\left[\beta_0 + \beta_1\left(\frac{x}{10}\right) \right]\\
+& = \beta_1
+\end{align*}
+\color{black}
+
+\newpage
+\item $E[\text{FEV}|\left(\frac{\text{Age}-3}{10}\right)] = \beta_0 + \beta_1 \left(\frac{\text{Age}-3}{10}\right)$ 
+\item[] \color{blue} \textbf{Answer:} 
+% beta_0
+$\beta_0$: average FEV (l/sec) among 3 year olds \\
+\begin{align*}
+E[\text{FEV}|\text{Age} =3] &= E[\text{FEV}|\left(\frac{\text{Age}-3}{10}\right)=\left(\frac{3-3}{10}\right)]\\
+& = E[\text{FEV}|\left(\frac{\text{Age}-3}{10}\right) =0]\\
+& = \beta_0+ \beta_1(0) \\
+& = \beta_0
+\end{align*}
+% beta_1
+$\beta_1$: difference in average FEV (l/sec) comparing two groups that differ in age by one decade (10 years)
+\begin{align*}
+&E[\text{FEV}|\text{Age} = x + 10] - E[\text{FEV}|\text{Age} = x ] \\
+&=E[\text{FEV}|\left(\frac{\text{Age}-3}{10}\right)= \left(\frac{x+10-3}{10}\right)] - E[\text{FEV}|\left(\frac{\text{Age}-3}{10}\right)= \left(\frac{x-3}{10}\right)]\\
+&=\left[\beta_0 + \beta_1\left(\frac{x+10-3}{10}\right)\right] - \left[\beta_0 + \beta_1\left(\frac{x-3}{10}\right)\right] \\
+&=\left[\beta_0 + \beta_1\left(\frac{x-3}{10}\right) + \beta_1\left(\frac{10}{10}\right)\right] -\left[\beta_0 + \beta_1\left(\frac{x-3}{10}\right) \right]\\
+& = \beta_1
+\end{align*}
+\color{black}
+\end{enumerate}
+
+% transforming the outcome
+\newpage
+\section{Transformations of the outcome}
+Interpret $\beta_0, \beta_1$ in the following models:
+\begin{enumerate}\itemsep +5pt
+\item $E[(\text{FEV}\times 60)|\text{Age}] = \beta_0 + \beta_1 \text{Age}$ 
+\item[] \color{blue} \textbf{Answer:} \\
+% units
+By multiplying FEV by 60, we've changed the units from l/sec to l/min:
+\begin{align*}
+\text{FEV}\frac{\text{liters}}{\text{sec}} & =\frac{\text{FEV liters}}{\text{sec}} \times \frac{60 \text{ sec}}{1\text{ min}} \\
+& = (\text{FEV} \times 60) \frac{\text{ liters}}{\text{min}}\\
+\text{Example: } 30\frac{\text{liters}}{\text{sec}} &= 180\frac{\text{liters}}{\text{min}}
+\end{align*}
+Then, the rest of our interpretation is the same as without the transformation, except we have new units...\\ \\
+% beta_0
+$\beta_0$: average FEV (l/min) among newborns \\
+\begin{align*}
+E[(\text{FEV}\times 60)|\text{Age} = 0] & = \beta_0+ \beta_1(0) \\
+& = \beta_0 \\
+\end{align*}
+% beta_1
+$\beta_1$: difference in average FEV (l/min) comparing two groups that differ in age by one year
+\begin{align*}
+&E[(\text{FEV}\times 60)|\text{Age} = x + 1] - E(\text{FEV}\times 60)|\text{Age} = x ] \\
+&=\left[\beta_0 + \beta_1\left( x + 1\right)\right] - \left[\beta_0 + \beta_1\left( x \right)\right] \\
+&=\left[\beta_0 + \beta_1(x) + \beta_1 (1)\right] -\left[\beta_0 + \beta_1(x)\right]\\
+& = \beta_1
+\end{align*}
+\color{black}
+
+\newpage
+\item $E[\left(\frac{\text{FEV}}{3.78541}\right)|\text{Age}] = \beta_0 + \beta_1 \text{Age}$ \begin{scriptsize}(Hint: 1 gallon = 3.78541 liters)\end{scriptsize}
+\item[] \color{blue} \textbf{Answer:} \\
+% units
+By dividing FEV by 3.78541, we've changed the units from l/sec to gal/sec:
+\begin{align*}
+\text{FEV}\frac{\text{liters}}{\text{sec}} & =\frac{\text{FEV liters}}{\text{sec}} \times \frac{1\text{ gallon}}{ 3.78541\text{ liters}} \\ 
+& = (\text{FEV} \div 3.78541) \frac{\text{gallons}}{\text{sec}}\\
+\text{Example: } 30\frac{\text{liters}}{\text{sec}} &= 7.925\frac{\text{gallons}}{\text{sec}}
+\end{align*}
+Then, the rest of our interpretation is the same as without the transformation, except we have new units...\\ \\
+% beta_0
+$\beta_0$: average FEV (gal/sec) among newborns \\
+\begin{align*}
+E[(\text{FEV}\times 60)|\text{Age} = 0] & = \beta_0+ \beta_1(0) \\
+& = \beta_0 \\
+\end{align*}
+% beta_1
+$\beta_1$: difference in average FEV (gal/sec) comparing two groups that differ in age by one year
+\begin{align*}
+&E[(\text{FEV}\div 3.78541 )|\text{Age} = x + 1] - E(\text{FEV}\div 3.78541 )|\text{Age} = x ] \\
+&=\left[\beta_0 + \beta_1\left( x + 1\right)\right] - \left[\beta_0 + \beta_1\left( x \right)\right] \\
+&=\left[\beta_0 + \beta_1(x) + \beta_1 (1)\right] -\left[\beta_0 + \beta_1(x)\right]\\
+& = \beta_1
+\end{align*}
+\color{black}
+\end{enumerate}
+
+
+\end{document}
