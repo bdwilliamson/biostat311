@@ -304,15 +304,15 @@ If we sample from a population with constant variance versus non-constant varian
 \end{frame}
 
 \begin{frame}
-\frametitle{Choosing between naive and robust SE}
+\frametitle{Choosing between naive and robust SEs}
 
-Naive SE assume that variance in $Y$ is constant across all values of $X$. Robust SE are appropriate if variance is constant, or if it's non-constant!
+Naive SEs assume that variance in $Y$ is constant across all values of $X$. Robust SEs are appropriate if variance is constant, or if it's non-constant!
 
 \color{blue} Important: \color{black} what matters is whether the variance is constant \textit{in the population}, which we can't tell by looking at our data.
 
-\color{blue} Conclusion: \color{black} unless you have a very solid scientific reason for variance being constant, use robust SE.
+\color{blue} Conclusion: \color{black} unless you have a very solid scientific reason for variance being constant, use robust SEs.
 
-\color{red} Warning: \color{black} Most software (inappropriately) uses \textit{naive} SE, but the \texttt{uwIntroStats} package gives us \textit{robust} SE. % they don't need to know how to calculate, just need to know where to look in regress output
+\color{red} Warning: \color{black} Most software (inappropriately) uses \textit{naive} SEs, but the \texttt{uwIntroStats} package gives us \textit{robust} SEs. % they don't need to know how to calculate, just need to know where to look in regress output
 
 \begin{footnotesize} \textit{Note: the decision about which two-sample t-test to use (equal or unequal variances) relies on a similar thought process} \end{footnotesize}
 \end{frame}
@@ -428,8 +428,8 @@ To test whether there is a \textit{statistically significant} association betwee
 Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
 \begin{small}
 \begin{itemize} \itemsep -2pt
-\item $p < 0.05$: \textbf{reject $H_0$}, ``we have strong evidence to suggest that $X$ is associated with $Y$"
-\item $p > 0.05$: \textbf{fail to reject $H_0$}, ``we do not have enough evidence to support the hypothesis that $X$ is associated with $Y$"
+\item $p < \alpha$: \textbf{reject $H_0$}, ``we have evidence to suggest that $X$ is associated with $Y$"
+\item $p > \alpha$: \textbf{fail to reject $H_0$}, ``we do not have enough evidence to support the hypothesis that $X$ is associated with $Y$"
 \end{itemize}
 \end{small}
 \end{frame}
@@ -444,12 +444,12 @@ Interpret the $p$-value just as before! (e.g., 0.59--0.60, HW2) \vspace{-0.4cm}
 \item \textbf{Statistical question:} is there a \color{orange} difference in average \color{blue} FEV \color{black} comparing groups of US children that differ in age? \pause
 	\begin{itemize}
 	\item \textbf{Population:} all US children
-	\item \textbf{Parameter:} difference in population means comparing two groups that differ by one year in age \pause
+	\item \textbf{Parameter:} population linear regression slope (diff. in means comparing groups that differ by one year in age) \pause
 	\end{itemize}
 \item Take a \textbf{sample} from the population: 654 children who came into a pediatric clinic for a routine check-up \pause
 \item Perform \textit{statistical inference}:
 	\begin{itemize}
-	\item Calculate the corresponding \textbf{statistic}: difference in sample means comparing two groups that differ by one year in age \pause = \textit{estimate of linear regression slope} \pause
+	\item Calculate the corresponding \textbf{statistic}: sample linear regression slope (estimated difference in means comparing groups that differ by one year in age) \pause
 	\item Quantify the uncertainty in your statistic
 	\item Perform a hypothesis test \pause
 	\end{itemize}
@@ -566,11 +566,11 @@ Our t-test results:
 	\begin{itemize}
 	\item Difference in mean between groups differing by one unit (for a binary predictor, you can only differ by one unit)
 	\end{itemize}
-\item If you use naive SE, this is \textit{exactly} equivalent to the t-test which presumes equal variances
-\item If you use robust SE, this is \textit{approximately} equivalent\footnote[frame]{Our results look exactly the same, but if you go out to more digits you see slight differences in, e.g., the CI: (0.23235, 0.49020) and (0.23238, 0.49017) for the t-test and linear regression, respectively\\} to the t-test which allows for unequal variances
+\item If you use naive SEs, this is \textit{exactly} equivalent to the t-test which presumes equal variances
+\item If you use robust SEs, this is \textit{approximately} equivalent\footnote[frame]{Our results look exactly the same, but if you go out to more digits you see slight differences in, e.g., the CI: (0.23235, 0.49020) and (0.23238, 0.49017) for the t-test and linear regression, respectively\\} to the t-test which allows for unequal variances
 \end{itemize}
 
-\vspace{-0.2cm} No matter your choice of SE, your estimates will be the same: $\beta_1$ = the differences in means, $\beta_0 = $ the mean in ``group 0"
+\vspace{-0.2cm} No matter your choice of SEs, your estimates will be the same: $\beta_1$ = the differences in means, $\beta_0 = $ the mean in ``group 0"
 
 
 \end{frame}
@@ -605,6 +605,7 @@ We can write this as an optimization problem, $$ \text{argmin}_{\beta_0,\beta_1}
 \center \color{blue} \textit{You will \textbf{NOT} be tested on these!} \color{black}
 \end{frame}
 
+\subsection{Regression and correlation}
 % aside: connect to correlation
 \begin{frame}
 \frametitle{Simple linear regression and correlation}
@@ -637,28 +638,480 @@ $$r = \frac{\sum_i \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{\sqrt{\
 
 \end{frame}
 
+%% start here 4/9
 \begin{frame}
 \frametitle{Linear regression roadmap}
-\color{blue} What do we know so far? \color{black}% interpreting coefficients; distinguish between truth and estimate
+\color{blue} What do we know so far? \color{black}\vspace{-0.3cm}% interpreting coefficients; distinguish between truth and estimate
 \begin{itemize}
 \item \textbf{Estimate/statistic:} estimated regression coefficient
 \item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
 \item \textbf{Hypothesis test:} p-value for regression coefficient 
 \item \textit{What types of scientific questions can we answer using linear regression?}
+	\begin{itemize}
+	\item Continuous outcome vs continuous predictor
+	\item Continuous outcome vs binary predictor
+	\end{itemize}
 \item \textit{How do I do all this in R?} (and what R is doing)
 \end{itemize}
 
-\color{blue} What's next?
+\color{blue} What's next?\vspace{-0.3cm}
 \begin{itemize}
+\item Transforming our predictor or outcome
 \item Linear regression with a categorical predictor
-\item Transforming our predictor or outcome variables
 \end{itemize}
+\end{frame}
+
+\subsection{Transformations}
+% Warm-up activity: FEV vs age
+\begin{frame}
+\frametitle{Interpreting coefficients (no transformation)}
+How do we interpret $\beta_0, \beta_1$ in this linear regression model? $$E[\text{FEV}|\text{Age}] = \beta_0 + \beta_1 \text{Age}$$
+
+$\beta_0$: average value of $Y$ among subjects with $X = 0$ \\ \pause
+\ \ \ \ \ \color{blue} average FEV (l/sec) among newborns \color{black} \pause
+
+$\beta_1$: difference in average value of $Y$ comparing two groups that differ in $X$ by one unit\\ \pause
+\ \ \ \ \ \color{blue} difference in average FEV (l/sec) comparing two groups that differ in age by one year 
+\end{frame}
+
+% Warm-up activity: Age+3
+\begin{frame}
+\frametitle{Interpreting coefficients after a transformation}
+How do we interpret $\beta_0$ in this linear regression model? $$E[\text{FEV}|\color{blue}(\text{Age}-3)\color{black}] = \beta_0 + \beta_1 \color{blue}\left(\text{Age}-3\right)\color{black}$$
+
+\vspace{-0.5cm}
+$\beta_0$: average value of $Y$ among subjects with $X = 0$ \\ \pause
+\ \ \ \ \ average FEV (l/sec) among kids with $\text{Age} -3 = 0$\\ \pause
+\ \ \ \ \ \color{blue} average FEV (l/sec) among 3 year olds \color{black} \pause
+
+Why are those last two interpretations equivalent?
+\begin{align*}
+(\text{Age}-3) &= 0 \\ 
+\text{Age} &= 3
+\end{align*}
+\end{frame}
+
+% Age-3: slope
+\begin{frame}
+\frametitle{Interpreting coefficients after a transformation}
+How do we interpret $\beta_1$ in this linear regression model? $$E[\text{FEV}|(\text{Age}-3)] = \beta_0 + \beta_1 \left(\text{Age}-3\right)$$
+
+\vspace{-0.5cm}
+$\beta_1$: difference in average value of $Y$ comparing two groups that differ in $X$ by one unit\\ \pause
+\ \ \ \ \ difference in average FEV (l/sec) comparing two groups that differ in $\text{Age}-3$ by one year\\ \pause
+\ \ \ \ \ \color{blue} difference in average FEV (l/sec) comparing two groups that differ in age by one year \color{black}\pause
+
+Why are those last two interpretations equivalent?
+\begin{align*}
+(\text{Age}-3) = x+1 &\color{red} \text{ vs } \color{black} (\text{Age}-3) = x \\
+\text{Age} = x+4 &\color{red} \text{ vs } \color{black} \text{Age} = x+3
+\end{align*}
+\end{frame}
+
+% Warm-up activity
+\begin{frame}
+\frametitle{Interpreting coefficients: your turn!}
+On a piece of paper, please:\vspace{-0.3cm}
+\begin{enumerate} \itemsep +5pt
+\item Write your name
+\item Interpret\footnote[frame]{\color{blue} Don't forget units! FEV = liters/second, Age = years} $\beta_0, \beta_1$ in the following models:
+	\begin{enumerate}\itemsep +5pt
+	\item $E[\text{FEV}|\left(\text{Age}-\overline{Age}\right)] = \beta_0 + \beta_1 \left(\text{Age}-\overline{Age}\right)$ 
+	\item $E[\text{FEV}|\left(\frac{\text{Age}}{10}\right)] = \beta_0 + \beta_1 \left(\frac{\text{Age}}{10}\right)$ 
+	\item $E[\text{FEV}|\left(\frac{\text{Age}-3}{10}\right)] = \beta_0 + \beta_1 \left(\frac{\text{Age}-3}{10}\right)$ 
+	\end{enumerate}
+\item Interpret $\beta_0, \beta_1$ in the following models:
+	\begin{enumerate}\itemsep +5pt
+	\item $E[(\text{FEV}\times 60)|\text{Age}] = \beta_0 + \beta_1 \text{Age}$ 
+	\item $E[\left(\frac{\text{FEV}}{3.78541}\right)|\text{Age}] = \beta_0 + \beta_1 \text{Age}$ \begin{scriptsize}\\(Hint: 1 gallon = 3.78541 liters)\end{scriptsize}
+	\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+% pause to walk through answers
+
+% motivation for linear transformations
+\subsubsection{Linear transformations}
+\begin{frame}
+\frametitle{Linear transformations of $X$ and $Y$}
+
+\textit{Linear transformations:} adding, subtracting, multiplying, and/or dividing by some constant
+
+Which transformations changed our interpretation of $\beta_0$?\vspace{-0.3cm}\pause
+\begin{itemize}
+\item[] Adding (subtracting) a constant to (from) $X$
+\item[] Any change to $Y$\pause
+\end{itemize}
+
+Which transformations changed our interpretation of $\beta_1$?\pause
+\vspace{-0.3cm}
+\begin{itemize}
+\item[] Dividing (multiplying) $X$ by a constant  
+\item[] Any change to $Y$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why transform $X$ and/or $Y$?}
+Why might we want to transform our variables? 
+\begin{itemize}
+\item \textit{Make interpretation of $\beta_0$ more scientifically meaningful} (e.g., so we're not talking about the average FEV among people with height 0")
+\item \textit{Make estimate of $\beta_0$ more trustworhty} (e.g., so we're not estimating the average FEV among newborns if all our data were collected on senior citizens)
+\item \textit{Change units of outcome and/or predictor} (e.g., difference in FEV in liters/minute comparing two groups that differ in age by one year)
+\end{itemize}
+
+We'll come back to this...
+\end{frame}
+
+% summary of types of transformations they should know
+\begin{frame}
+\frametitle{Types of transformations}
+
+So far we've seen:
+\begin{enumerate}
+\item Adding/subtracting a constant (e.g., $\text{Age} - \overline{Age}$)
+\item Multiplying/dividing by a constant (e.g., $\text{Age}/10$)
+\item A combination of 1. and 2. (e.g., $(\text{Age}-3)/10$)
+\end{enumerate}
+
+What other types of transformations might we use?
+\begin{enumerate}
+\item Log transformations
+\item Polynomial transformations (e.g., $x + x^2$)
+\end{enumerate}
 
 \end{frame}
 
+\subsubsection{Log transformations}
+% log(X) - beta_0
+\begin{frame}
+\frametitle{Transformations: $\log(X)$}
+\begin{center} $E[FEV|\log(\text{Height})] = \beta_0 + \beta_1 \log(\text{Height})$ \end{center}
+
+$\beta_0$: average value of $Y$ among subjects with $X = 0$\\ \pause 
+\ \ \ \ \ average FEV among subjects with $\log(\text{Height}) = 0$\\ \pause 
+\ \ \ \ \ \color{blue} average FEV among subjects who are 1 inch tall \color{black}  \pause
+
+Why are those last two interpretations equivalent?
+\begin{align*}
+\log(\text{Height}) & = 0 \\
+e^{\log(\text{Height})} & = e^0 \\
+\text{Height} & = 1\\
+\end{align*}
+\begin{footnotesize} Note: in statistics (and in \texttt{R}), when we write $\log$, we mean $\log_e = \ln$ \end{footnotesize}
+\end{frame}
+
+% log(X) - beta_1
+\begin{frame}
+\frametitle{Transformations: $\log(X)$}
+\begin{center} $E[FEV|\log(\text{Height})] = \beta_0 + \beta_1 \log(\text{Height})$ \end{center}
+
+$\beta_1$: difference in average value of $Y$ comparing two groups that differ in $X$ by one unit\\ \pause
+\ \ \ \ \ difference in average FEV comparing two groups that differ in $\log(\text{Height})$ by one unit\\ \pause
+\ \ \ \ \ \color{blue} difference in average FEV comparing two groups that differ in height by a multiplicative factor of $e$ (2.718...) \color{black} \pause
+
+Why are those last two interpretations equivalent?
+\begin{align*}
+\log(\text{Height}) = x + 1 &\color{red}\text{ vs }\color{black} \log(\text{Height}) = x \\
+e^{\log(\text{Height})} = e^{x+1} &\color{red}\text{ vs }\color{black} e^{\log(\text{Height})} = e^x \\
+\text{Height} = e^{x}e &\color{red}\text{ vs }\color{black} \text{Height} = e^{x}
+\end{align*}
+\end{frame}
+
+% log(X) - beta_1
+\begin{frame}
+\frametitle{Transformations: $\log(X)$}
+An $e$-fold difference between two groups is not very intuitive. How can we make our interpretation of $\beta_1$ better?
+
+Option 1: use a different base\pause
+\begin{itemize}
+\item $E[FEV|\color{blue}\log_2\color{black}(Height)] = \beta_0 + \beta_1 \color{blue}\log_2\color{black}(Height)$
+	\begin{itemize}
+	\item $\beta_0$: average FEV among subjects who are 1" tall
+	\item $\beta_1$: difference in average FEV comparing groups that differ in height by a \color{blue} multiplicative factor of 2\color{black}
+	\end{itemize} \pause
+\item $E[FEV|\color{blue}\log_{10}\color{black}(Height)] = \beta_0 + \beta_1 \color{blue}\log_{10}\color{black}(Height)$
+	\begin{itemize}
+	\item $\beta_0$: average FEV among subjects who are 1" tall
+	\item $\beta_1$: difference in average FEV comparing groups that differ in height by a \color{blue}multiplicative factor of 10\color{black}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+% log(X) - beta_1
+\begin{frame}
+\frametitle{Transformations: $\log(X)$}
+An $e$-fold difference between two groups is not very intuitive. How can we make our interpretation of $\beta_1$ better?
+
+Option 2: fit the same model \begin{scriptsize}($E[FEV|\log(Height)] = \beta_0 + \beta_1\log(Height)$)\end{scriptsize} but interpret $c \times \beta_1$ rather than $\beta_1$ \pause
+
+\textit{Example:} $\color{blue}\log(1.1)\color{black}\beta_1$ is the difference in average FEV comparing two groups that differ in height by a \color{blue}multiplicative factor of 1.1 \color{black} (i.e., a 10\% difference)\pause
+	\begin{align*}
+	E[FEV|&\log(Height=1.1x)]-E[FEV|\log(Height=x)] \\
+	& = \left[\beta_0 + \beta_1\log(1.1x)\right] - \left[\beta_0 + \beta_1 \log(x) \right]\\
+	& = \left[\beta_0 + \beta_1\{\log(1.1)+\log(x)\}\right] - \left[\beta_0 + \beta_1 \log(x) \right]\\
+	& = \left[\beta_0 + \beta_1\log(1.1)+\beta_1\log(x)\right]-\left[\beta_0 + \beta_1 \log(x) \right]\\
+	& = \beta_1\log(1.1)
+	\end{align*}
+\end{frame}
+
+% summary: log(X)
+\begin{frame}
+\frametitle{Transformations: $\log(X)$}
+Tying it all together...
+\begin{itemize}
+\item \color{blue} Regression model: \color{black} $E[Y|\log(X)] = \beta_0 + \beta_1\log(X)$
+\item \color{blue} $\beta_0$: \color{black} average value of $Y$ among subjects with $X = 1$
+\item \color{blue} $\log(k)\times\beta_1$: \color{black} difference in average value of $Y$ comparing two groups that differ in $X$ by a multiplicative factor of $k$
+\end{itemize}\pause
+
+Why would we want to do this type of transformation?
+\begin{itemize}
+\item Sometimes it is more scientifically relevant to talk about multiplicative changes in $X$ rather than differences in $X$
+\item Types of variables that we often $\log$ transform:
+	\begin{itemize}
+	\item Money (e.g., salary, home prices)
+	\item Biological measurements (e.g., prostate specific antigen in prostate cancer, serum creatinine in kidney disease)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+% log(Y)
+\begin{frame}
+\frametitle{Transformations: $\log(Y)$}
+\begin{center} $E[\log(FEV)|Height] = \beta_0 + \beta_1 Height$ \end{center}
+$\beta_0$: average value of $Y$ among subjects with $X = 0$\\ \pause
+\ \ \ \ \ average $\log(FEV)$ among subjects that are 0" tall \\ \pause
+\ \ \ \ \ log geometric mean FEV among subjects that are 0" tall \\ 
+\color{blue} $e^{\beta_0}$: geometric mean of FEV among subjects that are 0" tall \color{black}\pause
+
+Why are those interpretations equivalent?\vspace{-0.3cm}
+\begin{itemize}
+\item[] \textit{Arithmetic mean}: $\frac{1}{n} \sum_{i=1}^n a_i$
+\item[] \textit{Geometric mean}: $\left(\prod_{i=1}^n a_i\right)^{\frac{1}{n}} = e^{\frac{1}{n} \sum_{i=1}^n \log(a_i)}$
+\end{itemize}
+\vspace{-0.3cm}
+\begin{center} \begin{footnotesize}The \color{blue} ``average of $\log(Y)$" \color{black} = $\frac{1}{n}\sum \log(Y_i)$ \ \color{blue} \textit{is the same as} \color{black}\\the \color{blue}``log of the geometric mean of $Y$" \color{black}= $\log(e^{\frac{1}{n}\sum \log(Y_i)} = \frac{1}{n}\sum \log(Y_i)$.\end{footnotesize}\end{center}
+\end{frame}
+
+%log(Y) - beta_1
+\begin{frame}
+\frametitle{Transformations: $\log(Y)$}
+\begin{center} $E[\log(FEV)|Height] = \beta_0 + \beta_1 Height$ \end{center}
+$\beta_1$: difference in average values of $Y$ comparing two groups that differ in $X$ by one unit\\ \pause
+\ \ \ \ \ difference in average $\log(FEV)$ comparing two ...\\ \pause
+\ \ \ \ \ difference in log geometric mean FEV comparing two ... \\ 
+\color{blue} $e^{\beta_1}$: ratio of geometric mean FEV comparing two ... \color{black} \pause
+
+Why are those interpretations equivalent?\vspace{-0.3cm}
+\begin{align*}
+\beta_1 & = \log(\text{GM}[Y|X=x+1])-\log(\text{GM}[Y|X=x])\\
+& = \log\left(\text{GM}[Y|X=x+1]\div\text{GM}[Y|X=x]\right)\\
+e^{\beta_1} & = \text{GM}[Y|X=x+1]\div\text{GM}[Y|X=x]
+\end{align*}
+\end{frame}
+
+% summary: log(Y)
+\begin{frame}
+\frametitle{Transformations: $\log(Y)$}
+Tying it all together...
+\begin{itemize}
+\item \color{blue} Regression model: \color{black} $E[\log(Y)|X] = \beta_0 + \beta_1X$
+\item \color{blue} $e^{\beta_0}$: \color{black} geometric mean of $Y$ among subjects with $X = 0$
+\item \color{blue} $e^{\beta_1}$: \color{black} ratio of geometric means of $Y$ comparing two groups that differ in $X$ by one unit
+\end{itemize}\pause
+
+Why would we want to do this type of transformation?\vspace{-0.3cm}
+\begin{itemize}
+\item Sometimes it is more scientifically relevant to talk about multiplicative changes in $Y$ rather than differences
+\item Types of variables that we often $\log$ transform:
+	\begin{itemize}
+	\item Money (e.g., salary, home prices)
+	\item Biological measurements (e.g., prostate specific antigen in prostate cancer, serum creatinine in kidney disease)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+% summary: log(Y)
+\begin{frame}
+\frametitle{Transformations: $\log(Y)$ \textit{and} $\log(X)$}
+\center What if we log-transformed our outcome \textit{and} our predictor? % probably skip
+\end{frame}
+
+\subsubsection{Polynomial transformations}
+% polynomial
+\begin{frame}
+\frametitle{Transformations: polynomial}
+\begin{center} $E[\text{FEV}| \text{Height}] = \beta_0 + \beta_1 \text{Height} + \beta_2 \text{Height}^2$ \end{center}
+
+Now we have three coefficients: $\beta_0, \beta_1, \beta_2$\pause
+
+\color{blue} $\beta_0$: average FEV among subjects who are 0" tall \color{black} \pause
+\begin{align*}
+E[\text{FEV}|\text{Height} = 0] & = \beta_0 + \beta_1 (0) + \beta_2(0)^2 \\
+& = \beta_0 + 0 + 0 \\
+& = \beta_0
+\end{align*}
+\end{frame}
+
+% poly - slope
+\begin{frame}
+\frametitle{Transformations: polynomial}
+\begin{center} $E[\text{FEV}| \text{Height}] = \beta_0 + \beta_1 \text{Height} + \beta_2 \text{Height}^2$ \end{center}
+
+$\beta_1$: \color{red} NOT \color{black} the difference in average FEV comparing groups of subjects that differ in height by one inch\pause
+\begin{align*}
+E[&\text{FEV}|\text{Height} = x+1] -E[\text{FEV}|\text{Height} = x]\\
+& = \left[\beta_0 + \beta_1 (x+1) + \beta_2(x+1)^2\right] -\left[\beta_0 + \beta_1 (x) + \beta_2(x)^2\right]\\
+& = \beta_1 + \beta_2(2x+1) \\
+\end{align*}\pause
+\color{blue} $\beta_1,\beta_2$: no straightforward interpretation \color{black}
+\end{frame}
+
+\begin{frame}
+\frametitle{Transformations: polynomial}
+Tying it all together...
+\begin{itemize}
+\item \color{blue} Regression model: \color{black} $E[Y|X] = \beta_0 + \beta_1X + \beta_2 X^2 + \cdots$
+\item \color{blue} $\beta_0$: \color{black} average value of $Y$ when $X = 0$
+\item \color{blue} $\beta_1, \beta_2, \cdots$: \color{black} no straightforward interpretation
+\end{itemize}\pause
+
+Why would we want to do this type of transformation?
+\begin{itemize}
+\item Sometimes we might have scientific reason to believe that $Y$ is related to $X^2$ (e.g., area) or $X^3$, rather than just $X$
+\item Model non-linearity in the relationship between $X$ and $Y$
+	\begin{itemize}
+	\item Important for prediction
+	\item Not necessary for showing associations 
+	\end{itemize}
+\end{itemize}\pause
+
+Alternative: $E[\log(Y)|\log(X)] = \beta_0 + \beta_1 \log(X)$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary: why transform $X$ and/or $Y$?}
+Why might we want to transform our variables? \vspace{-0.3cm}
+\begin{itemize}
+\item Scientific motivation
+	\begin{itemize}
+	\item Improve interpretation
+	\item More realistically model the relationships we think exist between variables
+		\begin{itemize}
+		\item Multiplicative (ratio) vs additive (difference)
+		\item Geometric mean vs arithmetic mean
+		\end{itemize}
+	\end{itemize}
+\item Account for non-linearity 
+	\begin{itemize}
+	\item Important for prediction
+	\item Not necessarily for detecting associations
+	\end{itemize}
+\end{itemize}
+
+\color{red} Important: \color{black} decision to transform should always be made \textit{before} looking at your data, on the basis of \textit{scientific motivations}
+\end{frame}
 
 
+\subsection{Categorical predictor}
+% dummy variables
+\begin{frame}
+\frametitle{Linear regression with a categorical predictor}
 
+What if our scientific question is about the association between a continuous outcome and a categorical predictor?\pause
+
+If the predictor is binary (e.g., smoker):\vspace{-0.3cm}
+\begin{itemize}
+\item Re-code as 0/1 
+\end{itemize}\pause
+
+If the predictor is ordinal (e.g., genotype = AA, Aa, aa): \vspace{-0.3cm}
+\begin{itemize}
+\item You \textit{might} be able to find a meaningful way to represent numerically (e.g., number of A alleles: 2, 1, 0)
+\item Often not possible to do this re-coding
+\end{itemize}\pause
+
+If the predictor is nominal (e.g., ancestry = Afr, NAm, Eur):\vspace{-0.3cm}
+\begin{itemize}
+\item No meaningful numeric representation
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression with a categorical predictor}
+What can we do? \pause We use \textit{dummy variables}...
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+
+\vspace{-0.5cm}
+\begin{itemize}
+\item \textit{African} = 1 if \textit{Ancestry} = \textit{African}, and 0 otherwise
+\item \textit{European} = 1 if \textit{Ancestry} = \textit{European}, and 0 otherwise
+\end{itemize}\pause
+
+$\beta_0$: average SBP among subjects with \textit{Native American} ancestry
+\begin{align*}
+E[\text{SBP}|\text{Ancestry} = NAm] &= \beta_0 + \beta_1(0) + \beta_2(0) \\
+& = \beta_0
+\end{align*}
+\end{frame}
+
+% dummy - beta1
+\begin{frame}
+\frametitle{Linear regression with a categorical predictor}
+What can we do? We use \textit{dummy variables}...
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+
+\vspace{-0.5cm}
+\begin{itemize}
+\item \textit{African} = 1 if \textit{Ancestry} = \textit{African}, and 0 otherwise
+\item \textit{European} = 1 if \textit{Ancestry} = \textit{European}, and 0 otherwise
+\end{itemize}
+
+$\beta_1$: difference in average SBP between groups with Native American and African ancestry
+\begin{align*}
+E[&\text{SBP}|\text{Ancestry} = Afr] - E[\text{SBP}|\text{Ancestry} = NAm] \\
+&= \left[\beta_0 + \beta_1(1) + \beta_2(0)\right] - \left[\beta_0 + \beta_1(0) + \beta_2(0) \right] \\
+& = \beta_1
+\end{align*}
+\end{frame}
+
+% dummy - beta2
+\begin{frame}
+\frametitle{Linear regression with a categorical predictor}
+What can we do? We use \textit{dummy variables}...
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+
+\vspace{-0.5cm}
+\begin{itemize}
+\item \textit{African} = 1 if \textit{Ancestry} = \textit{African}, and 0 otherwise
+\item \textit{European} = 1 if \textit{Ancestry} = \textit{European}, and 0 otherwise
+\end{itemize}
+
+$\beta_2$: difference in average BP between groups with Native American and European ancestry
+\begin{align*}
+E[&\text{SBP}|\text{Ancestry} = Eur] - E[\text{SBP}|\text{Ancestry} = NAm] \\
+&= \left[\beta_0 + \beta_1(0) + \beta_2(1)\right] - \left[\beta_0 + \beta_1(0) + \beta_2(0) \right] \\
+& = \beta_2
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression with a categorical predictor}
+$$E[\text{Systolic Blood Pressure}|\text{Ancestry}] = \beta_0 + \beta_1 \text{African} + \beta_2 \text{European}$$
+
+\vspace{-0.3cm}
+\begin{itemize}
+\item If we have $k$ categories, we create $k-1$ \textit{dummy variables} (and the $k$th category is captured in the intercept)
+\item \texttt{R} can automatically set these up for you :
+\item[] \texttt{regress('mean', sbp $\sim$ factor(ancestry), data = bloodpressure)}
+\item If we want to test whether SBP is associated with ancestry, we need to test if \textit{both} $\beta_1 = 0, \beta_2 = 0$
+\end{itemize}
+
+This is a preview of \textit{multiple linear regression}!
+
+\end{frame}
 
 % comment out mutliple linear regression section %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{comment} 
