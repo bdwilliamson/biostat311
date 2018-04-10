@@ -61,11 +61,15 @@ fig_res <- 200
 beta0 <- 6
 beta1 <- -2
 beta2 <- 2
+
 ## --------------------------
 ## Confounding
 ## --------------------------
 ## generate confounded data
 set.seed(4747)
+x_range <- cbind(1, seq(0, 1, by = 0.01))
+x_range_0 <- cbind(x_range[1:which(x_range[, 2] == 0.55), ], 0)
+x_range_1 <- cbind(x_range[which(x_range[, 2] == 0.45):length(x_range[, 2]), ], 1)
 dat_c <- data_func_confound(beta0, beta1, beta2, n = 100)
 ## make a plot, without coloring
 png("lecture/chapter_1/plots/confounding_simple.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
@@ -125,10 +129,13 @@ dev.off()
 beta0_em <- 6
 beta1_em <- 2
 beta2_em <- 3
-beta3_em <- 1
+beta3_em <- 5
 
 set.seed(4747)
 dat_e <- data_func_em(beta0_em, beta1_em, beta2_em, beta3_em, n = 1000)
+x_range <- cbind(1, seq(0, 1, by = 0.01))
+x_range_0 <- cbind(x_range[1:which(x_range[, 2] == 0.55), ], 0)
+x_range_1 <- cbind(x_range[which(x_range[, 2] == 0.45):length(x_range[, 2]), ], 1)
 
 ## take a subsample to plot
 dat_e_samp <- dat_e[sample.int(1000, 100), ]
