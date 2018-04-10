@@ -325,7 +325,7 @@ b1 <- 0
 log(2)*b1
 ## we can also update our confidence interval to be more interpretable:
 b1_ci <- c(0,0) # enter lower and upper bounds of beta_1 CI from regress
-log(k)*b1_ci 
+log(2)*b1_ci 
 ```
 
 *Type your interpretation here.*
