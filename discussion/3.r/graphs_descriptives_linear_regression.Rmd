@@ -104,7 +104,7 @@ Now that you have a variable that differentiates teens from pre-teens, you can r
 Copy the code for the boxplot into the next code chunk, and run it to create the boxplot. What is this boxplot telling us about the data? What do the solid black line, box, and "whiskers" mean?
 
 ```{r boxplot-1, echo = TRUE}
-## paste the boxplot code under this comment, 
+## paste the boxplot code (from above) under this comment, 
 ## and change the comment to something that will help you 
 ## remember what the code is doing!
 ```
@@ -216,6 +216,8 @@ plot(fev$age[fev$smoker == 0], fev$fev[fev$smoker == 0],
 legend("topleft", legend = c("Smoker", "Nonsmoker"), col = c("red", "blue"), pch = 16)
 ```
 
+(*If you've updated the code chunk above correctly, your plot should have both red* **and** *blue points. If it doesn't, double check that you've added the line of code to plot FEV vs age for smokers.*)
+
 Based on this plot, describe the trends in FEV with age for smokers and nonsmokers, separately. Additionally, describe the difference in the trends in FEV with age between smokers and nonsmokers.
 
 *Replace this sentence with your description.*
@@ -245,9 +247,9 @@ plot(fev$fev ~ fev$age, pch=16,
      main = "FEV versus age")
 
 # add line of best fit
-b0 <- 0 # replace 0 with estimated beta_0
-b1 <- 0.3 # replace 0.3 with esimtated beta_1
-abline(a = b0, b = b1, col='red') # add line with int = b0, slope = b1
+b0 <- 3 # replace 3 with estimated beta_0
+b1 <- 0 # replace 0 with esimtated beta_1
+abline(a = b0, b = b1, col='red') # add line with intercept = b0, slope = b1
 
 # add a legend
 legend('topleft', 
@@ -256,7 +258,7 @@ legend('topleft',
        pch = c(16,NA))
 ```
 
-Looking at the plot you've created, does your linear regression line seem like it provides a good fit to our observed data?
+Looking at the plot you've created, does your linear regression line seem like it provides a good fit to our observed data? (*Hint: if it doesn't, you probably forgot to update `b0` and `b1` in the code chunk above.*)
 
 *Insert answer here.*
 
@@ -264,7 +266,7 @@ Our estimated linear regression line is one type of `r colFmt("trend line", "blu
 
 Best fitting lines (linear regression lines) minimize the squared difference between each data point and the line: the idea is that the best fitting line should not be too far away from any of the data points. If you draw a vertical line from each data point to the line, and square it (this makes sure that being above and below the line don't cancel each other out), you have a measure of the distance between the line and each data point. Making this difference small means that the line describes the data fairly well.
 
-Loess smooths break up the $x$-axis of the data into small chunks, and fit a best fitting line within each chunk. The best fitting lines are then connected together. These smooths are thus a bit more flexible than just fitting a straight line to the data---they can help determine if there are more complex patterns going on.
+Loess smooths break up the $x$-axis of the data into small chunks, and fit a best fitting line within each chunk. The best fitting lines are then connected together. These smooths are thus a bit more flexible than just fitting a straight line to the data---they can help determine if there are more complex (e.g., nonlinear) patterns going on.
 
 Now, let's create the same scatterplot as above, but also add a loess smooth. Run the code chunk below, but update `b0` and `b1` and change `eval=FALSE` to `eval=TRUE`.
 
@@ -276,9 +278,9 @@ plot(fev$fev ~ fev$age, pch=16,
      main = "FEV versus age")
 
 # add line of best fit
-b0 <- 0 # replace 0 with estimated beta_0
-b1 <- 0.3 # replace 0.3 with esimtated beta_1
-abline(a = b0, b = b1, col='red') # add line with int = b0, slope = b1
+b0 <- 3 # replace 3 with estimated beta_0
+b1 <- 0 # replace 0 with esimtated beta_1
+abline(a = b0, b = b1, col='red') # add line with intercept = b0, slope = b1
 
 # add a loess smooth
 loess <- lowess(x = fev$age, y = fev$fev)
@@ -296,44 +298,45 @@ Compare and contrast the two trend lines. Do you think these trend lines make it
 *Insert answers here.*
 
 
-## 5. Linear regression with log transformed outcome
+## 5. Linear regression with log transformed predictor
 
-Now, we will use `R` to fit a regression model with log-transformed FEV as the outcome: $$E[\log(\text{FEV})|\text{age}] = \beta_0 + \beta_1 \text{age}.$$
+Now, we will use `R` to fit a regression model with log-transformed age as the predictor: $$E[\log(\text{FEV})|\log(\text{age})] = \beta_0 + \beta_1 \log(\text{age}).$$
 
-FEV is a biological measurement, and it might be reasonable to assume that changes to FEV happen on a multiplicative scale rather than an additive scale. Let's explore how our results and interpretation change if we log transform FEV. 
+`r colFmt("DISCLAIMER:","red")` we do not have a scientific motivation for log transforming age, but we're still going to look at this model, purely as an example of how to fit a model with a log transformed predictor. (It might actually be reasonable to log transform our outcome FEV (a biological measurement), but we will not look at that today.)
 
-There are three ways that we can ask `R` to fit this model for us. 
+There are a few ways that we can ask `R` to fit this model for us. 
 
-First, add the variable `logfev` to your dataset and run linear regression with `logfev` as your outcome rather than `fev`.
+First, add the variable `logage` to your dataset and run linear regression with `logage` as your predictor rather than `age`.
 
 ```{r transform-1, eval = FALSE}
-## add logfev to dataset
-fev$logfev <- log(fev$fev)
+## add logage to dataset
+fev$logage <- log(fev$age)
 
-## run linear regression with log(fev) as outcome
-regress('mean', logfev~age, data=fev)
-
-## don't forget to exponentiate your coefficients!
-b0 <- 0 # update with estimate of beta_0
-b0_ci <- c(0,0) # update with lower and upper bounds of beta_0 CI
-exp(b0)
-exp(b0_ci)
-
-b1 <- 0 # update with estimate of beta_1
-b1_ci <- c(0,0) # update with lower and upper bounds of beta_1 CI
-exp(b1)
-exp(b1_ci)
+## run linear regression with log(age) as outcome
+regress('mean', fev~logage, data=fev)
 ```
 
-*Interpret your results here.*
+Remember that when we interpret the coefficients from a model with $\log(X)$ as our predictor, $\beta_1$ represents the difference in average $Y$ comparing two groups that differ in $X$ by a multiplicative factor of $e$. Since this is not a very intuitive interpretation, we prefer to interpret $\log(k)\times \beta_1$ rather than $\beta_1$. Let's look at $k=2$. Update the following code chunk with the estimate of $\beta_1$ that you got from `regress`, above. Then report your interpretation of $\beta_0$ and $\log(2)\beta_1$ below.
 
-Another option is to specify the transformation within the `regress` command. This saves us one step by eliminating the need to add the variable `logfev` do our dataset. Run the following code chunk (and add any code you need to help interpret your coefficients).
+```{r interpret-1, eval = FALSE}
+## enter your estimate of beta_1
+b1 <- 0
+## now, interpret this value rather than beta_1:
+log(2)*b1
+## we can also update our confidence interval to be more interpretable:
+b1_ci <- c(0,0) # enter lower and upper bounds of beta_1 CI from regress
+log(k)*b1_ci 
+```
+
+*Type your interpretation here.*
+
+A second option is to specify the transformation within the `regress` command. This saves us one step by eliminating the need to add the variable `logage` to our dataset. Run the following code chunk (and add any code you need to help interpret your coefficients).
 
 ```{r transform-2, eval = FALSE}
-## run linear regression with log(fev) as outcome
-regress('mean', log(fev)~age, data=fev)
+## run linear regression with log(age) as predictor
+regress('mean', fev~log(age), data=fev)
 
-## don't forget to exponentiate your coefficients!
+## don't forget to multiply beta_1 by log(2) so we can interpret!
 
 ```
 
@@ -341,18 +344,18 @@ Do you get the same output using this approach as you did earlier?
 
 *Insert answer here.*
 
-We know that when we log transform our outcome, our interpretation changes from being about the average value of $Y$ to the geometric mean of $Y$. So, a third way to fit this model is to ask the `regress` function to analyze the geometric mean of FEV rather than the mean.
+As we discussed in class yesterday, a third option is to use log base 2 (i.e., $\log_2$) to transform our predictor rather than to use the natural log and have to interpret $\log_e(2)\beta_1$ rather than $\beta_1$ as we did above. Let's try fitting this model with $\log_2(\text{age})$ now. 
 
 ```{r transform-3, eval = FALSE}
 ## run linear regression with log(fev) as outcome
-regress('geometric mean', fev~age, data = fev)
+regress('mean', fev ~ log(age,base=2), data = fev)
 ```
 
-Compare the results you got using this third approach to the output/ interpretation from the earlier to models.
+Compare the results you got using this third approach to the output/interpretation from the earlier two models.
 
 *Insert answer here.*
 
-List these three approachs in order of your preference (i.e., which do you like best? worst?), and explain your reasoning.
+List these three approaches in order of your preference (i.e., which do you like best? worst?), and explain your reasoning.
 
 *Insert answer here.*
 
@@ -360,12 +363,16 @@ Finally, let's create a plot that graphically supports our linear regression res
 
 ```{r plot-transform, eval = TRUE}
 ## insert code for plot
-## HINT: scatterplot + linear regression line and/or loess smooth
+## first, create a scatterplot of fev vs log(age)
+## then, use abline() to add your linear regression line
+## you can also add a loess smooth using lowess() and lines()
 ```
 
 # Summary
 
-You now know how to:
+As you're starting to see, `R` is a very powerful tool for summarizing data (both numerically and graphically) and fitting regression models. 
+
+After this activity, you now know how to:
 
 0. Add new variables to a dataset using `$`
 1. Generate numerical summaries using the function `descrip`
@@ -380,6 +387,6 @@ You now know how to:
 3. Run linear regression using `regress`
 4. Run linear regression with a transformed variable using `regress`
 
-Most of the analyses we conduct throughout the rest of the quarter will use these same tools, so you're now very far on your way to being able to use `R` for statistical analyses!
+Most of the analyses we'll conduct throughout the rest of the quarter will use these same tools, so you're now very far on your way to being able to use `R` for statistical analyses!
 
 
