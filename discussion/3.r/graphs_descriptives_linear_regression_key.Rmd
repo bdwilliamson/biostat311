@@ -1,5 +1,5 @@
 ---
-title: "Graphs and Descriptive Statistcs"
+title: "Graphs, Descriptive Statistics, and Linear Regression"
 author: "Kelsey Grinde and Brian Williamson"
 date: "10 April 2018"
 output: 
