@@ -312,7 +312,7 @@ First, add the variable `logage` to your dataset and run linear regression with 
 ## add logage to dataset
 fev$logage <- log(fev$age)
 
-## run linear regression with log(age) as outcome
+## run linear regression with log(age) as predictor
 regress('mean', fev~logage, data=fev)
 ```
 
@@ -344,10 +344,10 @@ Do you get the same output using this approach as you did earlier?
 
 *Insert answer here.*
 
-As we discussed in class yesterday, a third option is to use log base 2 (i.e., $\log_2$) to transform our predictor rather than to use the natural log and have to interpret $\log_e(2)\beta_1$ rather than $\beta_1$ as we did above. Let's try fitting this model with $\log_2(\text{age})$ now. 
+As we discussed in class yesterday, a third option is to use log base 2 (i.e., $\log_2$) to transform our predictor rather than to use the natural log and have to interpret $\log_e(2)\beta_1$, as we did above. Let's try fitting this model with $\log_2(\text{age})$ now. 
 
 ```{r transform-3, eval = FALSE}
-## run linear regression with log(fev) as outcome
+## run linear regression with log_2(age) as predictor
 regress('mean', fev ~ log(age,base=2), data = fev)
 ```
 
