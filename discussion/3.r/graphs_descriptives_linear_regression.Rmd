@@ -1,5 +1,5 @@
 ---
-title: "Graphs and Descriptive Statistcs"
+title: "Graphs, Descriptive Statistics, and Linear Regression"
 author: "Kelsey Grinde and Brian Williamson"
 date: "10 April 2018"
 output: 
@@ -388,5 +388,3 @@ After this activity, you now know how to:
 4. Run linear regression with a transformed variable using `regress`
 
 Most of the analyses we'll conduct throughout the rest of the quarter will use these same tools, so you're now very far on your way to being able to use `R` for statistical analyses!
-
-
