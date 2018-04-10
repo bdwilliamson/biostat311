@@ -1116,8 +1116,7 @@ This is a preview of \textit{multiple linear regression}!
 \section{Multiple Linear Regression}
 \begin{frame}
 \frametitle{SECTION 2: MULTIPLE LINEAR REGRESSION}
-By the end of Section 2, you should be able to:
-
+By the end of Section 2, you should be able to: \vspace{-0.4cm}
 \begin{itemize}
 \item Identify potential variables that \textcolor{red}{confound} the association between the predictor of interest and the outcome, and
 \item describe \textbf{why} you will adjust for these variables in a regression analysis.
@@ -1317,16 +1316,79 @@ Why spend so much time on linear regression?
 
 \textcolor{red}{Confounders} (slides 1.66--1.71), \textcolor{blue}{effect modifiers} (slides 1.72--1.77), and \textcolor{green}{precision variables} (slides 1.77--1.83) all show up in other types of regression as well.
 
-Additionally, the types of considerations we will have to make when choosing variables for our analysis, and the interpretation of regression coefficients, will be similar.
+Additionally, the types of considerations we will have to make when choosing variables for our analysis, and the interpretation of regression coefficients, will be similar to those for linear regression in other regression types.
 
 Linear regression is the most straightforward, so we'll spend a lot of time here!
 \end{frame}
 
-%% DO CONFOUNDING HERE
+\subsection{Adjusting for covariates}
+\begin{frame}
+\frametitle{Adjusting for covariates}
+
+Our statistical (and scientific) questions involve an \textbf{outcome} and a \textbf{predictor of interest}.
+
+Scientific questions typically address one of three relationships between the predictor of interest and the outcome: \vspace{-0.2cm}
+\begin{itemize}
+\item is there a causal association?
+\item is there an association?
+\item does the association (if it exists) differ in groups defined by an additional covariate? (\textcolor{blue}{effect modification})
+\end{itemize}
+
+Study designs can be broadly categorized as observational or randomized and controlled.
+
+\textcolor{red}{Depending on the scientific question and the study design}, we may need to \textcolor{red}{consider additional variables} (from now on, called \textbf{covariates}).
+\end{frame}
+
+\begin{frame}
+\frametitle{Adjusting for covariates: causal diagrams}
+Often, when thinking about the need to adjust for additional covariates, it is helpful to draw a \textbf{causal diagram} relating the outcome, predictor of interest, and additional covariates.
+
+For example, suppose that we 
+\end{frame}
+
+\begin{frame}
+\frametitle{Types for covariates: confounders}
+
+\textcolor{red}{Confounder}: causally associated with the outcome \textbf{in the population}; associated with the predictor of interest \textbf{in our sample}; not a result of the predictor of interest.
+
+\centering
+\includegraphics[width=0.7\textwidth]{plots/confounding_colored_with_lines.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Types for covariates: effect modifiers}
+
+\textcolor{blue}{Effect modifier}: the association between the outcome and the predictor of interest \textbf{depends on the value} of the effect modifier.
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Types for covariates: precision variables}
+
+\textcolor{green}{Precision variable}: associated with the outcome in the population, \textbf{not associated with} the predictor of interest. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Adjusting for covariates: causal association}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Adjusting for covariates: association}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Adjusting for covariates: effect modification}
+
+\end{frame}
+
 
 \subsection{Stratified analyses}
 \begin{frame}
-\frametitle{``Multiple'' regression: stratified analyses}
+\frametitle{Stratified analyses: ``multiple'' regression}
 Say we are interested in \textcolor{blue}{estimating the association} between an outcome, $Y$, and a predictor of interest $X$; however, knowledge of the scientific problem tells us that a third variable $Z$ may be related to $Y$ and/or $X$.
 
 If $Z$ is \textbf{binary}, how might we account for it? \pause
@@ -1339,13 +1401,13 @@ One way to account for a second predictor variable is to \textbf{stratify} our a
 \end{frame}
 
 \begin{frame}
-\frametitle{``Multiple'' regression: stratified analyses}
+\frametitle{Stratified analyses: FEV}
 
 
 \end{frame}
 
 \begin{frame}
-\frametitle{``Multiple'' regression: stratified analyses}
+\frametitle{Stratified analyses: FEV}
 
 
 \end{frame}
