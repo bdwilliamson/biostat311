@@ -1343,7 +1343,17 @@ Study designs can be broadly categorized as observational or randomized and cont
 \frametitle{Adjusting for covariates: causal diagrams}
 Often, when thinking about the need to adjust for additional covariates, it is helpful to draw a \textbf{causal diagram} relating the outcome, predictor of interest, and additional covariates.
 
-For example, suppose that we 
+Here, the \textbf{nodes} (or vertices) denote variables, and the \textbf{edges} between these nodes denote associations. Arrows denote \textcolor{blue}{causal} associations.
+
+For example, consider the relationship between FEV (the outcome) and smoking status (the predictor of interest). Additional variables we might consider are age, sex, and height. 
+
+Our scientific question is: is there an association between FEV and smoking status? {\small (assume we are after causality, but cannot get it due to study design)}
+\end{frame}
+
+\begin{frame}
+\frametitle{Adjusting for covariates: causal diagrams \\ {\small page intentionally blank, for FEV example}}
+
+
 \end{frame}
 
 \begin{frame}
@@ -1361,13 +1371,17 @@ For example, suppose that we
 
 \textcolor{blue}{Effect modifier}: the association between the outcome and the predictor of interest \textbf{depends on the value} of the effect modifier.
 
-
+\centering
+\includegraphics[width=0.7\textwidth]{plots/effect_modification_colored_with_lines.png}
 \end{frame}
 
 \begin{frame}
 \frametitle{Types for covariates: precision variables}
 
-\textcolor{green}{Precision variable}: associated with the outcome in the population, \textbf{not associated with} the predictor of interest. 
+\textcolor{green}{Precision variable}: associated with the outcome in the population, \textbf{not associated with} the predictor of interest.
+
+\centering
+ \includegraphics[width=0.7\textwidth]{plots/precision_colored_with_multiple_lines.png}
 \end{frame}
 
 \begin{frame}
