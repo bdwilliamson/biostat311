@@ -34,5 +34,5 @@ regress("mean", fev ~ smoker, data = greater_60)
 ## FEV on smoking, adjusting for binary height
 ```{r echo = TRUE}
 library("uwIntroStats", warn.conflicts = FALSE)
-regress("mean", fev ~ smoker + I(height < 60), data = fev)
+regress("mean", fev ~ smoker + I(height >= 60), data = fev)
 ```
