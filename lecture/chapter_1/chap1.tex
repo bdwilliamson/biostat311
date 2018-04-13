@@ -1363,12 +1363,15 @@ Multiple linear regression:
 \textcolor{red}{Confounder}: causally associated with the outcome \textbf{in the population}; associated with the predictor of interest \textbf{in our sample}; not a result of the predictor of interest.
 
 \centering
-\includegraphics[width=0.7\textwidth]{plots/confounding_colored_with_lines.png}
+\vspace{-0.1cm}
+\includegraphics[width=0.65\textwidth]{plots/confounding_colored_with_lines.png}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Types of covariates: confounders}
+\textcolor{red}{Confounder}: causally associated with the outcome \textbf{in the population}; associated with the predictor of interest \textbf{in our sample}; not a result of the predictor of interest.
+
 Classical confounder:
 
 \begin{center}
@@ -1379,6 +1382,8 @@ Classical confounder:
 
 \begin{frame}
 \frametitle{Types of covariates: confounders}
+\textcolor{red}{Confounder}: causally associated with the outcome \textbf{in the population}; associated with the predictor of interest \textbf{in our sample}; not a result of the predictor of interest.
+
 Causal pathway (not a confounder!):
 
 \begin{center}
@@ -1389,6 +1394,8 @@ Causal pathway (not a confounder!):
 
 \begin{frame}
 \frametitle{Types of covariates: confounders}
+\textcolor{red}{Confounder}: causally associated with the outcome \textbf{in the population}; associated with the predictor of interest \textbf{in our sample}; not a result of the predictor of interest.
+
 Surrogate for response (not a confounder!):
 
 \begin{center}
@@ -1403,7 +1410,8 @@ Surrogate for response (not a confounder!):
 \textcolor{blue}{Effect modifier}: the association between the outcome and the predictor of interest \textbf{depends on the value} of the effect modifier.
 
 \centering
-\includegraphics[width=0.7\textwidth]{plots/effect_modification_colored_with_lines.png}
+\vspace{-0.2cm}
+\includegraphics[width=0.65\textwidth]{plots/effect_modification_colored_with_lines.png}
 \end{frame}
 
 \begin{frame}
@@ -1412,7 +1420,8 @@ Surrogate for response (not a confounder!):
 \textcolor{green}{Precision variable}: associated with the outcome in the population; \textbf{not associated with} the predictor of interest \textbf{in the sample}.
 
 \centering
- \includegraphics[width=0.7\textwidth]{plots/precision_colored_with_multiple_lines.png}
+\vspace{-0.2cm}
+ \includegraphics[width=0.65\textwidth]{plots/precision_colored_with_multiple_lines.png}
 \end{frame}
 
 
@@ -1466,10 +1475,17 @@ Thus, when we estimate the association between the predictor of interest and the
 \frametitle{Adjusting for covariates: association}
 When our scientific question involves an association (not causal!), we \textbf{rarely need to adjust} for covariates. Here, our goal is to see if there is any association; we aren't concerned with whether or not this association is due to other variables. 
 
-However, we may choose to adjust to:
+However, we may choose to adjust to: \vspace{-0.3cm}
 \begin{itemize}
 \item reduce the variability in our estimates \textcolor{green}{(precision variables)}
 \item get a better prediction of the mean outcome (more on this later)
+\end{itemize}
+
+Example: designing an intervention \vspace{-0.3cm}
+\begin{itemize}
+\item if we have a \textcolor{blue}{cheap, easy to measure} predictor, 
+\item and our outcome \textbf{is associated with} this predictor,
+\item then we know who to target \textbf{regardless of the underlying causal mechanism}
 \end{itemize}
 \end{frame}
 
@@ -1591,6 +1607,14 @@ Stratified analyses are similar to using a t-test:
 As you saw in Homework 3, using the t-test is equivalent to simple linear regression with a binary predictor---similarly, with only two variables, a \textcolor{blue}{stratified analysis is approximately equivalent to a multiple linear regression analysis} if the stratification variable is binary. 
 \end{frame}
 
+\begin{frame}
+\frametitle{Stratified analyses: summary}
+Multiple linear regression in action (with binary height): \vspace{-0.45cm}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{plots/fev_vs_smoke_adjust_binary_height.png}
+\end{center}
+\end{frame}
+
 \subsection{Multiple linear regression}
 \begin{frame}
 \frametitle{Multiple linear regression: two predictors}
@@ -1672,7 +1696,7 @@ E(Y \mid X_1, X_2, \dots, X_p) &= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + 
 
 What is the interpretation for $\beta_0$? \pause \textcolor{cyan}{The average value of $Y$ among a group with $X_1 = 0$, $X_2 = 0$, $\dots$, $X_p = 0$.} \pause
 
-What is the interpretation for $\beta_j$ in general, for $j = 2, 3, \dots, p$? \pause \textcolor{cyan}{The difference in average value of $Y$ comparing two groups that differ by one unit in $X_j$, but are similar with respect to all other modeled covariates.}
+What is the interpretation for $\beta_j$ in general, for $j = 2, 3, \dots, p$? \pause \textcolor{cyan}{The difference in average value of $Y$ comparing two groups that differ by one unit in $X_j$, but are the same with respect to all other modeled covariates.}
 
 \end{frame}
 
