@@ -92,7 +92,7 @@ descrip(fev$fev, strata = fev$age > 10)
 
 *Type your response here.*
 
-## d. (0.5 points) Now fit a linear regression model with FEV as the outcome, smoking status as the predictor of interest, and adjusting for age. What is the coefficient of scientific interest? Provide an interpretation for it. (Do not include the R output)
+## d. (0.5 points) Now fit a linear regression model with FEV as the outcome, smoking status as the predictor of interest, and adjusting for age. What is the coefficient of scientific interest? Provide an interpretation for it. (Do not include the R output) Also, write a paragraph reporting your results (include the point estimate, confidence interval, and p-value).
 
 ```{r code-for-2d, eval = FALSE}
 regress("mean", fev ~ smoker + age, data = fev)

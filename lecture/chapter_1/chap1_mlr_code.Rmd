@@ -28,3 +28,11 @@ less_60 <- subset(fev, height < 60)
 greater_60 <- subset(fev, height >= 60)
 regress("mean", fev ~ smoker, data = greater_60)
 ```
+
+\newpage
+
+## FEV on smoking, adjusting for binary height
+```{r echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fev ~ smoker + I(height < 60), data = fev)
+```
