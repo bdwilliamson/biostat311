@@ -1337,7 +1337,54 @@ Scientific questions typically address one of three relationships between the pr
 Study designs can be broadly categorized as observational or randomized and controlled.
 
 \textcolor{red}{Depending on the scientific question and the study design}, we may need to \textcolor{red}{consider additional variables} (from now on, called \textbf{covariates}).
+
 \end{frame}
+
+\begin{frame}
+\frametitle{Adjusting for covariates: terminology}
+
+If these additional variables can potentially impact our ability to estimate a causal association \textcolor{red}{(confounders)}, or define our scientific question \textcolor{blue}{(effect modifiers)}, then we need to include these variables in our analysis---this is called \textbf{adjusting}.
+
+Simple linear regression: 
+\begin{itemize}
+\item compare the average outcome across groups which have different values for the predictor of interest
+\end{itemize}
+
+Multiple linear regression:
+\begin{itemize}
+\item compare the average outcome across groups which have different values for the predictor of interest, \pause and 
+\item have the same value for all other covariates in the model
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of covariates: confounders}
+
+\textcolor{red}{Confounder}: causally associated with the outcome \textbf{in the population}; associated with the predictor of interest \textbf{in our sample}; not a result of the predictor of interest.
+
+\centering
+\includegraphics[width=0.7\textwidth]{plots/confounding_colored_with_lines.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of covariates: effect modifiers}
+
+\textcolor{blue}{Effect modifier}: the association between the outcome and the predictor of interest \textbf{depends on the value} of the effect modifier.
+
+\centering
+\includegraphics[width=0.7\textwidth]{plots/effect_modification_colored_with_lines.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of covariates: precision variables}
+
+\textcolor{green}{Precision variable}: associated with the outcome in the population; \textbf{not associated with} the predictor of interest \textbf{in the sample}.
+
+\centering
+ \includegraphics[width=0.7\textwidth]{plots/precision_colored_with_multiple_lines.png}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Adjusting for covariates: causal diagrams}
@@ -1357,45 +1404,49 @@ Our scientific question is: is there an association between FEV and smoking stat
 \end{frame}
 
 \begin{frame}
-\frametitle{Types for covariates: confounders}
+\frametitle{Adjusting for covariates: causal association}
 
-\textcolor{red}{Confounder}: causally associated with the outcome \textbf{in the population}; associated with the predictor of interest \textbf{in our sample}; not a result of the predictor of interest.
+When our scientific question involves a causal association, whether or not we need to adjust for covariates \textbf{depends on the study design}. \vspace{-0.4cm}
+\begin{itemize}
+\item Randomized controlled trial: \textcolor{blue}{no need to adjust}, in general, for large sample size
+\item Observational study: \textcolor{red}{always need to adjust} for potential confounders
+\end{itemize}
 
-\centering
-\includegraphics[width=0.7\textwidth]{plots/confounding_colored_with_lines.png}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Types for covariates: effect modifiers}
-
-\textcolor{blue}{Effect modifier}: the association between the outcome and the predictor of interest \textbf{depends on the value} of the effect modifier.
-
-\centering
-\includegraphics[width=0.7\textwidth]{plots/effect_modification_colored_with_lines.png}
-\end{frame}
-
-\begin{frame}
-\frametitle{Types for covariates: precision variables}
-
-\textcolor{green}{Precision variable}: associated with the outcome in the population, \textbf{not associated with} the predictor of interest.
-
-\centering
- \includegraphics[width=0.7\textwidth]{plots/precision_colored_with_multiple_lines.png}
+In an observational study: \vspace{-0.4cm}
+\begin{itemize}
+\item groups defined by different values of your predictor of interest may be different in other ways
+\item these variables that differ between groups may affect your outcome
+\item any association you see could be due to the predictor of interest, but could also be due to one of the other variables that differs between groups
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Adjusting for covariates: causal association}
 
+In this course, most of our scientific questions will involve a causal association, e.g., \textcolor{red}{is systolic blood pressure associated with age?}
+
+However, if we do not have data from an RCT, we may draw the wrong conclusions if we do not account for potential confounders. 
+
+Thus we change our question to, e.g., \textcolor{blue}{is systolic blood pressure associated with age, adjusting for gender and BMI?}
+
+Thus, when we estimate the association between the predictor of interest and the outcome, we want to do so at \textbf{fixed values} of the confounder.
 \end{frame}
 
 \begin{frame}
 \frametitle{Adjusting for covariates: association}
+When our scientific question involves an association (not causal!), we \textbf{rarely need to adjust} for covariates. Here, our goal is to see if there is any association; we aren't concerned with whether or not this association is due to other variables. 
 
+However, we may choose to adjust to:
+\begin{itemize}
+\item reduce the variability in our estimates \textcolor{green}{(precision variables)}
+\item get a better prediction of the mean outcome (more on this later)
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Adjusting for covariates: effect modification}
+
+
 
 \end{frame}
 
