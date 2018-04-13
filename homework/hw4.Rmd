@@ -1,0 +1,136 @@
+---
+title: "Homework 4"
+author: "Kelsey Grinde and Brian Williamson"
+date: "`r format(Sys.time(), '%B %d, %Y')`; Due 20 April 2018"
+output: pdf_document
+---
+
+# Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:30pm on April 20. You are welcome to work together on the homework; however, final solutions should be written up individually. 
+
+Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). Unedited software output in the body of your assignment is not acceptable. Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+# 1. Causal diagrams and classifying variables in regression problems (2.5 points)
+
+The kidneys extract waste from the blood. When they are not functioning properly, patients experience a wide range of unpleasant symptoms, and left untreated, kidney disease can be fatal. Serum creatinine is used as a measure of kidney function; high levels tend to indicate that the kidneys are not functioning as they should. Having done your background research, you know the following information: 
+
+* *Known risk factors* for chronic kidney disease include diabetes, smoking, high blood pressure, obesity, race/ethnicity, family history of kidney disease, and older age. 
+* *Symptoms* of chronic kidney disease include fluid retention, anemia, nausea and vomiting, decreased immune response, and high levels of potassium in the blood. 
+
+You are interested in clarifying the association between **high blood pressure** (predictor of interest) and **creatinine** (outcome). For each subject, you also have data on **family history** of kidney disease, the level of **potassium** in the blood, and **smoking status**.
+
+## a. (1 point) Draw the causal diagram that you think applies in this setting (it should include *all five variables* mentioned above).
+
+*draw your causal diagram here (the easiest way to do this will likely be to output to Word, and draw the diagram on the resulting Word document)*
+
+## b. (1.5 points) For each of family history, potassium, and smoking:
+
+### i. Classify the variable as a confounder, precision variable, effect modifier, or none of the above, based on **your** scientific understanding.
+
+*Type your answer here, for each of family history, potassium, and smoking*
+
+### ii. State whether or not you would include the variable in your regression model.
+
+*Type your answer here, for each of family history, potassium, and smoking*
+
+
+### iii. Provide a brief explanation (one to two sentences) of your choices in (i) and (ii). You may refer to your causal diagram in (a) to help your explanation.
+
+*Type your answer here, for each of family history, potassium, and smoking*
+
+If you provide a reasonable answer and justify it appropriately, you will receive full credit, even if it's not the answer we give in the key. The primary goal of this problem is for you to think through what you'd want to include in a multiple regression model and why (what roles those variables might be playing). 
+
+# 2. Adjusting for a potential confounder, and interpreting the results (1.5 points)
+
+Both in class and on homework, you have seen the surprising result that smokers had higher FEV (in liters/sec) than nonsmokers; we have also discussed that this might be explained by a confounding factor (age). Load the uwIntroStats package, and then load the FEV data set into R:
+```{r code-for-2, echo = TRUE}
+## load the uwIntroStats package
+library("uwIntroStats")
+## load the FEV data (you will need to change this line
+## if you have saved the data someplace other than the 
+## folder where this R markdown file is!)
+fev <- read.delim(file = "fev.txt", sep = "", header = TRUE)
+## make the "smoker" variable; 1 denotes smokers, 0 denotes nonsmokers
+fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
+```
+
+## a. (0.5 points) Why do you think that age might be a confounder? Justify your response in 2--3 sentences.
+
+*Type your response here.*
+
+## b. (0.5 points) Look at a table of descriptive statistics for age, stratified by smoking status (you do not need to report the table). Does this suggest that smokers tend to be older than nonsmokers? Report any relevant statistics that help you answer this question.
+
+```{r code-for-2b, echo = TRUE, eval = FALSE}
+descrip(fev$age, strata = fev$smoker)
+```
+
+*Type your response here.*
+
+## c. (0.5 points) Look at a table of descriptive statistics for FEV, stratified by age (you do not need to report the table). Does this suggest that age might be associated with FEV? Report any relevant statistics that help you answer this question.
+
+Note that the code `as.numeric()` turns its argument into numbers; `fev$age > 10` returns `TRUE` if a person's age is > 10, and `FALSE` otherwise. Thus `as.numeric(fev$age > 10)` returns a vector of zeros and ones, corresponding to if a person's age is > 10 (one) or `<=` 10 (zero). 
+
+Hence, Str 0 means age no greater than 10, and Str 1 means age greater than 10.
+```{r code-for-2c, echo = TRUE, eval = FALSE}
+descrip(fev$fev, strata = as.numeric(fev$age > 10))
+```
+
+*Type your response here.*
+
+## d. (0.5 points) Now fit a linear regression model with FEV as the outcome of interest, and smoking status as the predictor of interest, adjusting for age. What is the coefficient of scientific interest? Provide an interpretation for it. (Do not include the R output)
+
+```{r code-for-2d, echo = TRUE, eval = FALSE}
+regress("mean", fev ~ smoker + age, data = fev)
+```
+
+*Type your response here.*
+
+## e. (0.5 points) Given this result, are we now justified in saying that smoking causes a decrease in FEV on the basis of this study? Justify your response.
+
+*Type your response here.*
+
+# 3. Exploring and testing for effect modification (3 points)
+
+In this problem, we are going to consider the possibility that age is an effect modifier rather than a confounder. Fit the following regression model, with the interaction term included:
+
+$$E(\text{FEV} \mid \text{Smoke}, \text{Age}) = \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Age} + \beta_3 (\text{Age} \times \text{Smoker}).$$
+
+```{r code-for-3a, echo = TRUE, eval = FALSE}
+regress("mean", fev ~ smoker*age, data = fev)
+```
+
+Again, remember that `fev$smoker` is 1 for smokers, and 0 for nonsmokers.
+
+## a. (0.5 points) Explain what it would mean for age to be an effect modifier (as opposed to a confounder). 
+
+*Type your response here.*
+
+## b. (2 points) Provide an interpretation for each of the four coefficients in the model.
+
+*Type your response here.*
+
+## c. (0.5 points) Is there evidence that age modifies the association between smoking and FEV? State how you know, and report any values that you use.
+
+*Type your response here.*
+
+
+# R Code
+
+Once you have completed your assignment, update (if needed) and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names #####
+rmd.name <- 'hw4.Rmd' # name of this file; update if you changed the name of this file
+code.name <- 'hw4.R' # name of R code file; you can change if desired
+```
+
+```{r extract-code, eval = FALSE, include = FALSE}
+##### STEP 2: Run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+**Please upload the file `r code.name` along with your completed assignment.**
