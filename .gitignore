@@ -17,6 +17,7 @@ project/examples/*
 *.pdf
 *.snm
 *.toc
+*.vrb
 
 
 # misc R files #

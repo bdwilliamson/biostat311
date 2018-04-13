@@ -36,7 +36,7 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 
 % make it 1.something
 \setbeamertemplate{footline}{%
-  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[10pt]{\scriptsize 1.\insertframenumber~~}}}}  \newcounter{chap1}{\value{1}}
+  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[20pt]{\scriptsize 1.\insertframenumber~~}}}}  \newcounter{chap1}{\value{1}}
 \setcounter{framenumber}{\value{chap1}}
 
 \begin{frame}
@@ -1368,6 +1368,36 @@ Multiple linear regression:
 \end{frame}
 
 \begin{frame}
+\frametitle{Types of covariates: confounders}
+Classical confounder:
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{plots/classical_confounder.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of covariates: confounders}
+Causal pathway (not a confounder!):
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{plots/causal_pathway.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of covariates: confounders}
+Surrogate for response (not a confounder!):
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{plots/surrogate.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Types of covariates: effect modifiers}
 
 \textcolor{blue}{Effect modifier}: the association between the outcome and the predictor of interest \textbf{depends on the value} of the effect modifier.
@@ -1446,8 +1476,28 @@ However, we may choose to adjust to:
 \begin{frame}
 \frametitle{Adjusting for covariates: effect modification}
 
+When our scientific question addresses whether or not a (causal) association differs in strata defined by another covariate, we \textbf{must adjust} for this covariate (otherwise, we would not be answering the question).
 
+This phenomenon is also called a \textcolor{blue}{subgroup effect}, or statistically, an \textcolor{blue}{interaction}.
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Adjusting for covariates: summary}
+Whether or not we need to adjust for covariates depends on: \vspace{-0.2cm}
+\begin{itemize}
+\item the scientific question (causal? effect modification?)
+\item the study design (RCT vs observational)
+\end{itemize}
+
+The types of covariates we might adjust for (based on science) are: \vspace{-0.2cm}
+\begin{itemize}
+\item \textcolor{red}{confounders}
+\item \textcolor{blue}{effect modifiers}
+\item \textcolor{green}{precision variables}
+\end{itemize}
+
+Next, we'll see how to interpret coefficients in adjusted analyses, and how to use \texttt{R} to fit multiple linear regression models. We'll also see many examples of all three types of covariates.
 \end{frame}
 
 
@@ -1466,35 +1516,188 @@ One way to account for a second predictor variable is to \textbf{stratify} our a
 \end{frame}
 
 \begin{frame}
+\frametitle{Stratified analyses: interpretation}
+\vspace{-2cm}This implies the following two regression models:
+\begin{align*}
+E(Y \mid X, Z = 0) &= \beta_0 + \beta_1 X, \text{ and } \\
+E(Y \mid X, Z = 1) &= \gamma_0 + \gamma_1 X.
+\end{align*}
+
+What is the interpretation of $\beta_0$? $\gamma_0$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Stratified analyses: interpretation}
+\vspace{-2cm}This implies the following two regression models:
+\begin{align*}
+E(Y \mid X, Z = 0) &= \beta_0 + \beta_1 X, \text{ and } \\
+E(Y \mid X, Z = 1) &= \gamma_0 + \gamma_1 X.
+\end{align*}
+
+What is the interpretation of $\beta_1$? $\gamma_1$?
+\end{frame}
+
+\begin{frame}
 \frametitle{Stratified analyses: FEV}
 
+Is smoking associated with FEV, \textcolor{red}{adjusted for height}?
+
+Linear regression model, stratifying on height $< 60$ inches versus height $\geq 60$ inches:
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Height} < 60) &= \beta_0 + \beta_1 \text{Smoker} \\
+E(\text{FEV} \mid \text{Smoker}, \text{Height} \geq 60) &= \gamma_0 + \gamma_1 \text{Smoker} 
+\end{align*}
+
+To estimate the regression coefficients, we will need to: create two new subsets of the data, corresponding to $< 60$ and $\geq 60$ inches; and fit a linear regression of FEV on smoking status within each stratum.
+\end{frame}
+
+\begin{frame}
+\frametitle{Stratified analyses: FEV}
+
+\includegraphics[width=1\textwidth]{plots/fev_vs_smoke_stratified_less_60.png}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Stratified analyses: FEV}
 
+\includegraphics[width=1\textwidth]{plots/fev_vs_smoke_stratified_greater_60.png}
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Stratified analyses: FEV}
+\vspace{-1cm}\hspace*{-0.75cm}\begin{tabular}{ll}
+Analysis & Estimated coefficient for smoking [95\% CI] \\
+\hline \\
+Unadjusted  & 0.71 [0.52, 0.90]\\
+Stratified: height $< 60$ & 0.095 [0.045, 0.145]\\
+Stratified: height $\geq 60$ & 0.231 [0.035, 0.426]
+\end{tabular}
+
+\vspace{1cm}
+When comparing the unadjusted analysis to the stratified analysis, what do you notice? What does this suggest, in light of your causal diagram (1.94)?
+\end{frame}
+
+\begin{frame}
+\frametitle{Stratified analyses: summary}
+Stratified analyses are similar to using a t-test:
+\begin{itemize}
+\item a valid way of analyzing your data
+\item straightforward if the stratification variable is already binary
+\item a bit arbitrary if the stratification variable is continuous
+\end{itemize}
+
+As you saw in Homework 3, using the t-test is equivalent to simple linear regression with a binary predictor---similarly, with only two variables, a \textcolor{blue}{stratified analysis is approximately equivalent to a multiple linear regression analysis} if the stratification variable is binary. 
 \end{frame}
 
 \subsection{Multiple linear regression}
 \begin{frame}
-\frametitle{Multiple regression: notation}
+\frametitle{Multiple linear regression: two predictors}
 In simple linear regression, we modeled the expected value of $Y$ given a single predictor $X$ as a linear function of the intercept and slope:
 \begin{align*}
-E(Y \mid X) &= \beta_0 + \beta_1 X.
+E(Y \mid X) &= \beta_0 + \beta_1 X,
 \end{align*}
+with independent observations.
 
 How might you add in an additional variable, $Z$? \pause
-
 \begin{align*}
-E(Y \mid X) &= \beta_0^* + \beta_1^* X + \beta_2^* Z
+E(Y \mid X, Z) &= \beta_0^* + \beta_1^* X + \beta_2^* Z,
 \end{align*}
+still with independent observations.
+
+Estimates and confidence intervals are computed in the same way as in simple linear regression; \textbf{as before, your software can handle this}.
 \end{frame}
 
 \begin{frame}
-\frametitle{Multiple regression: FEV}
+\frametitle{Multiple linear regression: two predictors}
+\begin{align*}
+E(Y \mid X, Z) &= \beta_0^* + \beta_1^* X + \beta_2^* Z
+\end{align*}
+
+To interpret coefficients, we now have to \textbf{fix the value} of one covariate, and let the other change.
+
+For example, in this model $\beta_1^*$ is interpreted as the difference in average $Y$ between two groups differing by one unit in $X$, but having the same value of $Z$. (Why?)
+
 \end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: two predictors}
+\centering
+\includegraphics[width = 0.65\textwidth]{plots/simple_line.png}
+
+$E(Y \mid X) = 0 + 1 X$
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: two predictors}
+\centering
+\includegraphics[width = 0.65\textwidth]{plots/multiple_line.png}
+
+$E(Y \mid X, Z) = 0 + 1 X + 1 Z$
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: two predictors}
+
+Mathematically, we can play the same game we did in simple linear regression: fixing $Z = z$, 
+\begin{align*}
+E\{Y \mid X = (x + 1), Z = z\} &= \beta_0^* + \beta_1^* (x + 1) + \beta_2^* z \\
+E(Y \mid X = x, Z = z) &= \beta_0^* + \beta_1^* x + \beta_2^* z \\
+E\{Y \mid X = (x + 1), Z = z\} & \\
+- E(Y \mid X = x, Z = z) &= \beta_1^*
+\end{align*}
+
+In light of this, what is the interpretation of $\beta_0^*$? $\beta_2^*$? \vspace{2cm}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: many predictors}
+Now we model the expected value of the response $Y$, given predictors $X_1, X_2, \dots, X_p$, as a \textcolor{cyan}{linear function of $p$ coefficients}:
+\begin{align*}
+E(Y \mid X_1, X_2, \dots, X_p) &= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p, \text{ or } \\
+&= \beta_0 + \sum_{j=1}^p \beta_j X_j,
+\end{align*} 
+where the observations are independent.
+
+\textcolor{cyan}{Interpretation for $\beta_1$: the average difference in $Y$ values comparing two groups having the same value of $X_2, \dots, X_p$ but differing in $X_1$ by one unit.}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: many predictors}
+\begin{align*}
+E(Y \mid X_1, X_2, \dots, X_p) &= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p
+\end{align*}
+
+What is the interpretation for $\beta_0$? \pause \textcolor{cyan}{The average value of $Y$ among a group with $X_1 = 0$, $X_2 = 0$, $\dots$, $X_p = 0$.} \pause
+
+What is the interpretation for $\beta_j$ in general, for $j = 2, 3, \dots, p$? \pause \textcolor{cyan}{The difference in average value of $Y$ comparing two groups that differ by one unit in $X_j$, but are similar with respect to all other modeled covariates.}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: in \texttt{R}}
+
+We used the function \texttt{regress()} in the \texttt{uwIntroStats} package to perform simple linear regression, and obtain robust standard errors.
+
+This same function also performs multiple linear regression: 
+\begin{itemize}
+\item two predictors: \texttt{regress("mean", Y} $\sim$ \texttt{X + Z)}
+\item many: \texttt{regress("mean", Y} $\sim$ \texttt{X\_1 + ... + X\_p)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: Adult FEV}
+
+Up to now, we have mainly considered a dataset collected to study the association between FEV and smoking status in children.
+
+Now, consider a dataset on 725 individuals aged 65--99 years old: we have information on these participants' age, FEV, height, sex, and smoking status.
+
+Our scientific question is: is lung function associated with smoking status in older adults?
+\end{frame}
+
 
 %% comment out final section
 \begin{comment}

@@ -78,3 +78,30 @@ par(mfrow=c(1,1))
 library('uwIntroStats')
 regress('mean', fev ~ age, data = fev)
 
+#### Plot of simple, multiple linear regression lines ################
+fig_width <- 1024
+fig_height <- 1024
+fig_res <- 200
+png("~/Documents/Teaching/biostat311/lecture/chapter_1/plots/simple_line.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+plot(1, type="n", xlab="X", ylab="Y", 
+     main = "Simple linear regression",
+     xlim=c(0, 10), ylim=c(0, 10))
+abline(a = 0, b = 1)
+dev.off()
+
+png("~/Documents/Teaching/biostat311/lecture/chapter_1/plots/multiple_line.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+plot(1, type="n", xlab="X", ylab="Y", 
+     main = "Multiple linear regression",
+     xlim=c(0, 10), ylim=c(0, 10))
+mtext("(interested in X-Y association, within levels of Z)", 1, line = 4)
+abline(a = 0, b = 1)
+mtext("Z = 0", side = 4, at = 10.5, las = 1)
+abline(a = 6, b = 1)
+mtext("Z = 6", side = 3, at = 4.5, las = 1)
+abline(a = 3, b = 1)
+mtext("Z = 3", side = 3, at = 7.5, las = 1)
+abline(a = -3, b = 1)
+mtext("Z = -3", side = 4, at = 7.5, las = 1)
+abline(a = -6, b = 1)
+mtext("Z = -6", side = 4, at = 4.5, las = 1)
+dev.off()

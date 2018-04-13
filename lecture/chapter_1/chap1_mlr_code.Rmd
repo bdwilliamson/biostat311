@@ -1,0 +1,30 @@
+---
+title: "Code for Chapter 1, section 2 (Multiple Linear regression)"
+author: "Kelsey Grinde and Brian Williamson"
+date: "April 12, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r read-fev, echo = TRUE, include = FALSE}
+fev <- read.table('http://www.emersonstatistics.com/datasets/fev.txt',header=T)
+fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
+```
+
+## FEV on smoking, stratified by height
+```{r fev-smoke-height-strat, echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+less_60 <- subset(fev, height < 60)
+greater_60 <- subset(fev, height >= 60)
+regress("mean", fev ~ smoker, data = less_60)
+```
+\newpage
+```{r }
+library("uwIntroStats", warn.conflicts = FALSE)
+less_60 <- subset(fev, height < 60)
+greater_60 <- subset(fev, height >= 60)
+regress("mean", fev ~ smoker, data = greater_60)
+```
