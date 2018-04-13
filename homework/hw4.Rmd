@@ -2,7 +2,9 @@
 title: "Homework 4"
 author: "Kelsey Grinde and Brian Williamson"
 date: "`r format(Sys.time(), '%B %d, %Y')`; Due 20 April 2018"
-output: pdf_document
+output: 
+  pdf_document:
+    fig_caption: true
 ---
 
 # Instructions
@@ -24,7 +26,9 @@ You are interested in clarifying the association between **high blood pressure**
 
 ## a. (1 point) Draw the causal diagram that you think applies in this setting (it should include *all five variables* mentioned above).
 
-*draw your causal diagram here (the easiest way to do this will likely be to output to Word, and draw the diagram on the resulting Word document)*
+*Draw your causal diagram here. One way to do this would be to Knit to Word, and once you're done with all other parts of the assignment you can draw the diagram on the resulting Word document. Another option is to create a causal diagram in your favorite graphics editing program, save the image as `diagram.png` in the same folder as this `.Rmd` file, then use the R Markdown command below to insert your image into this document. If you choose the first option, make sure to delete the command below or you will get an error saying "could not find image `diagram.png:`"*
+
+![Write an informative caption for your diagram.](diagram.png)
 
 ## b. (1.5 points) For each of family history, potassium, and smoking:
 
@@ -43,10 +47,13 @@ You are interested in clarifying the association between **high blood pressure**
 
 If you provide a reasonable answer and justify it appropriately, you will receive full credit, even if it's not the answer we give in the key. The primary goal of this problem is for you to think through what you'd want to include in a multiple regression model and why (what roles those variables might be playing). 
 
-# 2. Adjusting for a potential confounder, and interpreting the results (1.5 points)
+\newpage
+
+# 2. Adjusting for a potential confounder, and interpreting the results (2.5 points)
 
 Both in class and on homework, you have seen the surprising result that smokers had higher FEV (in liters/sec) than nonsmokers; we have also discussed that this might be explained by a confounding factor (age). Load the uwIntroStats package, and then load the FEV data set into R:
-```{r code-for-2, echo = TRUE}
+
+```{r code-for-2, message=F, warning=F}
 ## load the uwIntroStats package
 library("uwIntroStats")
 ## load the FEV data (you will need to change this line
@@ -61,28 +68,33 @@ fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
 
 *Type your response here.*
 
-## b. (0.5 points) Look at a table of descriptive statistics for age, stratified by smoking status (you do not need to report the table). Does this suggest that smokers tend to be older than nonsmokers? Report any relevant statistics that help you answer this question.
+## b. (0.5 points) Look at a table of descriptive statistics for age, stratified by smoking status (you do not need to report the table). Does this suggest that smokers tend to be older than nonsmokers? Report any relevant numerical summaries that help you answer this question.
 
-```{r code-for-2b, echo = TRUE, eval = FALSE}
+```{r code-for-2b, eval = FALSE}
 descrip(fev$age, strata = fev$smoker)
 ```
 
 *Type your response here.*
 
-## c. (0.5 points) Look at a table of descriptive statistics for FEV, stratified by age (you do not need to report the table). Does this suggest that age might be associated with FEV? Report any relevant statistics that help you answer this question.
+**What graphical summary might you create to help answer this same question about the relationship between smoking and age? (You do not need to present the figure here, just describe.)**
 
-Note that the code `as.numeric()` turns its argument into numbers; `fev$age > 10` returns `TRUE` if a person's age is > 10, and `FALSE` otherwise. Thus `as.numeric(fev$age > 10)` returns a vector of zeros and ones, corresponding to if a person's age is > 10 (one) or `<=` 10 (zero). 
+*Type your response here.*
 
-Hence, Str 0 means age no greater than 10, and Str 1 means age greater than 10.
-```{r code-for-2c, echo = TRUE, eval = FALSE}
-descrip(fev$fev, strata = as.numeric(fev$age > 10))
+## c. (0.5 points) Look at a table of descriptive statistics for FEV, stratified by age (you do not need to report the table). Does this suggest that age might be associated with FEV? Report any relevant numerical summaries that help you answer this question.
+
+```{r code-for-2c, eval = FALSE}
+descrip(fev$fev, strata = fev$age > 10)
 ```
 
 *Type your response here.*
 
-## d. (0.5 points) Now fit a linear regression model with FEV as the outcome of interest, and smoking status as the predictor of interest, adjusting for age. What is the coefficient of scientific interest? Provide an interpretation for it. (Do not include the R output)
+**What graphical summary might you create to help answer this same question about the relationship between FEV and age? (You do not need to present the figure here, just describe.)**
 
-```{r code-for-2d, echo = TRUE, eval = FALSE}
+*Type your response here.*
+
+## d. (0.5 points) Now fit a linear regression model with FEV as the outcome, smoking status as the predictor of interest, and adjusting for age. What is the coefficient of scientific interest? Provide an interpretation for it. (Do not include the R output)
+
+```{r code-for-2d, eval = FALSE}
 regress("mean", fev ~ smoker + age, data = fev)
 ```
 
@@ -92,13 +104,16 @@ regress("mean", fev ~ smoker + age, data = fev)
 
 *Type your response here.*
 
+
+\newpage
+
 # 3. Exploring and testing for effect modification (3 points)
 
 In this problem, we are going to consider the possibility that age is an effect modifier rather than a confounder. Fit the following regression model, with the interaction term included:
 
 $$E(\text{FEV} \mid \text{Smoke}, \text{Age}) = \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Age} + \beta_3 (\text{Age} \times \text{Smoker}).$$
 
-```{r code-for-3a, echo = TRUE, eval = FALSE}
+```{r code-for-3a, eval = FALSE}
 regress("mean", fev ~ smoker*age, data = fev)
 ```
 
@@ -112,10 +127,11 @@ Again, remember that `fev$smoker` is 1 for smokers, and 0 for nonsmokers.
 
 *Type your response here.*
 
-## c. (0.5 points) Is there evidence that age modifies the association between smoking and FEV? State how you know, and report any values that you use.
+## c. (0.5 points) Is there evidence that age modifies the association between smoking and FEV? State how you know, and report any relelvant numerical values.
 
 *Type your response here.*
 
+\newpage
 
 # R Code
 
