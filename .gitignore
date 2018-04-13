@@ -41,3 +41,13 @@ project/examples/*
 *.txt
 *.html
 *.csv
+
+# anything called "key" #
+#########################
+*key*
+
+# any LibreOffice or Gimp files #
+# these are all plot intermediates #
+#################################
+*.odp
+*.xcf
