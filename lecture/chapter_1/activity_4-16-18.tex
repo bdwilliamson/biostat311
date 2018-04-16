@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{color}
+
+\begin{document}
+
+% the preamble
+\title{BIOST 311: \\ Warmup: interpreting coefficients in adjusted analyses}
+\author{Kelsey Grinde and Brian Williamson}
+\date{Spring 2018}
+
+% title
+\maketitle
+
+\begin{enumerate}
+\item \textbf{(Simple linear regression)} Interpret the coefficients $\beta_0$, $\beta_1$ in the regression model 
+\begin{align*}
+E(Y \mid X_1) = \beta_0 + \beta_1 X_1.
+\end{align*}
+
+\item \textbf{(Stratified linear regression)} Interpret the coefficients $\beta_0, \beta_1, \gamma_0, \gamma_1$ in the linear regression models
+\begin{align*}
+E(Y \mid X_1, Z = 0) &= \beta_0 + \beta_1 X_1, \\
+E(Y \mid X_1, Z = 1) &= \gamma_0 + \gamma_1 X_1.
+\end{align*}
+
+\item \textbf{(Multiple linear regression)} Interpret the coefficients $\beta_0, \beta_1, \beta_2$ in the linear regression model (with $Z$ a binary variable)
+\begin{align*}
+E(Y \mid X_1, Z) = \beta_0 + \beta_1 X_1 + \beta_2 Z
+\end{align*}
+
+\item \textbf{(Multiple linear regression)} Interpret the coefficients $\beta_0, \beta_1, \beta_2$ in the linear regression model 
+\begin{align*}
+E(Y \mid X_1, X_2) = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+\end{align*}
+\end{enumerate}
+
+
+\end{document}

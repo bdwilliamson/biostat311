@@ -7,11 +7,13 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+options(width=400)
 ```
 
 ```{r read-fev, echo = TRUE, include = FALSE}
 fev <- read.table('http://www.emersonstatistics.com/datasets/fev.txt',header=T)
 fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
+adultfev <- read.table("adultfev.txt", header = TRUE)
 ```
 
 ## FEV on smoking, stratified by height
@@ -35,4 +37,28 @@ regress("mean", fev ~ smoker, data = greater_60)
 ```{r echo = TRUE}
 library("uwIntroStats", warn.conflicts = FALSE)
 regress("mean", fev ~ smoker + I(height >= 60), data = fev)
+```
+
+\newpage
+
+## FEV on smoking, adjusting for continuous height
+```{r echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fev ~ smoker + height, data = fev)
+```
+
+\newpage
+
+## FEV on smoking, adjusting for age, height, sex (adult FEV)
+```{r echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fev ~ smoke + age + male + height, data = adultfev)
+```
+
+\newpage
+
+## FEV on smoking, adjusted for age, sex (adult FEV)
+```{r echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fev ~ smoke + age + male , data = adultfev)
 ```

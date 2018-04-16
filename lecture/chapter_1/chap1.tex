@@ -1626,6 +1626,14 @@ Estimates and confidence intervals are computed in the same way as in simple lin
 \end{frame}
 
 \begin{frame}
+\frametitle{Multiple linear regression: FEV, two predictors}
+Multiple linear regression in action (with binary height): \vspace{-0.45cm}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{plots/fev_vs_smoke_adjust_binary_height.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
 \frametitle{Multiple linear regression: two predictors}
 \begin{align*}
 E(Y \mid X, Z) &= \beta_0^* + \beta_1^* X + \beta_2^* Z
@@ -1634,6 +1642,8 @@ E(Y \mid X, Z) &= \beta_0^* + \beta_1^* X + \beta_2^* Z
 To interpret coefficients, we now have to \textbf{fix the value} of one covariate, and let the other change.
 
 For example, in this model $\beta_1^*$ is interpreted as the difference in average $Y$ between two groups differing by one unit in $X$, but having the same value of $Z$. (Why?)
+
+We now \textcolor{blue}{borrow information} across levels of $Z$: nearby values of $Z$ should provide some relevant information about the current value of $Z$ (e.g., 67 and 69 year olds should provide some relevant information for 68 year olds).
 
 \end{frame}
 
@@ -1669,10 +1679,28 @@ In light of this, what is the interpretation of $\beta_0^*$? $\beta_2^*$? \vspac
 
 \begin{frame}
 \frametitle{Multiple linear regression: FEV, two predictors}
-Multiple linear regression in action (with binary height): \vspace{-0.45cm}
+Multiple linear regression in action (with continuous height): \vspace{-0.45cm}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{plots/fev_vs_smoke_adjust_binary_height.png}
+\includegraphics[width = 0.85\textwidth]{plots/fev_vs_smoke_adjust_height.png}
 \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple regression vs stratifying: FEV}
+\vspace{-1cm}\hspace*{-0.75cm}\begin{tabular}{ll}
+Analysis & Estimated coefficient for smoking [95\% CI] \\
+\hline \\
+Unadjusted  & 0.71 [0.52, 0.90]\\
+Stratified: height $< 60$ & 0.095 [0.045, 0.145]\\
+Stratified: height $\geq 60$ & 0.231 [0.035, 0.426] \\
+Multiple: binary height & 0.228 [0.035, 0.420] \\
+Multiple: cont. height & 0.0062 [-0.139, 0.152]
+\end{tabular}
+
+\begin{itemize}
+\item Multiple with binary height \textcolor{blue}{similar to} stratified
+\item Model height as continuous: no statistically significant effect (why?)
+\end{itemize} 
 \end{frame}
 
 \begin{frame}
@@ -1719,9 +1747,112 @@ Up to now, we have mainly considered a dataset collected to study the associatio
 
 Now, consider a dataset on 725 individuals aged 65--99 years old: we have information on these participants' age, FEV, height, sex, and smoking status.
 
-Our scientific question is: is lung function associated with smoking status in older adults?
+Our scientific question is: is \textcolor{orange}{lung function} associated with \textcolor{blue}{smoking status} in older adults?
+
+Statistical question: is there a \textcolor{orange}{difference in mean FEV} between older adults \textcolor{blue}{who smoke and those who do not smoke}?
 \end{frame}
 
+\begin{frame}
+\frametitle{Multiple linear regression: Adult FEV}
+Statistical question: is there a \textcolor{orange}{difference in mean FEV} between older adults \textcolor{blue}{who smoke and those who do not smoke}?
+
+Causal diagram for adult FEV: \vspace{5cm}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: Adult FEV}
+\vspace{-3cm}{\small \begin{align*}
+E(\text{FEV} \mid \text{Age}, \text{Male}, \text{Smoke}) =& \ \beta_0 + \beta_1 \text{Smoke} + \beta_2 \text{Age} + \beta_3 \text{Male} 
+\end{align*} } 
+
+Which coefficient \textcolor{blue}{addresses our scientific question}? \vspace{0.5cm}
+
+What are the \textcolor{blue}{appropriate null and alternative hypotheses} to answer our scientific question?
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: Adult FEV}
+\begin{center}
+\vspace{-1cm}\hspace*{-0.5cm}\includegraphics[width=1.1\textwidth]{plots/fev_vs_smoke_adjust_adultfev_noheight.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: Adult FEV}
+\vspace{-1cm}\textbf{Model:} {\small \begin{align*}
+E(\text{FEV} \mid \text{Age}, \text{Male}, \text{Smoke}) =& \ \beta_0 + \beta_1 \text{Smoke} + \beta_2 \text{Age} + \beta_3 \text{Male} 
+\end{align*} } \vspace{-1cm}
+
+\textbf{Estimates:}
+{\small \begin{align*}
+\widehat{E}(\text{FEV} \mid \text{Age}, \text{Male}, \text{Smoke}) =& \ 4.28 + -0.36 (\text{Smoke}) \\
+& -0.03 (\text{Age}) + 0.69 (\text{Male}) 
+\end{align*} } \vspace{-1cm}
+
+What is the interpretation of $\hat{\beta}_0 = 4.28$? \pause \textcolor{blue}{We estimate that among 0'' tall infant female nonsmokers, the mean FEV is $4.28$ L/second.} \textcolor{red}{Is this scientifically meaningful?}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: Adult FEV}
+
+What is the interpretation of $\hat{\beta}_1 = -0.36$? \pause \textcolor{blue}{We estimate that among two groups with the same sex, height, and age, the average FEV among smokers is 0.35 L/second lower than among nonsmokers.}
+
+Quantifying uncertainty? \pause \textcolor{blue}{Based on a 95\% confidence interval, this estimate would not be judged unusual if the true difference in mean FEV between smokers and nonsmokers of the same age, sex, and height were between 0.48 and 0.24 L/second. This estimate is statistically significant at the 0.05 level ($p < 0.0001$).}
+
+What is the scientific conclusion? \pause \textcolor{blue}{We have evidence to suggest that average FEV tends to be lower among smokers compared to nonsmokers, adjusting for age, sex, and height.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: Adult FEV}
+\vspace{-1cm}\textbf{Model:} {\small \begin{align*}
+E(\text{FEV} \mid \text{Age}, \text{Male}, \text{Smoke}) =& \ \beta_0 + \beta_1 \text{Smoke} + \beta_2 \text{Age} + \beta_3 \text{Male} 
+\end{align*} } \vspace{-1cm}
+
+What is the interpretation of $\hat{\beta}_2 = -0.03$? Should we report this $p$-value? \vspace{1.5cm}
+
+What is the interpretation of $\hat{\beta}_3 = 0.69$? \vspace{1.5cm}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: precision variables}
+
+Up to now, we have primarily been concerned with adjusting for \textcolor{red}{potential confounders}; if we fail to adjust for these variables, we may reach the wrong conclusion.
+
+\textcolor{green}{Precision variables} (associated with the outcome in the population, not associated with the predictor of interest in the sample), in contrast, do not need to be adjusted for.
+
+Adjusting for precision variables tends to \textcolor{green}{reduce the standard error for the coefficient of interest} (in linear regression): intuitively, we do a better job explaining the outcome, so we reduce the variability in the problem. 
+
+Interpreting multiple linear regression coefficients \textcolor{blue}{is the same as if we adjusted for a confounder}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: precision variables}
+\begin{center}
+\vspace{-1cm}\hspace*{-0.5cm}\includegraphics[width=1.1\textwidth]{plots/fev_vs_smoke_adjust_adultfev.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: precision variables}
+Table: Estimated difference in mean FEV comparing smokers to nonsmokers, not adjusted for height (Slide 1.122) and adjusted for height (Slide 1.127), along with robust standard errors and confidence intervals.
+
+\hspace*{-1cm}\begin{tabular}{lccc}
+\hline 
+ & Estimate & Robust standard error & 95\% CI \\
+ \hline 
+No height & $-0.3608$ & $0.06168$  & [$-0.4819$, $-0.2397$]\\
+Height & $-0.3547$ & $0.05694$ & [$-0.4665$, $-0.2429$]
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+\end{frame}
 
 %% comment out final section
 \begin{comment}
