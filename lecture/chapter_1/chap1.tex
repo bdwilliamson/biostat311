@@ -1583,12 +1583,13 @@ To estimate the regression coefficients, we will need to: create two new subsets
 
 \begin{frame}
 \frametitle{Stratified analyses: FEV}
-\vspace{-1cm}\hspace*{-0.75cm}\begin{tabular}{ll}
-Analysis & Estimated coefficient for smoking [95\% CI] \\
-\hline \\
-Unadjusted  & 0.71 [0.52, 0.90]\\
-Stratified: height $< 60$ & 0.095 [0.045, 0.145]\\
-Stratified: height $\geq 60$ & 0.231 [0.035, 0.426]
+\vspace{-1cm}\hspace*{-0.75cm}\begin{tabular}{lll}
+& \multicolumn{2}{c}{Estimated coefficient [95\% CI]} \\
+Analysis & Smoke & Intercept \\
+\hline
+Unadjusted  & 0.71 [0.52, 0.90] & 2.57 \\
+Stratified: height $< 60$ & 0.095 [0.045, 0.145] & 1.86\\
+Stratified: height $\geq 60$ & 0.231 [0.035, 0.426] & 3.07
 \end{tabular}
 
 \vspace{1cm}
@@ -1687,14 +1688,15 @@ Multiple linear regression in action (with continuous height): \vspace{-0.45cm}
 
 \begin{frame}
 \frametitle{Multiple regression vs stratifying: FEV}
-\vspace{-1cm}\hspace*{-0.75cm}\begin{tabular}{ll}
-Analysis & Estimated coefficient for smoking [95\% CI] \\
-\hline \\
-Unadjusted  & 0.71 [0.52, 0.90]\\
-Stratified: height $< 60$ & 0.095 [0.045, 0.145]\\
-Stratified: height $\geq 60$ & 0.231 [0.035, 0.426] \\
-Multiple: binary height & 0.228 [0.035, 0.420] \\
-Multiple: cont. height & 0.0062 [-0.139, 0.152]
+\vspace{-1cm}\hspace*{-0.75cm}\begin{tabular}{llll}
+& \multicolumn{3}{c}{Estimated coefficient [95\% CI]} \\
+Analysis & Smoke & Height & Intercept \\
+\hline
+Unadjusted  & 0.71 [0.52, 0.90] & & 2.57\\
+Height $< 60$ & 0.095 [0.045, 0.145]& & 1.86\\
+Height $\geq 60$ & 0.231 [0.035, 0.426]& & 3.07 \\
+Binary height & 0.228 [0.035, 0.420] & 1.21 [1.12, 1.30] & 1.86\\
+Cont. height & 0.0062 [-0.139, 0.152]& 0.13 [0.12, 0.14] & 2.57
 \end{tabular}
 
 \begin{itemize}
@@ -1756,8 +1758,9 @@ Statistical question: is there a \textcolor{orange}{difference in mean FEV} betw
 \frametitle{Multiple linear regression: Adult FEV}
 Statistical question: is there a \textcolor{orange}{difference in mean FEV} between older adults \textcolor{blue}{who smoke and those who do not smoke}?
 
-Causal diagram for adult FEV: \vspace{5cm}
+Causal diagram for adult FEV: \vspace{4cm} \pause
 
+New statistical question: is there a \textcolor{orange}{difference in mean FEV} between older adults \textcolor{blue}{who smoke and those who do not smoke}, \textcolor{red}{adjusting for age and sex}?
 \end{frame}
 
 \begin{frame}
@@ -1797,7 +1800,7 @@ What is the interpretation of $\hat{\beta}_0 = 4.28$? \pause \textcolor{blue}{We
 \begin{frame}
 \frametitle{Multiple linear regression: Adult FEV}
 
-What is the interpretation of $\hat{\beta}_1 = -0.36$? \pause \textcolor{blue}{We estimate that among two groups with the same sex, height, and age, the average FEV among smokers is 0.35 L/second lower than among nonsmokers.}
+What is the interpretation of $\hat{\beta}_1 = -0.36$? \pause \textcolor{blue}{We estimate that among two groups with the same sex, height, and age, the average FEV among smokers is 0.36 L/second lower than among nonsmokers.}
 
 Quantifying uncertainty? \pause \textcolor{blue}{Based on a 95\% confidence interval, this estimate would not be judged unusual if the true difference in mean FEV between smokers and nonsmokers of the same age, sex, and height were between 0.48 and 0.24 L/second. This estimate is statistically significant at the 0.05 level ($p < 0.0001$).}
 
