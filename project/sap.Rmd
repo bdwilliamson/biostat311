@@ -16,74 +16,154 @@ Submit your SAP on Canvas by 11:59pm on April 27. Only one submission per group.
 
 This assignment is graded and is worth 15% of your total project grade.
 
-# Template:
+# Template and Rubric
 
-## Title
+## Formatting (0.5 points)
 
-Make up a title for your proposed study!
+(*Do not include this section in your report.*) 
 
-## Background and Introduction
+To receive full credit for this portion of the assignment, you should...
 
-Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team (so make sure that there's enough detail here that someone outside your group could read this section and understand the big picture).
+- submit on time
+- use 12 point font
+- write no more than three pages (not including your variables table or dummy tables/figures)
+- include all group member names
 
-## Scientific Questions
+## Title (0.5 points)
 
-In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.
+*Make up a title for your proposed study!*
 
-Example: a study of smoking and lung function in children
+To receive full credit for this portion of the assignment, your title should...
 
-The overall scientific goal is to assess the association between smoking and lung function in children. Specifically, we will address the following questions:
+- be interesting and informative (e.g., allude to your scientific goal)
+- not contain any abbreviations
 
-1. Is smoking associated with decreased lung function in children?
-2. If there is an association between smoking and decreased lung function, is this effect different in older versus younger children?
+## Background and Introduction (1 point)
 
-## Study Design
+*Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected?*
 
-How were the data collected? How many subjects are in the study? Include all necessary information for interpreting your analysis.
+To receive full credit for this portion of the assignment, your background/introduction should include...
 
-## Statistical Hypotheses
+- 1-2 paragraphs of scientific background
+    - Set the stage for why this is an interesting overall scientific question to study
+    - Why is this an important/relevant outcome to look at?
+    - Why is this an important/relevant predictor/exposure to look at?
+    - What other variables might be related to your outcome and/or predictor?
+- (Brief, 1 paragraph) description of study/data
+    - Who (is being studied)? 
+    - Where (was the study conducted/are your subjects from)? 
+    - When (was the data collected)?
+    - Where did you get your data (provide enough detail that someone else could go out and find it)
 
-Connect the scientific questions listed above with statistical hypotheses, that you can test using your statistical tools. Make sure to list both the variables that you will use in each analysis, and how you plan to make your statistical inference (e.g., confidence intervals and p-values).
+NOTE: you can re-use what you wrote for your *Project Proposal,* but make sure to address any of the comments we gave you, and you will probably need to add additional detail to address the criteria above
 
-## Variables
 
-List and briefly describe all variables that you will consider in any part of the analysis. For each variable, provide: a name, a brief description, classification according to type (quantitative for continuous or discrete variables; qualitative for nominal or ordinal variables), and a unit of measurement. Additionally, define new variables that are created from other measurements in the data, or variables that have been re-coded (e.g., creating a binary "female" variable from a "sex" variable taking on values 1 for male and 2 for female). Finally, classify each variable according to its scientific meaning and use in the analysis.
+## Scientific Questions (1 point)
 
-Examples of scientific meaning
+*In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.*
 
-* demographic (e.g., age, sex)
-* baseline physiology (e.g., systolic blood pressure)
-* baseline disease risk factors
-* measures of treatment intervention (in an experiment) or exposure (in an observational study)
-* measures of treatment outcome (in an experiment) or exposure effect (in an observational study)
+To receive full credit for this portion of the assignment, you should include...
 
-Examples of use in an analysis (note: variables may have multiple uses, if they are used in multiple analyses!):
+- your overall scientific goal
+- at least two specific scientific questions
 
-* response (outcome)
-* predictors of interest, identifying treatment groups (experiment) or exposure (observational study)
-* variables identifying subgroups to explore effect modification
-* potential confounders
-* variables which may increase precision
-* surrogates for the response or intermediate outcomes
+NOTE: you can re-use what you wrote for your *Project Proposal,* but make sure to address any of the comments we gave you
+
+
+## Study Design (1 point)
+
+*How were the data collected? How many subjects are in the study? Include all necessary information for interpreting your analysis.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- who is being studied
+- what type of study is this (observational vs experimental; if observational, what type)
+- where was this study conducted, where are the subjects from
+- when was this study conducted
+- how were data collected
+
+NOTE: you will discuss *what* was collected in the "Variables" section
+
+
+## Statistical Questions (2 points)
+
+*Connect the scientific questions listed above with statistical hypotheses, that you can test using your statistical tools. Make sure to list all variables that you will use in each analysis.*
+
+To receive full credit for this portion of the assignment, you should take each of your (2+) specific scientific questions and re-phrase them as a "statistical question" here. In particular, your statistical question should be a more precise version of your scientific question, which specifies:
+
+- what is the outcome variable
+- what is the predictor of interest
+- what other variables will you adjust for
+- how are you defining association (e.g., difference in means via linear regression, ratio of odds via logisitic regression, ratio of hazards via proportional hazards regression)
+
+## Variables (2 points)
+
+*Create a table which lists EVERY variable in your dataset and provides its name, brief description, classification according to type (e.g., quantitative, categorical, binary), units of measurement, scientific meaning (see below), and role in the analysis (see below). If you are going to create any new variables (e.g., by re-coding a "sex" variable taking on values 1 for male and 2 for female to a binary "female" variable from), please include the new variable in this table as well.*
+
+*Examples of scientific meaning:*
+
+- demographic (e.g., age, sex)
+- baseline physiology (e.g., systolic blood pressure)
+- baseline disease risk factors
+- measures of treatment intervention (in an experiment) or exposure (in an observational study)
+- measures of treatment outcome (in an experiment) or exposure effect (in an observational study)
+
+*Examples of role in analysis (note: variables could have more than one, if used in more than one analysis):*
+
+- response (outcome)
+- predictor(s) of interest
+- variables identifying subgroups to explore (effect modifiers)
+- potential confounders
+- potential precision variables
+- surrogates for the response
+- variables that are a result of the predictor of interest
+- irrelevant variables
+
+To receive full credit for this portion of the assignment, you should...
+
+- list every variable in your dataset
+- provide all pieces of information mentioned above: name, description, type, units, scientific meaning, role in analysis
+- organize this information into a table
 
 ## Statistical Analysis
 
-### Descriptive Analyses
+### Descriptive Analyses (2 points)
 
-Describe all of the descriptive statistics you will compute, how you will compute them, and how you will display your results. Generally, these are used informally to evaluate and compare subgroups, identify errors in the data, and identify patterns of missing data.
+*Describe the descriptive statistics you will compute, how you will compute them, and how you will display your results (figures, tables). Generally, descriptive statistics are used to evaluate and compare subgroups, identify errors in the data, and identify patterns of missing data. Often, these descriptive analyses will support the inferential analyses you report.*
 
-All statistical analyses should start with data description. Often, these descriptive analyses will support the inferential analyses you report. Figures and tables are both reasonable ways to display descriptive analyses.
+To receive full credit for this portion of the assignment, you should include...
 
-### Inferential Analyses
+- description of what numerical summaries you will calculate (e.g., mean, standard deviation, proportion, number of missing) for what variables, and within which subgroups (if applicable)
+- description of any tables and figures
 
-Describe all of the inferential analyses you will run (e.g., linear regression), along with the estimates that you will report. These are the hypothesis tests and estimates that will be used to address each of the questions you listed in the "scientific questions" section. You should state the statistical method that will be used to test each hypothesis, along with the response variable for each question and the significance level you are using. List the assumptions required for the analysis.
+NOTE: make sure that you think about how you will use descriptive statistics for (1) data cleaning/checking for errors, (2) describing your study subjects (e.g., Table 1), and (3) answering your statistical questions
 
-## Dummy Tables and Figures
+### Inferential Analyses (2 points)
 
-Include a sample of the tables and figures you expect to see here, so that you can make sure you know what you want! The tables and figures can be empty: just provide a rough sketch of what will be displayed. For example, you might present a figure with a title and axis labels, but no actual data plotted.
+*Describe the inferential analyses you will run (e.g., linear regression, logisitic regression), along with the estimates (e.g., which coefficients) and any other relevant values (e.g., confidence intervals) that you will interpret and report.*
 
-## Preliminary Analysis
+To receive full credit for this portion of the assignment, you should include...
 
-Please run one regression analysis on your dataset. You might run one of the analyses you propose in your *Statistical Analysis* section, or you could just run a sinmple, unadjusted analysis of your outcome versus the predictor of interest. 
+- a description of the model you will use to address each of your statistical questions
+- for each model: what type of regression, what is your outcome, what is your predictor of interest, what variables are you adjusting for
+- what numbers will you report/interpret; if this includes a p-value, what are your null and alterative hypotheses and what p-value threshold will you use for calling something "statistically significant"
 
-In this section, describe what analysis you've run and interpret the results (regression coefficient(s), confidence interval(s), p-values(s)). Upload your .R code along with your final *Statistical Analysis Plan*.
+## Dummy Tables and Figures (1 point)
+
+*Include a sample of the tables and figures you expect to see here. The tables and figures can be empty: just provide a rough sketch of what will be displayed. For example, you might present a figure with a title and axis labels, but no actual data plotted.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- one dummy table/figure per table/figure mentioned in your Descriptive or Inferential Analyses sections
+- any figures should include a title and axis labels
+- any tables should include a title and informative row/column names
+
+## Preliminary Analysis (2 points)
+
+*Please run one regression analysis on your dataset. You might run one of the analyses you propose in your* Statistical Analysis *section, or you could just run a simple, unadjusted analysis of your outcome versus the predictor of interest.*
+
+To receive full credit for this portion of the assignment, you should...
+
+- describe what analysis you've run (what type of regression did you use? what was your outcome? your predictor? any other variables included? did you use all your data or just a subset?)
+- interpret the relevant results of your analysis (coefficient, confidence interval, p-value)
+- upload your R code **and** data to Canvas
