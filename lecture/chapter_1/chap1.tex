@@ -1933,7 +1933,7 @@ E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smok
 & + \beta_3 (\text{Smoker} \times \text{Male}).
 \end{align*}
 
-$\beta_1$: the difference in mean FEV comparing \textbf{female smokers} to \textbf{female nonsmokers}.
+$\beta_1$: \textcolor{blue}{the difference in mean FEV comparing \textbf{female smokers} to \textbf{female nonsmokers}.}
 \begin{itemize}
 \item Compare \textbf{across} levels of the variable whose coefficient we're interested in (here, smokers vs nonsmokers)
 \item Compare \textbf{within} the group with value 0 for the effect modifier (here, Male = 0 means females)
@@ -1947,7 +1947,7 @@ E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smok
 & + \beta_3 (\text{Smoker} \times \text{Male}).
 \end{align*}
 
-$\beta_2$: the difference in mean FEV comparing \textbf{male nonsmokers} to \textbf{female nonsmokers}.
+$\beta_2$: \textcolor{blue}{the difference in mean FEV comparing \textbf{male nonsmokers} to \textbf{female nonsmokers}.}
 \begin{itemize}
 \item Compare \textbf{across} levels of the variable whose coefficient we're interested in (here, males vs females)
 \item Compare \textbf{within} the group with value 0 for the effect modifier (here, Smoker = 0 means males)
@@ -2078,6 +2078,17 @@ Example: Adult FEV data, modeling effect modification of the smoking association
 \includegraphics[width=1.1\textwidth]{plots/fev_smoke_sex_em.png}
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+The p-value for smoking on the previous slide was 0.0004. \textcolor{red}{Since we have an interaction term, we cannot use this p-value to test for an association between smoking and FEV}.
+
+Typically, effect modification is a secondary scientific question: first, we want to know if smoking is associated with FEV at all; if it is, we might want to know \textcolor{blue}{if this association differs between the sexes}.
+
+Thus, we can answer the two questions separately by fitting two separate regressions, one \textbf{without} the interaction term, and \textcolor{blue}{one \textbf{with} the interaction term}. 
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Multiple linear regression: effect modification}
