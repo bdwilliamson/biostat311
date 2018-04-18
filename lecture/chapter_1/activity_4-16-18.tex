@@ -20,21 +20,58 @@
 E(Y \mid X_1) = \beta_0 + \beta_1 X_1.
 \end{align*}
 
+\color{blue}
+\underline{Answer:} 
+\begin{itemize}
+\item $\beta_0$: the mean value of $Y$ when $X_1 = 0$
+\item $\beta_1$: the difference in mean $Y$ comparing two groups that differ in $X_1$ by one unit
+\end{itemize} 
+\color{black}
+
 \item \textbf{(Stratified linear regression)} Interpret the coefficients $\beta_0, \beta_1, \gamma_0, \gamma_1$ in the linear regression models
 \begin{align*}
 E(Y \mid X_1, Z = 0) &= \beta_0 + \beta_1 X_1, \\
 E(Y \mid X_1, Z = 1) &= \gamma_0 + \gamma_1 X_1.
 \end{align*}
 
+\color{blue}
+\underline{Answer:} 
+\begin{itemize}
+\item $\beta_0$: the mean value of $Y$ when $X_1 = 0$, for those with $Z = 0$
+\item $\beta_1$: the difference in mean $Y$ comparing two groups that differ in $X_1$ by one unit, for those with $Z = 0$
+\item $\gamma_0$: the mean value of $Y$ when $X_1 = 0$, for those with $Z = 1$
+\item $\gamma_1$: the difference in mean $Y$ comparing two groups that differ in $X_1$ by one unit, for those with $Z = 1$
+\end{itemize} 
+\color{black}
+
+\newpage
 \item \textbf{(Multiple linear regression)} Interpret the coefficients $\beta_0, \beta_1, \beta_2$ in the linear regression model (with $Z$ a binary variable)
 \begin{align*}
 E(Y \mid X_1, Z) = \beta_0 + \beta_1 X_1 + \beta_2 Z
 \end{align*}
 
+\color{blue}
+\underline{Answer:} 
+\begin{itemize}
+\item $\beta_0$: the mean value of $Y$ when $X_1 = 0$ and $Z = 0$
+\item $\beta_1$: the difference in mean $Y$ comparing two groups that differ in $X_1$ by one unit, but have the same value of $Z$
+\item $\beta_2$: the difference in mean $Y$ comparing those people with $Z = 1$ to those with $Z = 0$, but have the same value of $X_1$
+\end{itemize}
+\color{black}
+
 \item \textbf{(Multiple linear regression)} Interpret the coefficients $\beta_0, \beta_1, \beta_2$ in the linear regression model (with $X_2$ a continuous, quantitative variable)
 \begin{align*}
 E(Y \mid X_1, X_2) = \beta_0 + \beta_1 X_1 + \beta_2 X_2
 \end{align*}
+
+\color{blue}
+\underline{Answer:} 
+\begin{itemize}
+\item $\beta_0$: the mean value of $Y$ when $X_1 = 0$ and $X_2 = 0$
+\item $\beta_1$: the difference in mean $Y$ comparing two groups that differ in $X_1$ by one unit, but have the same value of $X_2$
+\item $\beta_2$: the difference in mean $Y$ comparing two groups that differ in $X_2$ by one unit, but have the same value of $X_1$
+\end{itemize}
+\color{black}
 \end{enumerate}
 
 

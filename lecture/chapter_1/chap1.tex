@@ -1855,6 +1855,107 @@ Height & $-0.3547$ & $0.05694$ & [$-0.4665$, $-0.2429$]
 \begin{frame}
 \frametitle{Multiple linear regression: effect modification}
 
+With both \textcolor{red}{confounders} and \textcolor{green}{precision variables}, the association between the predictor of interest and the response \textbf{is the same} regardless of the value of the confounder/precision variable.
+
+Sometimes, we have reason to believe that the association between our predictor of interest and the response \textcolor{blue}{differs depending on the value} of another variable.
+
+We model this statistically by including an \textcolor{blue}{interaction} term between the predictor of interest and the potential effect modifier, \textbf{modeled as the multiplication of the two}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+If we are interested in the association between $X$ (POI) and $Y$ (outcome), \textcolor{blue}{but think that $Z$ is an effect modifier}, then we fit the regression model
+\begin{align*}
+E(Y \mid X, Z) = & \ \beta_0 + \beta_1 X + \beta_2 Z + \beta_3 (X \times Z).
+\end{align*}
+
+New terminology: the terms $X$ and $Z$ are the \textbf{main effects}, while the multiplicative term $(X \times Z)$ is called the \textbf{interaction} term.
+
+\textcolor{red}{You may encounter situations where someone is looking for effect modification but does not include the main effects. \textbf{This can be misleading, so always include them.}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+For example, we might be interested in whether sex \textcolor{blue}{modifies the association} between smoking and FEV in older adults (65+). We use the regression model
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+
+How do we interpret $\beta_0$? Is this scientifically sensible, and would you trust an estimate of it?\vspace{-0.2cm} \pause
+\begin{itemize}
+\item $\beta_0$: \textcolor{blue}{mean FEV among female nonsmokers} (i.e., Male = 0, Smoker = 0)
+\item Reasonable to interpret (female nonsmokers exist)
+\item Estimate is trustworthy (we measured females and nonsmokers)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+
+How do we interpret $\beta_1$? \pause
+\textcolor{red}{We can't change Smoker but hold Smoker $\times$ Male constant, if Male = 1}: 
+\begin{itemize}
+\item if Smoker = 1 and Male = 1, Smoker $\times$ Male = 1
+\item if Smoker = 0 and Male = 1, Smoker $\times$ Male = 0
+\item $\beta_3$ \textcolor{red}{doesn't cancel out in our math game}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+
+Instead, to interpret $\beta_1$, we \textcolor{blue}{set Male = 0}:
+{\small \begin{align*}
+E(\text{FEV} \mid \text{Smoker} = 1, \text{Male} = 0) =&  \ \beta_0 + \beta_1 (1) + \beta_2 (0) + \beta_3 (1 \times 0) \\
+= & \ \beta_0 + \beta_1 \\
+E(\text{FEV} \mid \text{Smoker} = 0, \text{Male} = 0) =&  \ \beta_0 + \beta_1 (0) + \beta_2 (0) + \beta_3 (1 \times 0) \\
+ =& \ \beta_0 \\
+E(\text{FEV} \mid \text{Smoker} = 1, \text{Male} = 0) - \ &\\
+E(\text{FEV} \mid \text{Smoker} = 0, \text{Male} = 0) =& \ \beta_1
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+
+$\beta_1$: the difference in mean FEV comparing \textbf{female smokers} to \textbf{female nonsmokers}.
+\begin{itemize}
+\item Compare \textbf{across} levels of the variable whose coefficient we're interested in (here, smokers vs nonsmokers)
+\item Compare \textbf{within} the group with value 0 for the effect modifier (here, Male = 0 means females)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+
+$\beta_2$: the difference in mean FEV comparing \textbf{male nonsmokers} to \textbf{female nonsmokers}.
+\begin{itemize}
+\item Compare \textbf{across} levels of the variable whose coefficient we're interested in (here, males vs females)
+\item Compare \textbf{within} the group with value 0 for the effect modifier (here, Smoker = 0 means males)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
 \end{frame}
 
 %% comment out final section
