@@ -1758,7 +1758,7 @@ Statistical question: is there a \textcolor{orange}{difference in mean FEV} betw
 \frametitle{Multiple linear regression: Adult FEV}
 Statistical question: is there a \textcolor{orange}{difference in mean FEV} between older adults \textcolor{blue}{who smoke and those who do not smoke}?
 
-Causal diagram for adult FEV: \vspace{4cm} \pause
+Causal diagram for adult FEV: \vspace{4cm} \pause {\small (draw this on your own)}
 
 New statistical question: is there a \textcolor{orange}{difference in mean FEV} between older adults \textcolor{blue}{who smoke and those who do not smoke}, \textcolor{red}{adjusting for age and sex}?
 \end{frame}
@@ -1956,13 +1956,248 @@ $\beta_2$: the difference in mean FEV comparing \textbf{male nonsmokers} to \tex
 
 \begin{frame}
 \frametitle{Multiple linear regression: effect modification}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+
+$\beta_3$: in our interpretation for the main effects and for confounders/precision variables, we have to \textcolor{red}{hold all other variables constant}, while changing the variable of interest.
+
+But it is \textcolor{red}{impossible} to change Smoker $\times$ Male without changing either Smoker or Male!
 \end{frame}
 
-%% comment out final section
-\begin{comment}
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\vspace{-0.7cm}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+\vspace{-0.3cm}
+\textbf{When Male = 0:}  (i.e., among females) \vspace{-0.2cm}
+\begin{itemize}
+\item mean FEV among nonsmokers = $\beta_0 + \beta_2 \times 0 = \beta_0$; 
+\item difference in mean FEV between smokers and nonsmokers = $\beta_1 + \beta_3 \times 0 = \color{blue}{\beta_1}$.
+\end{itemize}
+
+\textbf{When Male = 1:}  (i.e., among males) \vspace{-0.2cm}
+\begin{itemize}
+\item mean FEV among nonsmokers = $\beta_0 + \beta_2 \times 1 = \beta_0 + \beta_2$; 
+\item difference in mean FEV between smokers and nonsmokers = $\beta_1 + \beta_3 \times 1 = \color{blue}{\beta_1 + \beta_3}$.
+\end{itemize}
+
+\textcolor{blue}{$\beta_3$: the difference in the difference in mean FEV between smokers and nonsmokers, comparing men and women.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\vspace{-0.7cm}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+\vspace{-0.3cm}
+\textbf{When Smoker = 0:}  (i.e., among nonsmokers) \vspace{-0.2cm}
+\begin{itemize}
+\item mean FEV among females = $\beta_0 + \beta_1 \times 0 = \beta_0$; 
+\item difference in mean FEV between males and females = $\beta_2 + \beta_3 \times 0 = \color{blue}{\beta_2}$.
+\end{itemize}
+
+\textbf{When Smoker = 1:}  (i.e., among smokers) \vspace{-0.2cm}
+\begin{itemize}
+\item mean FEV among females = $\beta_0 + \beta_1 \times 1 = \beta_0 + \beta_1$; 
+\item difference in mean FEV between males and females = $\beta_2 + \beta_3 \times 1 = \color{blue}{\beta_2 + \beta_3}$.
+\end{itemize}
+
+\textcolor{blue}{$\beta_3$: the difference in the difference in mean FEV between males and females, comparing smokers and nonsmokers.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}).
+\end{align*}
+
+The coefficient $\beta_3$ is a \textcolor{blue}{difference of differences}: we compare the difference in mean FEV between two groups, and compare that difference again.
+
+We can also interpret $\beta_3$ as \textcolor{blue}{the difference between the sexes in the linear association of smoking and FEV.}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\vspace{-0.4cm}
+\begin{align*}
+E(Y \mid X, Z) =& \ \beta_0 + \beta_1 X + \beta_2 Z + \beta_3 (X \times Z)
+\end{align*}
+Interpreting the main effect of $X$ (e.g., smoking on mean FEV) in the presence of an interaction with $Z$ \textcolor{blue}{requires that Z} (e.g., male) \textcolor{blue}{equals zero.}
+
+Interpretability now depends on: \vspace{-0.2cm}
+\begin{itemize}
+\item is $Z = 0$ scientifically meaningful? 
+\item[] {\small (e.g., height = 0, SBP = 0 are implausible)}
+\item is $Z = 0$ within the range of our data? 
+\item[] {\small (e.g., age = 0 when our sample only contains age 65+)}
+\end{itemize}
+
+The multiplicative interaction $\beta_3 (X \times Z)$ means that effect modification is \textcolor{blue}{symmetric}: if Smoker modifies the association between Male and FEV, then Male also equally modifies the association between Smoker and FEV.
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\begin{align*}
+E(Y \mid X, Z) =& \ \beta_0 + \beta_1 X + \beta_2 Z + \beta_3 (X \times Z)
+\end{align*}
+
+If $\beta_3 = 0$, then the association between $X$ and $Y$ \textbf{is the same across strata} defined by $Z$---in other words, we have the same interpretation for $\beta_1$ as when we didn't include an interaction.
+
+\textcolor{blue}{Testing whether $\beta_3 = 0$ directly tests effect modification.}
+
+However, we \textcolor{red}{can't test the main effects of $X$ or $Z$ by themselves}---to test the overall association between, e.g., $X$ and $Y$, we must jointly test $\beta_1$ \textbf{and} $\beta_3$.
+
+We won't cover how to do this in \texttt{R}, but it is possible.
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+To model effect modification in \texttt{R}, we use the same function as before, but with a slight tweak:
+\begin{itemize}
+\item \texttt{regress("mean", Y} $\sim$ \texttt{X + Z + X*Z)}, 
+\item or equivalently, \texttt{regress("mean", Y} $\sim$ \texttt{X*Z)}
+\item[] {\small \texttt{regress} includes the main effects by default }
+\end{itemize}
+
+Example: Adult FEV data, modeling effect modification of the smoking association with FEV by sex
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+\vspace{-1cm}\hspace*{-0.5cm}
+\includegraphics[width=1.1\textwidth]{plots/fev_smoke_sex_em.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+Since both covariates (smoking, sex) were binary, we can actually calculate all within-group means from the estimated regression coefficients (this is called a \textcolor{blue}{saturated model}).
+
+Stratified means from \texttt{descrip}: {\small \begin{tabular}{|c|c|c|}
+\hline
+ & Female & Male \\
+ \hline
+Nonsmoker & 1.90 & 2.60 \\
+\hline
+Smoker & 1.68 & 2.18  \\
+\hline
+\end{tabular}
+}
+
+Regression analysis results: 
+\hspace*{-1cm}{\small \begin{tabular}{|c|c|c|}
+\hline
+ & Female & Male \\
+ \hline
+Nonsmoker & $\hat{\beta}_0$ & $\hat{\beta}_0 + \hat{\beta}_2$\\
+& $ = 1.90$ &  $= 1.895 + 0.705 = 2.60$\\
+\hline
+Smoker & $\hat{\beta}_0 + \hat{\beta}_1$ & $\hat{\beta}_0 + \hat{\beta}_1 + \hat{\beta}_2 + \hat{\beta}_3$\\
+& $ = 1.8895 - 0.216 = 1.68$ & $= 1.90 - 0.22 + 0.71 - 0.20 = 2.19$\\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+\textcolor{blue}{We can model confounders and effect modifiers at the same time.} For example, in the adult FEV data, height is a potential confounder and sex may be an effect modifier:
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}, \text{Height}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}) + \beta_4 \text{Height}.
+\end{align*}
+
+Interpretation: 
+\begin{itemize}
+\item $\beta_0$: mean FEV among female nonsmokers with height 0''
+\item $\beta_1$: difference in mean FEV comparing female smokers to female nonsmokers \textcolor{red}{of the same height}
+\item $\beta_2$: difference in mean FEV comparing male nonsmokers to female nonsmokers \textcolor{red}{of the same height}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+\textcolor{blue}{We can model confounders and effect modifiers at the same time.} For example, in the adult FEV data, height is a potential confounder and sex may be an effect modifier:
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}, \text{Height}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male}\\
+& + \beta_3 (\text{Smoker} \times \text{Male}) + \beta_4 \text{Height}.
+\end{align*}
+
+Interpretation: \vspace{-0.2cm}
+\begin{itemize}
+\item $\beta_3$: the difference between sexes in the linear association between smoking and FEV \textcolor{red}{for subjects of the same height}
+\item[] the difference in the difference in mean FEV between smokers and nonsmokers, adjusted for height, between males and females
+\item $\beta_4$: difference in mean FEV between two groups of the same sex and smoking status, but differing in height by one inch
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+If both variables involved in an interaction are binary, \textcolor{blue}{interpretation is fairly straightforward.}
+
+We can fit the same type of regression model if one, or both, of the covariates are continuous---\textcolor{red}{all that changes is the scientific meaning and trustworthiness of the intercept and main effects.}
+
+Example: Cognitive function and age
+
+The Digit Symbol Substitution Test (DSST) measures cognitive function. We have data on 3775 participants, with an age range of 65--97 years. We are interested in the association between DSST (outcome) and age (POI), and possible effect modification by years of education. \textcolor{blue}{Regression model: 
+\begin{align*}
+E(\text{DSST} \mid \text{Age}, \text{Educ}) =& \ \beta_0 + \beta_1 \text{Age} + \beta_2 \text{Educ} + \beta_3 (\text{Age} \times \text{Educ})
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+
+\vspace{-1cm}\hspace*{-0.5cm}
+\includegraphics[width=1.1\textwidth]{plots/dsst_age_educ_em.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+Coefficient interpretation:
+\begin{itemize}
+\item $\hat{\beta}_0$: estimated mean DSST score among those with age 0 and no education is 68.7 units
+\item $\hat{\beta}_1$: estimated difference in mean DSST score between two groups differing in age by one year, both with no education is -0.61 units
+\item $\hat{\beta}_2$: estimated difference in mean DSST score between two groups differing in education by one year, both with age 0 is 2.34 units
+\end{itemize}
+
+\textcolor{red}{Are any of these scientifically relevant?}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple linear regression: effect modification}
+Coefficient interpretation:
+\begin{itemize}
+\item $\hat{\beta}_3$: We estimate that among individuals with one additional year of education, average DSST is lower by 0.02 units more per additional year of age than among individuals with one fewer year of education (95\% CI: [0.0005, 0.032]; p = 0.044)
+\end{itemize}
+
+This is a mouthful, but is correct. \textcolor{blue}{When in doubt, borrow this interpretation and replace with your variables}.
+
+Here, we estimate that the association between older age and lower cognitive score is \textbf{larger} among people with more education---however, people with more education start off at a higher level of cognitive function. 
+\end{frame}
+
 \section{Wrapping up}
 \begin{frame}
-\frametitle{SECTION 3: WRAPPING UP}
+\frametitle{SECTION 3: SUMMARY}
+
+We have spent a lot of time interpreting linear regression coefficients, confidence intervals, and p-values.
+
+Depending on your scientific question and your study design, you may  
 \end{frame}
-\end{comment}
 \end{document}
