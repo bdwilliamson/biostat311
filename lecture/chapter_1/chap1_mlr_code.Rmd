@@ -14,6 +14,7 @@ options(width=400)
 fev <- read.table('http://www.emersonstatistics.com/datasets/fev.txt',header=T)
 fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
 adultfev <- read.table("adultfev.txt", header = TRUE)
+infarcts <- read.table("http://www.emersonstatistics.com/datasets/infarcts.txt", header = TRUE)
 ```
 
 ## FEV on smoking, stratified by height
@@ -61,4 +62,20 @@ regress("mean", fev ~ smoke + age + male + height, data = adultfev)
 ```{r echo = TRUE}
 library("uwIntroStats", warn.conflicts = FALSE)
 regress("mean", fev ~ smoke + age + male , data = adultfev)
+```
+
+\newpage
+
+## FEV with EM between smoking and sex
+```{r echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fev ~ smoke*male, data = adultfev)
+```
+
+\newpage
+
+## DSST, EM with age and educ
+```{r echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", dsst ~ age*educ, data = infarcts)
 ```
