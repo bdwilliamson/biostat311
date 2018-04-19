@@ -1,0 +1,109 @@
+---
+title: "Exam 1 Preparation Activity"
+author: "Kelsey Grinde and Brian Williamson"
+date: "20 April 2018"
+output: pdf_document
+header-includes:
+  - \usepackage{color}
+---
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 100)
+```
+
+# Introduction
+
+This question is similar in style to one that you might see on the exam. We will provide the relevant \texttt{R} output for any questions that require it. Please work in groups of 2--3 to complete this activity.
+
+# 1. Sex discrimination in faculty salaries
+
+Differences in salaries between men and women at US colleges and universities are well documented. Because salary discrimination based on sex is illegal in the US, there is considerable controversy over whether the differences between male and female faculty members’ salaries are due to sex bias. Other explanations which have been put forward for salary disparities between men and women include differences in experience, degree attained, the field in which one works, administrative responsibilities, and productivity, among others. 
+
+There are many factors influencing faculty salaries, and each of these may be confounded with sex differences. Some of these factors are measured in this dataset.
+
+The data consist of faculty members' salaries at a single US university (UW). Data were collected on 1597 faculty members employed at the university in 1995 (medical school faculty were excluded). For this problem, the data contain the monthly salary for each faculty member in 1995. The variables available are:
+
+* `male`: indicator of male sex (1 for males, 0 for females)
+* `deg`: highest degree attained [PhD, Prof (professional degree, e.g., medicine), Other (Master's or Bachelor's)]
+* `field`: Arts (Arts/Humanities), Prof (professional school, e.g., business, law), Other
+* `rank`: rank of the faculty member [Assist (Assistant), Assoc (Associate), Full (Full)]
+* `admin`: administrative duties, e.g., department chair (1 for yes, 0 for no)
+* `salary`: monthly salary of the faculty member in dollars
+
+Your scientific question is: 
+\textcolor{blue}{is sex associated with faculty salary, in 1995?}
+
+## a. Draw a causal diagram detailing the relationships between sex, faculty salary, highest degree attained, field, rank, and administrative duties.
+\vspace{3in}
+
+## b. Classify each of highest degree attained, field, rank, and administrative duties as: a potential confounder, an effect modifier, a precision variable, or none. Justify your answer to each in a single sentence.
+
+highest degree: 
+\vspace{12pt}
+
+field: 
+\vspace{12pt}
+
+rank: 
+\vspace{12pt}
+
+administrative duties: 
+\vspace{12pt}
+
+\newpage
+
+## c. A post-doctoral researcher in your lab performs an analysis of these data, using the regression model below. (The post-doc has used dummy variables for both degree and field; the reference groups are "Other" and "Arts/Humanities", respectively) 
+\begin{align*}
+E(\text{Salary} \mid \text{Male}, \text{Deg}, \text{Field}, \text{Admin}) =& \ \beta_0 + \beta_1\text{Male} + \beta_2\text{PhD} + \beta_3\text{Professional degree} + \beta_4\text{Other} \\
+&+ \beta_5\text{Professional field} + \beta_6\text{Admin}.
+\end{align*}
+
+### i. Interpret the regression parameter $\beta_0$. Is this a scientifically meaningful quantity? Would you trust an estimate of it from these data?
+\vspace{0.5in}
+
+### ii. Interpret the regression parameter $\beta_1$. Is this a scientifically meaningful quantity? Would you trust an estimate of it from these data?
+\vspace{0.5in}
+
+## d. The same post-doctoral researcher runs a linear regression on these data, using the regression model from (c). The output is given below.
+
+```{r part-1-d, echo = FALSE, warning = FALSE}
+salary_dat <- readRDS("../datasets/salary_for_exam_1_prep.rds")
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", salary ~ male + factor(deg) + factor(field) + admin, data = salary_dat)
+```
+
+### i. Interpret the results of this regression analysis in light of your scientific question (i.e., interpret the correct coefficient estimate, and give and interpret its 95% CI and p-value).
+\vspace{2in}
+
+## e. The post-doc is also interested in effect modification by administrative duties, so they fit the regression model 
+\begin{align*}
+E(\text{Salary} \mid \text{Male}, \text{Deg}, \text{Field}, \text{Admin}) =& \ \beta_0 + \beta_1\text{Male} + \beta_2\text{PhD} + \beta_3\text{Professional degree} + \beta_4\text{Other} \\
+&+ \beta_5\text{Professional field} + \beta_6\text{Admin} + \beta_7 (\text{Male}\times\text{Admin}).
+\end{align*}
+
+```{r part-1-e, echo = FALSE, warning = FALSE}
+regress("mean", salary ~ male + factor(deg) + factor(field) + admin + male*admin, data = salary_dat)
+```
+
+### i. Interpret the estimated regression coefficient for `male`, $\hat{\beta}_1$. Is this scientifically meaningful? Do you trust this estimate?
+\vspace{2cm}
+
+### ii. Interpret the estimated interaction term, $\hat{\beta}_7$. 
+\vspace{2cm}
+
+### iii. Write out the null and alternative hypotheses to test for effect modification of the sex--salary association by administrative duties. Based on the R output above, do the data provide evidence in favor of effect modification? Justify your response.
+\vspace{2cm}
+
+
+## f. An alternative to modeling the raw salary, as the post-doc has done, is to log-transform salary prior to analysis---now, rather than comparing salary on an additive scale, you compare salary on a multiplicative scale. You use the following regression model:
+\begin{align*}
+E\{\log (\text{Salary}) \mid \text{Male}, \text{Deg}, \text{Field}, \text{Admin}\} =& \ \beta_0 + \beta_1\text{Male} + \beta_2\text{PhD} + \beta_3\text{Professional degree} + \beta_4\text{Other} \\
+&+ \beta_5\text{Professional field} + \beta_6\text{Admin}.
+\end{align*}
+
+You fit this model in R, and obtain the following results:
+```{r 1-f, echo = FALSE}
+regress("geometric mean", salary ~ male + factor(deg) + factor(field) + admin, data = salary_dat)
+```
+
+### i. Write a full report of the results based on this output (make sure to answer the scientific question!).
