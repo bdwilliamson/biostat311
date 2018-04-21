@@ -1,0 +1,110 @@
+\documentclass[12pt, 
+hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
+\usetheme{default} 
+
+\setbeamertemplate{navigation symbols}{} %gets rid of navigation symbols
+\setbeamertemplate{footline}{} %gets rid of bottom navigation bars
+\setbeamertemplate{footline}[page number]{} %use this for page numbers
+
+\setbeamertemplate{itemize items}[circle] %round bullet points
+\setlength\parskip{10pt} % white space between paragraphs
+
+\usepackage{wrapfig}
+\usepackage{subfig}
+\usepackage{setspace}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[UKenglish]{isodate}
+\cleanlookdateon
+
+% the preamble
+\title{BIOST 311: \\ Regression Methods for the Health Sciences}
+\author{Kelsey Grinde and Brian Williamson}
+\institute{UW Biostatistics}
+\date{Spring 2018}
+
+\begin{document}
+% title slide
+\begin{frame}
+\titlepage\thispagestyle{empty}
+\end{frame}
+
+% make it 4.something
+\setbeamertemplate{footline}{%
+  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[10pt]{\scriptsize 4.\insertframenumber~~}}}}  \newcounter{chap1}{\value{1}}
+\setcounter{framenumber}{\value{chap1}}
+
+\begin{frame}
+\frametitle{CHAPTER 4: SPECIAL TOPICS}
+At the end of this chapter, the typical student should be able to:
+\begin{itemize}
+\item do something!
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{SECTION 1: {\small NONPARAMETRIC ESTIMATION AND INFERENCE}}
+\framesubtitle{(by Brian Williamson)}
+
+So far, in this course, you have explored how to answer scientific questions related to: \vspace{-0.3cm}
+\begin{itemize}
+\item causal associations,
+\item associations (and prediction),
+\item and effect modification,
+\end{itemize} \vspace{-0.3cm}
+using linear regression, logistic regression, or Cox proportional hazards regression.
+
+You have also explored the necessary assumptions for these models to be valid.
+
+Fundamentally, however, these tools \textcolor{red}{all make potentially restrictive assumptions} on the true data-generating mechanism (i.e., the process that truly creates the data as we see it).
+\end{frame}
+
+% introduce the variable importance problem, in the context of HIV vaccine
+\begin{frame}
+\frametitle{Case study: variable importance}
+
+\end{frame}
+
+% how would we address this using linear regression?
+\begin{frame}
+\frametitle{Case study: variable importance}
+
+\end{frame}
+
+% the model as a collection of probability distributions
+\begin{frame}
+\frametitle{Statistical models}
+\end{frame}
+
+% the parameter as a map from the collection to the real line
+\begin{frame}
+\frametitle{Statistical parameters: more than just $\beta$s?}
+\end{frame}
+
+% regression coefficients as a nonparametric parameter
+\begin{frame}
+\frametitle{Statistical parameters: linear regression}
+
+\end{frame}
+
+% procedure that separates statistical model and parameter from estimation
+\begin{frame}
+\frametitle{New paradigm}
+\end{frame}
+
+% variable importance parameter
+\begin{frame}
+\frametitle{Case study: variable importance}
+\end{frame}
+
+% how to estimate it?
+
+
+
+
+
+\end{document}

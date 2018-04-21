@@ -47,6 +47,10 @@ project/examples/*
 #########################
 *key*
 
+# anything called "midterm" or "final" #
+########################################
+*midterm*
+
 # any LibreOffice or Gimp files #
 # these are all plot intermediates #
 #################################
