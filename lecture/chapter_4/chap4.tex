@@ -18,6 +18,7 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{tikz}
 \usepackage[UKenglish]{isodate}
 \cleanlookdateon
 
@@ -66,54 +67,105 @@ Fundamentally, however, these tools \textcolor{red}{all make potentially restric
 % introduce the variable importance problem, in the context of HIV vaccine
 \begin{frame}
 \frametitle{Case study: variable importance}
-A new frontier in HIV vaccine research studies \textcolor{blue}{broadly neutralizing antibodies}: since HIV is so diverse, and mutates so fast, the idea is that antibodies against HIV must be able to recognize and neutralize many strains.
+A new frontier in HIV-1 vaccine research studies \textcolor{blue}{broadly neutralizing antibodies}: HIV-1 is diverse and mutates quickly, so successful antibodies against HIV-1 must be able to recognize and neutralize many strains.
 
 VRC01: \vspace{-0.3cm}
 \begin{itemize}
 \item a broadly neutralizing antibody against HIV-1
 \item isolated from a donor chronically infected with HIV-1 for 15 years
-\item neutralizes over 80\% of HIV-1 viral strains 
+\item neutralizes over 80\% of $> 600$ viral strains tested
 \end{itemize}
 
-The Antibody Mediated Prevention (AMP) trials, expected to finish in 2020, are assessing the efficacy of VRC01 in preventing HIV-1 infection.
+The Antibody Mediated Prevention (AMP) trials, expected to finish in 2020, \textcolor{blue}{assess the efficacy of VRC01 in preventing HIV-1 infection}.
 \end{frame}
 
 % variable importance
 \begin{frame}
 \frametitle{Case study: variable importance}
-Part of the pre-planned analysis of these data involves testing those viruses that do cause infection, even in the presence of VRC01: if there are differences in 
+Part of the pre-planned analysis of these data involves testing those viruses that do cause infection, even in the presence of VRC01.
+
+\textcolor{blue}{Differences in prevention efficacy based on features of these viruses give us information about how VRC01 works to prevent infection}, and give us \textcolor{green}{clues about how to develop an effective vaccine.}
+
+I am primarily interested in features of the HIV-1 genotype, but there are \textcolor{red}{many ways} to define an HIV-1 genotype; this implies that \textcolor{red}{if we test each amino acid feature, and apply a multiple comparisons correction, it will be difficult to detect effects. }
+\end{frame}
+
+% variable importance!
+\begin{frame}
+\frametitle{Case study: variable importance}
+Fortunately, there are publicly available data on the neutralization sensitivity of HIV-1 viruses to VRC01. I am currently collaborating with researchers at the Fred Hutchinson Cancer Research Center to:
+\begin{itemize}
+\item develop an algorithm that has \textcolor{green}{good accuracy in predicting neutralization sensitivity} from HIV-1 amino acid features, and
+\item \textcolor{blue}{rank amino acid features by their importance in predicting neutralization sensitivity}, and advance the top ranked features to the AMP analysis
+\end{itemize}
+
+Fitting \textcolor{green}{complex machine learning-based methods} achieves the first objective; the second objective is a \textcolor{blue}{bit more nuanced}.
 \end{frame}
 
 % how would we address this using linear regression?
 \begin{frame}
 \frametitle{Case study: variable importance}
+Variable importance in linear regression: e.g., $E(Y \mid X_1, X_2) = \beta_0 + \beta_1 X_1 + \beta_2 X_2$
+\begin{itemize}
+\item $\beta_1$: difference in mean $Y$ for two groups differing by one unit in $X_1$, with the same value of $X_2$
+\item $X_1$ has no effect on $Y$ if $\beta_1 = 0$ (i.e., is unimportant)
+\item estimate importance (i.e., deviation from the null) with $\lvert (\hat{\beta}_1 - 0)/SE(\hat{\beta}_1) \rvert$
+\end{itemize}
 
+However, it is possible that our variables of interest are important in other ways besides the linear association. If the linear model doesn't hold, \textcolor{red}{then these variable importance estimates are meaningless.}
 \end{frame}
 
 % the model as a collection of probability distributions
 \begin{frame}
 \frametitle{Statistical models}
+Rather than restrict ourselves to a class of models that we can index by a finite parameter (e.g., regression coefficients), it is often useful to consider statistical models as more general objects.
+
+Statistical model: a group of probability distributions; should contain our true data-generating mechanism.
+
+\begin{tikzpicture}
+
+\end{tikzpicture}
+
 \end{frame}
 
 % the parameter as a map from the collection to the real line
 \begin{frame}
 \frametitle{Statistical parameters: more than just $\beta$s?}
-\end{frame}
+Just like the parameters in our linear model, statistical parameters are functions of the true data-generating mechanism.
 
-% regression coefficients as a nonparametric parameter
-\begin{frame}
-\frametitle{Statistical parameters: linear regression}
+However, now a statistical parameter is a function that takes as input a probability distribution, and outputs a real number.
 
+We can now define parameters of arbitrary distributions, without making any assumptions on the model!
+
+For example, the mean as a statistical parameter: $\mu(P) = \int x dP(x)$; or the conditional mean as a statistical parameter: $\mu_X(P) = E(Y \mid X) = \int y dP(Y \mid X)$.
 \end{frame}
 
 % procedure that separates statistical model and parameter from estimation
 \begin{frame}
-\frametitle{New paradigm}
+\frametitle{New paradigm for estimation}
+Defining a statistical parameter as a function of the statistical model, rather than the estimation procedure (e.g., linear regression), means that we can disassociate the two processes:
+\begin{enumerate}
+\item Define my statistical parameter
+\item Estimate the relevant components using potentially complex methods
+\item Plug these estimates into the form for the parameter
+\item Correct the resulting estimate for the fact that flexible techniques were used
+\end{enumerate}
+
+Fundamentally: \textcolor{blue}{the statistical parameter of interest doesn't have to be tied to your estimation technique.}
 \end{frame}
 
 % variable importance parameter
 \begin{frame}
 \frametitle{Case study: variable importance}
+In this context, we define variable importance using a nonparametric extension of $R^2$ or ANOVA-derived variable importance:
+\begin{align*}
+\Psi_s(P) = &\ \frac{\int \{E_P(Y \mid X) - E_P(Y \mid X_{(-s)})\}^2 dP(x)}{var_P(Y)}
+\end{align*}
+
+\textcolor{cyan}{This measures the additional proportion of the variability in the outcome explained by including the features $X_s$ in the regression} ($s$ can index a single feature or group of features).
+
+\textcolor{red}{Coming up with a parameter can be hard work:} this particular parameter resulted from multiple consultations between statisticians and epidemiologists.
+
+However, this work is worth it: at the end of the day, you are estimating something you care about!
 \end{frame}
 
 % how to estimate it?
