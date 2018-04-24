@@ -169,9 +169,57 @@ However, this work is worth it: at the end of the day, you are estimating someth
 \end{frame}
 
 % how to estimate it?
+\begin{frame}
+\frametitle{Case study: variable importance}
+\vspace{-1cm}
+\begin{align*}
+\Psi_s(P) = &\ \frac{\int \{E_P(Y \mid X) - E_P(Y \mid X_{(-s)})\}^2 dP(x)}{var_P(Y)}
+\end{align*}
 
+I need to estimate four objects:
+\begin{itemize}
+\item the probability distribution of the $X$ data
+\item the conditional expectation given $X$
+\item the conditional expectation given $X_{(-s)}$
+\item the variance of $Y$
+\end{itemize}
 
+\textcolor{blue}{The first and last components are easy}: take the empirical variance, and take a simple average once I have the middle two components.
 
+\textcolor{red}{The middle two components are where I can run into trouble if I make incorrect assumptions. }
+\end{frame}
+
+% ML tools
+\begin{frame}
+\frametitle{Estimating a conditional mean}
+So far, this quarter, we have studied three methods for estimating conditional means (also called \textcolor{blue}{regression functions}):
+\begin{itemize}
+\item linear regression,
+\item logistic regression, and
+\item Cox proportional hazards regression.
+\end{itemize}
+
+Each of these tools makes the fundamental assumption that some function of the conditional mean is linear in the model parameters, which is potentially quite restrictive.
+
+More model-agnostic regression techniques are known colloquially as ``machine learning'' tools.
+\end{frame}
+
+% the bias-variance tradeoff
+\begin{frame}
+\frametitle{Estimating a conditional mean}
+Typically, machine learning-based methods involve 
+
+\end{frame}
+
+% why that's a problem for us
+
+% how we get around it
+
+% simulation results showing how bad it can be not to account for it
+
+% results from the VRC01 study
+
+% conclude
 
 
 \end{document}
