@@ -9,6 +9,7 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 \setbeamertemplate{itemize items}[circle] %round bullet points
 \setlength\parskip{10pt} % white space between paragraphs
 
+\usepackage{comment}
 \usepackage{wrapfig}
 \usepackage{subfig}
 \usepackage{setspace}
@@ -47,7 +48,7 @@ By the end of Chapter 2, you should be able to:
 \item Distinguish between probability and odds and know how to calculate each in \texttt{R}
 \item Interpret the coefficients for a (simple or multiple) linear or logistic regression model with a binary outcome
 \item Interpret confidence intervals and p-values for logistic regression coefficients
-\item Describe how logistic regression interpretation changes when we have data from a case-control study
+\item Describe how (and why) logistic regression interpretation changes when we have data from a case-control study
 \item Use \texttt{R} to fit a logistic regression model  and to create figures/tables to support your logistic regression analysis
 \end{itemize}
 \end{frame}
@@ -90,7 +91,7 @@ However, we are often interested in questions that involve \textcolor{blue}{bina
 
 We can say that diabetes is \textit{associated} with sex if any of the following are true... \pause
 \begin{itemize}
-\item[] $p_M \not= p_F$ \pause \textcolor{blue}{(probs)} \quad \quad \quad \quad \pause $\frac{p_M}{1-p_M} \not= \frac{p_F}{1-p_F}$ \pause \textcolor{blue}{(odds)} \pause
+\item[] $p_M \not= p_F$ \textcolor{blue}{(probs)} \quad \quad \quad \quad \pause $\frac{p_M}{1-p_M} \not= \frac{p_F}{1-p_F}$ \textcolor{blue}{(odds)} \pause
 \item[] $p_M - p_F \not= 0$ \pause \textcolor{blue}{(RD)} \pause \quad \quad \quad $\frac{p_M}{1-p_M} - \frac{p_F}{1-p_F} \not= 0$ \pause
 \item[] $p_M \div p_F \not= 1$ \pause \textcolor{blue}{(RR)} \pause \quad \quad \quad  $\left(\frac{p_M}{1-p_M}\right) \div \left(\frac{p_F}{1-p_F}\right) \not= 1$ \pause \textcolor{blue}{(OR)}
 \end{itemize}
@@ -115,7 +116,7 @@ Examples: \vspace{-0.3cm}
 	\end{itemize}
 \item Is diabetes associated with sex? \pause
 	\begin{itemize}
-	\item[] $\rightarrow$ Is there a \textcolor{orange}{difference} in \textcolor{blue}{probabilities} of diabetes between men and women? \pause
+	\item[] $\rightarrow$ Is there a \textcolor{orange}{difference} in \textcolor{blue}{probability} of diabetes between men and women? \pause
 	\item[] $\rightarrow$ Does the \textcolor{orange}{ratio} of \textcolor{blue}{odds} of diabetes between men and women differ from 1? \pause \begin{tiny}(Note how awkward it is to talk about ratios ``in English")\end{tiny}% make note of how awkard it is to talk about ratios ``in English"
 	\end{itemize}
 \end{itemize}
@@ -164,7 +165,7 @@ What's the average of a binary variable $Y$? \pause \textit{It's the probability
 \begin{frame}
 \frametitle{Activity: diabetes and sex}
 
-Suppose we fit the linear regression model $$E[\ diabetes \mid male\ ] = \beta_0 + \beta_1 male$$ (where $male = 1$ if male and $male = 0$ if female)
+Suppose we fit the linear regression model $$E[diabetes \mid male] = \beta_0 + \beta_1 male,$$ \begin{footnotesize}where $diabetes = 1$ if diabetes and $diabetes = 0$ if no diabetes, \\ and $male = 1$ if male and $male = 0$ if female. \end{footnotesize}
 
 On a piece of paper, please answer the following questions:
 
@@ -180,15 +181,18 @@ On a piece of paper, please answer the following questions:
 \begin{frame}
 \frametitle{Linear regression: diabetes vs sex}
 
-Suppose we fit the linear regression model $$E[\ diabetes \mid male\ ] = \beta_0 + \beta_1 male$$ (where $male = 1$ if male and $male = 0$ if female)
+Suppose we fit the linear regression model $$E[diabetes \mid male] = \beta_0 + \beta_1 male$$
 
 How do we interpret the regression coefficients $\beta_0, \beta_1$? \vspace{-0.3cm}
 
 \begin{itemize}
-\item \color{blue} $\beta_0$: \pause the probability of diabetes among females \pause
-\item $\beta_1$: \pause the difference in probabilities of diabetes between males and females \pause \color{black}
+\item \color{blue} $\beta_0$: \pause the probability of diabetes among females \pause \color{black}
+\item[] \ \ \begin{scriptsize} (the average value of diabetes among females) \end{scriptsize} \pause
+\item \color{blue} $\beta_1$: \pause the difference in probability of diabetes between males and females \pause \color{black}
+\item[] \ \ \begin{scriptsize}(the difference in average value of diabetes between males and females) \pause \end{scriptsize}
 \end{itemize}
 
+\vspace{-0.3cm}
 To answer our statistical question \begin{small}\textit{(is there a difference in probability of diabetes between men and women?)}\end{small} we just need to look at $\beta_1$! \begin{small} (estimate, CI, test if it's equal to 0) \end{small}
 \end{frame}
 
@@ -223,7 +227,7 @@ We can use \textcolor{blue}{logistic} regression to answer this question!
 \frametitle{Activity (continued): diabetes vs sex}
 Suppose we fit the logistic regression model $$\log\left(\text{Odds}[diabetes | male]\right) = \beta_0 + \beta_1 male$$
 
-On the same piece of paper as earlier, please answer the following questions:
+On the same piece of paper, please answer these questions:
 
 \begin{enumerate}
 \item[3.] Interpret the intercept, $\beta_0$.
@@ -252,43 +256,56 @@ To answer our statistical question \begin{small}\textit{(is the ratio of odds of
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%% comment out %%%%%%%%%%%%%%%%%%%
+\begin{comment}
 
-%%%% make it more general, now
-%%%% interpretation, reporting results
-%%%% pros and cons of each approach
 \section{Linear regression with binary outcomes}
 \begin{frame}
 \frametitle{SECTION 2: LINEAR REGRESSION WITH BINARY OUTCOMES}
 
-% diabetes and sex
-% diabetes and age
+% general formulation, do the math for coefficient interp
+% diabetes and sex: interp + R + reporting results
+% diabetes and age: interp + R + reporting results
+% cons: fitted values outside (0,1) range, CIs may include values outside (0,1) range
+% pros: interpretable (probabilities > odds, differences > ratios)
 
 \end{frame}
 
 
-
 \section{Simple logistic regression}
 \begin{frame}
-\frametitle{SECTION 2: SIMPLE LOGISTIC REGRESSION}
+\frametitle{SECTION 3: SIMPLE LOGISTIC REGRESSION}
 
-% diabetes and sex: logistic regression
-
-% diabetes and sex: chi-squared test [put this on HW?]
-
-% diabetes and age
-
-
+% motivation: keep things between 0 and 1
+% general formulation, do the math for coefficient interp
+% relate to a glm (explain logit function)
+% diabetes and sex: logistic regression; interp + R + reporting results; back transforming to get probs
+% diabetes and sex: chi-squared test [put this on HW?]; interp + R + reporting results
+% diabetes and age: interp + R + reporting results
 
 \end{frame}
 
 \section{Multiple logistic regression}
 \begin{frame}
-\frametitle{SECTION 2: MULTIPLE LOGISTIC REGRESSION}
+\frametitle{SECTION 4: MULTIPLE LOGISTIC REGRESSION}
 \end{frame}
 
-\section{Case-control studies}
+\section{Relative risk regression}
 \begin{frame}
-\frametitle{SECTION 3: LOGISTIC REGRESSION IN CASE-CONTROL STUDIES}
+\frametitle{Relative risk regression}
+It exists!
+% mention relative risk regression: log(E[Y|X]) = b0 + b1X
+\end{frame}
+
+\section{Summary of regression methods for binary outcomes}
+\begin{frame}
+\frametitle{Summary}
+%% summary: come back to slide 2.4 and highlight which type of regression answers which statistical question
+\end{frame}
+
+\section{Logistic regression in case-control studies}
+\begin{frame}
+\frametitle{SECTION 5: LOGISTIC REGRESSION IN CASE-CONTROL STUDIES}
 \end{frame}
 
 % prediction?
@@ -296,5 +313,8 @@ To answer our statistical question \begin{small}\textit{(is the ratio of odds of
 
 % assumptions/diagnostics?
 %\section{Assumptions and diagnostics}
+
+\end{comment}
+
 
 \end{document}
