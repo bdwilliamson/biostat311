@@ -40,10 +40,261 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 
 \begin{frame}
 \frametitle{CHAPTER 2: LOGISTIC REGRESSION}
+
+By the end of Chapter 2, you should be able to:
+\begin{itemize}
+\item Formulate a regression model, given a scientific or statistical question about a binary outcome
+\item Distinguish between probability and odds and know how to calculate each in \texttt{R}
+\item Interpret the coefficients for a (simple or multiple) linear or logistic regression model with a binary outcome
+\item Interpret confidence intervals and p-values for logistic regression coefficients
+\item Describe how logistic regression interpretation changes when we have data from a case-control study
+\item Use \texttt{R} to fit a logistic regression model  and to create figures/tables to support your logistic regression analysis
+\end{itemize}
 \end{frame}
 
+\section{Binary outcomes}
 \begin{frame}
-\frametitle{test here}
+\frametitle{SECTION 1: BINARY OUTCOMES}
+Up to this point, we've focused on questions involving \textcolor{blue}{quantitative} outcomes:
+
+\begin{itemize}
+\item Is lung function (\textcolor{blue}{FEV}) associated with smoking?
+\item Is \textcolor{blue}{systolic blood pressure} associated with ancestry?
+\item Is lung function (\textcolor{blue}{FEV}) associated with smoking, after adjusting for age, height, and sex?
+\item Does the association between lung function (\textcolor{blue}{FEV}) and smoking, adjusting for age and height, differ between males and females?
+\item Is cognitive function (\textcolor{blue}{DSST score}) associated with alcohol use, adjusting for age, sex, and education?
+\end{itemize}
 \end{frame}
+
+% binary outcome examples
+\begin{frame}
+\frametitle{SECTION 1: BINARY OUTCOMES}
+However, we are often interested in questions that involve \textcolor{blue}{binary} outcomes:
+
+\begin{itemize}
+\item Are \textcolor{blue}{surgery complications} after upper endoscopy associated with who performed your sedation (anesthesiologist vs nurse)? % my work
+\item Is \textcolor{blue}{cervical cancer} associated with hormonal contraceptive use? % group project
+\item Is \textcolor{blue}{death from heart disease} associated with smoking?
+\item Is \textcolor{blue}{diabetes} associated with sex? with age? % infarcts data
+\end{itemize}
+\end{frame}
+
+% look at diabetes vs sex example
+\begin{frame}
+\frametitle{Example: diabetes and sex}
+
+\begin{enumerate}
+\item \textbf{Scientific Question:} is diabetes associated with sex?  \pause
+\item \textbf{Statistical Question:} what do we mean by \textcolor{orange}{\textit{associated}}?  \pause
+\end{enumerate}
+
+We can say that diabetes is \textit{associated} with sex if any of the following are true... \pause
+\begin{itemize}
+\item[] $p_M \not= p_F$ \pause \textcolor{blue}{(probs)} \quad \quad \quad \quad \pause $\frac{p_M}{1-p_M} \not= \frac{p_F}{1-p_F}$ \pause \textcolor{blue}{(odds)} \pause
+\item[] $p_M - p_F \not= 0$ \pause \textcolor{blue}{(RD)} \pause \quad \quad \quad $\frac{p_M}{1-p_M} - \frac{p_F}{1-p_F} \not= 0$ \pause
+\item[] $p_M \div p_F \not= 1$ \pause \textcolor{blue}{(RR)} \pause \quad \quad \quad  $\left(\frac{p_M}{1-p_M}\right) \div \left(\frac{p_F}{1-p_F}\right) \not= 1$ \pause \textcolor{blue}{(OR)}
+\end{itemize}
+\end{frame}
+
+
+% defining associations
+\begin{frame}
+\frametitle{Association}
+When figuring out how we want to define \textit{association}, there are two parts that we need to think about...  \vspace{-0.3cm} \pause
+
+\begin{itemize}
+\item \textcolor{blue}{Summary measure}: probability, odds, mean
+\item \textcolor{orange}{Contrast}: difference, ratio
+\end{itemize} \pause
+
+Examples: \vspace{-0.3cm}
+\begin{itemize}
+\item Is FEV associated with smoking? \pause
+	\begin{itemize}
+	\item[] $\rightarrow$ Is there a \textcolor{orange}{difference} in \textcolor{blue}{average} FEV between smokers and nonsmokers? \pause
+	\end{itemize}
+\item Is diabetes associated with sex? \pause
+	\begin{itemize}
+	\item[] $\rightarrow$ Is there a \textcolor{orange}{difference} in \textcolor{blue}{probabilities} of diabetes between men and women? \pause
+	\item[] $\rightarrow$ Does the \textcolor{orange}{ratio} of \textcolor{blue}{odds} of diabetes between men and women differ from 1? \pause \begin{tiny}(Note how awkward it is to talk about ratios ``in English")\end{tiny}% make note of how awkard it is to talk about ratios ``in English"
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+% diabetes and sex: linear regression
+\begin{frame}
+\frametitle{Example: diabetes and sex}
+
+\begin{enumerate}
+\item \textbf{Scientific Question:} is diabetes \textcolor{orange}{associated} with sex? \pause
+\item \textbf{Statistical Question:} is there a \textcolor{orange}{difference in probability} of diabetes between men and women? \pause
+	\begin{itemize}
+	\item \textbf{Parameter:} difference in probabilities \pause
+	\end{itemize}
+\item Take a \textbf{sample} from the population: cohort study of adults aged 65 and older \pause
+\item Perform \textit{statistical inference}:
+	\begin{itemize}
+	\item Calculate a corresponding \textbf{statistic}: difference in probabilities in our sample
+	\item Quantify uncertainty in your statistic
+	\item Perform a hypothesis test \pause
+	\end{itemize}
+\end{enumerate}
+
+We can use linear regression to answer this question!
+\end{frame}
+
+% aside: mean of a binary variable
+\begin{frame}
+\frametitle{Linear regression with a binary outcome}
+
+Simple linear regression model: $$E[Y \mid X] = \beta_0 + \beta_1 X$$
+
+$E[Y \mid X]$ is the \textcolor{blue}{\textit{expected value}} of $Y$ given $X$ (or the \textcolor{blue}{\textit{average}}) \pause
+
+What's the average of a binary variable $Y$? \pause \textit{It's the probability that $Y$ equals 1!} $\left(\text{i.e., } E[Y] = \text{P}(Y=1)\right)$ \pause
+
+\begin{itemize} \itemsep +12pt
+\item[] $Y = \{ 0, 0, 1, 0, 1, 1, 0, 0, 1, 1 \}$ \pause
+\item[] $\bar{Y} = \frac{0 + 0 + 1 + 0 + 1 + 1 + 0 + 0 + 1 + 1}{10} = \frac{1}{2}$ \pause
+\item[] $\hat{p} = \widehat{\text{P}(Y=1)} = \frac{5}{10} = \frac{1}{2} $
+\end{itemize}
+\end{frame}
+
+% activity: interpret lin reg coefficients
+\begin{frame}
+\frametitle{Activity: diabetes and sex}
+
+Suppose we fit the linear regression model $$E[\ diabetes \mid male\ ] = \beta_0 + \beta_1 male$$ (where $male = 1$ if male and $male = 0$ if female)
+
+On a piece of paper, please answer the following questions:
+
+\begin{enumerate}
+\item Interpret the intercept, $\beta_0$.
+\item Interpret the slope, $\beta_1$.
+\end{enumerate}
+
+(You will turn this in at the end of class.)
+\end{frame}
+
+% linear regression: diabetes vs sex
+\begin{frame}
+\frametitle{Linear regression: diabetes vs sex}
+
+Suppose we fit the linear regression model $$E[\ diabetes \mid male\ ] = \beta_0 + \beta_1 male$$ (where $male = 1$ if male and $male = 0$ if female)
+
+How do we interpret the regression coefficients $\beta_0, \beta_1$? \vspace{-0.3cm}
+
+\begin{itemize}
+\item \color{blue} $\beta_0$: \pause the probability of diabetes among females \pause
+\item $\beta_1$: \pause the difference in probabilities of diabetes between males and females \pause \color{black}
+\end{itemize}
+
+To answer our statistical question \begin{small}\textit{(is there a difference in probability of diabetes between men and women?)}\end{small} we just need to look at $\beta_1$! \begin{small} (estimate, CI, test if it's equal to 0) \end{small}
+\end{frame}
+
+% motivate logistic regression
+\begin{frame}
+\frametitle{Diabetes vs sex: odds}
+\begin{small} What if we wanted to quantify the association between diabetes and sex via the \textit{odds ratio} rather than the \textit{risk difference} (difference in probabilities)? \end{small} \pause
+
+\vspace{-0.3cm}
+
+\begin{enumerate}
+\item \textbf{Scientific Question:} is diabetes \textcolor{orange}{associated} with sex? \pause
+\item \textbf{Statistical Question:} is the \textcolor{orange}{ratio of odds} of diabetes between men and women different from 1? \pause
+	\begin{itemize}
+	\item \textbf{Parameter:} odds ratio \pause
+	\end{itemize}
+\item Take a \textbf{sample} from the population: cohort study of adults aged 65 and older \pause
+\item Perform \textit{statistical inference}:
+	\begin{itemize}
+	\item Calculate a corresponding \textbf{statistic}: sample odds ratio
+	\item Quantify uncertainty in your statistic
+	\item Perform a hypothesis test \pause
+	\end{itemize}
+\end{enumerate}
+
+\vspace{-0.4cm}
+We can use \textcolor{blue}{logistic} regression to answer this question!
+\end{frame}
+
+% ask them to think about logistic regression interp
+\begin{frame}
+\frametitle{Activity (continued): diabetes vs sex}
+Suppose we fit the logistic regression model $$\log\left(\text{Odds}[diabetes | male]\right) = \beta_0 + \beta_1 male$$
+
+On the same piece of paper as earlier, please answer the following questions:
+
+\begin{enumerate}
+\item[3.] Interpret the intercept, $\beta_0$.
+\item[4.] Interpret the slope, $\beta_1$.
+\end{enumerate}
+\end{frame}
+
+% logistic regression: diabetes vs sex
+\begin{frame}
+\frametitle{Logistic regression: diabetes vs sex}
+
+Suppose we fit the logistic regression model $$\log\left(\text{Odds}[diabetes | male]\right) = \beta_0 + \beta_1 male$$
+
+\vspace{-0.2cm}
+
+How do we interpret the regression coefficients $\beta_0, \beta_1$? \vspace{-0.3cm}
+\begin{itemize}
+\item $\beta_0$: \pause the log odds of diabetes among females \pause
+\item[] \color{blue} $e^{\beta_0}$: the odds of diabetes among females \pause \color{black}
+\item $\beta_1$: \pause the difference in log odds of diabetes between males and females \pause 
+\item[] \color{blue} $e^{\beta_1}$: the ratio of odds between males and females \color{black}
+\end{itemize}
+
+\vspace{-0.2cm}
+To answer our statistical question \begin{small}\textit{(is the ratio of odds of diabetes between men and women different from 1?)}\end{small} we just need to look at $e^{\beta_1}$! \begin{small} (estimate, CI, test if it's equal to 1) \end{small}
+\end{frame}
+
+
+
+%%%% make it more general, now
+%%%% interpretation, reporting results
+%%%% pros and cons of each approach
+\section{Linear regression with binary outcomes}
+\begin{frame}
+\frametitle{SECTION 2: LINEAR REGRESSION WITH BINARY OUTCOMES}
+
+% diabetes and sex
+% diabetes and age
+
+\end{frame}
+
+
+
+\section{Simple logistic regression}
+\begin{frame}
+\frametitle{SECTION 2: SIMPLE LOGISTIC REGRESSION}
+
+% diabetes and sex: logistic regression
+
+% diabetes and sex: chi-squared test [put this on HW?]
+
+% diabetes and age
+
+
+
+\end{frame}
+
+\section{Multiple logistic regression}
+\begin{frame}
+\frametitle{SECTION 2: MULTIPLE LOGISTIC REGRESSION}
+\end{frame}
+
+\section{Case-control studies}
+\begin{frame}
+\frametitle{SECTION 3: LOGISTIC REGRESSION IN CASE-CONTROL STUDIES}
+\end{frame}
+
+% prediction?
+%\section{Prediction}
+
+% assumptions/diagnostics?
+%\section{Assumptions and diagnostics}
 
 \end{document}
