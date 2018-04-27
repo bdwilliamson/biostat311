@@ -44,8 +44,8 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 
 By the end of Chapter 2, you should be able to:
 \begin{itemize}
-\item Formulate a regression model, given a scientific or statistical question about a binary outcome
 \item Distinguish between probability and odds and know how to calculate each in \texttt{R}
+\item Formulate a regression model, given a scientific or statistical question about a binary outcome
 \item Interpret the coefficients for a (simple or multiple) linear or logistic regression model with a binary outcome
 \item Interpret confidence intervals and p-values for logistic regression coefficients
 \item Describe how (and why) logistic regression interpretation changes when we have data from a case-control study
@@ -89,11 +89,11 @@ However, we are often interested in questions that involve \textcolor{blue}{bina
 \item \textbf{Statistical Question:} what do we mean by \textcolor{orange}{\textit{associated}}?  \pause
 \end{enumerate}
 
-We can say that diabetes is \textit{associated} with sex if any of the following are true... \pause
+There are multiple ways that we could check if diabetes is \textit{associated} with sex... \pause
 \begin{itemize}
-\item[] $p_M \not= p_F$ \textcolor{blue}{(probs)} \quad \quad \quad \quad \pause $\frac{p_M}{1-p_M} \not= \frac{p_F}{1-p_F}$ \textcolor{blue}{(odds)} \pause
-\item[] $p_M - p_F \not= 0$ \pause \textcolor{blue}{(RD)} \pause \quad \quad \quad $\frac{p_M}{1-p_M} - \frac{p_F}{1-p_F} \not= 0$ \pause
-\item[] $p_M \div p_F \not= 1$ \pause \textcolor{blue}{(RR)} \pause \quad \quad \quad  $\left(\frac{p_M}{1-p_M}\right) \div \left(\frac{p_F}{1-p_F}\right) \not= 1$ \pause \textcolor{blue}{(OR)}
+\item[] $p_M \stackrel{?}{=} p_F$ \textcolor{blue}{(probs)} \quad \quad \quad \quad \pause $\frac{p_M}{1-p_M} \stackrel{?}{=} \frac{p_F}{1-p_F}$ \pause \textcolor{blue}{(odds)} \pause
+\item[] $p_M - p_F \stackrel{?}{=} 0$ \pause \textcolor{blue}{(RD)} \pause \quad \quad \quad $\frac{p_M}{1-p_M} - \frac{p_F}{1-p_F} \stackrel{?}{=} 0$ \pause
+\item[] $p_M \div p_F \stackrel{?}{=} 1$ \pause \textcolor{blue}{(RR)} \pause \quad \quad \quad  $\left(\frac{p_M}{1-p_M}\right) \div \left(\frac{p_F}{1-p_F}\right) \stackrel{?}{=} 1$ \pause \textcolor{blue}{(OR)}
 \end{itemize}
 \end{frame}
 
@@ -117,7 +117,7 @@ Examples: \vspace{-0.3cm}
 \item Is diabetes associated with sex? \pause
 	\begin{itemize}
 	\item[] $\rightarrow$ Is there a \textcolor{orange}{difference} in \textcolor{blue}{probability} of diabetes between men and women? \pause
-	\item[] $\rightarrow$ Does the \textcolor{orange}{ratio} of \textcolor{blue}{odds} of diabetes between men and women differ from 1? \pause \begin{tiny}(Note how awkward it is to talk about ratios ``in English")\end{tiny}% make note of how awkard it is to talk about ratios ``in English"
+	\item[] $\rightarrow$ Does the \textcolor{orange}{ratio} of \textcolor{blue}{odds} of diabetes between men and women differ from 1? %\pause \begin{tiny}(Note how awkward it is to talk about ratios ``in English")\end{tiny}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -130,9 +130,9 @@ Examples: \vspace{-0.3cm}
 \item \textbf{Scientific Question:} is diabetes \textcolor{orange}{associated} with sex? \pause
 \item \textbf{Statistical Question:} is there a \textcolor{orange}{difference in probability} of diabetes between men and women? \pause
 	\begin{itemize}
-	\item \textbf{Parameter:} difference in probabilities \pause
+	\item \textbf{Parameter:} difference in probabilities (or \textit{risk difference}) \pause
 	\end{itemize}
-\item Take a \textbf{sample} from the population: cohort study of adults aged 65 and older \pause
+\item Take a \textbf{sample} from the population: cohort study of adults aged 65 and older from 4 US communities \pause
 \item Perform \textit{statistical inference}:
 	\begin{itemize}
 	\item Calculate a corresponding \textbf{statistic}: difference in probabilities in our sample
@@ -167,12 +167,12 @@ What's the average of a binary variable $Y$? \pause \textit{It's the probability
 
 Suppose we fit the linear regression model $$E[diabetes \mid male] = \beta_0 + \beta_1 male,$$ \begin{footnotesize}where $diabetes = 1$ if diabetes and $diabetes = 0$ if no diabetes, \\ and $male = 1$ if male and $male = 0$ if female. \end{footnotesize}
 
-On a piece of paper, please answer the following questions:
+\color{blue} On a piece of paper, please answer the following questions: 
 
 \begin{enumerate}
-\item Interpret the intercept, $\beta_0$.
+\item \color{blue} Interpret the intercept, $\beta_0$.
 \item Interpret the slope, $\beta_1$.
-\end{enumerate}
+\end{enumerate} \color{black}
 
 (You will turn this in at the end of class.)
 \end{frame}
@@ -199,7 +199,7 @@ To answer our statistical question \begin{small}\textit{(is there a difference i
 % motivate logistic regression
 \begin{frame}
 \frametitle{Diabetes vs sex: odds}
-\begin{small} What if we wanted to quantify the association between diabetes and sex via the \textit{odds ratio} rather than the \textit{risk difference} (difference in probabilities)? \end{small} \pause
+\begin{small} What if we wanted to quantify the association between diabetes and sex via the \textit{odds ratio} rather than the \textit{risk difference}? \end{small} \pause
 
 \vspace{-0.3cm}
 
@@ -209,7 +209,7 @@ To answer our statistical question \begin{small}\textit{(is there a difference i
 	\begin{itemize}
 	\item \textbf{Parameter:} odds ratio \pause
 	\end{itemize}
-\item Take a \textbf{sample} from the population: cohort study of adults aged 65 and older \pause
+\item Take a \textbf{sample} from the population: cohort study of adults aged 65 and older from 4 US communities \pause
 \item Perform \textit{statistical inference}:
 	\begin{itemize}
 	\item Calculate a corresponding \textbf{statistic}: sample odds ratio
@@ -227,10 +227,10 @@ We can use \textcolor{blue}{logistic} regression to answer this question!
 \frametitle{Activity (continued): diabetes vs sex}
 Suppose we fit the logistic regression model $$\log\left(\text{Odds}[diabetes | male]\right) = \beta_0 + \beta_1 male$$
 
-On the same piece of paper, please answer these questions:
+\color{blue} On the same piece of paper, please answer these questions:
 
 \begin{enumerate}
-\item[3.] Interpret the intercept, $\beta_0$.
+\item[3.] \color{blue} Interpret the intercept, $\beta_0$.
 \item[4.] Interpret the slope, $\beta_1$.
 \end{enumerate}
 \end{frame}
