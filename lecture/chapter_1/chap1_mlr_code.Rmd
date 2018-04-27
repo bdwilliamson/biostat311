@@ -11,10 +11,12 @@ options(width=400)
 ```
 
 ```{r read-fev, echo = TRUE, include = FALSE}
-fev <- read.table('http://www.emersonstatistics.com/datasets/fev.txt',header=T)
+# fev <- read.table('http://www.emersonstatistics.com/datasets/fev.txt',header=T)
+fev <- read.table('../../datasets/fev.txt', header = TRUE)
 fev$smoker <- ifelse(fev$smoke == 2, 0, 1)
 adultfev <- read.table("adultfev.txt", header = TRUE)
-infarcts <- read.table("http://www.emersonstatistics.com/datasets/infarcts.txt", header = TRUE)
+adultfev <- adultfev[complete.cases(adultfev), ]
+# infarcts <- read.table("http://www.emersonstatistics.com/datasets/infarcts.txt", header = TRUE)
 ```
 
 ## FEV on smoking, stratified by height
@@ -75,7 +77,23 @@ regress("mean", fev ~ smoke*male, data = adultfev)
 \newpage
 
 ## DSST, EM with age and educ
-```{r echo = TRUE}
+```{r echo = TRUE, eval = FALSE}
 library("uwIntroStats", warn.conflicts = FALSE)
 regress("mean", dsst ~ age*educ, data = infarcts)
+```
+
+## FEV prediction
+```{r echo = TRUE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fev ~ smoke*male + height, data = adultfev)
+```
+
+\newpage
+
+## FEV prediction, part 2
+```{r echo = TRUE}
+mod_predict_fev <- lm(fev ~ smoke*male + height, data = adultfev)
+head(cbind(adultfev, fitted(mod_predict_fev)))
+predict(mod_predict_fev, newdata = data.frame(smoke = 0, male = 0, height = 60))
+predict(mod_predict_fev, newdata = data.frame(smoke = 1, male = 1, height = 72))
 ```

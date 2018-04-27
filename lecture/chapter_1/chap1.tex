@@ -1,5 +1,5 @@
 \documentclass[12pt, 
-hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
+hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan},dvipsnames]{beamer}
 \usetheme{default} 
 
 \setbeamertemplate{navigation symbols}{} %gets rid of navigation symbols
@@ -2210,17 +2210,17 @@ Here, we estimate that the association between older age and lower cognitive sco
 
 \section{Prediction}
 \begin{frame}
-\frametitle{SECTION 3: PREDICTION}
+\frametitle{{\fontsize{15pt}{7.2}\selectfont SECTION 3: PREDICTION IN LINEAR REGRESSION}}
 
 By the end of Section 3, you should be able to:
 \begin{itemize}
 \item Understand and explain the difference between the scientific goals of prediction versus causal association
 \item[]
+\item \textcolor{green}{Obtain predicted values from a linear regression analysis} by hand and using R
+\item[]
 \item Determine the \textcolor{blue}{predictive accuracy} of a linear regression analysis using $R^2$
 \item[]
 \item Understand and explain the \textcolor{magenta}{bias-variance tradeoff}
-\item[]
-\item \textcolor{green}{Obtain predicted values from a linear regression analysis} by hand and using R
 \end{itemize}
 \end{frame}
 
@@ -2235,25 +2235,227 @@ When our scientific question involves \textbf{prediction}, we have a different g
 
 \begin{frame}
 \frametitle{Prediction: examples}
-
+Some studies where prediction is the goal:
+\begin{itemize}
+\item \href{http://www.nature.com.offcampus.lib.washington.edu/articles/nature26000}{classifying tumors of the central nervous system} {\small (in Nature)}
+\item \href{http://www.nejm.org.offcampus.lib.washington.edu/doi/full/10.1056/NEJMoa0804742}{predicting the risk of type II diabetes} {\small (in The New England Journal of Medicine)}
+\item \href{https://www.ncbi.nlm.nih.gov/pubmed/28131393}{predicting immune response after completing an HIV vaccine trial} {\small (in Vaccine, by researchers at the Fred Hutchinson)}
+\item predicting the sensitivity of HIV-1 viruses to neutralization by broadly neutralizing antibodies (my own research, paper to come soon!)
+\end{itemize}
 \end{frame}
 
-
-
 \begin{frame}
-\frametitle{Prediction: measuring accuracy}
+\frametitle{Prediction: obtaining predictions}
+Consider the linear regression model
+\begin{align*}
+E(Y \mid X_1, X_2, X_3) = & \ \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3.
+\end{align*}
+I fit this linear regression, obtaining coefficient estimates; these are
+\begin{align*}
+\widehat{E}(Y \mid X_1, X_2, X_3) = & \ \hat{\beta}_0 + \hat{\beta}_1 X_1 + \hat{\beta}_2 X_2 + \hat{\beta}_3 X_3.
+\end{align*}
 
-\end{frame}
+Another name for $\widehat{E}(Y \mid X_1, X_2, X_3)$ is $\widehat{Y}$: these are the \textbf{fitted values}, obtained from drawing my best-fitting line through the data.
 
-\begin{frame}
-\frametitle{Prediction: bias-variance tradeoff}
+\textcolor{blue}{You have seen fitted values many times before:} for participants with all covariates equal to zero in your sample, the estimated intercept is the fitted value.
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Prediction: obtaining predictions}
+There is \textbf{exactly one fitted value} corresponding to each participant in our data, and we call these $\widehat{Y}_i$, for $i = 1, 2, \dots, n$ (and $n$ is our sample size).
+
+\textcolor{blue}{We obtain these fitted values simply by plugging in the covariates for the $i$th observation:}
+\begin{align*}
+\widehat{Y}_i = & \  \hat{\beta}_0 + \hat{\beta}_1 X_{i,1} + \hat{\beta}_2 X_{i,2} + \hat{\beta}_3 X_{i,3}.
+\end{align*}
+
+\textcolor{magenta}{In two dimensions, the line is our fitted values!} In higher dimensions, it is not quite as easy to conceptualize.
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: obtaining predictions}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{plots/linear-regr.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: obtaining predictions}
+Suppose you suddenly get data on the covariates of a \textcolor{magenta}{new participant}. 
+
+\textcolor{red}{Without re-fitting your linear regression}, how might you obtain a predicted value based on this participant's covariates? \pause
+
+Plug them in! 
+\begin{align*}
+\widehat{Y}_{n+1} = & \ \hat{\beta}_0 + \hat{\beta}_1 X_{(n+1),1} + \hat{\beta}_2 X_{(n+1),2} + \hat{\beta}_3 X_{(n+1),3}
+\end{align*}
+
+\textbf{In general, you can either do this by hand or use R to compute predicted values for you.}
+
+Additionally, \textcolor{green}{the fitted values are our predictions of the mean outcome for the current study participants.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: extrapolation}
+The intercept is the predicted mean value of the outcome for participants in our sample with all covariates equal to zero.
+
+We have already seen how extrapolating can provide reason not to report the estimated intercept in a linear regression.
+
+\textcolor{red}{Using the linear regression formula to obtain predictions can create problems if we extrapolate far outside of our data for other predictions as well}:
+\begin{itemize}
+\item if my study only looks at tumors in the central nervous system, does it make sense to predict the type of a tumor found in the lymph nodes?
+\item if I only consider people aged 65+, does it make sense to predict a health outcome for someone under 21?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: Adult FEV}
+The adult FEV dataset has 725 individuals, with measurements of age, FEV, height, sex, and smoking status.
+
+On slide 1.147, we interpreted the coefficients in the linear regression model
+\begin{align*}
+E(\text{FEV} \mid \text{Smoker}, \text{Male}, \text{Height}) = & \ \beta_0 + \beta_1 \text{Smoker} + \beta_2 \text{Male} \\
+&+ \beta_3 (\text{Smoker}\times\text{Male}) + \beta_4 \text{Height}.
+\end{align*} 
+
+Now we'll perform the regression, and extract \textbf{all coefficient estimates} to make predictions.
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: Adult FEV}
+\includegraphics[width = 1.1\textwidth]{plots/predict_adult_fev.png}
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Prediction: Adult FEV}
+\begin{align*}
+\widehat{Y} = & \ -3.28 - 0.21 \text{Smoker} + 0.24 \text{Male} + 0.08 \text{Height}\\
+& - 0.24 (\text{Smoker}\times\text{Male}).
+\end{align*}
+
+What is our best estimate of the mean FEV for a \textcolor{blue}{nonsmoking} \textcolor{green}{female} who is \textcolor{magenta}{60 inches tall}? \pause
+\begin{align*}
+\widehat{Y} = & \ -3.28 - 0.21 \times 0 + 0.24 \times 0 + 0.08 \times 60 - 0.24 \times (0 \times 0) \\
+=& \ -3.28 + 4.8 = 1.52
+\end{align*} \pause
+
+\vspace{-0.5cm}
+What is our best estimate of the mean FEV for a \textcolor{blue}{smoking} \textcolor{green}{male} who is \textcolor{magenta}{72 inches tall}? \pause
+\begin{align*}
+\widehat{Y} = & \ -3.28 - 0.21 \times 1 + 0.24 \times 1 + 0.08 \times 72 - 0.24 \times (1 \times 1) \\
+=& \ -3.28 -0.21 + 0.24 + 5.76 - 0.24 = 2.27
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: Adult FEV}
+Use the \texttt{lm()} function to get predicted values in \texttt{R}:
+\begin{center}
+\includegraphics[width = 1\textwidth]{plots/predict_adult_fev_vals.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: measuring accuracy}
+\textcolor{magenta}{Goal of prediction: develop an algorithm based on current data that, when we plug in future data, predicts the outcome well.}
+
+We typically measure ``well'' by thinking about the variance in the outcome explained by our predictive algorithm. 
+
+The $R^2$ quantity makes this specific:
+\begin{align*}
+R^2 = & \ 1 - \frac{\text{squared difference between observations and fitted values}}{\text{variance of the outcome}} \\
+= & \ 1 - \frac{\text{residual sum of squares (RSS)}}{\text{total sum of squares (TSS)}} \\
+= & \ 1 - \frac{\sum_{i=1}^n (Y_i - \widehat{Y}_i)^2}{\sum_{i=1}^n (Y_i - \overline{Y}_i)^2}.
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: measuring accuracy}
+$R^2$ intuition:
+\begin{itemize}
+\item squaring differences makes above/below the line count equally
+\item[]
+\item residuals: difference between fitted line (fitted value) and response
+\item[]
+\item $R^2$ close to one: the ratio is close to zero, indicating that the difference between the observations and fitted values is much smaller than the variance
+\item[]
+\item $R^2$ close to zero: the ratio is close to 1, indicating that the fitted values are as good as using only the mean
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: measuring accuracy}
+The regression output in \texttt{R} includes $R^2$ by default.
+
+However, it actually displays two types:
+\begin{itemize}
+\item \texttt{Multiple R-squared} is the $R^2$ from slide 1.164--1.165
+\item \texttt{Adjusted R-squared} is slightly different, and accounts for the number of model parameters
+\end{itemize}
+
+Finally, \texttt{R} estimates the standard error of the residuals, which is proportional to the square root of the RSS. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: Adult FEV}
+\includegraphics[width = 1.1\textwidth]{plots/predict_adult_fev.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: bias-variance tradeoff}
+Any estimation technique has $\begingroup\color{red}\text{bias}\endgroup$ and $\begingroup\color{Aquamarine}\text{variance}\endgroup$. 
+
+These correspond to {\color{red}how far our estimates are from the truth} and {\color{Aquamarine}how variable our estimates are}.
+
+In addition to $R^2$, we can measure prediction accuracy with $\begingroup\color{red}\text{bias}\endgroup^2 + \begingroup\color{Aquamarine}\text{variance}\endgroup $; this is called \textbf{mean squared error} (MSE), and is simply the residual sum of squares divided by the sample size.
+
+Typically, inducing bias in our estimation will result in decreased variance, and vice versa.
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: bias-variance tradeoff}
+Consider two options for obtaining predictions: we can either fit each point exactly (\emph{interpolating}), or fit linear regression. 
+
+Interpolating has $\begingroup\color{red}\text{zero bias}\endgroup$ on the training data; linear regression has $\begingroup\color{red}\text{large bias}\endgroup$.
+
+\centering
+\includegraphics[width = 0.5\textwidth]{plots/bias_variance_tradeoff_1.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: bias-variance tradeoff}
+Moving one point from $(0.5, -0.58)$ to $(0.5, -0.08)$ changes the interpolating fit drastically, but doesn't change the linear regression fit. 
+
+Interpolating has $\begingroup\color{Aquamarine}\text{large variance}\endgroup$; linear regression has $\begingroup\color{Aquamarine}\text{small variance}\endgroup$.
+ 
+\centering
+\includegraphics[width = 0.5\textwidth]{plots/bias_variance_tradeoff_1.png}
+\includegraphics[width = 0.5\textwidth]{plots/bias_variance_tradeoff_2.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: summary}
+If our scientific goal is to obtain predictions, then we have different concerns than when we are interested in associations: \vspace{-0.3cm}
+\begin{itemize}
+\item extrapolating is more dangerous
+\item we have to balance the bias and variance of our estimators
+\item we want ``good'' predictions ($R^2$ near 1, MSE low)
+\end{itemize}
+
+We can get actual values of predictions by either: \vspace{-0.3cm}
+\begin{itemize}
+\item reading off regression coefficients and plugging in new values by hand, or
+\item using the \texttt{lm()} and \texttt{predict()} functions in \texttt{R}
+\end{itemize}
+
+Making good predictions is a hot topic in statistics currently, and ``machine learning'' methods are often the best predictive algorithms.
+\end{frame}
+
+\begin{comment}
 
 \section{Wrapping up}
 \begin{frame}
@@ -2308,5 +2510,5 @@ Data analysis workflow (continued): \vspace{-0.3cm}
 \frametitle{Linear regression: \texttt{infarcts}}
 \end{frame}
 
-
+\end{comment}
 \end{document}
