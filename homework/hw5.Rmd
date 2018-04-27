@@ -1,0 +1,111 @@
+---
+title: "Homework 5"
+author: "Kelsey Grinde and Brian Williamson"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  pdf_document:
+    fig_caption: true
+---
+
+# Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by 5:00pm on May 4. You are welcome to work together on the homework; however, final solutions should be written up individually. 
+
+Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). **Unedited R output, or code, in the body of your assignment is not acceptable.** Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+# 1. Reviewing Midterm 1 (2 points) 
+
+Take one of the questions from Midterm 1 for which you did not get full points. You may choose from among Questions 4b, 5a, or 5b. (If you got full points on all three of these questions, please contact us so we can help you find an acceptable replacement.) The concepts tested in these questions are very important for linear regression, and will continue to be important in the context of logistic regression (Chapter 2) and survival analysis (Chapter 3). In this problem, you will work to improve your answer.
+
+## a. (0 points) Tell us which question you have chosen to focus on, and type (or include a screenshot of) your original answer to that question here.
+
+Type your answer here.
+
+## b. (0.5 points) Critique your answer: What was wrong? Why did you lose points? Is there anything else you could improve, even if you didn't lose points?
+
+Type your answer here.
+
+## c. (1 point) Re-write your answer so that it is now correct.
+
+Type your answer here.
+
+## d. (0.5 points) Explain what changes you made from part (a) to part (c). Why is your new answer better?
+
+Type your answer here.
+
+\newpage
+
+# 2. Regression Assumptions and Misconceptions (2 points)
+
+Two common misconceptions about linear regression (and the t-test) are that it requires the following assumptions:
+
+1. Normality of the outcome (i.e., $Y \sim N(\mu,\sigma^2)$ for some mean $\mu$ and variance $\sigma^2$)
+2. Constant variance, also known as homoskedasticity (i.e., $\text{Var}(Y|X = x) = \sigma^2$ for all values $x$)
+
+**Explain why we don't actually need these assumptions.**
+
+Type your answer here.
+
+\newpage
+
+# 3. Linear Regression with Binary Outcomes (4 points)
+
+In this example, we will use the `inflamm` dataset (available on Canvas in the `Data` folder), which comes from a cohort study of 5000 generally healthy elderly adults who were randomly sampled from Medicare rolls in four US communities.
+
+For this assignment, our scientific question of interest concerns the potential association between type 2 diabetes and body mass index (BMI).
+
+## a. (0.5 points) Write out a simple linear regression model that we could use to answer our scientific question.
+
+Type your model here. 
+
+## b. (0.5 points) Interpret the intercept ($\beta_0$) in your model from (a). 
+
+Type your model here.
+
+## c. (0.5 points) Interpret the slope ($\beta_1$) in your model from (a). 
+
+Type your model here.
+
+## d. (1 point) Use R to fit your regression model from (a). Write a summary of the results, in the context of our scientific question.
+
+**Download the data from Canvas (Files > Data > inflamm.txt) and load it into `R`. Fit the linear regression model you specified in part (a). Then, write a summary of your results.**
+
+```{r code-for-3d, eval = FALSE, echo = FALSE}
+## load dataset
+
+## fit linear regression
+
+```
+
+Summarize your results here.
+
+## e. (1 point) Use your regression model from (d) to predict diabetes status for two adults, one with BMI = 15 kg/m$^2$, and the other with BMI = 30 kg/m$^2$. Report the predicted values. Do your results seem scientifically sensible?
+
+Report and discuss predicted values here.
+
+
+## f. (0.5 points) Discuss the limitations of the linear regression analysis we have performed in this question. (HINT: there are a couple. Your answers to parts (b) and (e) might give you a hint about one of them.)
+
+Type your answer here.
+
+\newpage
+
+# R Code
+
+Once you have completed your assignment, update (if needed) and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names #####
+rmd.name <- 'hw5.Rmd' # name of this file; update if you changed the name of this file
+code.name <- 'hw5.R' # name of R code file; you can change if desired
+```
+
+```{r extract-code, eval = FALSE, include = FALSE}
+##### STEP 2: Run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+**Please upload the file `r code.name` along with your completed assignment.**
