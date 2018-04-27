@@ -20,6 +20,7 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 \usepackage{amsthm}
 \usepackage[UKenglish]{isodate}
 \usepackage{verbatim}
+\usepackage{xcolor}
 \cleanlookdateon
 
 % the preamble
@@ -2210,6 +2211,48 @@ Here, we estimate that the association between older age and lower cognitive sco
 \section{Prediction}
 \begin{frame}
 \frametitle{SECTION 3: PREDICTION}
+
+By the end of Section 3, you should be able to:
+\begin{itemize}
+\item Understand and explain the difference between the scientific goals of prediction versus causal association
+\item[]
+\item Determine the \textcolor{blue}{predictive accuracy} of a linear regression analysis using $R^2$
+\item[]
+\item Understand and explain the \textcolor{magenta}{bias-variance tradeoff}
+\item[]
+\item \textcolor{green}{Obtain predicted values from a linear regression analysis} by hand and using R
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction versus (causal) association}
+So far, in this course, our goal has been to estimate the association between a predictor of interest and our outcome.
+
+Whether or not we need to adjust for other variables (\textcolor{red}{to deal with potential confounding}, \textcolor{green}{or increase precision}), or include interaction terms (\textcolor{blue}{for effect modification}) depends on the scientific question, which is aimed at these \textbf{associations}.
+
+When our scientific question involves \textbf{prediction}, we have a different goal: \textcolor{magenta}{develop an algorithm based on current data that, when we plug in future data, predicts the outcome well.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: examples}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Prediction: measuring accuracy}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: bias-variance tradeoff}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: obtaining predictions}
+
 \end{frame}
 
 \section{Wrapping up}
@@ -2218,7 +2261,52 @@ Here, we estimate that the association between older age and lower cognitive sco
 
 We have spent a lot of time interpreting linear regression coefficients, confidence intervals, and p-values.
 
-Depending on your scientific question and your study design, you may  
+Depending on your scientific question and your study design, you may need to adjust for \textcolor{red}{potential confounders} and/or \textcolor{green}{precision variables}, and you may include interaction terms to test \textcolor{blue}{effect modification}.
+
+We have also spent considerable time honing your data analysis workflow.
 \end{frame}
+
+\begin{frame}
+\frametitle{SECTION 4: SUMMARY}
+Data analysis workflow: \vspace{-0.3cm}
+\begin{itemize}
+\item Write a \textcolor{blue}{scientific question}
+\item[]
+\item Draw a \textcolor{green}{causal diagram}
+\item[]
+\item Write a \textcolor{orange}{statistical question that uses the causal diagram and answers the scientific question}
+\item[]
+\item \textcolor{magenta}{Fit linear regression in R}:
+\begin{itemize}
+\item compute descriptive statistics and graphics in support of a linear regression analysis
+\item perform linear regression
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{SECTION 4: SUMMARY}
+Data analysis workflow (continued): \vspace{-0.3cm}
+\begin{itemize}
+\item Interpret results:
+\begin{itemize}
+\item \textcolor{cyan}{interpretation of regression coefficients}
+\item is the interpretation \textcolor{violet}{scientifically meaningful}?
+\item will the estimate of the coefficient \textcolor{red}{rely on extrapolation}?
+\item decide whether or not to report an estimate based on scientific meaning and lack of extrapolation
+\end{itemize}
+\item[]
+\item Report results:
+\begin{itemize}
+\item \textbf{4 numbers}: estimate (units!), CI (units!), p-value (round if smaller than $0.001$)
+\item \textbf{5 parts}: interpret each number, \textbf{add a sentence answering the scientific question}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: \texttt{infarcts}}
+\end{frame}
+
 
 \end{document}
