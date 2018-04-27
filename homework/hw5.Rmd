@@ -62,11 +62,11 @@ Type your model here.
 
 ## b. (0.5 points) Interpret the intercept ($\beta_0$) in your model from (a). 
 
-Type your model here.
+Type your answer here.
 
 ## c. (0.5 points) Interpret the slope ($\beta_1$) in your model from (a). 
 
-Type your model here.
+Type your answer here.
 
 ## d. (1 point) Use R to fit your regression model from (a). Write a summary of the results, in the context of our scientific question.
 
