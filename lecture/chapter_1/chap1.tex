@@ -2753,13 +2753,19 @@ In fact, we only need (in order from most to least important) for the tools we'v
 \item we've included all \textcolor{red}{potential confounders}
 \item we've included all \textcolor{green}{precision variables}
 \end{itemize}
-\item 
+\item \textcolor{blue}{Robust standard errors} (removes need for homoskedasticity)
+\item \textcolor{blue}{Large enough sample size}
+\item \textcolor{blue}{Predictors not strongly correlated}
 \end{itemize} 
 \end{frame}
 
 \begin{frame}
 \frametitle{Linear regression: prediction}
+Prediction is an increasingly common scientific goal. While more complex methods are often good predictive algorithms, in many settings linear regression can also be used to predict well, and is highly interpretable.
 
+When prediction is the goal, we can check the $R^2$ and MSE to assess our accuracy. Ideally, $R^2$ is close to 1 and MSE is small. 
+
+Finally, we can obtain a \textcolor{green}{best estimate} for a given subject's outcome, given their covariate values, by either plugging in by hand or by using the \texttt{lm()} and \texttt{predict()} functions in \texttt{R}.
 \end{frame}
 
 \end{document}
