@@ -23,6 +23,8 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan},dvipsnames]{beamer}
 \usepackage{xcolor}
 \cleanlookdateon
 
+\DeclareMathOperator{\argmin}{argmin}
+
 % the preamble
 \title{BIOST 311: \\ Regression Methods for the Health Sciences}
 \author{Kelsey Grinde and Brian Williamson}
@@ -268,7 +270,7 @@ Why is this true?
 \item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
 \item \textbf{Hypothesis test:} p-value for regression coefficient \pause
 \item \textit{What types of scientific questions can we answer using linear regression?}
-\item \textit{How do I do all this in R?}
+\item \textit{How do I do all this in \texttt{R}?}
 \end{itemize}
 
 \end{frame}
@@ -390,7 +392,7 @@ Recall the definition of \textbf{probability}: the relative frequency of an even
 \item \textbf{Quantifying uncertainty:} 95\% confidence interval for regression coefficient
 \item \textbf{Hypothesis test:} p-value for regression coefficient 
 \item \textit{What types of scientific questions can we answer using linear regression?}
-\item \textit{How do I do all this in R?}
+\item \textit{How do I do all this in \texttt{R}?}
 \end{itemize}
 \end{frame}
 
@@ -406,7 +408,7 @@ Recall the definition of \textbf{probability}: the relative frequency of an even
 \begin{itemize}
 \item \textbf{Hypothesis test:} p-value for regression coefficient 
 \item \textit{What types of scientific questions can we answer using linear regression?}
-\item \textit{How do I do all this in R?}
+\item \textit{How do I do all this in \texttt{R}?}
 \end{itemize}
 \end{frame}
 
@@ -2276,7 +2278,7 @@ There is \textbf{exactly one fitted value} corresponding to each participant in 
 \begin{frame}
 \frametitle{Prediction: obtaining predictions}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{plots/linear-regr.jpg}
+\includegraphics[width=0.7\textheight]{plots/linear-regr.jpg}
 \end{center}
 \end{frame}
 
@@ -2300,9 +2302,11 @@ Additionally, \textcolor{green}{the fitted values are our predictions of the mea
 \frametitle{Prediction: extrapolation}
 The intercept is the predicted mean value of the outcome for participants in our sample with all covariates equal to zero.
 
+\textcolor{magenta}{If the assumption of linearity holds, then we might be okay extrapolating}... \textcolor{red}{but we have no way of knowing if it holds!}
+
 We have already seen how extrapolating can provide reason not to report the estimated intercept in a linear regression.
 
-\textcolor{red}{Using the linear regression formula to obtain predictions can create problems if we extrapolate far outside of our data for other predictions as well}:
+\textcolor{red}{Using the linear regression formula to obtain predictions can create problems if we extrapolate far outside of our data for other predictions as well}: \vspace{-0.3cm}
 \begin{itemize}
 \item if my study only looks at tumors in the central nervous system, does it make sense to predict the type of a tumor found in the lymph nodes?
 \item if I only consider people aged 65+, does it make sense to predict a health outcome for someone under 21?
@@ -2330,24 +2334,27 @@ Now we'll perform the regression, and extract \textbf{all coefficient estimates}
 
 \begin{frame}
 \frametitle{Prediction: Adult FEV}
+\vspace{-0.5cm}
 \begin{align*}
 \widehat{Y} = & \ -3.28 - 0.21 \text{Smoker} + 0.24 \text{Male} + 0.08 \text{Height}\\
 & - 0.24 (\text{Smoker}\times\text{Male}).
 \end{align*}
 
-What is our best estimate of the mean FEV for a \textcolor{blue}{nonsmoking} \textcolor{green}{female} who is \textcolor{magenta}{60 inches tall}? \pause
+What is our best estimate of the FEV for a \textcolor{blue}{nonsmoking} \textcolor{green}{female} who is \textcolor{magenta}{60 inches tall}? \pause
 \begin{align*}
 \widehat{Y} = & \ -3.28 - 0.21 \times 0 + 0.24 \times 0 + 0.08 \times 60 - 0.24 \times (0 \times 0) \\
 =& \ -3.28 + 4.8 = 1.52
 \end{align*} \pause
 
-\vspace{-0.5cm}
-What is our best estimate of the mean FEV for a \textcolor{blue}{smoking} \textcolor{green}{male} who is \textcolor{magenta}{72 inches tall}? \pause
+\vspace{-0.8cm}
+What is our best estimate of the FEV for a \textcolor{blue}{smoking} \textcolor{green}{male} who is \textcolor{magenta}{72 inches tall}? \pause
 \begin{align*}
 \widehat{Y} = & \ -3.28 - 0.21 \times 1 + 0.24 \times 1 + 0.08 \times 72 - 0.24 \times (1 \times 1) \\
 =& \ -3.28 -0.21 + 0.24 + 5.76 - 0.24 = 2.27
-\end{align*}
+\end{align*} \pause
 
+\vspace{-0.8cm}
+\textcolor{blue}{Why ``best estimate''? Because these are our estimated mean $Y$ among people with $X_1 = x_1$, $X_2 = x_2$, etc.}
 \end{frame}
 
 \begin{frame}
@@ -2368,7 +2375,8 @@ The $R^2$ quantity makes this specific:
 \begin{align*}
 R^2 = & \ 1 - \frac{\text{squared difference between observations and fitted values}}{\text{variance of the outcome}} \\
 = & \ 1 - \frac{\text{residual sum of squares (RSS)}}{\text{total sum of squares (TSS)}} \\
-= & \ 1 - \frac{\sum_{i=1}^n (Y_i - \widehat{Y}_i)^2}{\sum_{i=1}^n (Y_i - \overline{Y}_i)^2}.
+= & \ 1 - \frac{\sum_{i=1}^n (Y_i - \widehat{Y}_i)^2}{\sum_{i=1}^n (Y_i - \overline{Y}_i)^2} \\
+=& \ \frac{\hat{\sigma}^2_Y - RSS/(n-1)}{\hat{\sigma}^2_Y}.
 \end{align*}
 \end{frame}
 
@@ -2411,9 +2419,14 @@ Any estimation technique has $\begingroup\color{red}\text{bias}\endgroup$ and $\
 
 These correspond to {\color{red}how far our estimates are from the truth} and {\color{Aquamarine}how variable our estimates are}.
 
-In addition to $R^2$, we can measure prediction accuracy with $\begingroup\color{red}\text{bias}\endgroup^2 + \begingroup\color{Aquamarine}\text{variance}\endgroup $; this is called \textbf{mean squared error} (MSE), and is simply the residual sum of squares divided by the sample size.
+In addition to $R^2$, we can measure prediction accuracy with $\begingroup\color{red}\text{bias}\endgroup^2 + \begingroup\color{Aquamarine}\text{variance}\endgroup $; this is called \textbf{mean squared error} (MSE), and is simply RSS/$n$.
 
 Typically, inducing bias in our estimation will result in decreased variance, and vice versa.
+
+\textbf{Least squares (fitting linear regression) finds the coefficients that minimize MSE! }(slides 1.32--1.35)
+\begin{align*}
+\hat{\beta} = & \ \argmin_\beta \frac{1}{n}\sum_{i=1}^n \{Y_i - (\beta_0 + \beta_1 X_{i,1} + \dots)\}^2
+\end{align*}
 \end{frame}
 
 \begin{frame}
@@ -2441,7 +2454,7 @@ Interpolating has $\begingroup\color{Aquamarine}\text{large variance}\endgroup$;
 \frametitle{Prediction: summary}
 If our scientific goal is to obtain predictions, then we have different concerns than when we are interested in associations: \vspace{-0.3cm}
 \begin{itemize}
-\item extrapolating is more dangerous
+\item \textcolor{red}{extrapolating is more dangerous}
 \item we have to balance the bias and variance of our estimators
 \item we want ``good'' predictions ($R^2$ near 1, MSE low)
 \end{itemize}
@@ -2452,10 +2465,8 @@ We can get actual values of predictions by either: \vspace{-0.3cm}
 \item using the \texttt{lm()} and \texttt{predict()} functions in \texttt{R}
 \end{itemize}
 
-Making good predictions is a hot topic in statistics currently, and ``machine learning'' methods are often the best predictive algorithms.
+Making good predictions is a hot topic in statistics currently, and \textcolor{green}{``machine learning'' methods are often the best predictive algorithms}; however, \textcolor{blue}{in many settings linear regression can be used to predict well, and is often more interpretable than ``black box'' methods.}
 \end{frame}
-
-\begin{comment}
 
 \section{Wrapping up}
 \begin{frame}
@@ -2507,8 +2518,97 @@ Data analysis workflow (continued): \vspace{-0.3cm}
 \end{frame}
 
 \begin{frame}
-\frametitle{Linear regression: \texttt{infarcts}}
+\frametitle{Linear regression: inflammatory biomarkers}
+The Cardiovascular Health Study is a government sponsored cohort study of adults aged 65 years and older in four communities.
+
+The primary goals of the study were to, over an 11 year period:\vspace{-0.3cm}
+\begin{itemize}
+\item observe the incidence of cardiovascular disease (especially heart attacks and congestive heart failure)
+\item observe the incidence of cerebrovascular disease (especially strokes) in the elderly 
+\item relate the incidence of those diseases to various risk factors measured in the population on a regular basis
+\end{itemize}
 \end{frame}
 
-\end{comment}
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+In this study, over 5,000 elderly, generally healthy (cancer was an exclusion criterion), adults were randomly selected from Medicare rolls in four communities.
+
+For this analysis, we are interested in the role of inflammation in the pathogenesis of atherosclerotic disease. \textbf{In particular, we are interested in two biochemical markers of inflammation, the C reactive protein and fibrinogen.}
+
+We have the following information on each subject: age (years), sex (\texttt{male}: male = 1, female = 0), cholesterol (\texttt{cholest}, mg/dL), BMI (\texttt{bmi}, kg/m${}^2$), previous history of cardiovascular disease (\texttt{prevdis}: 1/0), fibrinogen (\texttt{fib}, mg/dL), and C reactive protein (\texttt{crp}, mg/L).
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of C reactive protein}? \pause
+
+\textcolor{green}{Causal diagram: } {\small (space intentionally left blank)} \vspace{5cm}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of C reactive protein}?
+
+\textbf{Our statistical question:} is there a \textcolor{orange}{difference in mean blood fibrinogen level} \textcolor{blue}{comparing two groups with different blood levels of C reactive protein among older adults of the same age, sex, cholesterol, BMI, and with the same previous history of cardiovascular disease}?
+
+Now that we have a rigorous statistical question, we can fit a linear regression in \texttt{R}. The linear model implied by this question is
+\begin{align*}
+E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{BMI}, \text{Prev. Hist.}) =  \ \beta_0 + \beta_1 \text{CRP} \\
+&+ \beta_2 \text{Age}  + \beta_3 \text{Male} + \beta_4 \text{Cholest.} + \beta_5 \text{BMI} + \beta_6 \text{Prev. Hist.}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\hspace*{-0.5cm}\includegraphics[width = 1.1\textwidth]{plots/inflamm_fib_vs_crp.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+{\small 
+\begin{align*}
+E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{BMI}, \text{Prev. Hist.}) =  \ \beta_0 + \beta_1 \text{CRP} \\
+&+ \beta_2 \text{Age}  + \beta_3 \text{Male} + \beta_4 \text{Cholest.} + \beta_5 \text{BMI} + \beta_6 \text{Prev. Hist.}
+\end{align*}
+}
+Is the regression parameter \textcolor{magenta}{scientifically meaningful}? \vspace{-0.3cm}
+\begin{itemize}
+\item $\beta_0$: \pause \textcolor{red}{no; age 0, BMI 0, cholesterol 0 don't make sense}
+\item $\beta_1$: \pause \textcolor{blue}{yes, parameter of interest!}
+\item $\beta_2$: \pause yes (but not meaningful for \textbf{this} scientific question) (why?)
+\item $\beta_3$: yes (but not meaningful for \textbf{this} scientific question)
+\item $\beta_4$: yes (but not meaningful for \textbf{this} scientific question)
+\item $\beta_5$: yes (but not meaningful for \textbf{this} scientific question)
+\item $\beta_6$: yes (but not meaningful for \textbf{this} scientific question)
+\end{itemize} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+{\small 
+\begin{align*}
+E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{BMI}, \text{Prev. Hist.}) =  \ \beta_0 + \beta_1 \text{CRP} \\
+&+ \beta_2 \text{Age}  + \beta_3 \text{Male} + \beta_4 \text{Cholest.} + \beta_5 \text{BMI} + \beta_6 \text{Prev. Hist.}
+\end{align*}
+}
+Will our estimate \textcolor{red}{rely on extrapolation}? \vspace{-0.3cm}
+\begin{itemize}
+\item $\beta_0$: \pause yes, don't observe anyone age 0, cholesterol 0, BMI 0
+\item $\beta_1$: \pause no
+\item $\beta_2$: no
+\item $\beta_3$: no
+\item $\beta_4$: no
+\item $\beta_5$: no
+\item $\beta_6$: no
+\end{itemize} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\end{frame}
+
+
 \end{document}

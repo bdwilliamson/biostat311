@@ -1,0 +1,20 @@
+---
+title: "Code for Chapter 1, section 4 (Overview of linear regression)"
+author: "Kelsey Grinde and Brian Williamson"
+date: "April 12, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=400)
+```
+
+```{r read-data, echo = FALSE, warning = FALSE}
+inflamm <- read.table("../../datasets/inflamm.txt", header = TRUE)
+```
+
+```{r fit-linear-regression, warning = FALSE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fib ~ crp + age + male + cholest + bmi + prevdis, data = inflamm)
+```
