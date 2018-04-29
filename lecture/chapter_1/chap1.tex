@@ -2550,7 +2550,7 @@ We have the following information on each subject: age (years), sex (\texttt{mal
 \frametitle{Linear regression: inflammatory biomarkers}
 \textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of C reactive protein}?
 
-\textbf{Our statistical question:} is there a \textcolor{orange}{difference in mean blood fibrinogen level} \textcolor{blue}{comparing two groups with different blood levels of C reactive protein among older adults of the same age, sex, cholesterol, BMI, and with the same previous history of cardiovascular disease}?
+\textbf{Our statistical question:} is there a \textcolor{orange}{difference in mean blood fibrinogen level} \textcolor{blue}{comparing two groups with a one mg/L difference in blood levels of C reactive protein among older adults of the same age, sex, cholesterol, BMI, and with the same previous history of cardiovascular disease}?
 
 Now that we have a rigorous statistical question, we can fit a linear regression in \texttt{R}. The linear model implied by this question is
 \begin{align*}
@@ -2646,6 +2646,27 @@ Based on a linear regression, we estimate that the \textcolor{orange}{mean diffe
 \textbf{Summary of results:} \textit{(part 2, statistical inference)}
 
 \textcolor{green}{Based on a 95\% confidence interval, this result would not be judged unusual if the true difference in mean blood fibrinogen level were between 4.55 and 5.80 mg/dL} comparing two groups differing in blood C reactive protein level by one mg/L, but having the same age, sex, cholesterol level, BMI, and previous history of cardiovascular disease. \textcolor{orange}{This result is statistically significant (p-value $< 0.001$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that blood levels of C reactive protein are associated with blood levels of fibrinogen, adjusted for age, sex, cholesterol, BMI, and previous history of cardiovascular disease.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\textbf{New scientific question:} does \textcolor{orange}{the association between C reactive protein and fibrinogen} \textcolor{blue}{differ based on age}? 
+
+\textbf{Statistical question:} \textcolor{blue}{is there a difference} in \textcolor{orange}{the difference in mean blood fibrinogen level comparing two groups with a one mg/L difference in blood levels of C reactive protein among older adults with the same sex, cholesterol, BMI, and previous history of cardiovascular disease}, \textcolor{blue}{comparing two groups differing in age by one year}?
+
+This statistical question implies the linear regression model
+{\small 
+\begin{align*}
+E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{BMI}, \text{Prev. Hist.}) =  \ \beta_0 + \beta_1 \text{CRP} \\
+&+ \beta_2 \text{Age}  + \beta_3 \text{Male} + \beta_4 \text{Cholest.} + \beta_5 \text{BMI} + \beta_6 \text{Prev. Hist.} \\
+&+ \beta_7 (\text{CRP} \times \text{Age}),
+\end{align*}
+}
+and the hypothesis test of interest is
+\begin{align*}
+H_0: \beta_7 = &\ 0 \\
+H_a: \beta_7 \neq &\ 0.
+\end{align*}
 \end{frame}
 
 
