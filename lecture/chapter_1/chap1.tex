@@ -2561,11 +2561,6 @@ E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{
 
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}
-\hspace*{-0.5cm}\includegraphics[width = 1.1\textwidth]{plots/inflamm_fib_vs_crp.png}
-\end{frame}
-
-\begin{frame}
-\frametitle{Linear regression: inflammatory biomarkers}
 {\small 
 \begin{align*}
 E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{BMI}, \text{Prev. Hist.}) =  \ \beta_0 + \beta_1 \text{CRP} \\
@@ -2608,6 +2603,49 @@ Will our estimate \textcolor{red}{rely on extrapolation}? \vspace{-0.3cm}
 
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}
+{\small 
+\begin{align*}
+E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{BMI}, \text{Prev. Hist.}) =  \ \beta_0 + \beta_1 \text{CRP} \\
+&+ \beta_2 \text{Age}  + \beta_3 \text{Male} + \beta_4 \text{Cholest.} + \beta_5 \text{BMI} + \beta_6 \text{Prev. Hist.}
+\end{align*}
+}
+Which estimates should we report?
+\begin{itemize}
+\item $\beta_0$: \pause no
+\item $\beta_1$: \textcolor{blue}{yes (predictor of interest!!)}
+\item $\beta_2$: \pause no
+\item $\beta_3$: no
+\item $\beta_4$: no
+\item $\beta_5$: no
+\item $\beta_6$: no
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\hspace*{-0.5cm}\includegraphics[width = 1.1\textwidth]{plots/inflamm_fib_vs_crp.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}\textcolor{cyan}{Interpretation of $\hat{\beta}_1$:} 
+
+The \textcolor{orange}{estimated difference in mean blood fibrinogen level} between \textcolor{blue}{two groups differing in blood C reactive protein level by one mg/L}, but \textcolor{red}{with the same age, sex, blood cholesterol level, BMI, and previous history of cardiovascular disease}, is \textcolor{magenta}{5.18 mg/dL}, where the group with the higher blood level of C reactive protein tends to have the higher blood level of fibrinogen.
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+
+\textbf{Summary of results:} \textit{(part 1, interpretation)}
+
+Based on a linear regression, we estimate that the \textcolor{orange}{mean difference in mean blood fibrinogen level} between \textcolor{blue}{two groups differing in blood C reactive protein level by one mg/L}, but \textcolor{red}{with the same age, sex, blood cholesterol level, BMI, and previous history of cardiovascular disease}, is \textcolor{magenta}{5.18 mg/dL}, where the group with the higher blood level of C reactive protein tends to have the higher blood level of fibrinogen. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+
+\textbf{Summary of results:} \textit{(part 2, statistical inference)}
+
+\textcolor{green}{Based on a 95\% confidence interval, this result would not be judged unusual if the true difference in mean blood fibrinogen level were between 4.55 and 5.80 mg/dL} comparing two groups differing in blood C reactive protein level by one mg/L, but having the same age, sex, cholesterol level, BMI, and previous history of cardiovascular disease. \textcolor{orange}{This result is statistically significant (p-value $< 0.001$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that blood levels of C reactive protein are associated with blood levels of fibrinogen, adjusted for age, sex, cholesterol, BMI, and previous history of cardiovascular disease.}
 \end{frame}
 
 
