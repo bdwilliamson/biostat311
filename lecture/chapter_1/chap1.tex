@@ -2533,14 +2533,14 @@ The primary goals of the study were to, over an 11 year period:\vspace{-0.3cm}
 \frametitle{Linear regression: inflammatory biomarkers}
 In this study, over 5,000 elderly, generally healthy (cancer was an exclusion criterion), adults were randomly selected from Medicare rolls in four communities.
 
-For this analysis, we are interested in the role of inflammation in the pathogenesis of atherosclerotic disease. \textbf{In particular, we are interested in two biochemical markers of inflammation, the C reactive protein and fibrinogen.}
+For this analysis, we are interested in the role of inflammation in the pathogenesis of atherosclerotic disease. \textbf{In particular, we are interested in two biochemical markers of inflammation, the C reactive protein (CRP) and fibrinogen.}
 
-We have the following information on each subject: age (years), sex (\texttt{male}: male = 1, female = 0), cholesterol (\texttt{cholest}, mg/dL), BMI (\texttt{bmi}, kg/m${}^2$), previous history of cardiovascular disease (\texttt{prevdis}: 1/0), fibrinogen (\texttt{fib}, mg/dL), and C reactive protein (\texttt{crp}, mg/L).
+We have the following information on each subject: age (years), sex (\texttt{male}: male = 1, female = 0), cholesterol (\texttt{cholest}, mg/dL), BMI (\texttt{bmi}, kg/m${}^2$), previous history of cardiovascular disease (\texttt{prevdis}: 1/0), fibrinogen (\texttt{fib}, mg/dL), and CRP (\texttt{crp}, mg/L).
 \end{frame}
 
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}
-\textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of C reactive protein}? \pause
+\textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of CRP}? \pause
 
 \textcolor{green}{Causal diagram: } {\small (space intentionally left blank)} \vspace{5cm}
 
@@ -2548,9 +2548,9 @@ We have the following information on each subject: age (years), sex (\texttt{mal
 
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}
-\textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of C reactive protein}?
+\textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of CRP}?
 
-\textbf{Our statistical question:} is there a \textcolor{orange}{difference in mean blood fibrinogen level} \textcolor{blue}{comparing two groups with a one mg/L difference in blood levels of C reactive protein among older adults of the same age, sex, cholesterol, BMI, and with the same previous history of cardiovascular disease}?
+\textbf{Our statistical question:} is there a \textcolor{orange}{difference in mean blood fibrinogen level} \textcolor{blue}{comparing two groups with a one mg/L difference in blood levels of CRP among older adults of the same age, sex, cholesterol, BMI, and with the same previous history of cardiovascular disease}?
 
 Now that we have a rigorous statistical question, we can fit a linear regression in \texttt{R}. The linear model implied by this question is
 \begin{align*}
@@ -2629,7 +2629,7 @@ Which estimates should we report?
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}\textcolor{cyan}{Interpretation of $\hat{\beta}_1$:} 
 
-The \textcolor{orange}{estimated difference in mean blood fibrinogen level} between \textcolor{blue}{two groups differing in blood C reactive protein level by one mg/L}, but \textcolor{red}{with the same age, sex, blood cholesterol level, BMI, and previous history of cardiovascular disease}, is \textcolor{magenta}{5.18 mg/dL}, where the group with the higher blood level of C reactive protein tends to have the higher blood level of fibrinogen.
+The \textcolor{orange}{estimated difference in mean blood fibrinogen level} between \textcolor{blue}{two groups differing in blood CRP level by one mg/L}, but \textcolor{red}{with the same age, sex, blood cholesterol level, BMI, and previous history of cardiovascular disease}, is \textcolor{magenta}{5.18 mg/dL}, where the group with the higher blood level of CRP tends to have the higher blood level of fibrinogen.
 \end{frame}
 
 \begin{frame}
@@ -2637,7 +2637,7 @@ The \textcolor{orange}{estimated difference in mean blood fibrinogen level} betw
 
 \textbf{Summary of results:} \textit{(part 1, interpretation)}
 
-Based on a linear regression, we estimate that the \textcolor{orange}{mean difference in mean blood fibrinogen level} between \textcolor{blue}{two groups differing in blood C reactive protein level by one mg/L}, but \textcolor{red}{with the same age, sex, blood cholesterol level, BMI, and previous history of cardiovascular disease}, is \textcolor{magenta}{5.18 mg/dL}, where the group with the higher blood level of C reactive protein tends to have the higher blood level of fibrinogen. 
+Based on a linear regression, we estimate that the \textcolor{orange}{mean difference in mean blood fibrinogen level} between \textcolor{blue}{two groups differing in blood CRP level by one mg/L}, but \textcolor{red}{with the same age, sex, blood cholesterol level, BMI, and previous history of cardiovascular disease}, is \textcolor{magenta}{5.18 mg/dL}, where the group with the higher blood level of CRP tends to have the higher blood level of fibrinogen. 
 \end{frame}
 
 \begin{frame}
@@ -2645,21 +2645,25 @@ Based on a linear regression, we estimate that the \textcolor{orange}{mean diffe
 
 \textbf{Summary of results:} \textit{(part 2, statistical inference)}
 
-\textcolor{green}{Based on a 95\% confidence interval, this result would not be judged unusual if the true difference in mean blood fibrinogen level were between 4.55 and 5.80 mg/dL} comparing two groups differing in blood C reactive protein level by one mg/L, but having the same age, sex, cholesterol level, BMI, and previous history of cardiovascular disease. \textcolor{orange}{This result is statistically significant (p-value $< 0.001$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that blood levels of C reactive protein are associated with blood levels of fibrinogen, adjusted for age, sex, cholesterol, BMI, and previous history of cardiovascular disease.}
+\textcolor{green}{Based on a 95\% confidence interval, this result would not be judged unusual if the true difference in mean blood fibrinogen level were between 4.55 and 5.80 mg/dL} comparing two groups differing in blood CRP level by one mg/L, but having the same age, sex, cholesterol level, BMI, and previous history of cardiovascular disease. \textcolor{orange}{This result is statistically significant (p-value $< 0.001$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that blood levels of CRP are associated with blood levels of fibrinogen, adjusted for age, sex, cholesterol, BMI, and previous history of cardiovascular disease.}
 \end{frame}
 
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}
-\textbf{New scientific question:} does \textcolor{orange}{the association between C reactive protein and fibrinogen} \textcolor{blue}{differ based on age}? 
+\textbf{New scientific question:} does \textcolor{orange}{the association between CRP and fibrinogen} \textcolor{blue}{differ based on cholesterol level}? 
 
-\textbf{Statistical question:} \textcolor{blue}{is there a difference} in \textcolor{orange}{the difference in mean blood fibrinogen level comparing two groups with a one mg/L difference in blood levels of C reactive protein among older adults with the same sex, cholesterol, BMI, and previous history of cardiovascular disease}, \textcolor{blue}{comparing two groups differing in age by one year}?
+\textbf{Statistical question:} \textcolor{blue}{is there a difference} in \textcolor{orange}{the difference in mean blood fibrinogen level comparing two groups with a one mg/L difference in blood levels of CRP among older adults with the same age, sex, BMI, and previous history of cardiovascular disease}, \textcolor{blue}{comparing two groups differing in cholesterol level by one mg/dL}?
 
-This statistical question implies the linear regression model
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+This statistical question (about effect modification!) implies the linear regression model
 {\small 
 \begin{align*}
 E(\text{Fib} \mid & \text{CRP}, \text{Age}, \text{Male}, \text{Cholest.}, \text{BMI}, \text{Prev. Hist.}) =  \ \beta_0 + \beta_1 \text{CRP} \\
 &+ \beta_2 \text{Age}  + \beta_3 \text{Male} + \beta_4 \text{Cholest.} + \beta_5 \text{BMI} + \beta_6 \text{Prev. Hist.} \\
-&+ \beta_7 (\text{CRP} \times \text{Age}),
+&+ \beta_7 (\text{CRP} \times \text{Cholest.}),
 \end{align*}
 }
 and the hypothesis test of interest is
@@ -2667,7 +2671,95 @@ and the hypothesis test of interest is
 H_0: \beta_7 = &\ 0 \\
 H_a: \beta_7 \neq &\ 0.
 \end{align*}
+
+\textbf{Only the interpretation of $\beta_1$ and $\beta_4$ change between this linear regression model and the previous one} (with no effect modification, on slide 1.178).
 \end{frame}
 
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\hspace*{-0.5cm}\includegraphics[width=1.1\textwidth]{plots/inflamm_fib_vs_crp_em.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+The main effect for cholesterol ($\hat{\beta}_4$): \vspace{-0.3cm}
+\begin{itemize}
+\item \textcolor{cyan}{\textit{Interpretation}}: the estimated difference in mean fibrinogen comparing two groups differing by one mg/dL in cholesterol, \textbf{with zero mg/L of CRP}, of the same age, sex, and BMI, and with the same previous history of cardiovascular disease, is 0.07 mg/dL, with the group with higher cholesterol tending to have the higher fibrinogen.
+\item \textcolor{magenta}{\textit{Scientifically meaningful?}}: no; a cholesterol level of 0 mg/dL doesn't make sense
+\item \textcolor{red}{\textit{Extrapolating?}}: yes; will likely not observe someone with 0 mg/dL cholesterol
+\item \textcolor{blue}{\textit{Report?}}: no; this estimate doesn't answer the effect modification question
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+The main effect for CRP ($\hat{\beta}_2$): \vspace{-0.3cm}
+\begin{itemize}
+\item \textcolor{cyan}{\textit{Interpretation}}: the estimated difference in mean fibrinogen comparing two groups differing by one mg/L in CRP, \textbf{with zero mg/dL of cholesterol}, of the same age, sex, and BMI, and with the same previous history of cardiovascular disease, is 2.53 mg/dL, with the group with higher CRP tending to have the higher fibrinogen.
+\item \textcolor{magenta}{\textit{Scientifically meaningful?}}: no; a CRP level of 0 mg/L doesn't make sense
+\item \textcolor{red}{\textit{Extrapolating?}}: yes; will likely not observe someone with 0 mg/L CRP
+\item \textcolor{blue}{\textit{Report?}}: no; this estimate doesn't answer the effect modification question
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+The interaction term ($\hat{\beta}_7$): \vspace{-0.3cm}
+\begin{itemize}
+\item \textcolor{cyan}{\textit{Interpretation}}: \textcolor{blue}{the estimated difference} in the \textcolor{orange}{difference in mean fibrinogen comparing two groups differing by one mg/L in CRP, of the same age, sex, and BMI, and with the same previous history of cardiovascular disease,} \textcolor{blue}{comparing two groups differing in cholesterol level by one mg/dL, is 0.02 mg/dL, with the group with higher cholesterol tending to have the larger difference in mean fibrinogen between CRP groups}.
+\item \textcolor{magenta}{\textit{Scientifically meaningful?}}: \textcolor{blue}{yes; this measures the effect modification}
+\item \textcolor{red}{\textit{Extrapolating?}}: no
+\item \textcolor{blue}{\textit{Report?}}: \textcolor{blue}{yes; this estimate addresses our statistical question (about effect modification)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\textbf{Summary of results:} \textit{(part 1, interpretation)}
+
+Based on a linear regression, we \textcolor{blue}{estimate that the difference} in the \textcolor{orange}{difference in mean fibrinogen comparing two groups differing by one mg/L in CRP, of the same age, sex, and BMI, and with the same previous history of cardiovascular disease,} \textcolor{blue}{comparing two groups differing in cholesterol level by one mg/dL, is 0.02 mg/dL, with the group with higher cholesterol tending to have the larger difference in mean fibrinogen between CRP groups}.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+\textbf{Summary of results:} \textit{(part 2, statistical inference)}
+
+\textcolor{green}{Based on a 95\% confidence interval, this estimate would not be judged unusual if the true difference in the difference in mean fibrinogen level} comparing two groups differing in CRP by one mg/L but with the same age, sex, BMI, and previous history of cardiovascular disease, comparing groups differing in cholesterol by one mg/dL, \textcolor{green}{were between 0.004 and 0.03 mg/dL}. \textcolor{orange}{This result is statistically significant (p-value $= 0.011$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that cholesterol level modifies the association between CRP and fibrinogen, adjusted for age, sex, BMI, and previous history of cardiovascular disease.} 
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: inflammatory biomarkers}
+In this analysis, we found that there is evidence to suggest that, adjusted for age, sex, BMI, and previous history of cardiovascular disease:
+\begin{itemize}
+\item CRP is associated with fibrinogen, and
+\item cholesterol modifies the association between CRP and fibrinogen.
+\end{itemize}
+
+Interestingly, an unadjusted linear regression of fibrinogen on CRP yields a slope estimate of 5.25---while this is in the same direction as the adjusted effect, most importantly, we adjusted for variables we believe to be potential confounders!
+
+\textbf{This analysis reflects the data analysis workflow we want you to emulate}, and contains each element that we have covered in this chapter.
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: assumptions and misconceptions}
+While there are a few necessary assumptions that are necessary for valid inference on linear regression parameters, \textbf{these are much more relaxed than the classical assumptions}. 
+
+In fact, we only need (in order from most to least important) for the tools we've learned to be valid: \vspace{-0.3cm}
+\begin{itemize}
+\item \textcolor{blue}{Independent observations}
+\item a \textcolor{blue}{correctly specified mean model}, i.e., $E(Y \mid X_1, \dots, X_p) = \beta_0 + \beta_1 X_1 + \dots + \beta_p X_p$
+\begin{itemize}
+\item we've included all \textcolor{red}{potential confounders}
+\item we've included all \textcolor{green}{precision variables}
+\end{itemize}
+\item 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression: prediction}
+
+\end{frame}
 
 \end{document}

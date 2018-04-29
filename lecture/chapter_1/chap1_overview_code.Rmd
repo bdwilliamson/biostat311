@@ -14,7 +14,20 @@ options(width=400)
 inflamm <- read.table("../../datasets/inflamm.txt", header = TRUE)
 ```
 
+## Linear regression of fibrinogen on crp, unadjusted
+```{r fit-lm-unadjust, warning = FALSE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fib ~ crp, data = inflamm)
+```
+
+## Linear regression of fibrinogen on crp, adjusted
 ```{r fit-linear-regression, warning = FALSE}
 library("uwIntroStats", warn.conflicts = FALSE)
 regress("mean", fib ~ crp + age + male + cholest + bmi + prevdis, data = inflamm)
+```
+
+## Linear regression of fibrinogen on crp, em
+```{r fit-em, warning = FALSE}
+library("uwIntroStats", warn.conflicts = FALSE)
+regress("mean", fib ~ crp + age + male + cholest + bmi + prevdis + crp*cholest, data = inflamm)
 ```
