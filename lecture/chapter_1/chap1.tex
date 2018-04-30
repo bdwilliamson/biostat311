@@ -2623,7 +2623,7 @@ Which estimates should we report?
 
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}
-\hspace*{-0.5cm}\includegraphics[width = 1.1\textwidth]{plots/inflamm_fib_vs_crp.png}
+\hspace*{-0.5cm}\includegraphics[width = 1.1\textwidth]{plots/inflamm_fib_vs_crp_hidden.png} % CHANGE BACK AFTER ACTIVITY
 \end{frame}
 
 \begin{frame}
@@ -2677,7 +2677,7 @@ H_a: \beta_7 \neq &\ 0.
 
 \begin{frame}
 \frametitle{Linear regression: inflammatory biomarkers}
-\hspace*{-0.5cm}\includegraphics[width=1.1\textwidth]{plots/inflamm_fib_vs_crp_em.png}
+\hspace*{-0.5cm}\includegraphics[width=1.1\textwidth]{plots/inflamm_fib_vs_crp_em_hidden.png}
 \end{frame}
 
 \begin{frame}
@@ -2685,8 +2685,8 @@ H_a: \beta_7 \neq &\ 0.
 The main effect for cholesterol ($\hat{\beta}_4$): \vspace{-0.3cm}
 \begin{itemize}
 \item \textcolor{cyan}{\textit{Interpretation}}: the estimated difference in mean fibrinogen comparing two groups differing by one mg/dL in cholesterol, \textbf{with zero mg/L of CRP}, of the same age, sex, and BMI, and with the same previous history of cardiovascular disease, is 0.07 mg/dL, with the group with higher cholesterol tending to have the higher fibrinogen.
-\item \textcolor{magenta}{\textit{Scientifically meaningful?}}: no; a cholesterol level of 0 mg/dL doesn't make sense
-\item \textcolor{red}{\textit{Extrapolating?}}: yes; will likely not observe someone with 0 mg/dL cholesterol
+\item \textcolor{magenta}{\textit{Scientifically meaningful?}}: no; a CRP level of 0 mg/L doesn't make sense
+\item \textcolor{red}{\textit{Extrapolating?}}: yes; will likely not observe someone with 0 mg/L CRP
 \item \textcolor{blue}{\textit{Report?}}: no; this estimate doesn't answer the effect modification question
 \end{itemize}
 \end{frame}
@@ -2696,8 +2696,8 @@ The main effect for cholesterol ($\hat{\beta}_4$): \vspace{-0.3cm}
 The main effect for CRP ($\hat{\beta}_2$): \vspace{-0.3cm}
 \begin{itemize}
 \item \textcolor{cyan}{\textit{Interpretation}}: the estimated difference in mean fibrinogen comparing two groups differing by one mg/L in CRP, \textbf{with zero mg/dL of cholesterol}, of the same age, sex, and BMI, and with the same previous history of cardiovascular disease, is 2.53 mg/dL, with the group with higher CRP tending to have the higher fibrinogen.
-\item \textcolor{magenta}{\textit{Scientifically meaningful?}}: no; a CRP level of 0 mg/L doesn't make sense
-\item \textcolor{red}{\textit{Extrapolating?}}: yes; will likely not observe someone with 0 mg/L CRP
+\item \textcolor{magenta}{\textit{Scientifically meaningful?}}: no; a cholesterol level of 0 mg/dL doesn't make sense
+\item \textcolor{red}{\textit{Extrapolating?}}: yes; will likely not observe someone with 0 mg/dL cholesterol
 \item \textcolor{blue}{\textit{Report?}}: no; this estimate doesn't answer the effect modification question
 \end{itemize}
 \end{frame}
@@ -2725,7 +2725,7 @@ Based on a linear regression, we \textcolor{blue}{estimate that the difference} 
 \frametitle{Linear regression: inflammatory biomarkers}
 \textbf{Summary of results:} \textit{(part 2, statistical inference)}
 
-\textcolor{green}{Based on a 95\% confidence interval, this estimate would not be judged unusual if the true difference in the difference in mean fibrinogen level} comparing two groups differing in CRP by one mg/L but with the same age, sex, BMI, and previous history of cardiovascular disease, comparing groups differing in cholesterol by one mg/dL, \textcolor{green}{were between 0.004 and 0.03 mg/dL}. \textcolor{orange}{This result is statistically significant (p-value $= 0.011$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that cholesterol level modifies the association between CRP and fibrinogen, adjusted for age, sex, BMI, and previous history of cardiovascular disease.} 
+\textcolor{ForestGreen}{Based on a 95\% confidence interval, this estimate would not be judged unusual if the true difference in the difference in mean fibrinogen level} comparing two groups differing in CRP by one mg/L but with the same age, sex, BMI, and previous history of cardiovascular disease, comparing groups differing in cholesterol by one mg/dL, \textcolor{ForestGreen}{were between 0.004 and 0.03 mg/dL}. \textcolor{orange}{This result is statistically significant (p-value $= 0.011$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that cholesterol level modifies the association between CRP and fibrinogen, adjusted for age, sex, BMI, and previous history of cardiovascular disease.} 
 \end{frame}
 
 \begin{frame}
@@ -2751,7 +2751,7 @@ In fact, we only need (in order from most to least important) for the tools we'v
 \item a \textcolor{blue}{correctly specified mean model}, i.e., $E(Y \mid X_1, \dots, X_p) = \beta_0 + \beta_1 X_1 + \dots + \beta_p X_p$
 \begin{itemize}
 \item we've included all \textcolor{red}{potential confounders}
-\item we've included all \textcolor{green}{precision variables}
+\item we've included all \textcolor{ForestGreen}{precision variables}
 \end{itemize}
 \item \textcolor{blue}{Robust standard errors} (removes need for homoskedasticity)
 \item \textcolor{blue}{Large enough sample size}
@@ -2765,7 +2765,7 @@ Prediction is an increasingly common scientific goal. While more complex methods
 
 When prediction is the goal, we can check the $R^2$ and MSE to assess our accuracy. Ideally, $R^2$ is close to 1 and MSE is small. 
 
-Finally, we can obtain a \textcolor{green}{best estimate} for a given subject's outcome, given their covariate values, by either plugging in by hand or by using the \texttt{lm()} and \texttt{predict()} functions in \texttt{R}.
+Finally, we can obtain a \textcolor{ForestGreen}{best estimate} for a given subject's outcome, given their covariate values, by either plugging in by hand or by using the \texttt{lm()} and \texttt{predict()} functions in \texttt{R}.
 \end{frame}
 
 \end{document}
