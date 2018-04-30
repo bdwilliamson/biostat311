@@ -17,6 +17,10 @@ If you give an honest attempt for all questions, you will receive 2 points for c
 
 # Re-creating the analyses from the Chapter 1 overview slides
 
+The Cardiovascular Health Study is a government sponsored
+cohort study of adults aged 65 years and older in four
+communities.
+
 In this study, over 5,000 elderly, generally healthy (cancer was
 an exclusion criterion), adults were randomly selected from
 Medicare rolls in four communities.
@@ -38,7 +42,7 @@ Answer the following two scientific questions:
 1. Are blood levels of fibrinogen associated with blood levels of CRP?
 2. If blood levels of fibrinogen are associated with blood levels of CRP, does this association depend on cholesterol level?
 
-Include at least on table or figure to support each of your answers to these statistical questions. Additionally, include a full summary of the results for each question. You are encouraged to reproduce the results found in slides 1.172--1.196.
+Include at least on table or figure to support each of your answers to these statistical questions. Additionally, include a full summary of the results for each question. You are encouraged to reproduce the results found in slides 1.172--1.196. The data can be found on Canvas, under Files > Data > inflamm.txt.
 
 \newpage
 
