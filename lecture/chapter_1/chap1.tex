@@ -23,6 +23,9 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan},dvipsnames]{beamer}
 \usepackage{xcolor}
 \cleanlookdateon
 
+% new amber color
+\definecolor{amber}{rgb}{1.0, 0.75, 0.0}
+
 \DeclareMathOperator{\argmin}{argmin}
 
 % the preamble
@@ -109,9 +112,9 @@ By the end of Chapter 1, you should be able to: \vspace{-0.3cm}
 \subsection{Regression Model Notation}
 \begin{frame}
 \frametitle{Simple linear regression: notation and terminology}
-$$\color{blue} E[Y|X] \color{black} = \color{orange} \beta_0 \color{black} + \color{red} \beta_1 \color{yellow} \ X$$ \vspace{-0.6cm}
+$$\color{blue} E[Y|X] \color{black} = \color{orange} \beta_0 \color{black} + \color{red} \beta_1 \color{amber} \ X$$ \vspace{-0.6cm}
 
-\color{blue}The average of the response, given the value of the predictor, \color{black} is \color{orange} the intercept \color{black} plus \color{red} the slope \color{black} times \color{yellow} the value of the predictor.\color{black} \pause
+\color{blue}The average of the response, given the value of the predictor, \color{black} is \color{orange} the intercept \color{black} plus \color{red} the slope \color{black} times \color{amber} the value of the predictor.\color{black} \pause
 
 \vspace{-0.2cm}
 \begin{itemize}
@@ -1125,7 +1128,7 @@ By the end of Section 2, you should be able to: \vspace{-0.4cm}
 \item describe \textbf{why} you will adjust for these variables in a regression analysis.
 \item Identify potential variables that \textcolor{blue}{modify} the association between the predictor of interest and the outcome, and  
 \item describe \textbf{how} you will test for  differential effects.
-\item Identify potential variables that help \textcolor{green}{reduce the variability} of our estimates.
+\item Identify potential variables that help \textcolor{ForestGreen}{reduce the variability} of our estimates.
 \item \textbf{Interpret} parameters in a multiple linear regression model.
 \item \textbf{Fit} multiple linear regression models in \texttt{R}, and
 \item \textbf{interpret} the output to perform hypothesis tests.
@@ -1137,13 +1140,13 @@ By the end of Section 2, you should be able to: \vspace{-0.4cm}
 \begin{frame}
 \frametitle{Multiple regression: motivation}
 
-So far, we have considered the relationship between the outcome, $Y$, and a \textcolor{green}{single} predictor of interest, $X$.
+So far, we have considered the relationship between the outcome, $Y$, and a \textcolor{ForestGreen}{single} predictor of interest, $X$.
 
 However, there may be other variables that influence the association between our predictor of interest and the outcome, by:
 \begin{itemize}
 \item \textcolor{red}{confounding} the association 
 \item \textcolor{blue}{modifying} the association
-\item providing information that \textcolor{green}{reduces the variability} of our estimates
+\item providing information that \textcolor{ForestGreen}{reduces the variability} of our estimates
 \end{itemize} 
 \end{frame}
 
@@ -1310,14 +1313,14 @@ E(Y \mid X_1) =& \ 6 + 2 X_1 \text{ in those with $X_2 = 0$, and } \\
 E(Y \mid X_1) =& \ 7 + 2 X_1 \text{ in those with $X_2 = 1$}.
 \end{align*}
 
-What happened when we \textcolor{green}{did not account for} $X_2$ in the analysis? \pause {\small Hint: we estimated the \textbf{pooled} coefficient for $X_1$ to be 1.89}
+What happened when we \textcolor{ForestGreen}{did not account for} $X_2$ in the analysis? \pause {\small Hint: we estimated the \textbf{pooled} coefficient for $X_1$ to be 1.89}
 \end{frame}
 
 \begin{frame}
 \frametitle{Multiple regression: motivation}
 Why spend so much time on linear regression?
 
-\textcolor{red}{Confounders} (slides 1.66--1.71), \textcolor{blue}{effect modifiers} (slides 1.72--1.77), and \textcolor{green}{precision variables} (slides 1.77--1.83) all show up in other types of regression as well.
+\textcolor{red}{Confounders} (slides 1.66--1.71), \textcolor{blue}{effect modifiers} (slides 1.72--1.77), and \textcolor{ForestGreen}{precision variables} (slides 1.77--1.83) all show up in other types of regression as well.
 
 Additionally, the types of considerations we will have to make when choosing variables for our analysis, and the interpretation of regression coefficients, will be similar to those for linear regression in other regression types.
 
@@ -1420,7 +1423,7 @@ Surrogate for response (not a confounder!):
 \begin{frame}
 \frametitle{Types of covariates: precision variables}
 
-\textcolor{green}{Precision variable}: associated with the outcome in the population; \textbf{not associated with} the predictor of interest \textbf{in the sample}.
+\textcolor{ForestGreen}{Precision variable}: associated with the outcome in the population; \textbf{not associated with} the predictor of interest \textbf{in the sample}.
 
 \centering
 \vspace{-0.2cm}
@@ -1480,7 +1483,7 @@ When our scientific question involves an association (not causal!), we \textbf{r
 
 However, we may choose to adjust to: \vspace{-0.3cm}
 \begin{itemize}
-\item reduce the variability in our estimates \textcolor{green}{(precision variables)}
+\item reduce the variability in our estimates \textcolor{ForestGreen}{(precision variables)}
 \item get a better prediction of the mean outcome (more on this later)
 \end{itemize}
 
@@ -1513,7 +1516,7 @@ The types of covariates we might adjust for (based on science) are: \vspace{-0.2
 \begin{itemize}
 \item \textcolor{red}{confounders}
 \item \textcolor{blue}{effect modifiers}
-\item \textcolor{green}{precision variables}
+\item \textcolor{ForestGreen}{precision variables}
 \end{itemize}
 
 Next, we'll see how to interpret coefficients in adjusted analyses, and how to use \texttt{R} to fit multiple linear regression models. We'll also see many examples of all three types of covariates.
@@ -1831,9 +1834,9 @@ What is the interpretation of $\hat{\beta}_3 = 0.69$? \pause
 
 Up to now, we have primarily been concerned with adjusting for \textcolor{red}{potential confounders}; if we fail to adjust for these variables, we may reach the wrong conclusion.
 
-\textcolor{green}{Precision variables} (associated with the outcome in the population, not associated with the predictor of interest in the sample), in contrast, do not need to be adjusted for.
+\textcolor{ForestGreen}{Precision variables} (associated with the outcome in the population, not associated with the predictor of interest in the sample), in contrast, do not need to be adjusted for.
 
-Adjusting for precision variables tends to \textcolor{green}{reduce the standard error for the coefficient of interest} (in linear regression): intuitively, we do a better job explaining the outcome, so we reduce the variability in the problem. 
+Adjusting for precision variables tends to \textcolor{ForestGreen}{reduce the standard error for the coefficient of interest} (in linear regression): intuitively, we do a better job explaining the outcome, so we reduce the variability in the problem. 
 
 Interpreting multiple linear regression coefficients \textcolor{blue}{is the same as if we adjusted for a confounder}.
 \end{frame}
@@ -1862,7 +1865,7 @@ Height & $-0.3547$ & $0.05694$ & [$-0.4665$, $-0.2429$]
 \begin{frame}
 \frametitle{Multiple linear regression: effect modification}
 
-With both \textcolor{red}{confounders} and \textcolor{green}{precision variables}, the association between the predictor of interest and the response \textbf{is the same} regardless of the value of the confounder/precision variable.
+With both \textcolor{red}{confounders} and \textcolor{ForestGreen}{precision variables}, the association between the predictor of interest and the response \textbf{is the same} regardless of the value of the confounder/precision variable.
 
 Sometimes, we have reason to believe that the association between our predictor of interest and the response \textcolor{blue}{differs depending on the value} of another variable.
 
@@ -2218,7 +2221,7 @@ By the end of Section 3, you should be able to:
 \begin{itemize}
 \item Understand and explain the difference between the scientific goals of prediction versus causal association
 \item[]
-\item \textcolor{green}{Obtain predicted values from a linear regression analysis} by hand and using R
+\item \textcolor{ForestGreen}{Obtain predicted values from a linear regression analysis} by hand and using R
 \item[]
 \item Determine the \textcolor{blue}{predictive accuracy} of a linear regression analysis using $R^2$
 \item[]
@@ -2230,7 +2233,7 @@ By the end of Section 3, you should be able to:
 \frametitle{Prediction versus (causal) association}
 So far, in this course, our goal has been to estimate the association between a predictor of interest and our outcome.
 
-Whether or not we need to adjust for other variables (\textcolor{red}{to deal with potential confounding}, \textcolor{green}{or increase precision}), or include interaction terms (\textcolor{blue}{for effect modification}) depends on the scientific question, which is aimed at these \textbf{associations}.
+Whether or not we need to adjust for other variables (\textcolor{red}{to deal with potential confounding}, \textcolor{ForestGreen}{or increase precision}), or include interaction terms (\textcolor{blue}{for effect modification}) depends on the scientific question, which is aimed at these \textbf{associations}.
 
 When our scientific question involves \textbf{prediction}, we have a different goal: \textcolor{magenta}{develop an algorithm based on current data that, when we plug in future data, predicts the outcome well.}
 \end{frame}
@@ -2295,7 +2298,7 @@ Plug them in!
 
 \textbf{In general, you can either do this by hand or use R to compute predicted values for you.}
 
-Additionally, \textcolor{green}{the fitted values are our predictions of the mean outcome for the current study participants.}
+Additionally, \textcolor{ForestGreen}{the fitted values are our predictions of the mean outcome for the current study participants.}
 \end{frame}
 
 \begin{frame}
@@ -2340,14 +2343,14 @@ Now we'll perform the regression, and extract \textbf{all coefficient estimates}
 & - 0.24 (\text{Smoker}\times\text{Male}).
 \end{align*}
 
-What is our best estimate of the FEV for a \textcolor{blue}{nonsmoking} \textcolor{green}{female} who is \textcolor{magenta}{60 inches tall}? \pause
+What is our best estimate of the FEV for a \textcolor{blue}{nonsmoking} \textcolor{ForestGreen}{female} who is \textcolor{magenta}{60 inches tall}? \pause
 \begin{align*}
 \widehat{Y} = & \ -3.28 - 0.21 \times 0 + 0.24 \times 0 + 0.08 \times 60 - 0.24 \times (0 \times 0) \\
 =& \ -3.28 + 4.8 = 1.52
 \end{align*} \pause
 
 \vspace{-0.8cm}
-What is our best estimate of the FEV for a \textcolor{blue}{smoking} \textcolor{green}{male} who is \textcolor{magenta}{72 inches tall}? \pause
+What is our best estimate of the FEV for a \textcolor{blue}{smoking} \textcolor{ForestGreen}{male} who is \textcolor{magenta}{72 inches tall}? \pause
 \begin{align*}
 \widehat{Y} = & \ -3.28 - 0.21 \times 1 + 0.24 \times 1 + 0.08 \times 72 - 0.24 \times (1 \times 1) \\
 =& \ -3.28 -0.21 + 0.24 + 5.76 - 0.24 = 2.27
@@ -2465,7 +2468,7 @@ We can get actual values of predictions by either: \vspace{-0.3cm}
 \item using the \texttt{lm()} and \texttt{predict()} functions in \texttt{R}
 \end{itemize}
 
-Making good predictions is a hot topic in statistics currently, and \textcolor{green}{``machine learning'' methods are often the best predictive algorithms}; however, \textcolor{blue}{in many settings linear regression can be used to predict well, and is often more interpretable than ``black box'' methods.}
+Making good predictions is a hot topic in statistics currently, and \textcolor{ForestGreen}{``machine learning'' methods are often the best predictive algorithms}; however, \textcolor{blue}{in many settings linear regression can be used to predict well, and is often more interpretable than ``black box'' methods.}
 \end{frame}
 
 \section{Wrapping up}
@@ -2474,7 +2477,7 @@ Making good predictions is a hot topic in statistics currently, and \textcolor{g
 
 We have spent a lot of time interpreting linear regression coefficients, confidence intervals, and p-values.
 
-Depending on your scientific question and your study design, you may need to adjust for \textcolor{red}{potential confounders} and/or \textcolor{green}{precision variables}, and you may include interaction terms to test \textcolor{blue}{effect modification}.
+Depending on your scientific question and your study design, you may need to adjust for \textcolor{red}{potential confounders} and/or \textcolor{ForestGreen}{precision variables}, and you may include interaction terms to test \textcolor{blue}{effect modification}.
 
 We have also spent considerable time honing your data analysis workflow.
 \end{frame}
@@ -2485,7 +2488,7 @@ Data analysis workflow: \vspace{-0.3cm}
 \begin{itemize}
 \item Write a \textcolor{blue}{scientific question}
 \item[]
-\item Draw a \textcolor{green}{causal diagram}
+\item Draw a \textcolor{ForestGreen}{causal diagram}
 \item[]
 \item Write a \textcolor{orange}{statistical question that uses the causal diagram and answers the scientific question}
 \item[]
@@ -2542,7 +2545,7 @@ We have the following information on each subject: age (years), sex (\texttt{mal
 \frametitle{Linear regression: inflammatory biomarkers}
 \textbf{Our scientific question:} are \textcolor{orange}{blood levels of fibrinogen} associated with \textcolor{blue}{blood levels of CRP}? \pause
 
-\textcolor{green}{Causal diagram: } {\small (space intentionally left blank)} \vspace{5cm}
+\textcolor{ForestGreen}{Causal diagram: } {\small (space intentionally left blank)} \vspace{5cm}
 
 \end{frame}
 
@@ -2645,7 +2648,7 @@ Based on a linear regression, we estimate that the \textcolor{orange}{mean diffe
 
 \textbf{Summary of results:} \textit{(part 2, statistical inference)}
 
-\textcolor{green}{Based on a 95\% confidence interval, this result would not be judged unusual if the true difference in mean blood fibrinogen level were between 4.55 and 5.80 mg/dL} comparing two groups differing in blood CRP level by one mg/L, but having the same age, sex, cholesterol level, BMI, and previous history of cardiovascular disease. \textcolor{orange}{These data provide evidence that the difference in mean blood fibrinogen level is statistically significantly different from zero (p-value $< 0.001$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that blood levels of CRP are associated with blood levels of fibrinogen, adjusted for age, sex, cholesterol, BMI, and previous history of cardiovascular disease.}
+\textcolor{ForestGreen}{Based on a 95\% confidence interval, this result would not be judged unusual if the true difference in mean blood fibrinogen level were between 4.55 and 5.80 mg/dL} comparing two groups differing in blood CRP level by one mg/L, but having the same age, sex, cholesterol level, BMI, and previous history of cardiovascular disease. \textcolor{orange}{These data provide evidence that the difference in mean blood fibrinogen level is statistically significantly different from zero (p-value $< 0.001$)}. \textcolor{blue}{Based on these results, we have evidence to suggest that blood levels of CRP are associated with blood levels of fibrinogen, adjusted for age, sex, cholesterol, BMI, and previous history of cardiovascular disease.}
 \end{frame}
 
 \begin{frame}
