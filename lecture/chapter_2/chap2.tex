@@ -60,9 +60,9 @@ Up to this point, we've focused on questions involving \textcolor{blue}{quantita
 
 \begin{itemize}
 \item Is lung function (\textcolor{blue}{FEV}) associated with smoking?
-\item Is \textcolor{blue}{systolic blood pressure} associated with ancestry?
 \item Is lung function (\textcolor{blue}{FEV}) associated with smoking, after adjusting for age, height, and sex?
 \item Does the association between lung function (\textcolor{blue}{FEV}) and smoking, adjusting for age and height, differ between males and females?
+\item Is \textcolor{blue}{systolic blood pressure} associated with ancestry?
 \item Is cognitive function (\textcolor{blue}{DSST score}) associated with alcohol use, adjusting for age, sex, and education?
 \end{itemize}
 \end{frame}
@@ -255,22 +255,99 @@ How do we interpret the regression coefficients $\beta_0, \beta_1$? \vspace{-0.3
 To answer our statistical question \begin{small}\textit{(is the ratio of odds of diabetes between men and women different from 1?)}\end{small} we just need to look at $e^{\beta_1}$! \begin{small} (estimate, CI, test if it's equal to 1) \end{small}
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%% comment out %%%%%%%%%%%%%%%%%%%
-\begin{comment}
+\begin{frame}
+The interpretation of logistic regression models is
+\begin{itemize}
+\item[] \color{blue} more complicated \color{black} (we have to remember to exponentiate the coefficients, and to talk about ratios rather than differences), and
+\item[] \color{orange} less intuitive \color{black} (a lot of people don't understand the difference between probabilities and odds)...
+\end{itemize}
+\textit{so why bother?}
+\end{frame}
 
 \section{Linear regression with binary outcomes}
 \begin{frame}
 \frametitle{SECTION 2: LINEAR REGRESSION WITH BINARY OUTCOMES}
 
-% general formulation, do the math for coefficient interp
-% diabetes and sex: interp + R + reporting results
-% diabetes and age: interp + R + reporting results
-% cons: fitted values outside (0,1) range, CIs may include values outside (0,1) range
-% pros: interpretable (probabilities > odds, differences > ratios)
+Linear regression model with a binary outcome: $$E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p X_p$$ $$P[Y=1|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$$
+
+Interpretation:
+\begin{itemize}
+\item $\beta_0$: probability that $Y=1$ when $X_1 = 0, \cdots X_p = 0$
+\item $\beta_1$: difference in probability that $Y=1$ comparing two groups that differ by one unit in $X_1$ but are the same with respect to $X_2,\cdots,X_p$ 
+\item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression with binary outcomes}
+\begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
+
+\vspace{-0.6cm}
+\color{blue} Inference: \vspace{-0.3cm} \color{black}
+\begin{itemize}
+\item Identify the regression coefficient of interest. \pause % which one(s) answer(s) our scientific Q?
+\item Report an estimate, and interpret: \textit{We estimate that the difference in probabilities between two groups...} \pause
+\item Report a 95\% confidence interval, and interpret: \textit{Based on a 95\% confidence interval, this observed difference in probabilities would not be judged unusual if...} \pause
+\item Report the p-value from a hypothesis test of $H_0: \beta = 0$: \textit{These data provide evidence to suggest that this difference in probabilities is (is not) significantly different from zero ($p =$...).} \pause
+\item Add a conclusion relating back to our scientific question
+\end{itemize}
+% they'll fill in the blanks on HW this week
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression with binary outcomes}
+\begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
+
+\color{blue} Prediction:\vspace{-0.3cm} \color{black}
+\begin{itemize} \itemsep +5pt
+\item Get estimates for each regression coefficient: $\hat\beta_0, \cdots, \hat\beta_p$ \pause
+\item Plug in those estimates, along with the covariate values for the new individual: $\hat\beta_0 + \hat\beta_1 x_1 + \cdots \hat\beta_p x_p$ \pause
+	\begin{itemize} \itemsep +5pt
+	\item This is our best estimate of $Y$ for a person with $X_1 = x_1, \cdots X_p = x_p$ ($\hat{Y}$) \pause
+	\item This is also our estimate of the mean value of $Y$ (or probability that $Y=1$) among subjects with $X_1 = x_1, \cdots, X_p = x_p$ ($\hat{E}[Y|X_1,\cdots X_p] = \hat{P}[Y=1|X]$)
+	\end{itemize}
+\end{itemize}
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Linear regression with binary outcomes}
+\begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
+
+\color{blue} Graphical support: \color{black} scatterplot + linear regression line
+\vspace{-0.4cm}
+\center
+\includegraphics[width=0.5\textwidth]{figs/contX-lm}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Linear regression with binary outcomes}
+\begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
+
+\color{blue} Graphical support: \color{black} \textit{What is $\hat{Y}$ for someone with $X = 10$?}
+\vspace{-0.4cm}
+\center
+\includegraphics[width=0.5\textwidth]{figs/contX-lm}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Linear regression with binary outcomes}
+\begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
+
+Pros: \vspace{-0.3cm}
+\begin{itemize}
+\item Easy to interpret (differences in probabilities)
+\end{itemize}
+
+Cons: \vspace{-0.3cm}
+\begin{itemize}
+\item Predicted/fitted values can be outside the (0,1) range
+\item Our mean model might not be correct (particularly the linearity piece)% is one of the assumptions for linear regression that actually is important
+\end{itemize}
+
+What can we do instead?
+\end{frame}
 
 \section{Simple logistic regression}
 \begin{frame}
@@ -284,6 +361,10 @@ To answer our statistical question \begin{small}\textit{(is the ratio of odds of
 % diabetes and age: interp + R + reporting results
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%% comment out %%%%%%%%%%%%%%%%%%%
+\begin{comment}
 
 \section{Multiple logistic regression}
 \begin{frame}
