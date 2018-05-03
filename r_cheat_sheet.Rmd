@@ -51,4 +51,10 @@ We have added a column that denotes which R package contains each function (note
 | `lowess` | Create (x,y) pairs using a loess smoother | `loess <- lowess(x = fev$age, y = fev$fev)` | Create a loess smoother for FEV against age | Discussion section 3, line 286 | `stats`
 | `lines` | Add lines to a plot | `lines(loess, col = "blue", lty = 2)` | Add lines for the `loess` object to the current plot; color it blue; and make the line dashed | Discussion section 3, line 187 | `graphics`
 | `log` | Log-base-e transform | `log(fev$age)` | Log-transform age | Discussion section 3, line 313 | `base`
-
+| `rnorm` | Generate Normal random variables | `rnorm(100, 0, 1)` | Generate 100 Normal(0, 1) random variables | Section 3.5, slide 1.160 | `stats`
+| `lm` | Fit a linear regression | `lm(y ~ x1 + x2)` | Fit a linear regression of the outcome `y` on covariates `x1` and `x2` | `stats`
+| `fitted` | Obtain fitted values from a base R regression object | `fitted(lm(y ~ x1 + x2))` | Obtain the fitted values from a linear regression of `y` on `x1` and `x2` | Section 3.5, slide 1.199 | `stats`
+| `residuals` | Obtain residuals from a base R regression object | `residuals(lm(y ~ x1 + x2))` | Obtain the residuals from a linear regression of `y` on `x1` and `x2` | Section 3.5, slide 1.199 | `stats`
+| `qqnorm` | Draw a Normal Q-Q plot | `qqnorm(residuals(lm(y ~ x1 + x2)))` | Draw a Normal Q-Q plot of the residuals from a regression | Section 3.5, slide 1.203 | `stats`
+| `acf` | Draw an autocorrelation plot | `acf(residuals(lm(y ~ x1 + x2)))` | Draw an autocorrelation plot from a regression | Section 3.5, slide 1.207 | `stats`
+| `predict` | Obtain predictions from a base R regression object | `predict(lm(fev ~ smoke*male + height, data = adultfev), newdata = data.frame(smoke = 0, male = 0, height = 60))` | Obtain predictions from a linear regression of FEV on smoking, male, height, and the smoking-male interaction, for a new subject who doesn't smoke, is female, and has height 60 inches | Section 3, slide 1.163 | `stats`

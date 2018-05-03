@@ -2471,6 +2471,527 @@ We can get actual values of predictions by either: \vspace{-0.3cm}
 Making good predictions is a hot topic in statistics currently, and \textcolor{ForestGreen}{``machine learning'' methods are often the best predictive algorithms}; however, \textcolor{blue}{in many settings linear regression can be used to predict well, and is often more interpretable than ``black box'' methods.}
 \end{frame}
 
+\section{Assumptions and Diagnostics}
+\begin{frame}
+\frametitle{{\fontsize{15pt}{7.2}\selectfont SECTION 3.5: ASSUMPTIONS AND DIAGNOSTICS FOR LINEAR REGRESSION}}
+\framesubtitle{{\small by Arjun Sondhi, Graduate Student in Biostatistics}}
+By the end of Section 2.5, you should be able to:
+\begin{itemize}
+\item describe the \textbf{necessary} assumptions for valid estimates and inference in linear regression
+\item \textbf{contrast} the truly necessary assumptions with the assumptions commonly believed to be necessary
+\item interpret diagnostic plots
+\item create diagnostic plots in \texttt{R}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Linear regression model}
+
+Recall the form of the (multiple) linear regression model:
+
+\[
+\begin{aligned}
+E[Y_i \mid X_{i1}, \dots, X_{ip}] &= \beta_0 + \beta_1 X_{i1} + \dots + \beta_p X_{ip} \\
+i &= 1, ..., n
+\end{aligned}
+\]
+
+This is equivalent to:
+
+\[
+\begin{aligned}
+Y_i &= \beta_0 + \beta_1 X_{i1} + \dots + \beta_p X_{ip} + \epsilon_i \\
+\epsilon_i &\sim \text{zero mean} \\
+i &= 1, ..., n
+\end{aligned}
+\]
+
+\pause
+
+\textbf{Inference:} understand the relationship between \(Y\) and the
+\(X\)s; how does variable \(Y\) change as some variables \(X\) change?
+
+\end{frame}
+
+\begin{frame}{Outline}
+
+In this lecture, we'll discuss:
+
+\begin{itemize}
+\item
+  Assumptions necessary for proper inference with linear regression
+\item
+  Diagnostic tools to evaluate assumptions
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Linear regression assumptions}
+
+\[
+\begin{aligned}
+Y_i &= \beta_0 + \beta_1 X_{i1} + \dots + \beta_p X_{ip} + \epsilon_i \\
+i &= 1, ..., n
+\end{aligned}
+\]
+
+The following are considered ``classical'' assumptions for linear
+regression:
+
+\begin{itemize}
+\item
+  A1)
+  \(E[Y_i | X_i] = \beta_0 + \beta_1 X_{i1} + \dots + \beta_p X_{ip}\)
+\item
+  A2) \(\epsilon_i\) are independent of \(X_i\)
+\item
+  A3) \(\epsilon_i\) are independently distributed as \(N(0, \sigma^2)\)
+\item
+  A4) The predictor matrix \(X\) is full rank
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{A1) Correctly specified mean model}
+
+\textbf{What does this mean?}
+
+The true population conditional mean \(Y|X\) is a linear function of the
+predictors.
+
+\pause
+
+\textbf{What happens if we violate this assumption?}
+
+It depends!
+
+\end{frame}
+
+\begin{frame}{A1) Correctly specified mean model}
+
+There are many ways to misspecify the mean model:
+
+\begin{itemize}
+\item
+  Not inlcuding a variable associated with the response
+\item
+  Not including a confounding variable\\
+\item
+  Specifying an incorrect relationship (e.g.~including only a variable's
+  linear term when it's quadratically associated)
+\item
+  \ldots{}
+\end{itemize}
+
+Any of these might lead to varying degrees of biased estimation and
+inaccurate inference (or not!).
+
+\end{frame}
+
+\begin{frame}{A1) Correctly specified mean model}
+
+\textbf{What can we do about it?}
+
+\begin{itemize}
+\item
+  Think carefully about which variables are scientifically relevant
+\item
+  Specify more flexible relationships (splines, higher-order terms,
+  interactions), but be careful about overfitting!
+\item
+  Model diagnostics
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{A2) \(\epsilon_i\) are independent of \(X_i\)}
+
+\textbf{What does this mean?}
+
+This assumption requires that the variation in the errors cannot be
+explained by the predictors.
+
+How might this situation arise?
+
+\pause
+
+Suppose \(Y = \beta_0 + \beta_1X + \beta_2Z + \tilde{\epsilon}\), where
+\(X\) and \(Z\) are (mildly) correlated. Also, suppose we do not observe
+\(Z\), and fit a regression with an intercept and \(X\) only.
+
+\pause
+
+Then, our model is \(Y = \beta_0 + \beta_1X + \epsilon\) where
+\(\epsilon = \beta_2Z + \tilde{\epsilon}\). Through the correlation of
+\(X\) and \(Z\), we can see that \(X\) and \(\epsilon\) are not
+independent.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{A2) \(\epsilon_i\) are independent of \(X_i\)}
+\centering
+\includegraphics[width=0.75\textheight]{plots/assumptions_plot_1.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{A2) \(\epsilon_i\) are independent of \(X_i\)}
+\centering
+\includegraphics[width=0.75\textheight]{plots/assumptions_plot_2.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{A2) \(\epsilon_i\) are independent of \(X_i\)}
+\centering
+\includegraphics[width=0.75\textheight]{plots/assumptions_plot_3.png}
+\end{frame}
+
+\begin{frame}{A2) \(\epsilon_i\) are independent of \(X_i\)}
+
+\textbf{What happens if we violate this assumption?}
+
+Violation of this assumption can result in biased estimation of
+\(\beta\) coefficients and inaccurate inference.
+
+\textbf{What can we do about it?}
+
+A serious violation of this assumption could be captured via a residuals
+vs.~fitted values plot, which we'll see later.
+
+\end{frame}
+
+\begin{frame}{A3) \(\epsilon_i\) are independently distributed as
+\(N(0, \sigma^2)\)}
+
+\textbf{What does this mean?}
+
+There are three major components here: errors are \textit{independent},
+errors are \textit{normally distributed}, and errors have a
+\textit{constant variance}.
+
+\end{frame}
+
+\begin{frame}{A3a) Independent errors}
+
+\textbf{What does this mean?}
+
+The observations are randomly sampled such that there is no possible
+dependence between their responses. An example of dependent errors would
+be a longitudinal study where subjects contribute multiple measurements
+over time.
+
+\pause
+
+\textbf{What happens if we violate this assumption?}
+
+Both model-based and robust standard errors will give incorrect
+inference.
+
+\textbf{What can we do about it?}
+
+Advanced methods for analyzing dependent data. Talk to Kelsey if you
+want to hear more!!!
+
+\end{frame}
+
+\begin{frame}{A3b) Normal errors}
+
+\textbf{What does this mean?}
+
+The errors are normally distributed.
+
+\pause
+
+\textbf{What happens if we violate this assumption?}
+
+If we have normal errors (and all other assumptions hold), then the
+regression estimator \(\hat{\beta}\) is also the maximum likelihood
+estimator, which means it is the asymptotically \alert{optimal unbiased}
+estimator. In other words, it is the unbiased estimator with the
+\alert{lowest variance}.
+
+Without normality, we still have that \(\hat{\beta}\) is the unbiased
+estimator with the lowest variance among all other \alert{linear}
+estimators.
+
+In other words, without normality, we still have pretty good estimators;
+there may simply be better nonlinear estimators.
+
+\end{frame}
+
+\begin{frame}{A3b) Normal errors}
+
+\textbf{What can we do about it?}
+
+Transforming \(Y\) can help make errors look more normal. However, if
+the transformation is not scientifically meaningful, it's probably not
+worth it.
+
+In general, we care mostly about having unbiased estimation; low
+variance is a secondary concern.
+
+\end{frame}
+
+\begin{frame}{A3c) Constant variance (homoskedasticity) errors}
+
+\textbf{What does this mean?}
+
+Among all possible levels of \(X\), the variance of \(Y\) is the same.
+In math, \(Var(Y|X=x) = \sigma^2\) for all possible \(x \in R^p\).
+
+\pause
+
+\centering
+\includegraphics[width=0.9\textwidth]{plots/hetero.png}
+
+\end{frame}
+
+\begin{frame}{A3c) Constant variance (homoskedasticity) errors}
+
+\textbf{What happens if we violate this assumption?}
+
+If we use model-based standard errors, then these will give incorrect
+inference (i.e.~confidence intervals may not properly cover the true
+\(\beta\)).
+
+If we use robust standard errors, then we're okay!
+
+\textbf{What can we do about it?}
+
+Use robust standard errors! (\texttt{regress} uses these by default
+while \texttt{lm} does not!)
+
+\end{frame}
+
+\begin{frame}{A4) Full rank predictor matrix}
+
+\textbf{What does this mean?}
+
+A matrix \(X\) is ``full rank'' if none of its columns are
+\alert{collinear}.
+
+In other words, we cannot have two columns \(X_1\) and \(X_2\) which can
+be written as \(X_1 = aX_2 + b\) (e.g.~age in months and age in years).
+Why might this be an issue, intuitively?
+
+\pause
+
+\textbf{What happens if we violate this assumption?}
+
+Let's see what happens if we try to fit a model with collinear
+predictors.
+
+\end{frame}
+
+\begin{frame}{A4) Full rank predictor matrix}
+\centering
+\includegraphics[height=0.8\textheight]{plots/assumptions_plot_4.png}
+\end{frame}
+
+\begin{frame}{A4) Full rank predictor matrix}
+
+We cannot fit regression coefficients for all collinear variables!
+
+If variables are strongly, but not perfectly correlated, coefficients
+can still be fit. However, stronger correlation will lead to larger
+standard errors, adding more uncertainty to inference.
+
+\pause
+\textbf{What can we do about it?}
+
+Including very strongly correlated variables doesn't really make sense,
+as we are repeating information. It's better to screen out variables
+which are not really necessary.
+
+Fortunately, we can easily look at pairwise correlations in our observed
+data.
+
+\end{frame}
+
+\begin{frame}{A4) Full rank predictor matrix}
+
+Another situation that results in a non-full rank \(X\) matrix is when
+the number of variables, \(p > n\), the number of observations
+(\alert{high-dimensional}).
+
+In this situation, ordinary linear regression models cannot be fit; we
+need to add more constraints to the model in order to obtain parameter
+estimates.
+
+If interested in this area, talk to Brian!!!
+
+\end{frame}
+
+\begin{frame}{Recap}
+
+What do we \textit{actually} need?
+
+\pause
+
+\begin{itemize}
+\item
+  Independent observations
+\item
+  Robust standard errors
+\item
+  \(n\) sufficiently large; in particular, \(n >> p\)
+\item
+  Predictors are not strongly correlated
+\item
+  A model specification that is \textit{close enough} to the ground
+  truth
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Diagnostics}
+
+Can we test if our model assumptions are met?
+
+\pause
+
+Kind of. Diagnostics are a sanity check to see if your model is
+\alert{terrible} or not.
+
+\pause
+
+What diagnostics do NOT do:
+
+\begin{itemize}
+\item
+  Identify all possible issues in a model
+\item
+  Provide reliable \alert{model selection} criteria
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Residuals}
+
+After fitting a regression model, the \alert{residuals} for each
+observation are defined as
+\(r_i = y_i - \sum_{i=0}^p \hat{\beta}_i x_i\) \centering
+\includegraphics[width=0.6\textwidth]{plots/linear-regr-ls.jpg}
+
+\end{frame}
+
+\begin{frame}{Residual plots}
+
+Why do we consider the regression residuals for diagnostics?
+
+\pause
+
+The residuals are our ``best guess'' for the distribution of the
+\(\epsilon_i\), which a lot of the regression assumptions involve.
+
+\pause
+
+The most common plot for linear regression diagnostics is a scatterplot
+of residuals vs. \alert{fitted values} (defined as
+\(\sum_{i=0}^p \hat{\beta}_i x_i\)).
+
+\end{frame}
+
+\begin{frame}{Residuals vs.~fitted values}
+
+What we look for in this plot:
+
+\begin{itemize}
+\item
+  Residuals spread randomly around the \(y = 0\) --\textgreater{}
+  \(\epsilon\) zero mean
+\item
+  No ``trend'' in the residuals --\textgreater{} \(\epsilon\)
+  independent of \(X\)
+\item
+  Constant height between min and max residuals at each level of fitted
+  values --\textgreater{} constant variance
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Residuals vs.~fitted values}
+\centering
+\includegraphics[height=0.8\textheight]{plots/diagnostics_plot_1.png}
+\end{frame}
+
+\begin{frame}[fragile]{Residuals vs.~fitted values}
+\centering
+\includegraphics[height=0.8\textheight]{plots/diagnostics_plot_2.png}
+\end{frame}
+
+\begin{frame}[fragile]{Residuals vs.~fitted values}
+\centering
+\includegraphics[height=0.8\textheight]{plots/diagnostics_plot_3.png}
+\end{frame}
+
+\begin{frame}{Residual Q-Q plot}
+
+A Q-Q (quantile-quantile) plot compares two distributions by plotting
+their quantiles against each other. The distributions are equal if the
+resulting scatterplot goes through the 45-degree diagonal line
+
+We use Normal Q-Q plots of residuals to judge if the model errors are
+normally distributed.
+
+\end{frame}
+
+\begin{frame}{Residual Q-Q plot}
+\centering
+\includegraphics[height=0.8\textheight]{plots/diagnostics_plot_4.png}
+\end{frame}
+
+\begin{frame}{Residual Q-Q plot}
+\centering
+\includegraphics[height=0.8\textheight]{plots/diagnostics_plot_5.png}
+\end{frame}
+
+\begin{frame}{Residual Q-Q plot}
+\centering
+\includegraphics[height=0.8\textheight]{plots/diagnostics_plot_6.png}
+\end{frame}
+
+\begin{frame}{Residual ACF plot}
+
+The ACF (autocorrelation function) plot displays the empirical
+correlation of all observations separated by various time lags. For
+randomly sampled data with no natural ordering of the observations, we
+would expect these correlations to be small and non-significant.
+
+We can look at the autocorrelation of the residuals to determine if the
+independent \(\epsilon\) assumption holds. This might be a good idea if
+we are less aware of how the data were generated, and there is the
+possiblity of correlated observations.
+
+\end{frame}
+
+\begin{frame}{Residual ACF plot}
+\centering
+\includegraphics[height=0.8\textheight]{plots/diagnostics_plot_7.png}
+\end{frame}
+
+\begin{frame}{Summary of diagnostics}
+
+\begin{itemize}
+\item
+  By examining a residuals vs.~fitted values plot, we can determine if
+  we have a serious model misspecification issue (if we just have
+  non-constant variance, this is less of a big deal with large enough
+  \(n\))
+\item
+  A Q-Q plot of the standardized residuals can tell us if the normality
+  of residuals assumption is justifiable (but this is also less of a big
+  deal with large enough \(n\))
+\item
+  The residual ACF plot can be useful if we think there is a possiblity
+  of correlated data, in which case standard linear regression would not
+  work out
+\end{itemize}
+
+\end{frame}
+
+
+
+
 \section{Wrapping up}
 \begin{frame}
 \frametitle{SECTION 4: SUMMARY}
