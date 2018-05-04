@@ -48,14 +48,14 @@ Type your answer here.
 ## b. (1 point) Fit a simple linear regression model with Quit as the outcome and Group as the predictor. 
 
 ```{r code-for-1b,echo=F,eval=F}
-
+## simple linear regression
 ```
 
-**Interpret the estimated intercept and slope. How do these results relate to your calculation in (a)?**
+**Interpret the estimated intercept and slope (1 sentence each). How do these results relate to your calculation in (a)?**
 
 Type your answer here.
 
-**Write a paragraph summarizing the results of this analysis.**
+**Write a paragraph summarizing the results of this analysis (4-5 sentences).**
 
 Report your results here.
 
@@ -63,14 +63,14 @@ Report your results here.
 ## c. (1 point) Fit a simple logistic regression model with Quit as the outcome and Group as the predictor. 
 
 ```{r code-for-1c,echo=F,eval=F}
-
+## simple logisitic
 ```
 
-**Interpret the estimated intercept and slope. How do these results relate to your calculation in (a)?**
+**Interpret the estimated intercept and slope (1 sentence each). How do these results relate to your calculation in (a)?**
 
 Type your answer here.
 
-**Write a paragraph summarizing the results of this analysis.**
+**Write a paragraph summarizing the results of this analysis (4-5 sentences).**
 
 Report your results here.
 
@@ -82,15 +82,117 @@ Type your answer here.
 
 Type your answer here.
 
+## e. (Optional Problem) Name one type of hypothesis test that you learned in BIOST 310 (or other previous stats courses) that you could use here to test whether therapy is associated with smoking. Implement that test and compare your results to part (c).
+
+```{r code-for-1e,echo=F,eval=F}
+## hypothesis test
+```
+
 \newpage
 
-# 2. Multiple logistic regression (3 points)
+# 2. Multiple logistic regression (2 points)
+
+A cohort study is conducted to evaluate whether a history of kidney stones (predictor) is associated with cardiovascular disease (outcome). Both are measured as binary variables. Information is also available on each patient's age, coded as a binary variable (0 = younger than 50, 1 = older than 50). 
+
+Data from this study are stored in the `kidney_stones.txt` dataset (Canvas > Files > Data).
+
+## a. (0.5 points) Based on these data, explain why there is no evidence that age is associated with kidney stones.
+
+*(Hint: Look at the probability of kidney stones within each age group.)*
+
+```{r code-for-2a,echo=F,eval=F}
+## HINT: use the descrip function with the strata argument 
+```
+
+Type your answer here.
+
+**Do you believe that age is a confounder for the association between kidney stones and cardiovascular disease? If not a confounder, what type of variable is it? Justify your response.**
+
+Type your answer here.
+
+## b. (0.5 points) Fit a simple logistic regression model with cardiovascular disease as your response and kidney stones as your predictor. Write a paragraph summarizing your results (4-5 sentences).
+
+```{r code-for-2b,echo=F,eval=F}
+## simple logistic regression
+```
+
+Type your answer here.
+
+## c. (0.5 points) Now fit a multiple logistic regression model with cardiovascular disease as your response, kidney stones as your predictor of interest, and adjusting for age. Write a paragraph summarizing your results (4-5 sentences).
+
+```{r code-for-2c,echo=F,eval=F}
+## multiple logistic regression
+```
+
+Type your answer here.
+
+
+## d. (0.5 points) Compare your results in parts (b) and (c). If you see any differences between the estimates from the two models, is this surprising?
+
+*(Hint: think about what happens in linear regression when we include this type of variable in our model.)*
+
+Type your answer here.
 
 \newpage
 
-# 3. Case-control studies (1 points)
+# 3. Multiple logistic regression with effect modification (2 points)
 
-**Explain why we can/cannot estimate the probability of disease (i.e., disease prevalance) from a case-control study.**
+We will now return to the `inflamm` dataset which we analyzed on HW5. Recall that the data (available on Canvas in the `Data` folder), come from a cohort study of 5000 generally healthy elderly adults who were randomly sampled from Medicare rolls in four US communities.
+
+On HW5, we explored the association between type 2 diabetes and BMI. **In this assignment, we are interested in whether sex modifies this association.**
+
+We will consider the following variables:
+
+- `age`: age at enrollment (years) 
+- `male`: sex (1 = male, 0 = female)
+- `bkrace`: race (1 = black, 0 = other)
+- `smoker`: smoking status (1 = smoker, 0 = nonsmoker)
+- `diab2`: type 2 diabetes (1 = diabetes, 0 = no diabetes)
+- `bmi`: body mass index (kg/m$^2$)
+
+
+## a. (0.5 points) Fit a simple logistic regression model with diabetes as your outcome and BMI as the predictor. Write a summary of your results (4-5 sentences).
+
+```{r code-for-3a,echo=F,eval=F}
+## simple logistic 
+```
+
+Type your answer here.
+
+## b. (0.5 points) Now, fit a multiple logistic regression model that also adjusts for age, sex, race, and smoking. Write a summary of the relevant results (4-5 sentences).
+
+```{r code-for-3b,echo=F,eval=F}
+## multiple logistic 
+```
+
+Type your answer here.
+
+## c. (1 point) Finally, add an interaction term between sex and BMI to your model from (b). Interpret the coefficient estimates for BMI, sex, and their interaction (1 sentence each). Do we have evidence for effect modification (1-2 sentences)? 
+
+\newpage
+
+# 4. Case-control studies (1 point)
+
+Since lung cancer is rare, we conduct a case-control study to evaluate whether smoking (predictor) is associated with lung cancer (outcome). The data are presented in the 2 $\times$ 2 table below. Our scientific question of interest is: do rates of lung cancer difer by smoking status?
+
+\begin{center}
+\begin{tabular}{|l|cc|c|}
+\hline
+& Lung Cancer & No Cancer & Total \\
+& (Case) & (Control) & \\
+\hline
+Smoker (Exposed) & 30 & 5 & 35 \\
+Nonsmoker (Unexposed) & 70 & 95 & 165 \\
+\hline
+Total & 100 & 100 & 200 \\
+\hline
+\end{tabular}
+\end{center}
+
+
+**Use the table to estimate (a) the prevalence of lung cancer; (b) the probability of smoking, given cancer; (c) the probability of smoking, given no cancer; (d) the probability of cancer, given smoker; and (e) the probability of cancer, given nonsmoker.**
+
+**For each part, indicate whether (i) the quantity helps us answer our scientific question and (ii) whether we can reliably estimate the quantity using data from this case-conrol study.**
 
 Type your answer here.
 
