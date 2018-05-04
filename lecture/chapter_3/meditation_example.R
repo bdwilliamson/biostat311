@@ -54,6 +54,7 @@ fig_res <- 200
 
 ## plot with enrollment shift
 png("lecture/chapter_3/figs/meditation_observed_study_time.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
 plot(sub_dat$event_times, 1:20, pch = 4, col = ifelse(sub_dat$tx == 1, "blue", "black"),
      axes = FALSE, ylab = "", xlab = "time since beginning of study (weeks)",
      xlim = c(0, 100))
@@ -73,6 +74,7 @@ dev.off()
 
 # plot with time since randomization
 png("lecture/chapter_3/figs/meditation_observed_rand_time.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
 plot(sub_dat$event_times - sub_dat$enroll_times, 1:20, pch = 4, col = ifelse(sub_dat$tx == 1, "blue", "black"),
      axes = FALSE, ylab = "", xlab = "time since randomization (weeks)",
      xlim = c(0, 100))
