@@ -42,15 +42,22 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan},dvipsnames]{beamer}
 
 % make it 1.something
 \setbeamertemplate{footline}{%
-  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[20pt]{\scriptsize 1.\insertframenumber~~}}}}  \newcounter{chap1}{\value{1}}
-\setcounter{framenumber}{\value{chap1}}
+  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[20pt]{\scriptsize 3.\insertframenumber~~}}}}  \newcounter{chap3}{\value{1}}
+\setcounter{framenumber}{\value{chap3}}
 
 \begin{frame}
 \frametitle{CHAPTER 3: SURVIVAL ANALYSIS}
 By the end of Chapter 3, you should be able to: \vspace{-0.3cm}
 
 \begin{itemize}
-\item 
+\item Determine if a variable has been \textcolor{BurntOrange}{right- or left-censored}
+\item Discuss the \textcolor{blue}{benefits} and \textcolor{red}{drawbacks} of treating a right- or left-censored variable as binary or continuous
+\item Create a \texttt{Survival} object in \texttt{R}
+\item \textbf{Interpret Kaplan-Meier curves}, and create them in \texttt{R}
+\item \textbf{Formulate a regression model} given a scientific or statistical question about a right- or left-censored outcome
+\item \textbf{Interpret the coefficients} for a (simple or multiple) proportional hazards regression model
+\item \textbf{Interpret confidence intervals and p-values} for proportional hazards regression coefficients
+\item Use \texttt{R} to fit a proportional hazards regression model and create figures/tables to support your regression analysis
 \end{itemize}
 
 \end{frame}
