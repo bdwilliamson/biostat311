@@ -1,0 +1,115 @@
+---
+title: "Homework 6"
+author: "Kelsey Grinde and Brian Williamson"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  pdf_document:
+    fig_caption: true
+---
+
+# Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by 5:00pm on May 11. You are welcome to work together on the homework; however, final solutions should be written up individually. 
+
+Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). **Unedited R output, or code, in the body of your assignment is not acceptable.** Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+# 1. Binary outcome and binary predictor (3 points) 
+
+A randomized controlled trial of $N = 600$ smokers is conducted to evaluate whether intensive therapy can help smokers quit (as measured by having quit for an entire year). Assume that smoking is objectively measured, and that individuals adhere to their randomized group.
+
+Data from this study are stored in the `smoking_therapy.txt` dataset (Canvas > Files > Data).
+
+The variable `Group` is binary and indicates which treatment group the individual was in (0 = no therapy, 1 = intensive therapy). The variable `Quit` is a binary variable that indicates whether the subject quit smoking (0 = did not quit, 1 = quit).
+
+## a. (0.5 points) Calculate the risk difference and odds ratio by hand.
+
+**Download the dataset from Canvas, and use R to calculate the numbers that need to go into each of the cells in the following 2 x 2 table.**
+
+```{r code-for-1a,echo=F,eval=F}
+## read in data
+
+## create table (HINT: try the table() function)
+
+```
+
+
+**Group**      | **Quit Smoking** | **Did Not Quit** 
+-------------- | ---------------- | -----------------
+**Therapy **   | Cell 1           | Cell 2
+**No Therapy** | Cell 3           | Cell 4
+ 
+
+**Now, use your table to calculate the risk difference and the odds ratio. Show your work.**
+
+Type your answer here.
+
+## b. (1 point) Fit a simple linear regression model with Quit as the outcome and Group as the predictor. 
+
+```{r code-for-1b,echo=F,eval=F}
+
+```
+
+**Interpret the estimated intercept and slope. How do these results relate to your calculation in (a)?**
+
+Type your answer here.
+
+**Write a paragraph summarizing the results of this analysis.**
+
+Report your results here.
+
+
+## c. (1 point) Fit a simple logistic regression model with Quit as the outcome and Group as the predictor. 
+
+```{r code-for-1c,echo=F,eval=F}
+
+```
+
+**Interpret the estimated intercept and slope. How do these results relate to your calculation in (a)?**
+
+Type your answer here.
+
+**Write a paragraph summarizing the results of this analysis.**
+
+Report your results here.
+
+## d. (0.5 points) Use your estimated slope and intercept from part (c) to estimate the probability of quitting in the no therapy group and the probability of quitting in the therapy group. Show your work.
+
+Type your answer here.
+
+**Now, estimate those same probabilities using your table in part (a). How do your estimated probabilities compare to the ones you got from your logistic regression model?**
+
+Type your answer here.
+
+\newpage
+
+# 2. Multiple logistic regression (3 points)
+
+\newpage
+
+# 3. Case-control studies (1 points)
+
+**Explain why we can/cannot estimate the probability of disease (i.e., disease prevalance) from a case-control study.**
+
+Type your answer here.
+
+\newpage
+
+# R Code
+
+Once you have completed your assignment, update (if needed) and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names #####
+rmd.name <- 'hw6.Rmd' # name of this file; update if you changed the name of this file
+code.name <- 'hw6.R' # name of R code file; you can change if desired
+```
+
+```{r extract-code, eval = FALSE, include = FALSE}
+##### STEP 2: Run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+**Please upload the file `r code.name` along with your completed assignment.**
