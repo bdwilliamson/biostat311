@@ -39,6 +39,7 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
   \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[10pt]{\scriptsize 2.\insertframenumber~~}}}}  \newcounter{chap1}{\value{1}}
 \setcounter{framenumber}{\value{chap1}}
 
+\section{Chapter 2 learning objectives}
 \begin{frame}
 \frametitle{CHAPTER 2: LOGISTIC REGRESSION}
 
@@ -122,6 +123,7 @@ Examples: \vspace{-0.3cm}
 \end{itemize}
 \end{frame}
 
+\subsection{Simple linear regression with binary outcome}
 % diabetes and sex: linear regression
 \begin{frame}
 \frametitle{Example: diabetes and sex}
@@ -196,6 +198,7 @@ How do we interpret the regression coefficients $\beta_0, \beta_1$? \vspace{-0.3
 To answer our statistical question \begin{small}\textit{(is there a difference in probability of diabetes between men and women?)}\end{small} we just need to look at $\beta_1$! \begin{small} (estimate, CI, test if it's equal to 0) \end{small}
 \end{frame}
 
+\subsection{Simple logistic regression with binary outcome}
 % motivate logistic regression
 \begin{frame}
 \frametitle{Diabetes vs sex: odds}
@@ -265,19 +268,51 @@ The interpretation of logistic regression models is
 \end{frame}
 
 \section{Linear regression with binary outcomes}
+\subsection{Learning objectives}
 \begin{frame}
 \frametitle{SECTION 2: LINEAR REGRESSION WITH BINARY OUTCOMES}
 
+% Learning objectives
+By the end of this section, you should be able to:
+\begin{itemize}
+\item Interpret linear regression coefficients when the outcome $Y$ is binary
+\item Write a summary of results from a linear regression analysis with a binary outcome
+\item List at least one advantage and one disadvantage of using linear regression with a binary outcome
+\end{itemize}
+\end{frame}
+
+\subsection{Simple linear regression interpretation}
+\begin{frame}
+\frametitle{Simple linear regression with binary outcomes}
+% recall activity
+Suppose we fit the simple linear regression model $$E[Y \mid X] = \beta_0 + \beta_1 X,$$ where our outcome $Y$ is binary.
+
+\color{orange} Without looking at your notes, \color{black} write down an interpretation for the coefficients in this model.
+
+\begin{enumerate}
+\item $\beta_0$
+\item $\beta_1$
+\end{enumerate} 
+
+(You will turn this in at the end of class.)
+
+\end{frame}
+
+\subsection{Multiple linear regression interpretation}
+% interpretation
+\begin{frame}
+\frametitle{Multiple linear regression with binary outcomes}
 Linear regression model with a binary outcome: $$E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p X_p$$ $$P[Y=1|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$$
 
-Interpretation:
-\begin{itemize}
-\item $\beta_0$: probability that $Y=1$ when $X_1 = 0, \cdots X_p = 0$
-\item $\beta_1$: difference in probability that $Y=1$ comparing two groups that differ by one unit in $X_1$ but are the same with respect to $X_2,\cdots,X_p$ 
+\color{blue} Interpretation: \color{black}
+\begin{itemize} 
+\item $\beta_0$: \pause probability that $Y=1$ when $X_1 = 0, \cdots X_p = 0$
+\item $\beta_1$: \pause difference in probability that $Y=1$ comparing two groups that differ by one unit in $X_1$ but are the same with respect to $X_2,\cdots,X_p$ 
 \item ...
 \end{itemize}
 \end{frame}
 
+\subsection{Statistical Inference}
 \begin{frame}
 \frametitle{Linear regression with binary outcomes}
 \begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
@@ -285,8 +320,8 @@ Interpretation:
 \vspace{-0.6cm}
 \color{blue} Inference: \vspace{-0.3cm} \color{black}
 \begin{itemize}
-\item Identify the regression coefficient of interest. \pause % which one(s) answer(s) our scientific Q?
-\item Report an estimate, and interpret: \textit{We estimate that the difference in probabilities between two groups...} \pause
+\item Identify the regression coefficient of interest. \pause % could be multiple! (e.g., dummy variables, more than one predictor of interest) 
+\item Report an estimate, and interpret: \textit{We estimate that the difference in probabilities between two groups...} \pause % remind them of linear regression overview lecture
 \item Report a 95\% confidence interval, and interpret: \textit{Based on a 95\% confidence interval, this observed difference in probabilities would not be judged unusual if...} \pause
 \item Report the p-value from a hypothesis test of $H_0: \beta = 0$: \textit{These data provide evidence to suggest that this difference in probabilities is (is not) significantly different from zero ($p =$...).} \pause
 \item Add a conclusion relating back to our scientific question
@@ -294,6 +329,7 @@ Interpretation:
 % they'll fill in the blanks on HW this week
 \end{frame}
 
+\subsection{Prediction}
 \begin{frame}
 \frametitle{Linear regression with binary outcomes}
 \begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
@@ -310,14 +346,26 @@ Interpretation:
 
 \end{frame}
 
+% graphical support: scatterplot
 \begin{frame}
 \frametitle{Linear regression with binary outcomes}
 \begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
 
-\color{blue} Graphical support: \color{black} scatterplot + linear regression line
-\vspace{-0.4cm}
+\color{blue} Graphical support: \color{black} scatterplot
+\vspace{-0.55cm}
 \center
-\includegraphics[width=0.5\textwidth]{figs/contX-lm}
+\includegraphics[width=0.7\textwidth]{./figs/scatterplot}
+\end{frame}
+
+
+\begin{frame}[noframenumbering]
+\frametitle{Linear regression with binary outcomes}
+\begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
+
+\color{blue} Graphical support: \color{black} scatterplot + linear regression line
+\vspace{-0.55cm}
+\center
+\includegraphics[width=0.7\textwidth]{./figs/scatterplot_lm}
 \end{frame}
 
 \begin{frame}[noframenumbering]
@@ -325,12 +373,12 @@ Interpretation:
 \begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
 
 \color{blue} Graphical support: \color{black} \textit{What is $\hat{Y}$ for someone with $X = 10$?}
-\vspace{-0.4cm}
+\vspace{-0.55cm}
 \center
-\includegraphics[width=0.5\textwidth]{figs/contX-lm}
+\includegraphics[width=0.7\textwidth]{./figs/scatterplot_lm}
 \end{frame}
 
-
+\subsection{Pros and Cons}
 \begin{frame}
 \frametitle{Linear regression with binary outcomes}
 \begin{center} $E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
@@ -349,45 +397,460 @@ Cons: \vspace{-0.3cm}
 What can we do instead?
 \end{frame}
 
-\section{Simple logistic regression}
+\section{Logistic regression}
+\subsection{Learning objectives}
 \begin{frame}
-\frametitle{SECTION 3: SIMPLE LOGISTIC REGRESSION}
+\frametitle{SECTION 3: LOGISTIC REGRESSION}
 
-% motivation: keep things between 0 and 1
-% general formulation, do the math for coefficient interp
-% relate to a glm (explain logit function)
-% diabetes and sex: logistic regression; interp + R + reporting results; back transforming to get probs
-% diabetes and sex: chi-squared test [put this on HW?]; interp + R + reporting results
-% diabetes and age: interp + R + reporting results
+% Learning objectives
+By the end of this section, you should be able to:
+\begin{itemize}
+\item Interpret regression coefficients for simple and multiple logistic regression models
+\item Formulate a logistic regression model given a scientific or statistical question 
+\item Use R to fit a logistic regression model and extract relevant results
+\item Write a summary of results from a logistic regression analysis
+\item Describe the impact of including (or not including) a confounder or precision variable in logistic regression
+\item List at least one advantage and one disadvantage of using logistic regression with a binary outcome
+\end{itemize}
+\end{frame}
+
+\subsection{Simple logistic regression interpretation}
+% simple logistic regression recall
+\begin{frame}
+\frametitle{Simple logistic regression}
+Suppose we fit the simple logistic regression model $$\log\left(\text{Odds}[Y =1 \mid X]\right) = \beta_0 + \beta_1 X,$$ where our outcome $Y$ is binary.
+
+\color{orange} Without looking at your notes, \color{black} write down an interpretation for the coefficients in this model.
+
+\begin{enumerate}
+\item[3.] $\beta_0$ (and $e^{\beta_0}$)
+\item[4.] $\beta_1$  (and $e^{\beta_1}$)
+\end{enumerate} 
+
+(You will turn this in at the end of class.)
+\end{frame}
+
+\subsection{Multiple logistic regression interpretation}
+% interpretation: multiple/general, do the math
+%%% beta 0
+\begin{frame}
+\frametitle{Multiple logistic regression}
+$$\log\left(\text{Odds}[Y =1 |X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p X_p$$
+
+\color{blue} Interpretation: \color{black}
+% beta0
+\begin{itemize}  \color{orange}
+\item $\beta_0$: \pause log odds (of $Y=1$) when $X_1 = 0, \cdots, X_p = 0$ \pause
+\end{itemize}
+\vspace{-0.3cm}
+\begin{footnotesize}
+\begin{align*}
+\log\left(\text{Odds}[Y =1 |X_1=0,\cdots,X_p=0]\right) & = \beta_0 + \beta_1 (0) + \beta_2(0) + \cdots \beta_p (0) \\
+& = \beta_0 
+\end{align*} \pause
+\end{footnotesize}
+
+\vspace{-0.6cm}
+%exp(beta0)
+\begin{itemize}   \color{orange}
+\item $e^{\beta_0}$: \pause odds (of $Y=1$) when $X_1 = 0, \cdots, X_p = 0$ \pause
+\end{itemize}
+\vspace{-0.3cm}
+\begin{footnotesize}
+\begin{align*}
+e^{\beta_0} & = e^{\log\left(\text{Odds}[Y =1 |X_1=0,\cdots,X_p=0]\right)} \\
+& = \text{Odds}[Y =1 |X_1=0,\cdots,X_p=0], \text{ since } \color{blue} e^{log(z)} = z
+\end{align*}
+\end{footnotesize}
 
 \end{frame}
 
+%%% beta 1
+\begin{frame}
+\frametitle{Multiple logistic regression}
+$$\log\left(\text{Odds}[Y =1 |X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p X_p$$
+
+\color{blue} Interpretation: \color{black}
+% beta1
+\begin{itemize}  \color{orange}
+\item $\beta_1$: difference in log odds (of $Y=1$) comparing two groups that differ by one unit in $X_1$ but are \textbf{the same}\footnote[frame]{Note that we don't have to set $X_2 \cdots X_p$ equal to 0 for this to work!} with respect to $X_2,\cdots,X_p$ \pause
+\end{itemize}
+\vspace{-0.3cm}
+\begin{scriptsize}
+\begin{align*}
+& \log\left(\text{Odds}[Y =1 |X_1=(x_1+1),X_2=x_2,\cdots,X_p=x_p]\right) \\
+& \ \ \ \ \ \ \ \ \ \ - \log\left(\text{Odds}[Y =1 |X_1=(x_1),X_2=x_2,\cdots,X_p=x_p]\right) \\
+& \ \ = \left[\beta_0 + \beta_1(x_1+1) + \beta_2 x_2 + \cdots \beta_p x_p\right]\\
+& \ \ \ \ \ \ \ \ \ \ - \left[\beta_0 + \beta_1(x_1) + \beta_2 x_2 + \cdots \beta_p x_p\right] \\
+& \ \ = \beta_1
+\end{align*}
+\end{scriptsize}
+
+\end{frame}
+
+%%% exp(beta 1)
+\begin{frame}
+\frametitle{Multiple logistic regression}
+$$\log\left(\text{Odds}[Y =1 |X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p X_p$$
+
+\color{blue} Interpretation: \color{black}
+%exp(beta1)
+\begin{itemize} \color{orange}
+\item $e^{\beta_1}$:  \pause ratio of odds (of $Y=1$) comparing two groups that differ by one unit in $X_1$ but are \textbf{the same} with respect to $X_2,\cdots,X_p$  \pause 
+\end{itemize}
+\vspace{-0.3cm}
+\begin{scriptsize}
+\begin{align*}
+\beta_1 & = \log\left(\text{Odds}[Y =1 |X_1=(x_1+1),X_2=x_2,\cdots,X_p=x_p]\right) \\
+& \ \ \ \ \ \ \  - \log\left(\text{Odds}[Y =1 |X_1=(x_1),X_2=x_2,\cdots,X_p=x_p]\right) \\
+& = \log\left(\frac{\text{Odds}[Y =1 |X_1=(x_1+1),X_2=x_2,\cdots,X_p=x_p]}{\text{Odds}[Y =1 |X_1=(x_1),X_2=x_2,\cdots,X_p=x_p]} \right) \color{blue} \left[ \log(a)-\log(b) = \log\left(\frac{a}{b}\right)\right] \\
+e^{\beta_1} & = \frac{\text{Odds}[Y =1 |X_1=(x_1+1),X_2=x_2,\cdots,X_p=x_p]}{\text{Odds}[Y =1 |X_1=(x_1),X_2=x_2,\cdots,X_p=x_p]} \color{blue} \left[e^{\log(z)} = z\right]
+\end{align*}
+\end{scriptsize}
+
+\end{frame}
+
+% interpretation: pull it back together
+\begin{frame}
+\frametitle{Multiple logistic regression}
+$$\log\left(\text{Odds}[Y =1 |X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \beta_2X_2 + \cdots \beta_p X_p$$
+
+\color{blue} Interpretation: \color{black}
+\begin{itemize}
+\item $\beta_0$:  log odds (of $Y=1$) when $X_1 = 0, \cdots, X_p = 0$
+\item \color{orange} $e^{\beta_0}$: \pause odds (of $Y=1$) when $X_1 = 0, \cdots, X_p = 0$ \color{black} \pause
+\item $\beta_1$: difference in log odds (of $Y=1$) comparing two groups that differ by one unit in $X_1$ but are the same with respect to $X_2,\cdots,X_p$ \pause
+\item \color{orange} $e^{\beta_1}$: \pause ratio of odds (of $Y=1$) comparing two groups that differ by one unit in $X_1$ but are the same with respect to $X_2,\cdots,X_p$ \color{black}
+\end{itemize}
+
+\end{frame}
+
+\subsection{Connection to linear regression with log-transformed outcome}
+% interpretation: relate back to log(Y) interp
+%%% beta 0
+\begin{frame}
+\frametitle{Recall: $\log(Y)$ in linear regression}
+$$E[\log(Y)|X] = \beta_0 + \beta_1 X$$
+
+\color{blue} Interpretation: \color{black}
+\begin{itemize} 
+\item $\beta_0$: \textcolor{orange}{average} \textcolor{blue}{log} $Y$ among subjects with $X = 0$
+	\begin{itemize}
+	\item[] $\color{orange}E[ \color{blue}\log(\color{black}Y\color{blue})\color{black}|X=0\color{orange}]$
+	\end{itemize} \pause
+\item $\beta_0$: \textcolor{blue}{log} \textcolor{orange}{geometric mean} of $Y$ among subjects with $X = 0$
+	\begin{itemize}
+	\item[] $\color{blue}\log\left(\color{orange} e^{E[\log(Y)\color{black}|X=0\color{orange}]}\color{blue}\right) \color{black} = E[\log(Y)|X=0]$
+	\end{itemize} \pause
+\item $e^{\beta_0}$: geometric mean of $Y$ among subjects with $X = 0$
+\end{itemize}
+\end{frame}
+
+% interpretation: relate back to log(Y) interp
+%%% beta 1
+\begin{frame}
+\frametitle{Recall: $\log(Y)$ in linear regression}
+$$E[\log(Y)|X] = \beta_0 + \beta_1 X$$
+\color{blue} Interpretation: \color{black} \vspace{-0.3cm}
+\begin{itemize} 
+\item $\beta_1$: \textcolor{gray}{difference} in \textcolor{orange}{average} \textcolor{blue}{log} $Y$ comparing 2 groups of subjects that differ by 1 unit in $X$
+	\begin{itemize}
+	\item[] $\color{orange}E[ \color{blue}\log(\color{black}Y\color{blue})\color{black}|X=x+1\color{orange}] \color{gray} - \color{orange}E[ \color{blue}\log(\color{black}Y\color{blue})\color{black}|X=x\color{orange}] $
+	\end{itemize} \pause
+\item $\beta_1$: \textcolor{gray}{difference} in \textcolor{blue}{log} \textcolor{orange}{geometric mean} of $Y$ comparing 2 groups of subjects that differ by 1 unit in $X$
+	\begin{itemize}
+	\item[] $\color{blue}\log\left(\color{orange} e^{E[\log(Y)\color{black}|X=x+1\color{orange}]}\color{blue}\right) \color{gray} - \color{blue}\log\left(\color{orange} e^{E[\log(Y)\color{black}|X=x\color{orange}]}\color{blue}\right) $
+	\end{itemize} \pause
+\item $\beta_1$: \textcolor{blue}{log} of \textcolor{gray}{ratio} of \textcolor{orange}{geometric means} of $Y$ comparing 2 groups of subjects that differ by 1 unit in $X$
+	\begin{itemize}
+	\item $\color{blue}\log\left(\color{orange} e^{E[\log(Y)\color{black}|X=x+1\color{orange}]} \color{gray} \div \color{orange} e^{E[\log(Y)\color{black}|X=x\color{orange}]} \color{blue} \right)$
+	\end{itemize} \pause
+\item $e^{\beta_1}$: ratio of geometric means of $Y$ comparing 2 groups of subjects that differ by 1 unit in $X$
+\end{itemize}
+\end{frame}
+
+% interpretation: relate back to log(Y) interp
+%%% tying it all together
+\begin{frame}
+\frametitle{Tying it all together}
+
+\textcolor{orange}{Simple linear regression with log-transformed $Y$:} \begin{small}$$E[\log(Y)|X] = \beta_0 + \beta_1 X$$\end{small} \vspace{-0.8cm}
+\begin{itemize}
+\item $e^{\beta_0}$: \textcolor{orange}{geometric mean of $Y$} among subjects with $X = 0$
+\item $e^{\beta_1}$: \textcolor{orange}{ratio of geometric means of $Y$} comparing 2 groups of subjects that differ by 1 unit in $X$
+\end{itemize}
+
+\textcolor{blue}{Simple logistic regression with binary $Y$:} \begin{small}$$\log\left(\text{Odds}[Y=1|X]\right) = \beta_0 + \beta_1 X$$ \end{small}\vspace{-0.8cm}
+\begin{itemize}
+\item $e^{\beta_0}$: \textcolor{blue}{odds of $Y=1$} among subjects with $X = 0$
+\item $e^{\beta_1}$: \textcolor{blue}{ratio of odds of $Y=1$} comparing 2 groups of subjects that differ by 1 unit in $X$
+\end{itemize}
+
+\end{frame}
+
+\subsection{Formulating a logistic regression model}
+% formulating regression model from scientific question: example with endoscopy dataset
+\begin{frame}
+\frametitle{Low birth weight: study design}
+
+We will analyze data from a cohort study conducted in a transitional rural/urban setting in the Western Cape, South Africa. 
+
+The study followed 755 pregnant women with singleton pregnancies who could not afford private healthcare from enrollment (on average at 22 weeks gestation) to delivery. 
+
+We have information about each mother (height (cm), age at enrollment (years), number or prior deliveries, smoking status) and her baby (birth weight, sex, gestational age (weeks) at delivery).
+
+\textbf{We are interested in assessing the potential association between maternal smoking and infant birth weight.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Low birth weight: formulating a statistical question}
+\begin{enumerate}
+\item \textbf{Scientific Question:} is \textcolor{blue}{infant birth weight} \textcolor{orange}{associated} with maternal smoking?
+\item \textbf{Statistical Question:} 
+	\begin{itemize}
+	\item How are we going to quantify our outcome?
+	\item[]
+	\item How will we quantify association?
+	\item[]
+	\item Are there other variables we need to adjust for?
+	\item[]
+	\end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Low birth weight: formulating a statistical question}
+\begin{enumerate}
+\item \textbf{Scientific Question:} is \textcolor{blue}{infant birth weight} \textcolor{orange}{associated} with maternal smoking?
+\item \textbf{Statistical Question:} 
+	\begin{itemize}
+	\item How are we going to quantify our outcome?
+	\item[] \textcolor{blue}{Low birth weight (1: $<$ 2500g, 0: $\ge$ 2500 g)}
+	\item How will we quantify association?
+	\item[]
+	\item Are there other variables we need to adjust for?
+	\item[]
+	\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Low birth weight: formulating a statistical question}
+\begin{enumerate}
+\item \textbf{Scientific Question:} is \textcolor{blue}{infant birth weight} \textcolor{orange}{associated} with maternal smoking?
+\item \textbf{Statistical Question:} 
+	\begin{itemize}
+	\item How are we going to quantify our outcome?
+	\item[] \textcolor{blue}{Low birth weight (1: $<$ 2500g, 0: $\ge$ 2500 g)}
+	\item How will we quantify association?
+	\item[] \textcolor{orange}{Ratio of odds of low birth weight (LBW)}
+	\item Are there other variables we need to adjust for?
+	\item[]
+	\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Low birth weight: formulating a statistical question}
+\begin{enumerate}
+\item \textbf{Scientific Question:} is \textcolor{blue}{infant birth weight} \textcolor{orange}{associated} with maternal smoking?
+\item \textbf{Statistical Question:} 
+	\begin{itemize}
+	\item How are we going to quantify our outcome?
+	\item[] \textcolor{blue}{Low birth weight (1: $<$ 2500g, 0: $\ge$ 2500 g)}
+	\item How will we quantify association?
+	\item[] \textcolor{orange}{Ratio of odds of low birth weight (LBW)}
+	\item Are there other variables we need to adjust for?
+	\item[] \textcolor{orange}{Let's draw the causal diagram!} \pause
+	\end{itemize}
+\end{enumerate}
+
+Is the \textcolor{orange}{ratio of odds} of delivering a \textcolor{blue}{LBW} baby \textcolor{orange}{different from 1,} comparing smoking mothers to nonsmoking mothers \textcolor{orange}{with the same age, height, number of prior deliveries, and sex of their baby}?
+
+\end{frame}
+
+% write out model
+\begin{frame}
+\frametitle{Low birth weight: writing the regression model}
+
+\begin{enumerate}
+\item \textbf{Scientific Question:} is infant birth weight associated with maternal smoking? \pause
+\item \textbf{Statistical Question:} is the ratio of odds of delivering a LBW baby different from 1, comparing smoking mothers to nonsmoking mothers with the same age, height, number of prior deliveries, and sex of their baby? \pause
+\end{enumerate}
+
+\textbf{Regression Model:}
+\begin{align*}
+\log & \left(\text{Odds}[ \text{LBW} \mid \text{mSmoker, mAge, mHeight, mDeliv, iMale}]\right) \\
+& = \beta_0 + \beta_1 \text{mSmoker} + \beta_2 \text{mAge} + \beta_3 \text{mHeight} \\
+& \hspace{1cm} + \beta_4 \text{mDeliv} + \beta_5 \text{iMale}
+\end{align*}
+
+\end{frame}
+
+\subsection{Fitting logistic regression in R}
+\begin{frame}
+\frametitle{Low birth weight: fitting our model in \texttt{R}}
+Just like with linear regression, we can use the \texttt{regress()} function in the \texttt{uwIntroStats} package to fit logistic regression models!
+
+We only have to change one argument: \texttt{`mean'} $\rightarrow$ \texttt{`odds'}.
+
+Everything else is the same!
+\end{frame}
+
+\begin{frame}
+\frametitle{Low birth weight: fitting our model in \texttt{R}}
+% fitting in R: example with pregnancy dataset
+\includegraphics[width=\textwidth]{./figs/pregnancy_head}
+\end{frame}
+
+\begin{frame}
+% fitting in R: example with pregnancy dataset
+\vspace{0.1cm}
+\includegraphics[width=0.82\textwidth]{./figs/pregnancy_coef}
+\end{frame}
+
+% highlight raw coef
+\begin{frame}[noframenumbering]
+% which #s do we care about?
+\vspace{0.1cm}
+\includegraphics[width=0.82\textwidth]{./figs/pregnancy_coef_raw}
+\end{frame}
+
+% highlight transformed coef
+\begin{frame}[noframenumbering]
+% which #s do we care about?
+\vspace{0.1cm}
+\includegraphics[width=0.82\textwidth]{./figs/pregnancy_coef_exp}
+\end{frame}
+
+\subsection{Reporting logistic regression results}
+% inference: example with pregnancy dataset (they do this as activity)
+\begin{frame}
+\frametitle{Low birth weight: reporting results}
+\textbf{Scientific Question:} is infant birth weight associated with maternal smoking? 
+
+\textbf{Regression Model:}
+$\log \left(\text{Odds}[ \text{LBW} \mid \text{mSmoker, mAge, mHeight, mDeliv, iMale}]\right) = \beta_0 + \beta_1 \text{mSmoker} + \beta_2 \text{mAge} + \beta_3 \text{mHeight} + \beta_4 \text{mDeliv} + \beta_5 \text{iMale}$
+
+\color{blue} Inference: \color{black}
+\begin{itemize}
+\item Identify the regression coefficient(s) of interest.
+\item Report an estimate, and interpret.
+\item Report a 95\% confidence interval, and interpret.
+\item Report a p-value, and interpret. 
+\item Add a conclusion relating back to our scientific question.
+\end{itemize}
+
+% activity: jigsaw this?
+\end{frame}
+
+
+\begin{frame}[noframenumbering]
+\frametitle{Low birth weight: reporting results}
+\textbf{Scientific Question:} is infant birth weight associated with maternal smoking? 
+
+\textbf{Regression Model:}
+$\log \left(\text{Odds}[ \text{LBW} \mid \text{mSmoker, mAge, mHeight, mDeliv, iMale}]\right) = \beta_0 + \beta_1 \text{mSmoker} + \beta_2 \text{mAge} + \beta_3 \text{mHeight} + \beta_4 \text{mDeliv} + \beta_5 \text{iMale}$
+
+\color{blue} Inference: \color{black}
+\begin{enumerate}
+\item Identify the regression coefficient(s) of interest: \color{blue} $e^{\beta_1}$ \color{black}
+\item Report an estimate, and interpret.
+\item Report a 95\% confidence interval, and interpret.
+\item Report a p-value, and interpret. 
+\item Add a conclusion relating back to our scientific question.
+\end{enumerate}
+\end{frame}
+
+
+% hide this before class
+%\begin{comment}
+\begin{frame}
+\frametitle{Low birth weight: reporting results}
+\textit{2. Report an estimate and interpret.}
+
+Based on logistic regression, we estimate that the \textcolor{orange}{ratio of odds} of delivering a LBW baby, comparing smoking mothers to nonsmoking mothers with the same age, height, number of previous deliveries, and sex of their baby, \textcolor{orange}{is  1.91}, where the smoking mothers have a higher odds of delivering a LBW baby. \pause
+
+\textbf{Option 2:} Based on logistic regression, we estimate that \textcolor{orange}{the odds} of delivering a LBW baby \textcolor{orange}{is 91\% higher} for smoking mothers than for nonsmoking mothers with the same... \pause
+
+\textbf{Option 3:} Based on logistic regression, we estimate that \textcolor{orange}{the odds} of delivering a LBW baby for smoking mothers \textcolor{orange}{is 1.91 times} that for nonsmoking mothers with the same...
+
+\end{frame}
+
+% CI
+\begin{frame}
+\frametitle{Low birth weight: reporting results}
+\textit{3. Report a 95\% confidence interval, and interpret.}
+
+Based on a 95\% confidence interval, this estimate would not be judged unusual if the true odds ratio were between 1.14 and 3.20. \pause
+
+\textit{4. Report a p-value, and interpret.}
+
+These data provide evidence to suggest that this odds ratio is statistically significantly different from one (p = 0.014). \pause
+
+\textit{5. Add a conclusion relating back to our scientific question.}
+
+Based on these results, we have evidence to suggest that the odds of delivering a LBW baby is associated with maternal smoking, after adjusting for maternal age, height, and number of previous deliveries, and infant sex.
+
+\end{frame}
+%\end{comment}
+
+
+\subsection{Prediction}
+\begin{frame}
+\frametitle{Prediction}
+
+% prediction: show that it keeps things between 0 and 1
+%\includegraphics[width=0.7\textwidth]{./figs/scatterplot_logit}
+
+\end{frame}
+
+\subsection{Pros and Cons}
+\begin{frame}
+\frametitle{Logistic regression: pros and cons}
+% summary: pros (stay in [0,1]) and cons (less intuitive/harder to interpret)
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%% comment out %%%%%%%%%%%%%%%%%%%
 \begin{comment}
 
-\section{Multiple logistic regression}
-\begin{frame}
-\frametitle{SECTION 4: MULTIPLE LOGISTIC REGRESSION}
-\end{frame}
-
 \section{Relative risk regression}
 \begin{frame}
-\frametitle{Relative risk regression}
+\frametitle{SECTION 4: GENERALIZED LINEAR MODELS}
+
+% general formulation
+
+% discuss relative risk regression
+Relative risk regression
 It exists!
 % mention relative risk regression: log(E[Y|X]) = b0 + b1X
+
+% relate odds to RR for rare outcomes
+
 \end{frame}
 
 \section{Summary of regression methods for binary outcomes}
 \begin{frame}
-\frametitle{Summary}
+\frametitle{SECTION 5: SUMMARY}
 %% summary: come back to slide 2.4 and highlight which type of regression answers which statistical question
+%% have them work through example? (jigsaw with all fitting model, one group interpreting coef, one group CI, one group p-val)
 \end{frame}
 
 \section{Logistic regression in case-control studies}
 \begin{frame}
-\frametitle{SECTION 5: LOGISTIC REGRESSION IN CASE-CONTROL STUDIES}
+\frametitle{SECTION 6: LOGISTIC REGRESSION IN CASE-CONTROL STUDIES}
+
+When does study design matter in this course? 
+
+Experimental vs observational: causal language
+
 \end{frame}
+
+
+
+
+
 
 % prediction?
 %\section{Prediction}
