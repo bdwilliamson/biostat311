@@ -1,0 +1,58 @@
+\documentclass[12pt, 
+hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan},dvipsnames]{beamer}
+\usetheme{default} 
+
+\setbeamertemplate{navigation symbols}{} %gets rid of navigation symbols
+\setbeamertemplate{footline}{} %gets rid of bottom navigation bars
+\setbeamertemplate{footline}[page number]{} %use this for page numbers
+
+\setbeamertemplate{itemize items}[circle] %round bullet points
+\setlength\parskip{10pt} % white space between paragraphs
+
+\usepackage{wrapfig}
+\usepackage{subfig}
+\usepackage{setspace}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[UKenglish]{isodate}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\cleanlookdateon
+
+% new amber color
+\definecolor{amber}{rgb}{1.0, 0.75, 0.0}
+
+\DeclareMathOperator{\argmin}{argmin}
+
+% the preamble
+\title{BIOST 311: \\ Regression Methods for the Health Sciences}
+\author{Kelsey Grinde and Brian Williamson}
+\institute{UW Biostatistics}
+\date{Spring 2018}
+
+\begin{document}
+% title slide
+\begin{frame}
+\titlepage\thispagestyle{empty}
+\end{frame}
+
+% make it 1.something
+\setbeamertemplate{footline}{%
+  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[20pt]{\scriptsize 1.\insertframenumber~~}}}}  \newcounter{chap1}{\value{1}}
+\setcounter{framenumber}{\value{chap1}}
+
+\begin{frame}
+\frametitle{CHAPTER 3: SURVIVAL ANALYSIS}
+By the end of Chapter 3, you should be able to: \vspace{-0.3cm}
+
+\begin{itemize}
+\item 
+\end{itemize}
+
+\end{frame}
+
+\end{document}
