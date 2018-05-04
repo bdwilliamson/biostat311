@@ -73,6 +73,52 @@ Up to this point, we have focused on questions involving \textcolor{blue}{quanti
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{SECTION 1: CENSORED OUTCOMES}
+However, we are often interested in scientific questions that involve \textcolor{blue}{time-to-event} outcomes:
+\begin{itemize}
+\item Is \textcolor{blue}{time to first seizure post operation to remove a brain tumor} associated with pre-operation case review by an epileptologist, in children with both epilepsy and brain tumor?
+\item Is \textcolor{blue}{time to promotion for university faculty members} associated with sex?
+\item Is \textcolor{blue}{time to death from any cause} associated with serum levels of C reactive protein?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+We wish to study whether \textcolor{blue}{meditation} prolongs the \textbf{time until a severe panic attack} in patients suffering from a panic disorder.
+
+To address this question, we: \vspace{-0.3cm}
+\begin{itemize}
+\item recruit 200 patients and randomize them to meditation or placebo;
+\item follow each patient until their first severe panic attach post recruitment;
+\item and compare the mean time until a severe panic attack in each group with a t-test
+\end{itemize}
+
+{\fontsize{10pt}{7.2}\selectfont
+Sample of the observed times until first severe panic attack (in weeks):
+\hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textcolor{blue}{meditation group} & 24.29 & 46.81 & 40.23 & 27.18 & 10.56 & 88.5 & 53.57 & 8.81  \\
+\hline
+control group & 30.2 & 5.94 & 58.75 & 9.54 & 47.89 & 16.55 & 28.29 & 4.58 \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/meditation_observed_study_time.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/meditation_observed_rand_time.png}
+\end{frame}
+
+
 \begin{comment}
 \section{Nonparametric estimation and inference}
 \begin{frame}
