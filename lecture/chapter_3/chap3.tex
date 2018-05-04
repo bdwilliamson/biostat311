@@ -50,11 +50,11 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan},dvipsnames]{beamer}
 By the end of Chapter 3, you should be able to: \vspace{-0.3cm}
 
 \begin{itemize}
-\item Determine if a variable has been \textcolor{BurntOrange}{right- or left-censored}
-\item Discuss the \textcolor{blue}{benefits} and \textcolor{red}{drawbacks} of treating a right- or left-censored variable as binary or continuous
-\item Create a \texttt{Survival} object in \texttt{R}
+\item Determine if a variable has been \textcolor{BurntOrange}{right-censored}
+\item Discuss the \textcolor{red}{drawbacks} of treating a right-censored variable as binary or continuous
 \item \textbf{Interpret Kaplan-Meier curves}, and create them in \texttt{R}
-\item \textbf{Formulate a regression model} given a scientific or statistical question about a right- or left-censored outcome
+\item \textbf{Implement and interpret} a log-rank test for equating survival curves
+\item \textbf{Formulate a regression model} given a scientific or statistical question about a right-censored outcome
 \item \textbf{Interpret the coefficients} for a (simple or multiple) proportional hazards regression model
 \item \textbf{Interpret confidence intervals and p-values} for proportional hazards regression coefficients
 \item Use \texttt{R} to fit a proportional hazards regression model and create figures/tables to support your regression analysis
@@ -62,4 +62,30 @@ By the end of Chapter 3, you should be able to: \vspace{-0.3cm}
 
 \end{frame}
 
+\section{Censored outcomes}
+\begin{frame}
+\frametitle{SECTION 1: CENSORED OUTCOMES}
+Up to this point, we have focused on questions involving \textcolor{blue}{quantitative} or \textcolor{BurntOrange}{binary} outcomes: 
+\begin{itemize}
+\item Is lung function (\textcolor{blue}{FEV}) associated with smoking, after adjusting for age, height, and sex?
+\item Is cognitive function (\textcolor{blue}{DSST score}) associated with alcohol use, adjusting for age, sex, and education?
+\item Is \textcolor{BurntOrange}{diabetes} associated with BMI, after adjusting for sex?
+\end{itemize}
+\end{frame}
+
+\begin{comment}
+\section{Nonparametric estimation and inference}
+\begin{frame}
+\frametitle{SECTION 2: NONPARAMETRIC ESTIMATION}
+\end{frame}
+
+\section{Semiparametric estimation and inference}
+\begin{frame}
+\frametitle{SECTION 3: SEMIPARAMETRIC ESTIMATION}
+\end{frame}
+\section{Summary}
+\begin{frame}
+\frametitle{SECTION 4: SUMMARY}
+\end{frame}
+\end{comment}
 \end{document}
