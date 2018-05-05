@@ -1,0 +1,70 @@
+---
+title: "Discussion Section 7"
+author: "Kelsey Grinde and Brian Williamson"
+date: "8 May 2018"
+output: 
+  pdf_document:
+    fig_caption: true
+---
+
+# Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document by 12:00pm on May 8. You should work in groups of 4 to complete this assignment.
+
+Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). **Unedited R output, or code, in the body of your assignment is not acceptable.** Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+Our scientific question for this analysis is: \textbf{is there an association between C reactive protein (CRP) and death within 3 years?} In addition to the two variables of primary interest, you may restrict attention to age (`age`; years), sex (`male`; male = 1, female = 0), BMI (`bmi`; kg/$\text{m}^2$), smoking history (`smoker`; 1 = smoker, 0 = nonsmoker), cholesterol (`cholest`; mg/dL), and prior history of cardiovascular disease (`prevdis`; 1 = previous history of cardiovascular disease, 0 = no previous history). Recall that these data come from a cohort study.
+
+I have removed the 67 people in these data with missing CRP value, leaving you with 4933 participants in your data. These data are located on Canvas under `Files > Data > inflamm_no_missing_crp.txt`.
+
+You will have to create a new variable, `death_in_3`, that takes value 1 if the participant died within three years and zero otherwise. *Hint: `ttodth` is the variable coding time to death, in days; use the `ifelse` function to create `death_in_3` as part of the new inflamm data.*
+
+\textbf{Often, when working with a rare outcome, researchers will say that the odds ratio approximates the relative risk. In this analysis, you will explore that assertion mathematically and using `R` to estimate both the odds ratio and the relative risk.} In the inflammatory biomarkers dataset, 6.7%, or approximately 1 in 15, of the participants died within 3 years, making death a somewhat rare outcome.
+
+# Comparing the relative risk and odds ratio with a rare outcome
+
+First, you'll compare the relative risk and odds ratio mathematically, when you have a rare outcome. For this question, consider a simple setting with binary outcome $D$ and a single binary exposure $E$.
+
+## Write out an expression for the odds of disease within the exposed group and the unexposed group.
+
+*Fill in the `$`, and replace this with your own answer; I'll get you started with the probability of disease given exposure = 1: $P(D \mid E = 1)$. Using the command `\frac{}{}` within the `$` signs allows you to create a fraction; fill in the first set of curly brackets with the numerator, and the second set of curly brackets with the denominator. For example, to get a/b as a fraction, I write $\frac{a}{b}$.*
+
+## Write out an expression for the odds ratio of disease, comparing exposed to unexposed.
+
+*Fill in the `$`, and replace this with your own answer; I'll get you started with the probability of disease given exposure = 1: $P(D \mid E = 1)$. Using the command `\frac{}{}` within the `$` signs allows you to create a fraction; fill in the first set of curly brackets with the numerator, and the second set of curly brackets with the denominator. For example, to get a/b as a fraction, I write $\frac{a}{b}$.*
+
+## Write out an expression for the relative risk of disease, comparing exposed to unexposed.
+
+*Fill in the `$`, and replace this with your own answer; I'll get you started with the probability of disease given exposure = 1: $P(D \mid E = 1)$. Using the command `\frac{}{}` within the `$` signs allows you to create a fraction; fill in the first set of curly brackets with the numerator, and the second set of curly brackets with the denominator. For example, to get a/b as a fraction, I write $\frac{a}{b}$.*
+
+## Compare your expressions for the odds ratio and the relative risk. What would make these two quantities close together? How is this related to a rare outcome?
+
+*Replace with your answer.*
+
+# Logistic regression with a rare outcome
+
+In this problem, you'll use the `inflamm` dataset (without participants who were missing data on CRP) to explore the association between CRP and death within 3 years. Recall that CRP is a measure of inflammation in the body.
+
+## Classify each additional variable (age, sex, BMI, smoking history, cholesterol, prior history of cardiovascular disease) as a potential confounder, precision variable, or irrelevant. Justify each choice in 1 sentence.
+
+*Replace with your answer.*
+
+## Write out the logistic regression model relating the odds of death within three years to CRP, adjusting for the variables that you identified in the previous part, and identify the parameter of interest (regression coefficient) for addressing your scientific question.
+
+*Replace with your answer: $\log \{\text{Odds}(\text{Death in 3} \mid \text{CRP}, \dots)\} = \beta_0 + \beta_1 \text{CRP} + \dots$.*
+
+## Fit a logistic regression of death within 3 years on CRP, adjusting for the potential confounders and precision variables you identified previously. Interpret the coefficient estimate for the parameter of interest that you identified in the previous question. (1 sentence)
+
+*Replace with your answer.*
+
+## Write a full summary of the results of your logistic regression analysis. (4--5 sentences)
+
+*Replace with your answer.*
+
+# Relative risk regression with a rare outcome
+
+\newpage
+
+# BONUS: Comparing logistic and relative risk regression
+
+# BONUS: Comparing logistic, relative risk, and linear regression
