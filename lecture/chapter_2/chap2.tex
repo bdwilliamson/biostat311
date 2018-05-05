@@ -800,33 +800,148 @@ Based on these results, we have evidence to suggest that the odds of delivering 
 \subsection{Prediction}
 \begin{frame}
 \frametitle{Prediction}
+We can also use logistic regression for prediction. $$\log\left(\text{Odds}[\text{Diabetes}| \text{BMI}]\right) = \beta_0 + \beta_1 \text{BMI}$$
 
-% prediction: show that it keeps things between 0 and 1
-%\includegraphics[width=0.7\textwidth]{./figs/scatterplot_logit}
+Let's predict for a person with \textcolor{orange}{BMI = 30 kg/m$^2$}:
+
+\begin{enumerate}
+\item Get estimates for each regression coefficient: $\hat\beta_0 = -4.363, \hat\beta_1 = 0.099$
+\item Plug in the estimates and the covariate values: \pause
+	\begin{itemize}
+	\item[a.] $\widehat{\log(\text{Odds})} = -4.363 +  0.099\color{orange}(30)\color{black} = -1.393$ \pause
+	\item[b.] $\widehat{\text{Odds}} = e^{-1.393} = 0.248$, \color{blue} since $o = e^{\log(o)}$ \color{black} \pause
+	\item[c.] $\widehat{\text{Prob}} = 0.248/(1+0.248) = 0.199$, \color{blue} since $p = o/(1+o)$ \color{black} \pause
+	\item[] $\widehat{\text{Prob}} = \text{expit}(-1.393) = e^{-1.393}/(1+e^{-1.393})= 0.199$
+	\end{itemize}
+\end{enumerate}
+\end{frame}
+
+% example 2
+\begin{frame}
+\frametitle{Prediction}
+We can also use logistic regression for prediction. $$\log\left(\text{Odds}[\text{Diabetes}| \text{Male}, \text{Age}]\right) = \beta_0 + \beta_1 \text{Male} + \beta_2 \text{BMI}$$
+
+Let's predict for a person with \textcolor{violet}{BMI = 15 kg/m$^2$}:
+
+\begin{enumerate}
+\item Get estimates for each regression coefficient: $\hat\beta_0 = -4.363, \hat\beta_1 = 0.099$
+\item Plug in the estimates and the covariate values:
+	\begin{itemize}
+	\item[a.] $\widehat{\log(\text{Odds})} = -4.363 + 0.099\color{violet}(15) \color{black} = -2.878$
+	\item[b.] $\widehat{\text{Odds}} = e^{-2.878} = 0.056$
+	\item[c.] $\widehat{\text{Prob}} = \text{expit}(-2.878) = e^{-2.878}/(1+e^{-2.878})= 0.053$
+	\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction}
+
+We can also let \texttt{R} do all the work for us:
+
+\includegraphics[width=\textwidth]{figs/inflamm_predict}
+\pause
+\begin{scriptsize}
+(Remember, our linear regression predictions from HW5 were 0.209 and -0.010.)
+\end{scriptsize}
 
 \end{frame}
+
+
+% prediction: show that it keeps things between 0 and 1
+\begin{frame}
+\frametitle{Prediction}
+\begin{footnotesize}
+Linear regression fitted and predicted values can be outside [0,1]:\end{footnotesize}
+\vspace{-0.55cm}
+\center
+\includegraphics[width=0.8\textwidth]{figs/scatterplot_lm}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction}
+\begin{footnotesize}Logistic regression keeps all fitted and predicted values in [0,1]\end{footnotesize}
+\vspace{-0.55cm}
+\center
+\includegraphics[width=0.8\textwidth]{figs/scatterplot_logit}
+\end{frame}
+
 
 \subsection{Pros and Cons}
 \begin{frame}
 \frametitle{Logistic regression: pros and cons}
 % summary: pros (stay in [0,1]) and cons (less intuitive/harder to interpret)
+\begin{center} $\log\left(\text{Odds}[Y=1|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots \beta_p X_p$ \end{center}
+
+Pros: \vspace{-0.3cm}
+\begin{itemize}
+\item Predicted/fitted values will stay inside the [0,1] range
+\item Useful for case-control studies (we'll come back to this)
+\end{itemize}
+
+Cons: \vspace{-0.3cm}
+\begin{itemize}
+\item Harder to interpret (odds, ratios) 
+\end{itemize}
+
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%% comment out %%%%%%%%%%%%%%%%%%%
-\begin{comment}
 
-\section{Relative risk regression}
+\section{Generalized linear models}
 \begin{frame}
 \frametitle{SECTION 4: GENERALIZED LINEAR MODELS}
 
+Linear regression and logistic regression are two examples of a larger class of models called \textit{generalized linear models} (GLMs)\footnote[frame]{This is why the \texttt{R} function we use for logistic regression is called \texttt{glm}}.
+$$g\left(E[Y|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+
 % general formulation
+\vspace{-0.2cm}
+\begin{itemize}
+\item \textbf{Linear regression:} $g(x) = x$ $$E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+\item \textbf{Logistic regression:} $g(x) = \text{logit}(x) = \log(\frac{x}{1-x})$ $$\log\left(\frac{E[Y|X_1,\cdots,X_p]}{1-E[Y|X_1,\cdots,X_p]}\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+\end{itemize}
 
-% discuss relative risk regression
-Relative risk regression
-It exists!
-% mention relative risk regression: log(E[Y|X]) = b0 + b1X
 
-% relate odds to RR for rare outcomes
+\end{frame}
+
+\begin{frame}
+\frametitle{Relative risk regression}
+
+Another useful type of GLM is \textit{Poisson regression}, also known as \textit{relative risk regression} in the context of binary outcomes.
+
+Here, $g(x) = \log(x)$, so the regression model takes the form $$\log\left(E[Y|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+
+When $Y$ is binary, this is the same as $$\log\left(\text{Prob}[Y=1|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+
+\vspace{-0.1cm}
+Interpretation:\vspace{-0.3cm}
+\begin{itemize}
+\item $e^{\beta_0}$: probability that $Y=1$ when $X_1 = \cdots X_p = 0$
+\item $e^{\beta_1}$: relative risk (of $Y=1$) comparing 2 groups that differ by 1 unit in $X_1$ but have the same $X_2, \cdots, X_p$
+\end{itemize} 
+
+% do the math on the board if time
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Relative risk regression}
+
+To fit a relative risk regression model in \texttt{R} you have two options:
+
+\begin{itemize}
+\item \texttt{regress(`rate', y $\sim$ x, data = dat)}
+	\begin{itemize}
+	\item Uses robust standard errors by default
+	\end{itemize}
+\item \texttt{glm(y $\sim$ x, family = `poisson', data = dat)}
+	\begin{itemize}
+	\item Uses naive standard errors by default
+	\item Can be easier to use for prediction
+	\end{itemize}
+\end{itemize}
+
+% will keep probabilities positive, but not necessarily constrained to be less than 1?
 
 \end{frame}
 
@@ -834,10 +949,45 @@ It exists!
 \begin{frame}
 \frametitle{SECTION 5: SUMMARY}
 %% summary: come back to slide 2.4 and highlight which type of regression answers which statistical question
-%% have them work through example? (jigsaw with all fitting model, one group interpreting coef, one group CI, one group p-val)
+
+\textit{Let's go back to slide 2.4 at the start of this chapter:}
+
+There are multiple ways that we could check if diabetes is \textit{associated} with sex... 
+\begin{itemize}
+\item[] $p_M \stackrel{?}{=} p_F$ \textcolor{blue}{(probs)} \quad \quad \quad \quad  $\frac{p_M}{1-p_M} \stackrel{?}{=} \frac{p_F}{1-p_F}$ \textcolor{blue}{(odds)} 
+\item[]
+\item[] $p_M - p_F \stackrel{?}{=} 0$  \textcolor{blue}{(RD)}  \quad \quad \quad $\frac{p_M}{1-p_M} - \frac{p_F}{1-p_F} \stackrel{?}{=} 0$ 
+\item[]
+\item[] $p_M \div p_F \stackrel{?}{=} 1$  \textcolor{blue}{(RR)}  \quad \quad \quad  $\left(\frac{p_M}{1-p_M}\right) \div \left(\frac{p_F}{1-p_F}\right) \stackrel{?}{=} 1$ \textcolor{blue}{(OR)}
+\item[]
+\end{itemize} 
+\textit{What types of regression answer which questions?}
+
 \end{frame}
 
-\section{Logistic regression in case-control studies}
+\begin{frame}[noframenumbering]
+\frametitle{SECTION 5: SUMMARY}
+
+\textit{Let's go back to slide 2.4 at the start of this chapter:}
+
+There are multiple ways that we could check if diabetes is \textit{associated} with sex... 
+\begin{itemize}
+\item[] $p_M \stackrel{?}{=} p_F$ \textcolor{blue}{(probs)} \quad \quad \quad \quad  $\frac{p_M}{1-p_M} \stackrel{?}{=} \frac{p_F}{1-p_F}$ \textcolor{blue}{(odds)} 
+\item[] 
+\item[] $p_M - p_F \stackrel{?}{=} 0$  \textcolor{blue}{(RD)}  \quad \quad \quad $\frac{p_M}{1-p_M} - \frac{p_F}{1-p_F} \stackrel{?}{=} 0$ 
+\item[] \textcolor{orange}{Linear Regression}
+\item[] $p_M \div p_F \stackrel{?}{=} 1$  \textcolor{blue}{(RR)}  \quad \quad \quad  $\left(\frac{p_M}{1-p_M}\right) \div \left(\frac{p_F}{1-p_F}\right) \stackrel{?}{=} 1$ \textcolor{blue}{(OR)}
+\item[] \textcolor{orange}{Poisson Regression} \quad \quad \quad \textcolor{orange}{Logistic Regression}
+\end{itemize} 
+\textit{What types of regression answer which questions?}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%% comment out %%%%%%%%%%%%%%%%%%%
+\begin{comment}
+
+\section{Case-control studies}
 \begin{frame}
 \frametitle{SECTION 6: LOGISTIC REGRESSION IN CASE-CONTROL STUDIES}
 
@@ -845,18 +995,17 @@ When does study design matter in this course?
 
 Experimental vs observational: causal language
 
+A new example: case-control studies
+
+% key message: can't use lin or poisson reg here, only log reg works! this is part of why log reg is so popular
+
 \end{frame}
 
 
+% assumptions
+%%%% mean model for odds
+%%%% nothing about variance
 
-
-
-
-% prediction?
-%\section{Prediction}
-
-% assumptions/diagnostics?
-%\section{Assumptions and diagnostics}
 
 \end{comment}
 
