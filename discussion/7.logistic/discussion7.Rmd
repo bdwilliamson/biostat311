@@ -21,7 +21,7 @@ You will have to create a new variable, `death_in_3`, that takes value 1 if the 
 
 \textbf{Often, when working with a rare outcome, researchers will say that the odds ratio approximates the relative risk. In this analysis, you will explore that assertion mathematically and using `R` to estimate both the odds ratio and the relative risk.} In the inflammatory biomarkers dataset, 6.7%, or approximately 1 in 15, of the participants died within 3 years, making death a somewhat rare outcome.
 
-# Comparing the relative risk and odds ratio with a rare outcome
+# 1. Comparing the relative risk and odds ratio with a rare outcome
 
 First, you'll compare the relative risk and odds ratio mathematically, when you have a rare outcome. For this question, consider a simple setting with binary outcome $D$ and a single binary exposure $E$.
 
@@ -41,7 +41,7 @@ First, you'll compare the relative risk and odds ratio mathematically, when you 
 
 *Replace with your answer.*
 
-# Logistic regression with a rare outcome
+# 2. Logistic regression with a rare outcome
 
 In this problem, you'll use the `inflamm` dataset (without participants who were missing data on CRP) to explore the association between CRP and death within 3 years. Recall that CRP is a measure of inflammation in the body.
 
@@ -61,7 +61,36 @@ In this problem, you'll use the `inflamm` dataset (without participants who were
 
 *Replace with your answer.*
 
-# Relative risk regression with a rare outcome
+# 3. Relative risk regression with a rare outcome
+
+As in the previous problem, you'll use the `inflamm` dataset (without participants who were missing data on CRP) to explore the association between CRP and death within 3 years. 
+
+\textbf{Now, however, you will quantify the association between CRP and death within three years using the relative risk.}
+
+In logistic regression, we model the log odds as a linear function of regression parameters. In relative risk regression, we model the log probability as a linear function of regression parameters; for simple relative risk regression, this is given explicitly by:
+
+\begin{align*}
+\log \{P(Y \mid X)\} = & \ \beta_0 + \beta_1 X.
+\end{align*}
+
+## Interpret the intercept in the simple relative risk regression model given above. 
+*Replace with your answer.*
+
+## Interpret the slope in the simple relative risk regression model given above. 
+
+*Replace with your answer.*
+
+## If you did not already interpret $e^{\beta_0}$ and $e^{\beta_1}$, do so now. Which of these parameters is the relative risk? Why is interpreting the exponentiated coefficient more meaningful?
+
+*Replace with your answer.*
+
+## Fit a relative risk regression (change `"odds"` to `"rate"` in your call to `regress`) of death within 3 years on CRP, adjusting for the same potential confounders and precision variables that you identified in the logistic regression problem. Interpret the coefficient estimate for the parameter of interest. (1 sentence)
+
+*Replace with your answer.*
+
+## Write a full summary of the results of your relative risk regression analysis. (4--5 sentences)
+
+*Replace with your answer.*
 
 \newpage
 
