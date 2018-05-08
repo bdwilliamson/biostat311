@@ -98,9 +98,9 @@ To address this question, we: \vspace{-0.3cm}
 Sample of the observed times until first severe panic attack (in weeks):
 \hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\textcolor{blue}{meditation group} & 24.29 & 46.81 & 40.23 & 27.18 & 10.56 & 88.5 & 53.57 & 8.81  \\
+\textcolor{blue}{meditation group} & 14.29 & 36.81 & 31.23 & 25.18 & 5.56 & 85.5 & 47.57 & 2.81  \\
 \hline
-control group & 30.2 & 5.94 & 58.75 & 9.54 & 47.89 & 16.55 & 28.29 & 4.58 \\
+control group & 21.2 & 3.94 & 55.75 & 6.54 & 41.89 & 12.55 & 21.29 & 3.58 \\
 \hline
 \end{tabular}
 }
@@ -116,6 +116,84 @@ control group & 30.2 & 5.94 & 58.75 & 9.54 & 47.89 & 16.55 & 28.29 & 4.58 \\
 \frametitle{Characteristics of survival data}
 \centering
 \includegraphics[width=0.8\textwidth]{figs/meditation_observed_rand_time.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+In this hypothetical study, we were able to record the actual occurrence time \textcolor{blue}{for each participant}.
+
+Is this typical of human studies? \pause \textcolor{red}{No!}
+
+Why? \pause Some common reasons are:
+\begin{itemize}
+\item the study ended (e.g., after 30 weeks) and some participants had not yet had a severe panic attack (\textbf{administrative censoring})
+\item the participant left the study before having had a severe panic attack (\textbf{loss to follow-up})
+\end{itemize}
+
+These all lead to \textbf{right-censored} data.
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/meditation_censored_study_time.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/meditation_censored_rand_time.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+{\fontsize{10pt}{7.2}\selectfont
+The data can be represented as:
+\hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textcolor{blue}{meditation group} & 14.29 & \textcolor{red}{20+} & \textcolor{red}{21+} & 25.18 & 5.56 & \textcolor{red}{27+} & \textcolor{red}{24+} & 2.81  \\
+\hline
+control group & \textcolor{red}{21+} & 3.94 & \textcolor{red}{27+} & 6.54 & \textcolor{red}{24+} & 12.55 & 21.29 & 3.58 \\
+\hline
+\end{tabular}
+}
+
+\vspace{-0.6cm}
+{\small
+Should we treat these incompletely observed times as missing data? Should we throw them out? \pause \textcolor{red}{Either of these is a bad idea!} \vspace{-0.3cm}
+
+\begin{itemize}
+\item These observations contain valuable information:
+{\scriptsize
+\begin{itemize}
+\item \textcolor{red}{20+}: the participant did not experience a severe panic attack before 20 weeks
+\item their actual time until the first severe panic attack must be in the interval $(16, +\infty)$
+\end{itemize}
+}
+\item These participants are not representative of the whole study population: valid estimation and inference when excluding missing data (which we have done so far) assumes that the people excluded are ``similar to'' the people still in the data (\textbf{missing completely at random})
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+Close or put away your notes and laptops. Then answer the following questions, at first alone, and then in pairs:
+\begin{enumerate}
+\item Are those with smaller or larger times more likely to be censored?
+\item Systematically excluding censored times could lead to \textcolor{red}{biased estimates}. Would this lead to an overestimation or an underestimation of the mean time until severe panic attack?
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+\begin{enumerate}
+\item Are those with smaller or larger times more likely to be censored?
+\item[] \textcolor{blue}{Those with \textbf{larger times} are more likely to be censored; we only get to observe these people for a comparatively small amount of time, so we may miss their event}
+\item Systematically excluding censored times could lead to \textcolor{red}{biased estimates}. Would this lead to an overestimation or an underestimation of the mean time until severe panic attack?
+\item[] \textcolor{blue}{\textbf{Underestimation}: if we exclude censored times, then we are effectively excluding these people with potentially longer times, and losing all of this information!}
+\end{enumerate}
+
 \end{frame}
 
 
