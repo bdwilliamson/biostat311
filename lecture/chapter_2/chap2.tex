@@ -1115,17 +1115,22 @@ What if we want to know if lung cancer is more likely smokers?
 \begin{itemize}
 \item RD = $P(\text{Cancer}|\text{Smoker}) - P(\text{Cancer}|\text{Nonsmoker})$
 \item RR = $P(\text{Cancer}|\text{Smoker}) \div P(\text{Cancer}|\text{Nonsmoker})$
+\end{itemize}
+
+Can we estimate these from a case-control study? \pause \textcolor{blue}{No.} \pause
+
+\begin{itemize}
 \item OR = $\frac{P(\text{Cancer}|\text{Smoker})}{1-P(\text{Cancer}|\text{Smoker})} \div \frac{P(\text{Cancer}|\text{Nonsmoker})}{1-P(\text{Cancer}|\text{Nonsmoker})}$
 \end{itemize}
 
-Can we estimate any of these from a case-control study? \pause \textcolor{blue}{No.} \pause
+Can we estimate this OR from a case-control study? \pause \textcolor{blue}{Not directly...} \pause
 
 What if we looked at the ratio of odds of \textit{smoking} instead?
 \begin{itemize}
 \item OR = $\frac{P(\text{Smoker}|\text{Cancer})}{1-P(\text{Smoker}|\text{Cancer})} \div \frac{P(\text{Smoker}|\text{No Cancer})}{1-P(\text{Smoker}|\text{No Cancer})}$
 \end{itemize}
 
-But why would we do this? It doesn't answer our scientific question...
+But, it doesn't answer our scientific question...
 \end{frame}
 
 % show that the two OR are equal (if time, they do math themselves
