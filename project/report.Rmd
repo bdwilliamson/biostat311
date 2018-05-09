@@ -16,57 +16,167 @@ Submit your *First Draft* on Canvas by 11:59pm on May 18, and your *Final Report
  
 This assignment is graded. The *First Draft* is worth 10% of your project grade, is graded on effort/completion, and is not binding: you are welcome (and encouraged!) to incorporate any of our feedback into your final report. The *Final Report* is worth 50% of your project grade.
 
-# Template:
+# Template and Rubric:
 
-## Title
+## Formatting (3 points)
 
-Make up a title for your proposed study!
+(*Do not include this section in your report.*) 
 
-## Background and Introduction
+To receive full credit for this portion of the assignment, you should...
 
-Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected? This section is particularly useful when the document is circulated beyond your immediate study team (so make sure that there's enough detail here that someone outside your group could read this section and understand the big picture).
+- submit on time
+- use 12 point font
+- write no more than ten pages (not including your tables and figures)
+- include all group member names
+- write in full sentences and paragraphs
+- remove our descriptions of each section
 
-## Scientific Questions
+You will lose points for...
 
-In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.
+- many typos
+- unclear or imprecise language
+- including raw R code or output
 
-Example: a study of smoking and lung function in children
+## Title (1 points)
 
-The overall scientific goal is to assess the association between smoking and lung function in children. Specifically, we will address the following questions:
+*Make up a title for your proposed study!*
 
-1. Is smoking associated with decreased lung function in children?
-2. If there is an association between smoking and decreased lung function, is this effect different in older versus younger children.
+To receive full credit for this portion of the assignment, your title should...
 
-## Statistical Hypotheses
+- be interesting and informative (e.g., allude to your scientific goal)
+- not contain any abbreviations
 
-Connect the scientific questions listed above with statistical hypotheses, that you can test using your statistical tools. Make sure to list both the variables that you will use in each analysis, and how you plan to make your statistical inference (e.g., confidence intervals and p-values).
+## Background and Introduction (3 points)
 
-## Methods
+*Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected?*
 
-### Study Design
+To receive full credit for this portion of the assignment, your background/introduction should include...
 
-How were the data collected? How many subjects are in the study? Include all necessary information for interpreting your analysis.
+- 1-2 paragraphs of scientific background
+    - Set the stage for why this is an interesting overall scientific question to study
+    - Why is this an important/relevant outcome to look at?
+    - Why is this an important/relevant predictor/exposure to look at?
+    - What other variables might be related to your outcome and/or predictor?
+- (Brief, 1 paragraph) description of study/data
+    - Who (is being studied)? 
+    - Where (was the study conducted/are your subjects from)? 
+    - When (was the data collected)?
+    - Where did you get your data (provide enough detail that someone else could go out and find it)
 
-### Statistical Methods
+NOTE: you can re-use what you wrote for your *Statistical Analysis Plan,* but make sure to address any of the comments we gave you, and you will probably need to add additional detail to address the criteria above
 
-Describe all of the descriptive statistics you will compute, how you will compute them, and how you will display your results. Generally, these are used informally to evaluate and compare subgroups, identify errors in the data, and identify patterns of missing data.
+## Scientific Questions (3 points)
 
-All statistical analyses should start with data description. Often, these descriptive analyses will support the inferential analyses you report. Figures and tables are both reasonable ways to display descriptive analyses.
+*In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.*
 
-Describe all of the inferential analyses you will run (e.g., linear regression), along with the estimates that you will report. These are the hypothesis tests and estimates that will be used to address each of the questions you listed in the "scientific questions" section. You should state the statistical method that will be used to test each hypothesis, along with the response variable for each question and the significance level you are using. List the assumptions required for the analysis.
+To receive full credit for this portion of the assignment, you should include...
 
-Also, describe any variables that you adjust for as potential confounders, effect modifiers, or precision variables for each analysis. 
+- your overall scientific goal
+- at least two specific scientific questions
 
-## Results
+NOTE: you can re-use what you wrote for your *Statistical Analysis Plan,* but make sure to address any of the comments we gave you
 
-### Description of the study cohort
+## Statistical Hypotheses (4 points)
 
-Actually run the descriptive analyses that you propose above, and report the results in tables or figures, as appropriate. 
+*Connect the scientific questions listed above with statistical hypotheses, that you can test using your statistical tools. Make sure to list all variables that you will use in each analysis.*
 
-### Inferential analyses
+To receive full credit for this portion of the assignment, you should take each of your (2+) specific scientific questions and re-phrase them as a "statistical question" here. In particular, your statistical question should be a more precise version of your scientific question, which specifies:
 
-Report and interpret the effect estimates, confidence intervals, and p-values corresponding to each scientific question that you address. Write each formally.
+- what is the outcome variable
+- what is the predictor of interest
+- what other variables will you adjust for
+- how are you defining association (e.g., difference in means via linear regression, ratio of odds via logisitic regression, ratio of hazards via proportional hazards regression)
 
-## Discussion
+NOTE: you can re-use what you wrote for your *Statistical Analysis Plan,* but make sure to address any of the comments we gave you
 
-Discuss what the statistical results you presented in the previous section mean in terms of the scientific questions that you posed at the beginning of the report.
+## Methods (15 points)
+
+### Study Design (4 points)
+
+*How were the data collected? How many subjects are in the study? Include all necessary information for interpreting your analysis.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- who is being studied
+- how many participants are in the study (i.e., sample size)
+- what type of study is this (observational vs experimental; if observational, what type)
+- where was this study conducted, where are the subjects from
+- when was this study conducted
+- how were data collected
+- what data were collected (summarize the *Variables* section from your *Statistical Analysis Plan* here)
+
+### Statistical Methods (9 points)
+
+*Describe the descriptive statistics you will compute, how you will compute them, and how you will display your results (figures, tables). Generally, descriptive statistics are used to evaluate and compare subgroups, identify errors in the data, and identify patterns of missing data. Often, these descriptive analyses will support the inferential analyses you report. Additionally, describe the inferential analyses you will run (e.g., linear regression, logisitic regression), along with the estimates (e.g., which coefficients) and any other relevant values (e.g., confidence intervals) that you will interpret and report.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- description of what numerical summaries you will calculate (e.g., mean, standard deviation, proportion, number of missing) for what variables, and within which subgroups (if applicable)
+- description of any tables and figures
+- a description of the model you will use to address each of your statistical questions
+- for each model: what type of regression, what is your outcome, what is your predictor of interest, what variables are you adjusting for
+- what numbers will you report/interpret; if this includes a p-value, what are your null and alterative hypotheses and what p-value threshold will you use for calling something "statistically significant"
+
+NOTE: make sure that you think about how you will use descriptive statistics for (1) data cleaning/checking for errors, (2) describing your study subjects (e.g., Table 1), and (3) answering your statistical questions
+
+### R code and data (2 points)
+
+*Compile and upload your \texttt{R} code, and upload the version of your data that you used in your analyses (i.e., the processed and "clean" version that we can run your descriptive and inferential analyses on).*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- a \texttt{.R} file with the code you used to complete your analyses
+- a "clean" version of the data you used in your analyses (i.e., we should be able to run your code using these data and obtain your results)
+
+## Results (15 points)
+
+### Description of the study cohort (5 points)
+
+*Actually run the descriptive analyses that you propose above, and report the results in tables or figures, as appropriate.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- a table with summary statistics that describes your study population; the table should have:
+    - an informative caption
+    - meaningful row and column names
+    - units
+- an interpretation of interesting or informative differences between groups
+
+### Inferential analyses (10 points)
+
+*Report and interpret the effect estimates, confidence intervals, and p-values corresponding to each scientific question that you address. Write each formally.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- tables and/or figures in support of your inferential analyses; this may be, e.g.,
+    - a table of estimates, CIs, p-values from regression analyses, or
+    - figures showing the outcome versus the predictor of interest
+- a full paragraph interpretation of results for each regression analysis, tied to each statistical question, including:
+    - what type of regression was used
+    - interpretations of the estimate, confidence interval, and p-value
+    - a conclusion tying these results back to the scientific question
+
+## Discussion (5 points)
+
+*Discuss what the statistical results you presented in the previous section mean in terms of the scientific questions that you posed at the beginning of the report.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- a 1--2 paragraph summary of the results of your analyses, in the context of your overall scientific goal (do not simply repeat your paragraphs from the *Results* section)
+- a discussion of the limitations of your data or analysis, e.g., 
+    - are there potential confounding variables that were missing from the data?
+    - have you violated any important assumptions for your results to be valid?
+- a discussion of the following quesitons: Are you surprised by what you found? How do your results fit in with the larger scientific literature (do not do a full literature review, but interpret your results in the context of your understanding of the problem)?
+
+## Group contributions (1 point)
+
+*Describe how each group member contributed to the report.*
+
+To receive full credit for this portion of the assignment, you should include...
+
+- a list of who created the initial draft of each section
+- a list of who edited each section
+- a list of who ran each analysis
+- who submitted the document
+- who compiled and submitted the R code
+- who submitted the data
