@@ -3,20 +3,26 @@
 ## parameters
 n <- 200 # sample size
 study_end <- 40 # number of weeks to observe all events
-rate_placebo <- 20 # panic attacks/week
-rate_tx <- rate_placebo*2
+shape_placebo <- 2
+scale_placebo <- 20
+shape_tx <- shape_placebo
+scale_tx <- 15
 rate_dropout <- 30
 n_weeks_in_study <- 30
 
 ## generate some times to first severe panic attack, along with treatment assignment
-gen_data <- function(n, study_end, rate_placebo, rate_tx, rate_dropout, n_weeks_in_study) {
+gen_data <- function(n, study_end, shape_placebo, scale_placebo, shape_tx, rate_tx, rate_dropout, n_weeks_in_study) {
   ## randomly assign treatment or placebo
   rows <- sample(1:n, n/2)
   tx <- rep(0, n)
   tx[rows] <- 1
   
   ## calculate event times
-  event_times <- rexp(n, (1/rate_placebo)^(1-tx)*(1/rate_tx)^(tx)) # weeks
+  event_times_placebo <- rweibull(n/2, shape_placebo, scale_placebo)
+  event_times_tx <- rweibull(n/2, shape_tx, scale_tx)
+  event_times <- rep(NA, n)
+  event_times[rows] <- event_times_tx
+  event_times[-rows] <- event_times_placebo
   
   ## calculate censoring times
   censor_times <- rexp(n, 1/rate_dropout)
@@ -37,7 +43,7 @@ gen_data <- function(n, study_end, rate_placebo, rate_tx, rate_dropout, n_weeks_
 
 ## generate some data
 set.seed(4747)
-dat <- gen_data(n, study_end, rate_placebo, rate_tx, rate_dropout, n_weeks_in_study)
+dat <- gen_data(n, study_end, shape_placebo, scale_placebo, shape_tx, scale_tx, rate_dropout, n_weeks_in_study)
 head(dat)
 
 ## look at only some of them
@@ -168,19 +174,20 @@ paste(print(subset(sub_dat, tx == 0)$survobj[1:8], digits = 2), collapse = " & "
 
 ## density curve for overall, uncensored, censored
 set.seed(5555)
-rate_target <- (1/rate_tx + 1/rate_placebo)/2
-target_pop <- rexp(100000, rate_target)
+target_pop <- rweibull(100000, 2, 20)
 censoring <- rexp(100000, 1/rate_dropout) 
 
-f_uncens<-function(x) return(dexp(x,rate_target)*(1-pexp(x,1/rate_dropout))/integrate(function(u) dexp(u,rate_target)*(1-pexp(u,1/rate_dropout)),0,+Inf)$value)
-f_cens<-function(x) return(dexp(x,rate_target)*pexp(x,1/rate_dropout)/integrate(function(u) dexp(u,rate_target)*pexp(u,1/rate_dropout),0,+Inf)$value)
+f_uncens<-function(x) return(dweibull(x,2,20)*(1-pexp(x,1/rate_dropout))/integrate(function(u) dweibull(u,2,20)*(1-pexp(u,1/rate_dropout)),0,+Inf)$value)
+f_cens<-function(x) return(dweibull(x,2,20)*pexp(x,1/rate_dropout)/integrate(function(u) dweibull(u,2,20)*pexp(u,1/rate_dropout),0,+Inf)$value)
 
-overall_mean <- 1/((1/rate_tx + 1/rate_placebo)/2)
-censored_mean <- integrate(function(x) x*f_uncens(x),0,Inf)$value
-uncensored_mean <- integrate(function(x) x*f_cens(x),0,Inf)$value
+overall_mean <- 20*gamma(1+1/2)
+uncensored_mean <- integrate(function(x) x*f_uncens(x),0,Inf)$value
+censored_mean <- integrate(function(x) x*f_cens(x),0,Inf)$value
 
 png("lecture/chapter_3/figs/meditation_density_versus_obs_time.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
-curve(f_uncens,0,60,col=2,lwd=1.5,xlab="time from recruitment until severe panic attack (in weeks)",
+par(mar = c(5, 4, 0.1, 0.1))
+curve(f_uncens,0,60,col=2,lwd=1.5,
+      xlab="time from recruitment until severe panic attack (in weeks)",
       ylab="density function",cex.lab=0.8,cex.axis=0.8,ylim=c(0,0.05))
 curve(f_cens,add=T,col=4,lwd=1.5,cex=0.8)
 curve(dweibull(x,2,20),add=T,lwd=1.5,cex=0.8)

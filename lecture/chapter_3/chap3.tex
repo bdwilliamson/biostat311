@@ -98,9 +98,9 @@ To address this question, we: \vspace{-0.3cm}
 Sample of the observed times until first severe panic attack (in weeks):
 \hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\textcolor{blue}{meditation group} & 14.29 & 36.81 & 31.23 & 25.18 & 5.56 & 85.5 & 47.57 & 2.81  \\
+\textcolor{blue}{meditation group} & 17.78 & 13.8 & 10.69 & 4.61 & 7.8 & 26.32 & 6.48 & 12.51  \\
 \hline
-control group & 21.2 & 3.94 & 55.75 & 6.54 & 41.89 & 12.55 & 21.29 & 3.58 \\
+control group & 12.45 & 18.42 & 15.95 & 8.18 & 21.74 & 6.47 & 11.01 & 22.44 \\
 \hline
 \end{tabular}
 }
@@ -151,9 +151,9 @@ These all lead to \textbf{right-censored} data, where rather than knowing the va
 The data can be represented as:
 \hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\textcolor{blue}{meditation group} & 14.29  & \textcolor{red}{12.89+} & 21.00  & 25.18  &  \textcolor{red}{4.72+} & \textcolor{red}{27.00+} & \textcolor{red}{24.00+} &  \textcolor{red}{0.24+}  \\
+\textcolor{blue}{meditation group} & 14.29  & \textcolor{red}{7.74+} & \textcolor{red}{21.00+} & 25.18  &  \textcolor{red}{2.83+} & \textcolor{red}{17.57+} & \textcolor{red}{19.13+} &  \textcolor{red}{0.14+}  \\
 \hline
-control group & 21.00  &  3.94  & \textcolor{red}{12.94+} &  6.54  & 24.00  & 12.55  & 21.29  &  3.58 \\
+control group & \textcolor{red}{21.00+} &  \textcolor{red}{3.94+} &  \textcolor{red}{7.77+} &  6.54  & \textcolor{red}{24.00+} & 12.55  & 21.29 &  3.58 \\
 \hline
 \end{tabular}
 }
@@ -198,9 +198,9 @@ Close or put away your notes and laptops. Then answer the following questions, a
 
 \begin{frame}
 \frametitle{Characteristics of survival data}
-Comparison of the sampling distribution of times in participants who become censored or uncensored, and the overall target population:
+Sampling distribution of times in participants who become censored or uncensored, and the overall target population:\vspace{-0.4cm}
 \begin{center}
-
+\includegraphics[height=0.8\textheight]{figs/meditation_density_versus_obs_time.png}
 \end{center}
 \end{frame}
 
@@ -249,6 +249,29 @@ In this course, we will focus on \textbf{right censoring}, where we only know th
 
 Right-censored data are the most common type of censored data found in applications!
 \end{frame}
+
+% risk set, plus movie
+\begin{frame}
+\frametitle{Characteristics of survival data}
+Key concept: the \textbf{risk set}.
+
+\textbf{Risk set at time $t$}: the collection of participants \textcolor{blue}{could have experienced} their first severe panic attack at time $t$; in other words, those who were still at risk at time $t$.
+\vspace{-0.3cm}
+\begin{align*}
+\textbf{fraction at risk at time } t = & \frac{\textbf{size of risk set at time } t}{\textbf{total sample size}}.
+\end{align*}
+
+A few observations:\vspace{-0.3cm}
+\begin{itemize}
+\item participants \textcolor{blue}{exit} the risk set either when they \textcolor{Aquamarine}{experience a severe panic attack} or when they \textcolor{red}{become right-censored}
+\item with right-censored data, all participants are in the risk set at time 0 and the risk set necessarily shrinks over time
+\item the \textcolor{blue}{size of the risk set} and the \textcolor{blue}{characteristics of its members} will be critical in survival analysis
+\end{itemize}
+\end{frame}
+
+% uninformative censoring, with examples (from Anna)
+
+% key quantities: density function, survival function, hazard function
 
 
 \begin{comment}
