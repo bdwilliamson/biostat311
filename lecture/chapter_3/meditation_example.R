@@ -199,3 +199,419 @@ abline(v = overall_mean, lty = 2)
 abline(v = censored_mean, lty = 2, col = "blue")
 abline(v = uncensored_mean, lty = 2, col = "red")
 dev.off()
+
+
+## plot of survival density function
+png("lecture/chapter_3/survival_density.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1), mfrow = c(2, 1))
+curve(dweibull(x,2,20),0,60,ylab="f(t)",xlab="",ylim=c(0,0.05),lwd=2.5,cex.axis=0.8,cex.lab=0.8)
+
+curve(dweibull(x,2,20),0,60,ylab="f(t)",xlab="",ylim=c(0,0.05),lwd=2.5,cex.axis=0.8,cex.lab=0.8)
+points(c(20,20),c(0,dweibull(20,2,20)),type='l',lwd=2.5,col=2)
+points(c(20,20),c(dweibull(20,2,20),1),type='l',lty=3,lwd=2.5,col=2)
+m<-50; grid<-seq(20,60,length.out=m);
+for(i in 1:m){
+  points(c(grid[i],grid[i]),c(0,dweibull(grid[i],2,20)),type='l',lwd=2,col=2)	
+  
+}
+dev.off()
+
+## plot of Survival function
+png("lecture/chapter_3/survival_function.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+curve(1-pweibull(x,2,20),0,60,ylab="S(t)",xlab="t",ylim=c(0,1),lwd=2.5,cex.axis=0.8,cex.lab=0.8)
+points(c(20,20),c(-1,0.37),type='l',lwd=2,col=2,lty=3)
+points(c(-5,20),c(0.37,0.37),type='l',lwd=2,col=2,lty=3)
+dev.off()
+
+## plot of hazard
+png("lecture/chapter_3/hazard_function.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1), mfrow = c(2, 1))
+curve(dweibull(x,2,20)/(1-pweibull(x,2,20)),0,60,ylab=expression(paste(lambda,"(t)")),xlab="",lwd=2.5,cex.axis=0.8,cex.lab=0.8)
+curve(-log(1-pweibull(x,2,20)),0,60,ylab=expression(paste(Lambda,"(t)")),xlab="t",ylim=c(0,10),lwd=2.5,cex.axis=0.8,cex.lab=0.8)
+dev.off()
+
+## plots of risk set
+delta <- sub_dat$events
+yobs <- sub_dat$obs_times
+y <- sub_dat$event_times - sub_dat$enroll_times
+t <- sub_dat$tx
+
+png("lecture/chapter_3/figs/risk_set_movie_0.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(0,0)*1,c(-1,23),type='l',lty=1,lwd=2,col="red")
+text(32.2,12,"R(0) = all",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(0) = 20",cex=0.8,col = "red")
+dev.off()
+
+png("lecture/chapter_3/figs/risk_set_movie_1.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(3,3)*1,c(-1,23),type='l',lty=1,lwd=2,col = "red")
+text(32.2,12,"R(3) = all but {5,8}",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(3) = 18",cex=0.8,col = "red")
+dev.off()
+
+png("lecture/chapter_3/figs/risk_set_movie_2.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(5,5)*1,c(-1,23),type='l',lty=1,lwd=2,col = "red")
+text(32.2,12,"R(5) = ................................",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(5) = ......",cex=0.8,col = "red")
+dev.off()
+
+png("lecture/chapter_3/figs/risk_set_movie_3.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(8,8)*1,c(-1,23),type='l',lty=1,lwd=2,col = "red")
+text(32.2,12,"R(8) = ................................",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(8) = ......",cex=0.8,col = "red")
+dev.off()
+
+png("lecture/chapter_3/figs/risk_set_movie_4.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(12,12)*1,c(-1,23),type='l',lty=1,lwd=2,col = "red")
+text(32.2,12,"R(12) = ................................",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(12) = ......",cex=0.8,col = "red")
+dev.off()
+
+png("lecture/chapter_3/figs/risk_set_movie_5.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(20,20)*1,c(-1,23),type='l',lty=1,lwd=2,col = "red")
+text(32.2,12,"R(20) = ................................",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(20) = ......",cex=0.8,col = "red")
+dev.off()
+
+png("lecture/chapter_3/figs/risk_set_movie_6.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(25,25)*1,c(-1,23),type='l',lty=1,lwd=2,col = "red")
+text(32.2,12,"R(25) = ................................",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(25) = ......",cex=0.8,col = "red")
+dev.off()
+
+png("lecture/chapter_3/figs/risk_set_movie_6.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+plot(NULL,xlim=c(0,40),ylim=c(0,22),xlab="time since treatment assignment (in weeks)",ylab="",yaxt='n',cex.lab=0.8,cex.axis=0.8)
+for(i in 1:length(y)){
+  if(t[i]==1){
+    if(delta[i]==1){
+      points(c(0,y[i]),c(i,i),type='l',lty=1,col="blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(0+y[i],i,type='p',pch=4,cex=.8)
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "blue")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "blue")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "blue")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "blue")
+      points(yobs[i],i,type='p',pch=1,cex=.8)			
+    }
+  }
+  if(t[i]==0){
+    if(delta[i]==1){
+      points(0+c(0,y[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(0+y[i],i,type='p',pch=4,cex=.8,col = "black")
+    }
+    if(delta[i]==0){
+      points(c(0,yobs[i]),c(i,i),type='l',lty=1,col = "black")
+      points(c(yobs[i],y[i]),c(i,i),type='l',lty=3,col = "black")
+      points(c(0,0),c(i,i)+c(-0.2,0.2),type='l',lty=1,col = "black")
+      points(y[i],i,type='p',pch=4,cex=.8,col = "black")
+      points(yobs[i],i,type='p',pch=1,cex=.8,col = "black")			
+    }
+  }
+}
+for(i in 20:11){
+  text(-0.9,i,i,cex=0.5)	
+}
+for(i in 10:1){
+  text(-0.9,i,i,cex=0.5)	
+}
+legend("topright",legend=c("meditation","placebo"),fill=c(4,1),cex=0.8)
+
+points(c(30,30)*1,c(-1,23),type='l',lty=1,lwd=2,col = "red")
+text(32.2,12,"R(30) = ................................",cex=0.8,col = "red")
+text(32.2,10.5,"size of R(30) = ......",cex=0.8,col = "red")
+dev.off()
+
+## risk set
+png("lecture/chapter_3/figs/risk_set.png", width = fig_width, height = fig_height/5*4, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+riskset<-function(u) mean(yobs>=u)
+riskset<-Vectorize(riskset)
+curve(riskset,0,60,n=10000,ylab="fraction-at-risk at time t",xlab="t",ylim=c(0,1),lwd=2,cex.axis=0.8,cex.lab=0.8,col=4)
+Sy<-function(x) (0.5*pweibull(x,2,15,lower.tail=FALSE)+0.5*pweibull(x,2,20,lower.tail=FALSE))*pexp(x,1/40,lower.tail=FALSE)
+curve(Sy,add=TRUE,col=1,lwd=2)
+legend("topright",legend=c("observed fraction-at-risk ","expected fraction-at-risk "),fill=c(4,1),cex=0.8)
+dev.off()
