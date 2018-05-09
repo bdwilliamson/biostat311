@@ -48,7 +48,7 @@ To receive full credit for this portion of the assignment, your title should...
 
 ## Background and Introduction (3 points)
 
-*Provide a brief description of your data to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected?*
+*Provide a brief description of your study to give perspective into the importance of the problem and the situation under study. In particular, why were the data collected?*
 
 To receive full credit for this portion of the assignment, your background/introduction should include...
 
@@ -166,7 +166,7 @@ To receive full credit for this portion of the assignment, you should include...
 - a discussion of the limitations of your data or analysis, e.g., 
     - are there potential confounding variables that were missing from the data?
     - have you violated any important assumptions for your results to be valid?
-- a discussion of the following quesitons: Are you surprised by what you found? How do your results fit in with the larger scientific literature (do not do a full literature review, but interpret your results in the context of your understanding of the problem)?
+- a discussion of the following questions: Are you surprised by what you found? How do your results fit in with the larger scientific literature (do not do a full literature review, but interpret your results in the context of your understanding of the problem)?
 
 ## Group contributions (1 point)
 
