@@ -819,7 +819,7 @@ Let's predict for a person with \textcolor{orange}{BMI = 30 kg/m$^2$}:
 % example 2
 \begin{frame}
 \frametitle{Prediction}
-We can also use logistic regression for prediction. $$\log\left(\text{Odds}[\text{Diabetes}| \text{Male}, \text{Age}]\right) = \beta_0 + \beta_1 \text{Male} + \beta_2 \text{BMI}$$
+We can also use logistic regression for prediction. $$\log\left(\text{Odds}[\text{Diabetes}| \text{BMI}]\right) = \beta_0 + \beta_1\text{BMI}$$
 
 Let's predict for a person with \textcolor{violet}{BMI = 15 kg/m$^2$}:
 
@@ -842,7 +842,7 @@ We can also let \texttt{R} do all the work for us:
 \includegraphics[width=\textwidth]{figs/inflamm_predict}
 \pause
 \begin{scriptsize}
-(Remember, our linear regression predictions from HW5 were 0.209 and -0.010.)
+\textcolor{orange}{(Remember, our linear regression predictions from HW5 were 0.209 and -0.010.)}
 \end{scriptsize}
 
 \end{frame}
@@ -892,12 +892,12 @@ Cons: \vspace{-0.3cm}
 \frametitle{SECTION 4: GENERALIZED LINEAR MODELS}
 
 Linear regression and logistic regression are two examples of a larger class of models called \textit{generalized linear models} (GLMs)\footnote[frame]{This is why the \texttt{R} function we use for logistic regression is called \texttt{glm}}.
-$$g\left(E[Y|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+$$g\left(E[Y|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$ \pause
 
 % general formulation
 \vspace{-0.2cm}
 \begin{itemize}
-\item \textbf{Linear regression:} $g(x) = x$ $$E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+\item \textbf{Linear regression:} $g(x) = x$ $$E[Y|X_1,\cdots,X_p] = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$ \pause
 \item \textbf{Logistic regression:} $g(x) = \text{logit}(x) = \log(\frac{x}{1-x})$ $$\log\left(\frac{E[Y|X_1,\cdots,X_p]}{1-E[Y|X_1,\cdots,X_p]}\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
 \end{itemize}
 
@@ -909,14 +909,14 @@ $$g\left(E[Y|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$
 
 Another useful type of GLM is \textit{Poisson regression}, also known as \textit{relative risk regression} in the context of binary outcomes.
 
-Here, $g(x) = \log(x)$, so the regression model takes the form $$\log\left(E[Y|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+Here, $g(x) = \log(x)$, so the regression model takes the form $$\log\left(E[Y|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$ \pause
 
-When $Y$ is binary, this is the same as $$\log\left(\text{Prob}[Y=1|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$
+When $Y$ is binary, this is the same as $$\log\left(\text{Prob}[Y=1|X_1,\cdots,X_p]\right) = \beta_0 + \beta_1 X_1 + \cdots \beta_pX_p$$ \pause
 
 \vspace{-0.1cm}
 Interpretation:\vspace{-0.3cm}
 \begin{itemize}
-\item $e^{\beta_0}$: probability that $Y=1$ when $X_1 = \cdots X_p = 0$
+\item $e^{\beta_0}$: probability that $Y=1$ when $X_1 = \cdots X_p = 0$ \pause
 \item $e^{\beta_1}$: relative risk (of $Y=1$) comparing 2 groups that differ by 1 unit in $X_1$ but have the same $X_2, \cdots, X_p$
 \end{itemize} 
 
@@ -984,30 +984,220 @@ There are multiple ways that we could check if diabetes is \textit{associated} w
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%% comment out %%%%%%%%%%%%%%%%%%%
-\begin{comment}
-
 \section{Case-control studies}
 \begin{frame}
 \frametitle{SECTION 6: LOGISTIC REGRESSION IN CASE-CONTROL STUDIES}
 
-When does study design matter in this course? 
+How we've collected our data impacts the way we can interpret our results:
 
-Experimental vs observational: causal language
-
-A new example: case-control studies
-
-% key message: can't use lin or poisson reg here, only log reg works! this is part of why log reg is so popular
+\begin{itemize}
+\item \textcolor{blue}{Example:} Experimental vs observational study (causation vs association)
+\item \textcolor{blue}{New example:} case-control studies
+\end{itemize}
 
 \end{frame}
 
 
-% assumptions
-%%%% mean model for odds
-%%%% nothing about variance
+% case-control studies slide from Chapter 0
+\begin{frame}
+\frametitle{Case-control studies (Slide 0.12)}
+Description: \vspace{-0.3cm}
+\begin{itemize}
+\item \textit{Sample individuals based on the outcome} (some with, some without), look back in time (usually) for exposure % when you look back in time = retrospective case-control study
+\end{itemize}
+
+Pros:\vspace{-0.3cm}
+\begin{itemize}
+\item Efficient for rare diseases % (don't have to recruit as many people)
+\item Cheaper and faster than cohort studies
+\item Can study multiple exposures
+\end{itemize}
+
+Cons:\vspace{-0.3cm}
+\begin{itemize}
+%\item Recall bias
+\item May not know time sequence of disease and exposure
+\item Cannot use to estimate relative risk or disease prevalence
+\item Potential confounding (so no conclusions about causality)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Case-control studies (Slide 0.12)}
+Description: \vspace{-0.3cm}
+\begin{itemize}
+\item \textit{Sample individuals based on the outcome} (some with, some without), look back in time (usually) for exposure % when you look back in time = retrospective case-control study
+\end{itemize}
+
+Pros:\vspace{-0.3cm}
+\begin{itemize}
+\item Efficient for rare diseases % (don't have to recruit as many people)
+\item Cheaper and faster than cohort studies
+\item Can study multiple exposures
+\end{itemize}
+
+Cons:\vspace{-0.3cm}
+\begin{itemize}
+%\item Recall bias
+\item May not know time sequence of disease and exposure
+\item \textcolor{orange}{Cannot use to estimate relative risk or disease prevalence}
+\item Potential confounding (so no conclusions about causality)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why not?}
+
+In case-control studies, we cannot estimate the relative risk or disease prevalence.
+
+Why not? 
+\begin{itemize}
+\item This is a biased sampling scheme 
+\item Rather than a representative ``random" sample of the population, you are purposely sampling more individuals who have the outcome ($Y = 1$) than you would get from a random sample 
+\item Within the categories $Y = 1$ and $Y = 0$, the samples should still be random ; but \textit{overall}, the sample is not 
+\end{itemize}
+
+\end{frame}
+
+% cannot estimate prevalence or RR
+\begin{frame}
+\frametitle{$2 \times 2$ Table}
+\begin{center}
+\begin{table}
+	\begin{tabular}{|c|cc|c|}
+	\hline 
+	& Lung Cancer & No Lung Cancer &  \\ 
+	& (Case) & (Control) & Total  \\
+	\hline 
+	Smoke & 30 & 5  & 35 \\ 
+	No Smoke & 70 & 95 & 165  \\ 
+	\hline 
+	Total & 100 & 100 & 200 \\ 
+	\hline 
+	\end{tabular}
+\end{table}
+\end{center}
+\begin{align*} 
+P(\text{Cancer}|\text{Smoker}) &\overset{?}{=} \frac{30}{35} \\ 
+P(\text{Cancer}|\text{Nonsmoker}) &\overset{?}{=} \frac{70}{165} \\ 
+\end{align*} % NO!!
+\end{frame}
+
+% can look in other direction
+\begin{frame}
+\frametitle{$2 \times 2$ Table}
+\begin{center}
+\begin{table}
+	\begin{tabular}{|c|cc|c|}
+	\hline 
+	& Lung Cancer & No Lung Cancer &  \\ 
+	& (Case) & (Control) & Total  \\
+	\hline 
+	Smoke & 30 & 5  & 35 \\ 
+	No Smoke & 70 & 95 & 165  \\ 
+	\hline 
+	Total & 100 & 100 & 200 \\ 
+	\hline 
+	\end{tabular}
+\end{table}
+\end{center}
+\begin{align*} 
+P(\text{Smoker}|\text{Cancer}) &\overset{?}{=} \frac{30}{100} \\ 
+P(\text{Smoker}|\text{No Cancer}) &\overset{?}{=} \frac{5}{100} \\ 
+\end{align*} % yes!!
+\end{frame}
+
+\begin{frame}
+\frametitle{Association between smoking and cancer}
+
+What if we want to know if lung cancer is more likely smokers?
+
+\begin{itemize}
+\item RD = $P(\text{Cancer}|\text{Smoker}) - P(\text{Cancer}|\text{Nonsmoker})$
+\item RR = $P(\text{Cancer}|\text{Smoker}) \div P(\text{Cancer}|\text{Nonsmoker})$
+\item OR = $\frac{P(\text{Cancer}|\text{Smoker})}{1-P(\text{Cancer}|\text{Smoker})} \div \frac{P(\text{Cancer}|\text{Nonsmoker})}{1-P(\text{Cancer}|\text{Nonsmoker})}$
+\end{itemize}
+
+Can we estimate any of these from a case-control study? \pause \textcolor{blue}{No.} \pause
+
+What if we looked at the ratio of odds of \textit{smoking} instead?
+\begin{itemize}
+\item OR = $\frac{P(\text{Smoker}|\text{Cancer})}{1-P(\text{Smoker}|\text{Cancer})} \div \frac{P(\text{Smoker}|\text{No Cancer})}{1-P(\text{Smoker}|\text{No Cancer})}$
+\end{itemize}
+
+But why would we do this? It doesn't answer our scientific question...
+\end{frame}
+
+% show that the two OR are equal (if time, they do math themselves
+% hide this slide before posting to canvas
+\begin{frame}
+\frametitle{The odds ratios are equal!}
+\begin{center}
+\begin{table}
+	\begin{tabular}{|c|cc|c|}
+	\hline 
+	& Lung Cancer & No Lung Cancer &  \\ 
+	& (Case) & (Control) & Total  \\
+	\hline 
+	Smoke & 30 & 5  & 35 \\ 
+	No Smoke & 70 & 95 & 165  \\ 
+	\hline 
+	Total & 100 & 100 & 200 \\ 
+	\hline 
+	\end{tabular}
+\end{table}
+\end{center}
+
+OR = $\frac{P(\text{Cancer}|\text{Smoker})}{1-P(\text{Cancer}|\text{Smoker})} \div \frac{P(\text{Cancer}|\text{Nonsmoker})}{1-P(\text{Cancer}|\text{Nonsmoker})} = \frac{30}{5}\times \frac{95}{70} $
+
+OR = $\frac{P(\text{Smoker}|\text{Cancer})}{1-P(\text{Smoker}|\text{Cancer})} \div \frac{P(\text{Smoker}|\text{No Cancer})}{1-P(\text{Smoker}|\text{No Cancer})} = \frac{30}{70} \times \frac{95}{5}$
+
+\textcolor{blue}{These are the same!}
+The odds of disease comparing exposure statuses is mathematically equivalent to the odds ratio of exposure comparing the disease statuses.
+\end{frame}
+
+\begin{frame}
+\frametitle{Logistic regression in case-control studies}
+$$\log\left(\text{Odds}[\text{Cancer}\mid \text{Smoke}]\right) = \beta_0 + \beta_1 \text{Smoke}$$
+
+\begin{itemize}
+\item $e^{\beta_0}$: odds of cancer among nonsmokers \pause
+	\begin{itemize}  
+	\item $\text{Odds}[\text{Cancer} \mid \text{Nonsmoker}] = \frac{P(\text{Cancer} \mid \text{Nonsmoker})}{1-P(\text{Cancer} \mid \text{Nonsmoker})}$ \pause
+	\item \textbf{Biased} sample means that this is not valid to estimate! 
+	\item So $\beta_0$ is \textbf{not} interpretable, for a case-control study \pause
+	\end{itemize}
+\item $e^{\beta_1}$: ratio of odds of cancer comparing smokers to nonsmokers \pause
+	\begin{itemize}
+	\item This \textit{is} interpretable, because it's mathematically equivalent to the odds of smoking comparing people with and without cancer, which we can reliably estimate!
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+% conclusion
+\begin{frame}
+\frametitle{Conclusion}
+
+Case-control studies are useful when you have a rare outcome, but they are a biased sampling scheme.
+
+We \textit{cannot} estimate:
+\begin{itemize}
+\item Risk difference \textcolor{orange}{(linear regression)}
+\item Relative risk \textcolor{orange}{(relative risk regression)}
+\end{itemize}
+
+We \textit{can} estimate (in a roundabout way):
+\begin{itemize}
+\item Odds ratio \textcolor{orange}{(logistic regression)}
+	\begin{itemize}
+	\item[] ... but remember that we cannot interpret the intercept
+	\end{itemize}
+\end{itemize}
+
+This is a big part of why logistic regression is so popular!
 
 
-\end{comment}
-
+\end{frame}
 
 \end{document}
