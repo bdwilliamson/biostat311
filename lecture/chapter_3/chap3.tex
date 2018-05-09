@@ -130,7 +130,7 @@ Why? \pause Some common reasons are:
 \item the participant left the study before having had a severe panic attack (\textbf{loss to follow-up})
 \end{itemize}
 
-These all lead to \textbf{right-censored} data.
+These all lead to \textbf{right-censored} data, where rather than knowing the value exactly, we know that the value exceeds some cutoff.
 \end{frame}
 
 \begin{frame}
@@ -151,9 +151,9 @@ These all lead to \textbf{right-censored} data.
 The data can be represented as:
 \hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\textcolor{blue}{meditation group} & 14.29 & \textcolor{red}{20+} & \textcolor{red}{21+} & 25.18 & 5.56 & \textcolor{red}{27+} & \textcolor{red}{24+} & 2.81  \\
+\textcolor{blue}{meditation group} & 14.29  & \textcolor{red}{12.89+} & 21.00  & 25.18  &  \textcolor{red}{4.72+} & \textcolor{red}{27.00+} & \textcolor{red}{24.00+} &  \textcolor{red}{0.24+}  \\
 \hline
-control group & \textcolor{red}{21+} & 3.94 & \textcolor{red}{27+} & 6.54 & \textcolor{red}{24+} & 12.55 & 21.29 & 3.58 \\
+control group & 21.00  &  3.94  & \textcolor{red}{12.94+} &  6.54  & 24.00  & 12.55  & 21.29  &  3.58 \\
 \hline
 \end{tabular}
 }
@@ -167,7 +167,7 @@ Should we treat these incompletely observed times as missing data? Should we thr
 {\scriptsize
 \begin{itemize}
 \item \textcolor{red}{20+}: the participant did not experience a severe panic attack before 20 weeks
-\item their actual time until the first severe panic attack must be in the interval $(16, +\infty)$
+\item their actual time until the first severe panic attack must be in the interval $(20, +\infty)$
 \end{itemize}
 }
 \item These participants are not representative of the whole study population: valid estimation and inference when excluding missing data (which we have done so far) assumes that the people excluded are ``similar to'' the people still in the data (\textbf{missing completely at random})
@@ -194,6 +194,60 @@ Close or put away your notes and laptops. Then answer the following questions, a
 \item[] \textcolor{blue}{\textbf{Underestimation}: if we exclude censored times, then we are effectively excluding these people with potentially longer times, and losing all of this information!}
 \end{enumerate}
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+Comparison of the sampling distribution of times in participants who become censored or uncensored, and the overall target population:
+\begin{center}
+
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+\textbf{Survival analysis} is the branch of statistics concerned with the analysis of \textbf{time-to-event data}.
+
+Often, the goals of a survival analysis are to:
+\begin{itemize}
+\item describe the distribution of a time-to-event variable
+\item compare the time-to-event distribution in different subpopulations
+\item investigate the relationship between explanatory variables and the time-to-event distribution
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+Why is time-to-event data special? Why can we not use standard methods? \vspace{-0.5cm}
+\begin{itemize}
+\item A time-to-event variable is positive and generally skewed
+\item To appropriately define a time-to-event, we must specify:
+{\scriptsize
+\begin{itemize}
+\item initiating event --- e.g., birth, recruitment into study, onset of disease
+\item terminating event --- e.g., death, onset of disease
+\item time scale --- e.g., calendar time, number of transfusions
+\end{itemize}
+}
+\item Time-to-event data are generally observed subject to some incompleteness, of which \textbf{censoring} is a major type
+\item Throwing away incomplete data generally results in
+{\scriptsize
+\begin{enumerate}
+\item a loss of information (and increase in estimation uncertainty)
+\item biased estimation procedures (most important!)
+\end{enumerate}
+}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Characteristics of survival data}
+A time-to-event variable is said to be \textbf{censored} if rather than being known exactly, it is known to lie in some set of values.
+
+In this course, we will focus on \textbf{right censoring}, where we only know that the event occurred after the censoring point.
+
+Right-censored data are the most common type of censored data found in applications!
 \end{frame}
 
 

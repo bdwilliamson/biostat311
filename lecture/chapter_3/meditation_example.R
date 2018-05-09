@@ -5,7 +5,7 @@ n <- 200 # sample size
 study_end <- 40 # number of weeks to observe all events
 rate_placebo <- 20 # panic attacks/week
 rate_tx <- rate_placebo*2
-rate_dropout <- 10
+rate_dropout <- 30
 n_weeks_in_study <- 30
 
 ## generate some times to first severe panic attack, along with treatment assignment
@@ -26,12 +26,12 @@ gen_data <- function(n, study_end, rate_placebo, rate_tx, rate_dropout, n_weeks_
   
   event_times_2 <- event_times + enroll_times
   censor_times_2 <- censor_times + enroll_times
-  censor_times_3 <- pmax(censor_times, n_weeks_in_study)
-  
-  obs_time <- pmin(censor_times_3, event_times_2) - enroll_times
+  censor_times_3 <- pmin(censor_times_2, n_weeks_in_study)
+
+  obs_time <- pmin(censor_times_2, event_times_2, n_weeks_in_study) - enroll_times
   
   ## compare to get events
-  events <- as.numeric(event_times_2 < censor_times_3)
+  events <- as.numeric(event_times == obs_time)
   return(data.frame(tx = tx, event_times = event_times_2, censor_times = censor_times_3, enroll_times = enroll_times, event = events, obs_time = obs_time))
 }
 
@@ -103,7 +103,7 @@ png("lecture/chapter_3/figs/meditation_censored_study_time.png", width = fig_wid
 par(mar = c(5, 4, 0.1, 0.1))
 ## plot event times
 plot(sub_dat$event_times, 1:20, pch = 4, col = ifelse(sub_dat$tx == 1, "blue", "black"),
-     axes = FALSE, ylab = "", xlab = "time since randomization (weeks)",
+     axes = FALSE, ylab = "", xlab = "time since beginning of study (weeks)",
      xlim = c(0, 100))
 ## plot censoring times, only for those people who had one before the event
 censor_first <- sub_dat$censor_times < sub_dat$event_times
@@ -165,3 +165,30 @@ sub_dat$survobj <- survival::Surv(sub_dat$obs_times, sub_dat$events)
 library(survival)
 paste(print(subset(sub_dat, tx == 1)$survobj[1:8], digits = 2), collapse = " & ")
 paste(print(subset(sub_dat, tx == 0)$survobj[1:8], digits = 2), collapse = " & ")
+
+## density curve for overall, uncensored, censored
+set.seed(5555)
+rate_target <- (1/rate_tx + 1/rate_placebo)/2
+target_pop <- rexp(100000, rate_target)
+censoring <- rexp(100000, 1/rate_dropout) 
+
+f_uncens<-function(x) return(dexp(x,rate_target)*(1-pexp(x,1/rate_dropout))/integrate(function(u) dexp(u,rate_target)*(1-pexp(u,1/rate_dropout)),0,+Inf)$value)
+f_cens<-function(x) return(dexp(x,rate_target)*pexp(x,1/rate_dropout)/integrate(function(u) dexp(u,rate_target)*pexp(u,1/rate_dropout),0,+Inf)$value)
+
+overall_mean <- 1/((1/rate_tx + 1/rate_placebo)/2)
+censored_mean <- integrate(function(x) x*f_uncens(x),0,Inf)$value
+uncensored_mean <- integrate(function(x) x*f_cens(x),0,Inf)$value
+
+png("lecture/chapter_3/figs/meditation_density_versus_obs_time.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+curve(f_uncens,0,60,col=2,lwd=1.5,xlab="time from recruitment until severe panic attack (in weeks)",
+      ylab="density function",cex.lab=0.8,cex.axis=0.8,ylim=c(0,0.05))
+curve(f_cens,add=T,col=4,lwd=1.5,cex=0.8)
+curve(dweibull(x,2,20),add=T,lwd=1.5,cex=0.8)
+legend("topright", 
+       legend = c("target population", "uncensored participants", "censored participants", "mean value"),
+       col = c("black", "red", "blue", "black"),
+       lty = c(1, 1, 1, 2))
+abline(v = overall_mean, lty = 2)
+abline(v = censored_mean, lty = 2, col = "blue")
+abline(v = uncensored_mean, lty = 2, col = "red")
+dev.off()
