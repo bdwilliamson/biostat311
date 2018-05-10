@@ -63,7 +63,7 @@ To receive full credit for this portion of the assignment, your background/intro
     - When (was the data collected)?
     - Where did you get your data (provide enough detail that someone else could go out and find it)
 
-NOTE: you can re-use what you wrote for your *Statistical Analysis Plan,* but make sure to address any of the comments we gave you, and you will probably need to add additional detail to address the criteria above
+NOTE: you can re-use what you wrote for your *Statistical Analysis Plan,* but make sure to address any of the comments we gave you, and you will may need to add additional detail to address the criteria above
 
 ## Scientific Questions (3 points)
 
@@ -127,6 +127,8 @@ To receive full credit for this portion of the assignment, you should include...
 
 - a \texttt{.R} file with the code you used to complete your analyses
 - a "clean" version of the data you used in your analyses (i.e., we should be able to run your code using these data and obtain your results)
+
+NOTE: this should **not** be a section in your report, but to receive full points you must upload the two items listed above to Canvas along with your report.
 
 ## Results (15 points)
 
