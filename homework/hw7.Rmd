@@ -1,0 +1,37 @@
+---
+title: "Homework 7"
+author: "Kelsey Grinde and Brian Williamson"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  pdf_document:
+    fig_caption: true
+---
+
+# Instructions
+
+This assignment should be submitted on Canvas as a .pdf or Word document **by 5:00pm on May 18**. You are welcome to work together on the homework; however, final solutions should be written up individually. 
+
+Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). **Unedited R output, or code, in the body of your assignment is not acceptable.** Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
+
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+
+
+\newpage
+
+# R Code
+
+Once you have completed your assignment, update (if needed) and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names #####
+rmd.name <- 'hw7.Rmd' # name of this file; update if you changed the name of this file
+code.name <- 'hw7.R' # name of R code file; you can change if desired
+```
+
+```{r extract-code, eval = FALSE, include = FALSE}
+##### STEP 2: Run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+**Please upload the file `r code.name` along with your completed assignment.**
