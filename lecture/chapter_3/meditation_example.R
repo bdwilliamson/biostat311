@@ -46,10 +46,6 @@ set.seed(4747)
 dat <- gen_data(n, study_end, shape_placebo, scale_placebo, shape_tx, scale_tx, rate_dropout, n_weeks_in_study)
 head(dat)
 
-## look at only some of them
-paste(round(subset(dat, tx == 1)$event_times[1:8] - subset(dat, tx == 1)$enroll_times[1:8], 2), collapse = " & ")
-paste(round(subset(dat, tx == 0)$event_times[1:8] - subset(dat, tx == 0)$enroll_times[1:8], 2), collapse = " & ")
-
 ## get a subset of the data, for plotting
 sub_tx <- subset(dat, tx == 1)[1:10, ]
 sub_placebo <- subset(dat, tx == 0)[1:10, ]
@@ -58,6 +54,9 @@ sub_dat <- data.frame(tx = c(rep(1, 10), rep(0, 10)), event_times = c(sub_tx$eve
                              enroll_times = c(sub_tx$enroll_times, sub_placebo$enroll_times),
                             obs_times = c(sub_tx$obs_time, sub_placebo$obs_time),
                             events = c(sub_tx$event, sub_placebo$event))
+## look at only some of them
+paste(round(subset(sub_dat, tx == 1)$obs_times[1:8], 2), collapse = " & ")
+paste(round(subset(sub_dat, tx == 0)$obs_times[1:8], 2), collapse = " & ")
 
 fig_width <- 1024
 fig_height <- 1024
@@ -614,4 +613,23 @@ curve(riskset,0,60,n=10000,ylab="fraction-at-risk at time t",xlab="t",ylim=c(0,1
 Sy<-function(x) (0.5*pweibull(x,2,15,lower.tail=FALSE)+0.5*pweibull(x,2,20,lower.tail=FALSE))*pexp(x,1/40,lower.tail=FALSE)
 curve(Sy,add=TRUE,col=1,lwd=2)
 legend("topright",legend=c("observed fraction-at-risk ","expected fraction-at-risk "),fill=c(4,1),cex=0.8)
+dev.off()
+
+## survival function
+png("lecture/chapter_3/figs/survival_function.png", width = fig_width*1.5, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
+curve(1-pweibull(x,2,20),0,60,ylab="S(t)",xlab="t",ylim=c(0,1),lwd=2.5,cex.axis=0.8,cex.lab=0.8)
+points(c(20,20),c(-1,0.37),type='l',lwd=2,col=2,lty=3)
+points(c(-5,20),c(0.37,0.37),type='l',lwd=2,col=2,lty=3)
+dev.off()
+
+## hazard and cumulative hazard
+png("lecture/chapter_3/figs/hazard_function.png", width = fig_width*1.5, height = fig_height*2/3, units = "px", res = fig_res)
+par(mar = c(2, 4, 0.1, 0.1))
+curve(dweibull(x,2,20)/pweibull(x,2,20,lower.tail=FALSE),from=0,to=60,ylab="h(t)",cex.axis=0.8,cex.lab=0.8,lwd=2,xlab="")
+dev.off()
+
+png("lecture/chapter_3/figs/cumulative_hazard_function.png", width = fig_width*1.5, height = fig_height*2/3, units = "px", res = fig_res)
+par(mar = c(2, 4, 0.1, 0.1))
+curve(-log(pweibull(x,2,20,lower.tail=FALSE)),from=0,to=60,ylab="H(t)",cex.axis=0.8,cex.lab=0.8,lwd=2,ylim=c(0,10),xlab="")
 dev.off()

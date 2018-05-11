@@ -85,6 +85,17 @@ However, we are often interested in scientific questions that involve \textcolor
 
 \begin{frame}
 \frametitle{Characteristics of survival data}
+{\fontsize{10pt}{7.2}\selectfont
+Sample of the observed times until first severe panic attack (in weeks):
+\hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textcolor{blue}{meditation group} & 14.29 & 7.74 & 21 & 25.18 & 2.83 & 17.57 & 19.13 & 0.14  \\
+\hline
+control group & 21 & 3.94 & 7.77 & 6.54 & 24 & 12.55 & 21.29 & 3.58 \\
+\hline
+\end{tabular}
+}
+
 We wish to study whether \textcolor{blue}{meditation} prolongs the \textbf{time until a severe panic attack} in patients suffering from a panic disorder.
 
 To address this question, we: \vspace{-0.3cm}
@@ -94,16 +105,6 @@ To address this question, we: \vspace{-0.3cm}
 \item and compare the mean time until a severe panic attack in each group with a t-test
 \end{itemize}
 
-{\fontsize{10pt}{7.2}\selectfont
-Sample of the observed times until first severe panic attack (in weeks):
-\hspace*{-1cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\textcolor{blue}{meditation group} & 17.78 & 13.8 & 10.69 & 4.61 & 7.8 & 26.32 & 6.48 & 12.51  \\
-\hline
-control group & 12.45 & 18.42 & 15.95 & 8.18 & 21.74 & 6.47 & 11.01 & 22.44 \\
-\hline
-\end{tabular}
-}
 \end{frame}
 
 \begin{frame}
@@ -177,10 +178,10 @@ Should we treat these incompletely observed times as missing data? Should we thr
 
 \begin{frame}
 \frametitle{Characteristics of survival data}
-Close or put away your notes and laptops. Then answer the following questions, at first alone, and then in pairs:
+Close or put away your notes and laptops. Then answer the following questions, paying attention your thought process (you will hand in your responses):
 \begin{enumerate}
-\item Are those with smaller or larger times more likely to be censored?
-\item Systematically excluding censored times could lead to \textcolor{red}{biased estimates}. Would this lead to an overestimation or an underestimation of the mean time until severe panic attack?
+\item Are those with smaller or larger times more likely to be censored? Why?
+\item Systematically excluding censored times could lead to \textcolor{red}{biased estimates}. Would this lead to an overestimation or an underestimation of the mean time until severe panic attack? Why?
 \end{enumerate}
 
 \end{frame}
@@ -188,9 +189,9 @@ Close or put away your notes and laptops. Then answer the following questions, a
 \begin{frame}
 \frametitle{Characteristics of survival data}
 \begin{enumerate}
-\item Are those with smaller or larger times more likely to be censored?
+\item Are those with smaller or larger times more likely to be censored? Why?
 \item[] \textcolor{blue}{Those with \textbf{larger times} are more likely to be censored; we only get to observe these people for a comparatively small amount of time, so we may miss their event}
-\item Systematically excluding censored times could lead to \textcolor{red}{biased estimates}. Would this lead to an overestimation or an underestimation of the mean time until severe panic attack?
+\item Systematically excluding censored times could lead to \textcolor{red}{biased estimates}. Would this lead to an overestimation or an underestimation of the mean time until severe panic attack? Why?
 \item[] \textcolor{blue}{\textbf{Underestimation}: if we exclude censored times, then we are effectively excluding these people with potentially longer times, and losing all of this information!}
 \end{enumerate}
 
@@ -214,6 +215,8 @@ Often, the goals of a survival analysis are to:
 \item compare the time-to-event distribution in different subpopulations
 \item investigate the relationship between explanatory variables and the time-to-event distribution
 \end{itemize}
+
+Even when our time-to-event data do not truly mean survival (e.g., time to first severe panic attack), we still use the term ``survival''.
 \end{frame}
 
 \begin{frame}
@@ -255,7 +258,7 @@ Right-censored data are the most common type of censored data found in applicati
 \frametitle{Characteristics of survival data}
 Key concept: the \textbf{risk set}.
 
-\textbf{Risk set at time $t$}: the collection of participants who \textcolor{blue}{could have experienced} their first severe panic attack at time $t$; in other words, those who were still at risk at time $t$.
+\textbf{Risk set at time $t$}: the collection of participants that \textcolor{blue}{could have experienced} their first severe panic attack at time $t$; in other words, those who were still at risk at time $t$.
 \vspace{-0.3cm}
 \begin{align*}
 \textbf{fraction at risk at time } t = & \frac{\textbf{size of risk set at time } t}{\textbf{total sample size}}.
@@ -326,17 +329,261 @@ A few observations:\vspace{-0.3cm}
 \end{frame}
 % uninformative censoring, with examples (from Anna)
 
+\begin{frame}
+\frametitle{Characteristics of survival data}
+The assumption of \textbf{independent (or uninformative) censoring} is \textcolor{red}{critical} to the vast majority of methods available in survival analysis.
+
+A participant's \textbf{time-to-event} and potential \textbf{censoring time} should be \textbf{independent} of one another.
+
+What does that mean? \pause \textit{Individuals in the risk set at time $t$ must be \textbf{similar} to members of the target population who haven't experienced their first severe panic attack by time $t$.}
+
+When is this reasonable? \vspace{-0.3cm}
+\begin{itemize}
+\item Participants are censored because the study ended? \pause \textcolor{blue}{Yes!}
+\item Participants exited the study because their panic disorder became disabling? \pause \textcolor{red}{No!}
+\item Participants exited the study because their panic disorder dissipated? \pause \textcolor{red}{No!}
+\end{itemize}
+\end{frame}
+
 % key quantities: density function, survival function, hazard function
+\begin{frame}
+\frametitle{Key quantities in survival analysis}
+Suppose that $T$ is a continuous, time-to-event random variable (\textcolor{blue}{$T$ is our outcome of interest in survival analysis}).
 
+The \textbf{survival function}, $S$, is defined as $S(t) := P(T > t)$:
+\begin{itemize}
+\item $S(t) = $ proportion of the population with a time-to-event greater than $t$
+\item e.g.: if $S(20) = 0.37$, then approximately 37\% of the population will not experience a severe panic attack within the first 20 weeks
+\item $S$ is \textcolor{red}{non-increasing}, starts at 1 [i.e., $S(0) = 1$] and ends at 0 [i.e., $S(\infty) = 0$]
+\end{itemize}
+\end{frame}
 
-\begin{comment}
+\begin{frame}
+\frametitle{Key quantities in survival analysis}
+\hspace*{-0.5cm}\includegraphics[height=0.8\textheight]{figs/survival_function.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Key quantities in survival analysis}
+The \textbf{hazard function} (or: hazard rate, failure rate) $h$ is \vspace{-0.2cm}
+\begin{align*}
+h(t) := & \ \lim_{\Delta t \to 0} \frac{P(t \leq T < t + \Delta t \mid T \geq t)}{\Delta t}.
+\end{align*}\vspace{-0.8cm}
+\begin{itemize}
+\item $h(t) = $ instantaneous failure rate at $t$ given ``survival'' until $t$
+\item $h(t)\Delta t$ approximates the probability that $T$ is in the interval $[t, t + \Delta t)$ given $T \geq t$
+\item if $T$ corresponds to age at onset, $h(t)$ refers to the incidence rate at age $t$
+\end{itemize}
+
+The \textbf{cumulative hazard function} $H$ is given by $H(t) := \int_0^t h(u) du$.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Key quantities in survival analysis}
+\centering
+\includegraphics[height=0.4\textheight]{figs/hazard_function.png}
+
+\includegraphics[height=0.4\textheight]{figs/cumulative_hazard_function.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Key quantities in survival analysis}
+Most methods in survival analysis focus on modeling and/or estimating either the \textcolor{cyan}{survival function} or the \textcolor{Aquamarine}{hazard rate}.
+
+The hazard rate, while somewhat nonintuitive, has some desirable properties:
+\begin{itemize}
+\item its \textcolor{blue}{conditional interpretation} may be useful in many epidemiological applications
+\item it can be \textcolor{blue}{easily estimated using right-censored data}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Key quantities in survival analysis}
+What shape do we expect the hazard function to have? \textcolor{red}{It depends...}
+\begin{enumerate}[(a)]
+\item survival from surgery until death due to complications
+\item survival from onset of a progressive disease
+\item the time before a radioactive atom disintegrates
+\item an individual's total lifetime
+\end{enumerate}
+\begin{center}
+\includegraphics[width = 0.9\textwidth]{figs/hazard_examples.png}
+
+\underline{\,\phantom{right}\,} \hspace{1.5cm} \underline{\,\phantom{right}\,} \hspace{1.5cm} \underline{\,\phantom{right}\,} \hspace{1.5cm} \underline{\,\phantom{right}\,}
+\end{center}
+\end{frame}
+
 \section{Kaplan-Meier and the log rank test}
 \begin{frame}
 \frametitle{SECTION 2: KAPLAN-MEIER AND THE LOG RANK TEST}
+
+So far, we have discussed challenges inherent to survival data and some quantities of interest. Now, we will discuss estimating these quantities from right-censored survival data.
+
+For participant $i$, denote by $T_i$ \textbf{the time to event} and by $C_i$ \textbf{the censoring time}. We cannot observe both $T_i$ and $C_i$ -- instead, we observe a pair $(Y_i, \Delta_i)$, where \vspace{-0.3cm}
+\begin{itemize}
+\item $Y_i := \min(T_i, C_i)$ is the \textbf{observed follow-up time}
+\item $\Delta_i = I(T_i \leq C_i)$ is the \textbf{event indicator} [where $I(x = 1)$ is 1 if $x = 1$ and zero otherwise]
+\end{itemize}
+
+For example, data represented as $\{7.5, 16.6+, 13.5+, 7.4, 14.2\}$ can now be written as
+\[\{(7.5, \underline{\,\phantom{right}\,}), (16.6, \underline{\,\phantom{right}\,}), (13.5, \underline{\,\phantom{right}\,}), (7.4, \underline{\,\phantom{right}\,}), (14.2, \underline{\,\phantom{right}\,})\}.\]
 \end{frame}
 
-% kaplan meier here, log rank test
+\begin{frame}
+\frametitle{Estimation based on parametric models}
 
+Our goal is generally to \textbf{describe the distribution of} $T$ or some summary of it, and to perform statistical inference to determine if survival differs based on a predictor of interest.
+
+We could, for example, hypothesize that the distribution of $T$ is in a known \textbf{parametric model}, where once we know a parameter (e.g., the mean, standard deviation) we know the whole distribution of $T$.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Estimation based on parametric models}
+
+A variety of parametric families exist, but in survival analysis, the more popular ones are
+\begin{itemize}
+\item the exponential distribution
+\item the Weibull distribution
+\item the gamma distribution
+\end{itemize}
+
+Each parametric family has characteristics that may or may not make it suitable for the intended application.
+
+However, use of a parametric model comes with a serious risk: \textbf{if the model is misspecified}, the validity of \textbf{our scientific conclusions may be compromised}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+Suppose we focus on \textbf{estimating the survival probability} $S(t) = P(T > t)$ at time $t$.
+
+If we observed actual survival times $T_1, T_2, \dots, T_n$, we could take
+\begin{align*}
+\frac{1}{n}\sum_{i=1}^n I(T_i \geq t)
+\end{align*}
+as an estimator of $S(t)$. This is a \textbf{nonparametric} estimator; we do not have to postulate a parametric model for the true survival distribution.
+
+Can we use this estimator in practice? \pause No, since \textcolor{red}{we do not see $T_i$ for participants who are censored}!
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+{\small Denote by $u_1 < u_2 < \dots < u_m$ the observed ordered, distinct times. Also, denote: \vspace{-1cm}
+
+\begin{align*}
+d_k = & \ \text{\# of events having occurred at time $u_k$} \\
+n_k = & \ \text{\# of individuals at risk at time $u_k$}
+\end{align*}
+\vspace{-0.5cm}
+Suppose the data consist of $\{4, 5, 5+, 8, 12+, 13, 18+, 23, 23, 30\}$.
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+time $u_k$ & $d_k$ & $n_k$ \\
+\hline
+4 & 1 & 10 \\
+5 & 1 & 9 \\
+8 & 1 & 7 \\
+12 & 0 & 6 \\
+13 & 1 & 5 \\
+18 & 0 & 4 \\
+23 & 2 & 3 \\
+30 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+{\small Suppose the data consist of $\{4, 5, 5+, 8, 12+, 13, 18+, 23, 23, 30\}$.}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+time $u_k$ & $d_k$ & $n_k$ \\
+\hline
+4 & 1 & 10 \\
+5 & 1 & 9 \\
+8 & 1 & 7 \\
+12 & 0 & 6 \\
+13 & 1 & 5 \\
+18 & 0 & 4 \\
+23 & 2 & 3 \\
+30 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+Is $m$ the number of events in the sample? \underline{\;\;\phantom{right}\;\;}
+
+When does $m = n$? \underline{\;\;\phantom{right}\;\;}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% here, do the probability estimates to walk up to KM (Marco slide 33)
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% Kaplan-Meier (Marco slide 34)
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% KM for this example (Marco 36)
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% picture (Marco 37)
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% standard error, CI (no formulas, just that they exist)
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% for this example (Marco, 39)
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% KM in a data analysis (time to death in inflamm)
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% mean, restricted mean, median (Marco, 63--70)
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+
+% log-rank test (Marco 85--103)
+\end{frame}
+
+% motivate regression modeling
+
+\begin{comment}
 \section{Semiparametric estimation and inference}
 \begin{frame}
 \frametitle{SECTION 3: COX PROPORTIONAL HAZARDS REGRESSION}
