@@ -15,13 +15,13 @@ Make sure you update the document header to reflect your name and the type of do
 
 # Data
 
-For this activity, we're going to look at the clinical trial data you're analzying on Homework 7. Here's a brief summary of the study:
+For this activity, we're going to look at the `leukemia` data you're analzying on Homework 7. Here's a brief summary of the study:
 
 - **Type of study:** randomized controlled trial (RCT)
 - **Scientific goal:** evaluate whether an experimental chemotherapy regimen improves survival rates in leukemia patients (compared to the standard of care)
     - **Outcome:** survival time
     - **Predictor of interest:** treatment group
-- **Time period:** first enrollment on March 26, 2018 and study ends 3 years later, on March 26, 2021
+- **Time period:** enrollment starts on March 26, 2018 and study ends 3 years later, on March 26, 2021
 - **Sample size:** 1,000 participants (500 randomized to the experimental treatment and 500 to the standard of care)
 
 Download the data from `Canvas > Data > leukemia.txt`. The dataset contains the following variables:
@@ -34,8 +34,9 @@ Download the data from `Canvas > Data > leukemia.txt`. The dataset contains the 
 Read the dataset into `R` using the `read-data` code chunk below. You may need to update the file name to reflect where you saved the data.
 
 ```{r read-data,echo=F,eval=T}
-# enter code to load data here
-# call your data.frame 'leuk' so that the code chunks below will work 
+# load data into R
+# you may need to update this to reflect the correct file location
+leuk <- read.table('leukemia.txt', header = TRUE)
 ```
 
 # 1. Create a survival object
@@ -120,9 +121,9 @@ Type your answer here.
 
 \newpage
 
-# Bonus Question: Perform a proportional hazards regression of time-to-death as the outcome and treatment group as the predictor.
+# Bonus Question: proportional hazards regression
 
-To fit this proportional hazards regression model, run the following code chunk.
+Now, perform a proportional hazards regression with time-to-death as the outcome and treatment group as the predictor. To fit this regression model, run the following code chunk.
 
 ```{r ph-regression,echo=F,eval=F}
 regress("hazard", ttodeath ~ tx, data = leuk)
