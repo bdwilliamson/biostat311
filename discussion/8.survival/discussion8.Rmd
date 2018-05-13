@@ -50,7 +50,7 @@ The first step is to load the `survival` package. This package comes automatical
 library('survival')
 ```
 
-Once the `survival` package is loaded, we can use one of its functions (the `Surv` function) to create a time to death variable.
+Once the `survival` package is loaded, we can use one of its functions (the `Surv` function) to create a time-to-death variable. Add this new time-to-death variable to your data frame.
 
 ```{r create-ttodeath,echo=F,eval=T}
 # add ttodeath to dataset
@@ -96,7 +96,7 @@ legend('topright', legend = c('Standard Care', 'Treatment'), lty = 1, col = c('b
 
 Type your answer here.
 
-## ii. Can you estimate the median survival time? If so, provide the relevant estimate(s). If not, hypothesize why not.
+## ii. Can you estimate the median survival time? If so, provide the relevant estimate(s). If not, why not?
 
 Type your answer here.
 
@@ -126,6 +126,10 @@ Type your answer here.
 Now, perform a proportional hazards regression with time-to-death as the outcome and treatment group as the predictor. To fit this regression model, run the following code chunk.
 
 ```{r ph-regression,echo=F,eval=F}
+# load uwIntroStats package
+library(uwIntroStats)
+
+# fit proportional hazards regression model
 regress("hazard", ttodeath ~ tx, data = leuk)
 ```
 
