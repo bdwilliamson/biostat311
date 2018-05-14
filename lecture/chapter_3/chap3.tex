@@ -790,14 +790,113 @@ However, regression modeling may be more useful in some settings, by: \vspace{-0
 \end{itemize}
 \end{frame}
 
+\begin{comment}
 \section{Semiparametric estimation and inference}
 \begin{frame}
 \frametitle{SECTION 3: COX PROPORTIONAL HAZARDS REGRESSION}
+With a continuous predictor, we could split the predictor into two subgroups and perform a nonparametric analysis to compare the survivorship between the subgroups.
+
+\begin{center}
+\includegraphics[height = 0.6\textheight]{figs/cum_haz_inflamm_crp.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{SECTION 3: COX PROPORTIONAL HAZARDS REGRESSION}
+This plot was based on the inflammatory biomarkers data, where I have split the C reactive protein variable based on Mayo Clinic guidelines: CRP $\leq$ 10 is normal, while $> 10$ implies serious infection, trauma, or chronic disease.
+
+It appears that the cumulative hazard function in patients with higher levels of CRP is proportional to the cumulative hazard function in other patients.
+
+This observation could lead us to consider the model
+\begin{align*}
+\textcolor{BurntOrange}{h_1(t)} &= c\textcolor{cyan}{h_0(t)},
+\end{align*}
+where $\textcolor{BurntOrange}{h_1(t)}$ and $\textcolor{cyan}{h_0(t)}$ are the subgroup-specific hazard functions.
+\end{frame}
+
+\begin{frame}
+\frametitle{The hazard ratio}
+\begin{align*}
+\textcolor{BurntOrange}{h_1(t)} &= c\textcolor{cyan}{h_0(t)}
+\end{align*}
+is the simplest example of a \textbf{proportional hazards} model, in which \textit{the hazard functions corresponding to every subgroup considered are proportional to one another.}
+
+We can re-express this model as
+\begin{align*}
+\frac{\textcolor{BurntOrange}{h_1(t)}}{\textcolor{cyan}{h_0(t)}} &= c \text{ for every time } t,
+\end{align*}
+and so, the \textbf{hazard ratio comparing the two subgroups} is \textcolor{red}{constant over time}.
 
 \end{frame}
 
-\begin{comment}
-% cox ph regression, assumptions
+\begin{frame}
+\frametitle{The hazard ratio}
+The hazard ratio at time $t$ tells us \textcolor{Aquamarine}{how much more likely it is that an event will happen in subgroup 1 at time $t$ versus in subgroup 0 at time $t$ \textit{given that it has not yet happened in either subgroup.}}
+\begin{align*}
+\frac{\textcolor{BurntOrange}{h_1(t)}}{\textcolor{cyan}{h_0(t)}} = \frac{\textcolor{BurntOrange}{h_1(t)}\Delta t}{\textcolor{cyan}{h_0(t)}\Delta t} \approx \frac{\textcolor{BurntOrange}{P(t \leq T < t + \Delta t \mid T \geq t, \text{subgroup }1)}}{\textcolor{cyan}{P(t \leq T < t + \Delta t \mid T \geq t, \text{subgroup }0)}}.
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The hazard ratio}
+What does $c < 1$ imply? \pause A \textbf{decreased hazard} in subgroup 1 relative to subgroup 0. \pause {\small The event tends to occur $\rule{3cm}{0.15mm}$ in subgroup 1 versus subgroup 0 since \textit{at any time the hazard of an event in subgroup 1 is }$\rule{3cm}{0.15mm}$ \textit{than in subgroup 0 by $100 \times (1 - c)$\%.} }
+
+What does $c > 1$ imply? \pause A \textbf{increased hazard} in subgroup 1 relative to subgroup 0. \pause {\small The event tends to occur $\rule{3cm}{0.15mm}$ in subgroup 1 versus subgroup 0 since \textit{at any time the hazard of an event in subgroup 1 is }$\rule{3cm}{0.15mm}$ \textit{than in subgroup 0 by $100 \times (c - 1)$\%.} }
+\end{frame}
+
+\begin{frame}
+\frametitle{The hazard ratio}
+Close or put away your notes and laptops. Then answer the following questions, paying attention your thought process (you will hand in your responses). \textit{Assume that the subgroups are defined so that subgroup 1 has some exposure that we want to show is beneficial, while subgroup 0 does not}:
+
+\begin{enumerate}
+\item If the time-to-event is, e.g., transplant $\rightarrow$ organ rejection or onset of disease $\rightarrow$ death, do we want to observe $c < 1$ or $c > 1$? Why?
+\item If the time-to-event is, e.g., recruitment $\rightarrow$ tenure or treatment $\rightarrow$ remission, do we want to observe $c < 1$ or $c > 1$? Why?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{The hazard ratio}
+\begin{enumerate}
+\item If the time-to-event is, e.g., transplant $\rightarrow$ organ rejection or onset of disease $\rightarrow$ death, do we want to observe $c < 1$ or $c > 1$? Why?
+\item[] \textcolor{blue}{$c < 1$, because this means that the event tends to occur \textbf{less often} in subgroup 1 than subgroup 0, and events are bad!}
+\item If the time-to-event is, e.g., recruitment $\rightarrow$ tenure or treatment $\rightarrow$ remission, do we want to observe $c < 1$ or $c > 1$? Why?
+\item[] \textcolor{blue}{$c > 1$, because this means that the event tends to occur \textbf{more often} in subgroup 1 than subgroup 0, and events are good!}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cox proportional hazards regression}
+In practice, we have more than two subgroups. 
+
+Denoting the hazard function of $T$ given a single predictor of interest $X$ at time $t$ by $h(t \mid X)$, the basic \textbf{simple proportional hazards model} is:
+\begin{align*}
+\log h(t \mid X) = & \ \log h_0(t) + \beta_1 X,
+\end{align*}
+for each $t$, where $h_0$ is an unspecified hazard function.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Cox proportional hazards regression}
+Equivalently, we can model the hazard function as
+\begin{align*}
+h(t \mid X) = & \ h_0(t)e^{\beta_1 X}.
+\end{align*}
+
+Since a survival distribution is completely specified by its hazard function, the distribution of $T$ given $X$ is composed of
+\begin{itemize}
+\item a coefficient of interest $\beta_1$ 
+\item a hazard function $h_0$ (often not of interest)
+\end{itemize}
+Without further assumptions, this is called a \textbf{semiparametric model}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Cox proportional hazards regression}
+
+\end{frame}
+
 \section{Summary}
 \begin{frame}
 \frametitle{SECTION 4: SUMMARY}
