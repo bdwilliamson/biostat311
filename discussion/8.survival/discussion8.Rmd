@@ -1,0 +1,138 @@
+---
+title: "Discussion Section 8"
+author: "Kelsey Grinde and Brian Williamson"
+date: "15 May 2018"
+output: 
+  pdf_document:
+    fig_caption: true
+---
+
+# Instructions
+
+This activity should be submitted on Canvas as a .pdf or Word document **by 12:00pm on May 15**. You should work in groups of 3--4 to complete this assignment, but each person should turn in his/her own activity to Canvas at the end of class.
+
+Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). **Unedited R output, or code, in the body of your assignment is not acceptable.** Please round numerical values to 2--3 significant digits.
+
+# Data
+
+For this activity, we're going to look at the `leukemia` data you're analzying on Homework 7. Here's a brief summary of the study:
+
+- **Type of study:** randomized controlled trial (RCT)
+- **Scientific goal:** evaluate whether an experimental chemotherapy regimen improves survival rates in leukemia patients (compared to the standard of care)
+    - **Outcome:** survival time
+    - **Predictor of interest:** treatment group
+- **Time period:** enrollment starts on March 26, 2015 and study ends 3 years later, on March 26, 2018
+- **Sample size:** 1,000 participants (500 randomized to the experimental treatment and 500 to the standard of care)
+
+Download the data from `Canvas > Data > leukemia.txt`. The dataset contains the following variables:
+
+- `tx`: treatment assignment (1 = experimental therapy, 0 = standard of care)
+- `obs_time`: observation time (time in days until death or censoring)
+- `event`: event indicator (1 = death, 0 = censoring)
+- `death_in_6_months`: indicator of whether or not the subject died within 6 months of study enrollment (1 = died in 6 months, 0 = still alive after 6 months)
+
+Read the dataset into `R` using the `read-data` code chunk below. You may need to update the file name to reflect where you saved the data.
+
+```{r read-data,echo=F,eval=T}
+# load data into R
+# you may need to update this to reflect the correct file location
+leuk <- read.table('leukemia.txt', header = TRUE)
+```
+
+# 1. Create a survival object
+
+To work with time-to-event data in `R`, we need to create a variable of a specific type, called a survival object.  
+
+The first step is to load the `survival` package. This package comes automatically installed so we do not need to install it first; we only need to use `library` to load it.  
+
+```{r load-survival,echo=F,warning=F,message=F}
+# load the survival package
+library('survival')
+```
+
+Once the `survival` package is loaded, we can use one of its functions (the `Surv` function) to create a time-to-death variable. Add this new time-to-death variable to your data frame.
+
+```{r create-ttodeath,echo=F,eval=T}
+# add ttodeath to dataset
+leuk$ttodeath <- Surv(time = leuk$obs_time, event = leuk$event)
+```
+
+Look at the first few rows of your dataset (hint: use the `head` function), and compare the original `obs_time` variable to the new `ttodeath` variable. 
+
+```{r look-at-data,echo=F,eval=F}
+# enter code to look at dataset here
+
+```
+
+**Why do some of the `ttodeath` values contain a plus sign?**
+
+Type your answer here.
+
+# 2. Plot and interpret Kaplan-Meier curves
+
+Now, you are going to plot the Kaplan-Meier estimate of the survival curves among those in the treatment group and those in the standard of care group. 
+
+First we will create a `survfit` object, which creates the survival curves.
+
+```{r create-curves, echo = F, eval = F}
+# create a survfit object (estimates the KM curve)
+surv_obj <- survfit(ttodeath ~ tx, data = leuk)
+```
+
+Then we plot the curves using the familiar `plot` function. (Make sure to change the chunk options to `eval = T` so that your plot will show up in your knitted document.)
+
+```{r kaplan-meier, echo = F, eval = F}
+# plot the survival curves
+plot(surv_obj, lwd = 2, # lwd makes lines thicker
+     col = c('blue', 'red'), # blue for tx=0, red for tx=1
+     xlab = 'Days of follow-up', 
+     ylab = 'Proportion surviving')
+
+# add a legend to the top right of the plot
+legend('topright', legend = c('Standard Care', 'Treatment'), lty = 1, col = c('blue', 'red'))
+```
+
+## i. Which group has a higher mean survival time? State your reasoning.
+
+Type your answer here.
+
+## ii. Can you estimate the median survival time? If so, provide the relevant estimate(s). If not, why not?
+
+Type your answer here.
+
+## iii. Do you think this plot suggests that the treatment is effective? Explain your reasoning.
+
+Type your answer here.
+
+# 3. Run and interpret a logrank test
+
+Now, we will perform a logrank test to test the null hypothesis that the two survival curves (for the standard of care and treatment groups) are equal.
+
+Run the following code chunk to perform the test.
+
+```{r logrank,echo=F,eval=F}
+## logrank test
+survdiff(ttodeath ~ tx, data = leuk)
+```
+
+**Report the results of this test (i.e., provide the p-value and your statistical and scientific conclusions).**
+
+Type your answer here.
+
+\newpage
+
+# Bonus Question: proportional hazards regression
+
+Now, perform a proportional hazards regression with time-to-death as the outcome and treatment group as the predictor. To fit this regression model, run the following code chunk.
+
+```{r ph-regression,echo=F,eval=F}
+# load uwIntroStats package
+library(uwIntroStats)
+
+# fit proportional hazards regression model
+regress("hazard", ttodeath ~ tx, data = leuk)
+```
+
+**Report your results in 4--5 sentences.**
+
+Type your answer here.
