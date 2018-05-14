@@ -53,7 +53,7 @@ By the end of Chapter 3, you should be able to: \vspace{-0.3cm}
 \item Determine if a variable has been \textcolor{BurntOrange}{right-censored}
 \item Discuss the \textcolor{red}{drawbacks} of treating a right-censored variable as binary or continuous
 \item \textbf{Interpret Kaplan-Meier curves}, and create them in \texttt{R}
-\item \textbf{Implement and interpret} a log-rank test for equating survival curves
+\item \textbf{Implement and interpret} a logrank test for equating survival curves
 \item \textbf{Formulate a regression model} given a scientific or statistical question about a right-censored outcome
 \item \textbf{Interpret the coefficients} for a (simple or multiple) proportional hazards regression model
 \item \textbf{Interpret confidence intervals and p-values} for proportional hazards regression coefficients
@@ -529,66 +529,274 @@ When does $m = n$? \underline{\;\;\phantom{right}\;\;}
 \begin{frame}
 \frametitle{Nonparametric estimation of a survival function}
 
-% here, do the probability estimates to walk up to KM (Marco slide 33)
+What is a sensible estimate of $P(T > u_1)$?
+
+$P(T > u_1) = P(T > u_1 \mid T \geq u_1)P(T \geq u_1) \approx \underline{\;\;\;\phantom{right}\;\;\;}$ \pause
+
+What is a sensible estimate of $P(T > u_2)$?
+\begin{align*}
+P(T > u_2) =& \ P(T > u_2 \mid T \geq u_2)P(T \geq u_2) \\
+\approx &\ P(T > u_2 \mid T \geq u_2)P(T > u_1) \approx \underline{\;\;\;\phantom{right}\;\;\;}
+\end{align*} \pause
+
+What is a sensible estimate of $P(T > u_3)$? \pause
+\begin{align*}
+P(T > u_3) =& \ P(T > u_3 \mid T \geq u_3)P(T \geq u_3) \\
+\approx &\ P(T > u_3 \mid T \geq u_3)P(T > u_2) \approx \underline{\;\;\;\phantom{right}\;\;\;}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+Continuing in this fashion yields the \textbf{Kaplan-Meier} estimator of $S(t)$: \vspace{-0.3cm}
+\begin{align*}
+\widehat{S}(t) := \prod_{k: u_k \leq t} \left(1 - \frac{d_k}{n_k} \right).
+\end{align*}\vspace{-0.5cm}
+
+If any participant is censored at $u_m$, we consider $\widehat{S}(t)$ to be undefined for $t > u_m$. (remember, $u_m$ is the maximum time)
+
+A few observations:
+\begin{itemize}
+\item $\widehat{S}(t) = 1$ for each $t$ preceding the first event time $u_1$ \pause
+\item $\widehat{S}$ is a non-increasing function. Why? \pause
+\item $\widehat{S}$ drops to zero at the largest time $u_m$ only if \underline{\;\;\;\;\phantom{right}\;\;\;} \pause
+\item the KM estimator only jumps at observed event times \pause
+\item the KM estimator relies on \textbf{independent censoring} but does not require postulating a parametric family, and is thus \textbf{nonparametric}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Nonparametric estimation of a survival function}
 
-% Kaplan-Meier (Marco slide 34)
+\hspace*{-0.5cm}\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+time $u_k$ & $d_k$ & $n_k$ & $d_k/n_k$ & $1 - d_k/n_k$ & $\widehat{S}(u_k)$ \\
+\hline
+4 & 1 & 10 & 0.1 & \textcolor{Aquamarine}{0.9} & $1 \times \textcolor{Aquamarine}{0.9} = \textcolor{blue}{0.9}$\\
+5 & 1 & 9 & 0.1111 & \textcolor{Aquamarine}{0.8888} & $0.9 \times \textcolor{Aquamarine}{0.8888} = \textcolor{blue}{0.8}$ \\
+8 & 1 & 7 & 0.1429 & \textcolor{Aquamarine}{0.8571} & $0.8 \times \textcolor{Aquamarine}{0.8571} = \textcolor{blue}{0.6857}$\\
+12 & 0 & 6 & 0 & \textcolor{Aquamarine}{1} & $0.6857 \times \textcolor{Aquamarine}{1} = \textcolor{blue}{0.6857}$\\
+13 & 1 & 5 & 0.2 & \textcolor{Aquamarine}{0.8} & $0.6857 \times \textcolor{Aquamarine}{0.8} = \textcolor{blue}{0.5486}$\\
+18 & 0 & 4 & 0 & \textcolor{Aquamarine}{1} & $0.5846 \times \textcolor{Aquamarine}{1} = \textcolor{blue}{0.5486}$\\
+23 & 2 & 3 & 0.666 & \textcolor{Aquamarine}{0.3333} & $0.5486 \times \textcolor{Aquamarine}{0.3333} = \textcolor{blue}{0.1829}$\\
+30 & 1 & 1 & 1 & \textcolor{Aquamarine}{0} & $0.1829 \times \textcolor{Aquamarine}{0} = \textcolor{blue}{0}$\\
+\hline
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of a survival function}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/km_small_example.png}
 \end{frame}
 
 \begin{frame}
 \frametitle{Nonparametric estimation of a survival function}
 
-% KM for this example (Marco 36)
+Our estimate of $\widehat{S}(t)$ has a corresponding standard error,
+\begin{align*}
+\widehat{SE}(t) := \widehat{S}(t)\sqrt{\sum_{i : u_i \leq t}\frac{d_i}{n_i(n_i - d_i)}}.
+\end{align*}
+This suggests using 
+\textcolor{blue}{[$\widehat{S}(t) - 1.96 \widehat{SE}(t)$, $\widehat{S}(t) + 1.96 \widehat{SE}(t)$]} as a 95\% confidence interval for $S(t)$.
+
+As before, \textbf{\texttt{R} can calculate these for you.}
 \end{frame}
 
 \begin{frame}
 \frametitle{Nonparametric estimation of a survival function}
-
-% picture (Marco 37)
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+time $u_k$ & $d_k$ & $n_k$ & $\widehat{S}(u_k)$ & $\widehat{SE}(t)$ & left limit & right limit \\
+\hline
+4 & 1 & 10 & 0.9 & 0.0949 & \textcolor{Aquamarine}{0.7141} & \textcolor{red}{1.0859} \\
+5 & 1 & 9 &  0.8 & 0.0949 & \textcolor{Aquamarine}{0.5521} & \textcolor{red}{1.0479}\\
+8 & 1 & 7 & 0.6857 & 0.0949 & \textcolor{Aquamarine}{0.3888} & \textcolor{Aquamarine}{0.9826}\\
+12 & 0 & 6 & 0.6857 & 0.0949 & \textcolor{Aquamarine}{0.3888} & \textcolor{Aquamarine}{0.9826}\\
+13 & 1 & 5 & 0.5486 & 0.0949 & \textcolor{Aquamarine}{0.2106} & \textcolor{Aquamarine}{0.8866}\\
+18 & 0 & 4 & 0.5486 & 0.0949 & \textcolor{Aquamarine}{0.2106} & \textcolor{Aquamarine}{0.8866}\\
+23 & 2 & 3 & 0.1829 & 0.0949 & \textcolor{red}{-0.1307} & \textcolor{Aquamarine}{0.4965}\\
+30 & 1 & 1 & 0 & & & \\
+\hline
+\end{tabular}
 \end{frame}
 
 \begin{frame}
 \frametitle{Nonparametric estimation of a survival function}
-
-% standard error, CI (no formulas, just that they exist)
+\centering
+\includegraphics[height=0.95\textheight]{figs/inflamm_km.png}
 \end{frame}
 
 \begin{frame}
 \frametitle{Nonparametric estimation of a survival function}
-
-% for this example (Marco, 39)
+\centering
+\includegraphics[height=0.95\textheight]{figs/inflamm_km_cis.png}
 \end{frame}
 
 \begin{frame}
-\frametitle{Nonparametric estimation of a survival function}
+\frametitle{Nonparametric estimation of measures of central tendency}
 
-% KM in a data analysis (time to death in inflamm)
+With continuous or binary data, we often used the mean or median to describe the distribution of the variable.
+
+Can we describe the \textbf{central tendency of a distribution} using right-censored data?
+
+Should we (or can we) use the \textbf{mean} or the \textbf{median}?
+\begin{itemize}
+\item the mean may be simpler to communicate
+\item the median is robust to outliers, while the mean is not
+\item in survival analysis, the mean can be problematic because \textcolor{red}{censoring may render the right tail of the distribution unestimable}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of measures of central tendency}
+
+For this reason, people tend to focus on the \textbf{restricted mean} $\mu_\tau := \int_0^\tau S(u) du$; an estimator is given by $\widehat{\mu}_\tau := \int_0^\tau \widehat{S}(u)du$.
+
+\textcolor{red}{However, the interpretation of $\mu_\tau$ may not be of interest}, leading people to consider the median instead.
+
+Whenever $S$ is continuous and strictly decreasing, we define the median as the \textbf{timepoint $t_{0.5}$ such that $S(t_{0.5}) = 1/2$}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of measures of central tendency}
+\centering
+\includegraphics[width=0.8\textheight]{figs/survival_function_median.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of measures of central tendency}
+In practice, we will use as estimator of $t_{0.5}$ the median $\hat{t}_{0.5}$ of $\widehat{S}$. But the survival function $\widehat{S}$ is \textbf{not continuous nor strictly decreasing}!
+
+\begin{center}
+\includegraphics[width=0.6\textheight]{figs/km_small_example_median.png}
+\end{center}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Nonparametric estimation of a survival function}
+\frametitle{Nonparametric estimation of measures of central tendency}
+Close or put away your notes and laptops. Then answer the following questions, paying attention your thought process (you will hand in your responses):
+\begin{enumerate}
+\item What if there is no point $\hat{t}_{0.5}$ at which $\widehat{S}$ goes from above to below 0.5?
+\item What happens if $\widehat{S}$ equals 0.5 over a whole interval?
+\end{enumerate}
 
-% mean, restricted mean, median (Marco, 63--70)
 \end{frame}
-
-\begin{frame}
-\frametitle{Nonparametric estimation of a survival function}
-
-% log-rank test (Marco 85--103)
-\end{frame}
-
-% motivate regression modeling
 
 \begin{comment}
+\begin{frame}
+\frametitle{Nonparametric estimation of measures of central tendency}
+\begin{enumerate}
+\item What if there is no point $\hat{t}_{0.5}$ at which $\widehat{S}$ goes from above to below 0.5?
+\item[] \textcolor{blue}{Then we cannot estimate the median survival time!}
+\item What happens if $\widehat{S}$ equals 0.5 over a whole interval?
+\item[] \textcolor{blue}{Then we should pick the smallest value $t$ such that $\widehat{S}(t) \leq 0.5$ (no one has the event in this range by definition)}
+\end{enumerate}
+
+\end{frame}
+\end{comment}
+
+\begin{frame}
+\frametitle{Nonparametric testing of equal survivorship between two groups}
+
+It is often of interest to \textbf{contrast the survivorship of several groups}, rather than simply describing the survival time distribution in a single group. For example:
+\begin{itemize}
+\item Does time to death depend on diabetes status?
+\item Does treatment for leukemia affect time in remission?
+\end{itemize}
+
+Commonly, in survival analysis, we \textcolor{blue}{compare the entire survival function between two groups} to make this contrast.
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric testing of equal survivorship between two groups}
+
+Comparing the entire survival function is the same as saying that the group-specific time-to-event distributions are identical. Thus, we are testing (for two groups denoted by $Z = 0$ and $Z = 1$)
+\begin{align*}
+\textcolor{Aquamarine}{H_0: S_0(t) = S_1(t) \text{ for all } t} \ \text{vs} \ \textcolor{BurntOrange}{H_a: S_0(t) \neq S_1(t) \text{ for some }t}.
+\end{align*}
+At any observed failure time $t$, we can construct a $2 \times 2$ table:\vspace{-0.2cm}
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+& $Z = 0$ & $Z = 1$ \\
+\hline
+died & $d_0(t)$ & $d_1(t)$ & $d(t)$ \\
+did not die & $s_0(t)$ & $s_1(t)$ & $s(t)$\\
+at risk & $n_0(t)$ & $n_1(t)$ & $n(t)$
+\end{tabular}
+\end{center}\vspace{-0.2cm}
+
+If $H_0$ is true, then we expect that the row/column classifications are independent, and thus that $\frac{d_0(t)}{n_0(t)} \approx \frac{d_1(t)}{n_1(t)}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric testing of equal survivorship between two groups}
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+& $Z = 0$ & $Z = 1$ \\
+\hline
+died & $d_0(t)$ & $d_1(t)$ & $d(t)$ \\
+did not die & $s_0(t)$ & $s_1(t)$ & $s(t)$\\
+at risk & $n_0(t)$ & $n_1(t)$ & $n(t)$
+\end{tabular}
+\end{center}\vspace{-0.2cm}
+
+With the table margins fixed, what do we expect to see in the top-left cell under $H_0$?
+\begin{align*}
+\textbf{observed count } o(t) = & \ d_0(t) \\
+\textbf{expected count } e(t) = & \ \frac{d(t)}{n(t)}\times \frac{n_0(t)}{n(t)}n(t) = \frac{d(t)n_0(t)}{n(t)}
+\end{align*}
+\textcolor{Aquamarine}{The difference $o(t) - e(t)$ should be small under $H_0$.} 
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric testing of equal survivorship between two groups}
+Conditional on the margins, and under $H_0$, this difference has variance equal to $v(t) := \frac{n_0(t)n_1(t)d(t)s(t)}{n(t)^2\{n(t) - 1\}}$.
+
+We can aggregate $o(t) - e(t)$ over \textcolor{BurntOrange}{all distinct observed failure times} to get the \textbf{logrank test statistic}
+\begin{align*}
+\widehat{T}^2_{LR, n} := \left[\frac{\sum_i \{o(t_i) - e(t_i)\}}{\sqrt{\sum_i}v(t_i)} \right]^2,
+\end{align*}
+which is an adaptation of the Mantel-Cochran-Haenszel test (for matched pairs data) for survival data.
+
+\textcolor{cyan}{Under $H_0$, with large sample size the distribution of $\widehat{T}^2_{LR, n}$ is approximately $\chi^2_1$}: thus, if we observe $\widehat{T}^2_{LR, n} = x$, then the p-value is given by $P(\chi^2_1 > x)$!
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric testing of equal survivorship between two groups}
+
+\centering
+\includegraphics[width=1\textwidth]{figs/inflamm_logrank.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Motivation for regression modeling}
+
+\textcolor{red}{What about potential confounders?} \pause
+
+It is \textcolor{BurntOrange}{possible} to adapt the logrank test, by breaking up the potential confounder into discrete categories, computing the observed and expected counts within each stratum, and then summing over the strata. \textbf{\texttt{R} will do this for us}, using the same notation to add confounders as before:\vspace{-0.3cm} 
+\begin{verbatim}
+survdiff(Y ~ X_1 + X_2 + \dots, data = \dots)
+\end{verbatim}\vspace{-0.5cm}
+
+However, regression modeling may be more useful in some settings, by: \vspace{-0.3cm}
+\begin{itemize}
+\item \textbf{borrowing information} across subgroups
+\item \textbf{summarizing} the relative survival experience of different subgroups in a \textcolor{blue}{single summary measure}
+\end{itemize}
+\end{frame}
+
 \section{Semiparametric estimation and inference}
 \begin{frame}
 \frametitle{SECTION 3: COX PROPORTIONAL HAZARDS REGRESSION}
+
 \end{frame}
 
+\begin{comment}
 % cox ph regression, assumptions
 \section{Summary}
 \begin{frame}

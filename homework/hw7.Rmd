@@ -13,13 +13,13 @@ This assignment should be submitted on Canvas as a .pdf or Word document **by 5:
 
 Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). **Unedited R output, or code, in the body of your assignment is not acceptable.** Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
 
-If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specififed in the problem statements.
+If you give an honest attempt for all questions, you will receive 2 points for completeness. The remaining 8 points are based on correctness, as specified in the problem statements.
 
 # 1. Properties of survival data and connecting with logistic regression (3.5 points)
 
 You are part of a team conducting a randomized controlled trial seeking to evaluate whether an experimental chemotherapy regimen in leukemia patients improves survival rates as compared to standard of care. As such, your **outcome of interest is the survival time**, and your **predictor of interest is the treatment group**.
 
-Your first participant is enrolled on 26 March, 2018; at enrollment, this subject is randomized to receive either the experimental chemotherapy regimen or standard of care. You continue enrolling subsequent participants over the next 3 years; on 26 March, 2021, the study ends. You have enrolled and randomized 1,000 participants (500 each to the experimental arm and the standard of care arm) and followed them for at least 1005 days each.
+Your first participant is enrolled on 26 March, 2015; at enrollment, this subject is randomized to receive either the experimental chemotherapy regimen or standard of care. You continue enrolling subsequent participants over the next 3 years; on 26 March, 2018, the study ends. You have enrolled and randomized 1,000 participants (500 each to the experimental arm and the standard of care arm). Your final participant was enrolled and randomized on 24 June, 2015.
 
 ## a. (0.5 points) One of your collaborators proposes that when computing the survival time of participants in your study, you should start counting on 26 March, 2018, when you began enrolling participants. A second collaborator proposes that, instead, you start counting on the date that each individual participant was randomized to a treatment group. Which of these "time zero"s would you prefer to answer the scientific question? Justify your response.
 
@@ -35,17 +35,17 @@ Your first participant is enrolled on 26 March, 2018; at enrollment, this subjec
 
 **State the interpretations of $\beta$ and $\exp(\beta)$ in this example.**
 
-## d. (0.5 points) Download the data from `Canvas > Data > leukemia.txt`. In addition to the treatment assignment (`tx`, 1 = experimental therapy and 0 = standard of care), the observation time (`obs_time`, the time until death or censoring), and the event indicator (`event`, ` 1 = event, 0 = censoring), I have created a variable indicating whether or not the subject died within 6 months (180 days) of study enrollment. Why is this valid? Provide descriptive statistics that support your answer.
+## d. (0.5 points) Hypothetical data from this trial are located under `Canvas > Files > Data > leukemia.txt`. In addition to the treatment assignment (`tx`, 1 = experimental therapy and 0 = standard of care), the observation time (`obs_time`, the time in days from randomization until death or censoring), and the event indicator (`event`, 1 = event, 0 = censoring [either loss to follow-up or administrative censoring at end of study]), I have created a variable indicating whether or not the subject died within 6 months (180 days) of study enrollment. Why is this valid? Provide descriptive statistics that support your answer.
 
-## e. (0.5 points) You might also have chosen to analyze these data using logistic regression or relative risk regression instead of proportional hazards regression, based on the outcome of death within 6 months. Perform a logistic regression of death within 6 months of enrollment on treatment assignment, and report your results in 4--5 sentences.
+## e. (0.5 points) You might also have chosen to analyze these data using logistic regression or relative risk regression based on the outcome of death within 6 months instead of proportional hazards regression as in (c). Perform a logistic regression of death within 6 months of enrollment on treatment assignment, and report your results in 4--5 sentences.
 
-## f. (0.5 points) Which analysis (that of c or e) would you choose prior to looking at the data? Justify your response.
+## f. (0.5 points) Which analysis [that of (c) or (e)] would you choose prior to looking at the data? Justify your response.
 
 \newpage
 
 # 2. Fitting and interpreting results from proportional hazards regression (4.5 points)
 
-Load the inflammation dataset into `R` (these data are located under `Canvas > Files > Data > inflamm.txt`). In this analysis, you will explore the relationship betwen diabetes and cardiovascular death. First, load the `survival` package using `library("survival")`. Then, create a time-to-event variable by using the following code: `inflamm$ttocvd ~ Surv(time = inflamm$ttodth, event = inflamm$cvddth)` (if you named the data something other than `inflamm`, replace `inflamm` with the name of your dataset).
+Load the inflammation dataset into `R` (these data are located under `Canvas > Files > Data > inflamm.txt`). In this analysis, you will explore the relationship betwen diabetes and cardiovascular death. First, load the `survival` package using `library("survival")`. Then, create a time-to-event variable by using the following code: `inflamm$ttocvd <- Surv(time = inflamm$ttodth, event = inflamm$cvddth)` (if you named the data something other than `inflamm`, replace `inflamm` with the name of your dataset).
 
 ## a. (0.5 points) Use the `descrip` function in the `uwIntroStats` package to generate descriptive statistics for survival time stratified by diabetes status, and then answer the following questions based on the output.
 
@@ -71,11 +71,11 @@ legend("bottomright", legend = c("No diabetes", "Diabetes"), lty = 1,
 
 ### ii. Can you estimate the median survival time? If so, provide the relevant estimate(s). If not, hypothesize why not.
 
-## c. (1 point) Perform a logrank test to test the hypotheses that the two survival curves are equal, using the code `survdiff(ttocvd ~ diab2, data = inflamm)`. Report the results of this test (i.e., provide the p-value and your statistical and scientific conclusions).
+## c. (1 point) Perform a logrank test to test the hypothesis that the two survival curves are equal, using the code `survdiff(ttocvd ~ diab2, data = inflamm)`. Report the results of this test (i.e., provide the p-value and your statistical and scientific conclusions).
 
 ## d. (1 point) Perform a proportional hazards regression of time-to-cardiovascular death as the outcome and diabetes status as the predictor, using the code `regress("hazard", ttocvd ~ diab2, data = inflamm)`. Report your results in 4--5 sentences.
 
-## e. (1 point) Perform a proportional hazards regression of time-to-cardiovascular death as the outcome, diabetes status as the predictor, but adjusting for age and C reactive protein. Interpret the coefficient estimate for the predictor of interest.
+## e. (1 point) Perform a proportional hazards regression of time-to-cardiovascular death as the outcome, diabetes status as the predictor, but adjusting for age and C reactive protein. Interpret the coefficient estimate for the predictor of interest. How does this result compare to your result in (d)?
 
 \newpage
 

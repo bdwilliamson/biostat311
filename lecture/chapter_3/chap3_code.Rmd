@@ -1,0 +1,53 @@
+---
+title: "Code for Chapter 3"
+author: "Kelsey Grinde and Brian Williamson"
+date: "May 13, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=400)
+```
+
+```{r read-inflamm}
+## inflamm data kaplan-meier for ttodth
+inflamm <- read.table("../../datasets/inflamm.txt", header = TRUE)
+## load the survival package
+library("survival")
+## create a survival object out of observed time and event indicator
+inflamm$surv_obj <- Surv(time = inflamm$ttodth, event = inflamm$death)
+## create the survival curves, based on diabetes status
+plot(survfit(inflamm$surv_obj ~ inflamm$diab2),
+     ylab = "Proportion surviving",
+     xlab = "Time (days)",
+     col = c("red", "blue"))
+legend("bottomright", legend = c("Diabetes", "No diabetes"),
+       col = c("blue", "red"), lty = 1)
+```
+
+\newpage
+
+```{r inflamm-km-cis}
+library("survival")
+## create a survival object out of observed time and event indicator
+inflamm$surv_obj <- Surv(time = inflamm$ttodth, event = inflamm$death)
+## create the survival curves, based on diabetes status
+surv_fit <- survfit(inflamm$surv_obj ~ inflamm$diab2)
+plot(surv_fit,
+     ylab = "Proportion surviving",
+     xlab = "Time (days)",
+     col = c("red", "blue"), conf.int = TRUE)
+legend("bottomright", legend = c("Diabetes", "No diabetes"),
+       col = c("blue", "red"), lty = 1)
+```
+
+\newpage
+
+```{r inflamm-logrank}
+library("survival")
+## create a survival object out of observed time and event indicator
+inflamm$surv_obj <- Surv(time = inflamm$ttodth, event = inflamm$death)
+## do the logrank test
+survdiff(surv_obj ~ diab2, data = inflamm)
+```
