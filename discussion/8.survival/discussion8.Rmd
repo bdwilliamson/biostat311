@@ -21,7 +21,7 @@ For this activity, we're going to look at the `leukemia` data you're analzying o
 - **Scientific goal:** evaluate whether an experimental chemotherapy regimen improves survival rates in leukemia patients (compared to the standard of care)
     - **Outcome:** survival time
     - **Predictor of interest:** treatment group
-- **Time period:** enrollment starts on March 26, 2018 and study ends 3 years later, on March 26, 2021
+- **Time period:** enrollment starts on March 26, 2015 and study ends 3 years later, on March 26, 2018
 - **Sample size:** 1,000 participants (500 randomized to the experimental treatment and 500 to the standard of care)
 
 Download the data from `Canvas > Data > leukemia.txt`. The dataset contains the following variables:
