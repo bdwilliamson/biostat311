@@ -51,3 +51,39 @@ inflamm$surv_obj <- Surv(time = inflamm$ttodth, event = inflamm$death)
 ## do the logrank test
 survdiff(surv_obj ~ diab2, data = inflamm)
 ```
+
+\newpage
+```{r inflamm-crp-km}
+library("survival")
+## create a survival object out of observed time and event indicator
+inflamm$surv_obj <- Surv(time = inflamm$ttodth, event = inflamm$death)
+## create the survival curves, based on abnormal CRP levels
+surv_fit <- survfit(inflamm$surv_obj ~ I(inflamm$crp > 10))
+plot(surv_fit,
+     ylab = "Proportion surviving",
+     xlab = "Time (days)",
+     col = c("blue", "red"), conf.int = TRUE)
+legend("bottomright", legend = c("CRP <= 10 mg/L", "CRP > 10 mg/L"),
+       col = c("blue", "red"), lty = 1)
+```
+
+\newpage
+```{r inflamm-crp-logrank, echo = F, include = F, eval = F}
+library("survival")
+## create a survival object out of observed time and event indicator
+inflamm$surv_obj <- Surv(time = inflamm$ttodth, event = inflamm$death)
+## create the survival curves, based on abnormal CRP levels
+survdiff(inflamm$surv_obj ~ I(inflamm$crp > 10))
+survdiff(inflamm$surv_obj ~ I(inflamm$crp > 10) + 
+           inflamm$age + inflamm$diab2 + inflamm$male + 
+           inflamm$bmi)
+```
+
+\newpage
+```{r inflamm-crp-hazard, warning = F, message = F}
+library("survival")
+library("uwIntroStats")
+## create a survival object out of observed time and event indicator
+inflamm$surv_obj <- Surv(time = inflamm$ttodth, event = inflamm$death)
+## prop. haz. regression
+regress("hazard", surv_obj ~ I(crp > 10) + age + diab2 + male + bmi, data = inflamm)

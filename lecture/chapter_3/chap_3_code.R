@@ -11,6 +11,7 @@ mat_3.42$d_k_over_n_k <- mat_3.42$d_k/mat_3.42$n_k
 mat_3.42$one_minus <- 1 - mat_3.42$d_k_over_n_k
 mat_3.42$s_hat <- cumprod(mat_3.42$one_minus)
 png("lecture/chapter_3/figs/km_small_example.png", width = fig_width, height = fig_height, units = "px", res = fig_res)
+par(mar = c(5, 4, 0.1, 0.1))
 ## plot the points where someone drops out
 plot(mat_3.42$time[-c(4, 6)], mat_3.42$s_hat[-c(4, 6)], pch = 16, ylim = c(0, 1), xlim = c(0, 40),
      ylab = "survival probability", xlab = "time")
