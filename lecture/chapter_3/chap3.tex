@@ -633,6 +633,11 @@ For this reason, people tend to focus on the \textbf{restricted mean} $\mu_\tau 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figs/km_small_example.png}
 \end{center}\vspace{-0.6cm}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation of measures of central tendency}
+The restricted mean is interpreted as the \textcolor{blue}{average time, out of the first $\tau$ time points, experienced by subjects}.
 
 \textcolor{red}{However, the interpretation of $\mu_\tau$ may not be of interest}, leading people to consider the median instead.
 \end{frame}
@@ -642,7 +647,7 @@ For this reason, people tend to focus on the \textbf{restricted mean} $\mu_\tau 
 Whenever $S$ is continuous and strictly decreasing, we define the median as the \textbf{timepoint $t_{0.5}$ such that $S(t_{0.5}) = 1/2$}.
 
 \begin{center}
-\includegraphics[width=0.8\textheight]{figs/survival_function_median.png}
+\includegraphics[width=0.7\textheight]{figs/survival_function_median.png}
 \end{center}
 \end{frame}
 
@@ -827,7 +832,7 @@ What does $c > 1$ imply? \pause A \textbf{increased hazard} in subgroup 1 relati
 
 \begin{frame}
 \frametitle{The hazard ratio}
-Close or put away your notes and laptops. Then answer the following questions, paying attention your thought process (you will hand in your responses). \textit{Assume that the subgroups are defined so that subgroup 1 has some exposure that we want to show is beneficial, while subgroup 0 does not}:
+Close or put away your notes and laptops. Then answer the following questions, paying attention to your thought process (you will hand in your responses). \textit{Assume that the subgroups are defined so that subgroup 1 has some exposure that we want to show is beneficial, while subgroup 0 does not}:
 
 \begin{enumerate}
 \item If the time-to-event is, e.g., transplant $\rightarrow$ organ rejection or onset of disease $\rightarrow$ death, do we want to observe $c < 1$ or $c > 1$? Why?
@@ -880,13 +885,15 @@ To interpret $\beta_1$:
 \begin{align*}
 h(t \mid X = x + 1) = & \ h_0(t)e^{\beta_1 (x + 1)}\\
 h(t \mid X = x) = & \ h_0(t)e^{\beta_1} 
-\end{align*}\pause
+\end{align*}\pause \vspace{-0.3cm}
 \begin{align*}
 \textcolor{blue}{\frac{h(t \mid X = x + 1)}{h(t \mid X = x)}} = & \ \frac{h_0(t)e^{\beta_1 (x + 1)}}{h_0(t)e^{\beta_1}} \\
 =& \ \frac{e^{\beta_1x + \beta_1}}{e^{\beta_1}} \\
 =& \ \textcolor{blue}{e^{\beta_1}}
 \end{align*}
 \textcolor{blue}{So $e^{\beta_1}$ is the \textbf{ratio of the instantaneous risk of the event} comparing two groups at the same time that differ in $X$ by one unit.}
+
+Another option: take the difference in the log hazards, isolate $\beta_1$, and then exponentiate!
 \end{frame}
 
 \begin{frame}
