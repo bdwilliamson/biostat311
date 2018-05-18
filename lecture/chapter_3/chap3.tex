@@ -884,12 +884,12 @@ Without further assumptions, this is called a \textbf{semiparametric model}.
 To interpret $\beta_1$: 
 \begin{align*}
 h(t \mid X = x + 1) = & \ h_0(t)e^{\beta_1 (x + 1)}\\
-h(t \mid X = x) = & \ h_0(t)e^{\beta_1} 
+h(t \mid X = x) = & \ h_0(t)e^{\beta_1 x} 
 \end{align*}\pause \vspace{-0.3cm}
 \begin{align*}
 \textcolor{blue}{\frac{h(t \mid X = x + 1)}{h(t \mid X = x)}} = & \ \frac{h_0(t)e^{\beta_1 (x + 1)}}{h_0(t)e^{\beta_1}} \\
-=& \ \frac{e^{\beta_1x + \beta_1}}{e^{\beta_1}} \\
-=& \ \textcolor{blue}{e^{\beta_1}}
+=& \ \frac{e^{\beta_1x + \beta_1}}{e^{\beta_1 x}} \\
+=& \ \textcolor{blue}{e^{\beta_1 }}
 \end{align*}
 \textcolor{blue}{So $e^{\beta_1}$ is the \textbf{ratio of the instantaneous risk of the event} comparing two groups at the same time that differ in $X$ by one unit.}
 
