@@ -1,3 +1,4 @@
+
 # Anything in application/, #
 # planning/, and project/examples #
 ############################
@@ -56,3 +57,7 @@ project/examples/*
 #################################
 *.odp
 *.xcf
+
+# anything to do with project groups #
+######################################
+project/group*
