@@ -43,6 +43,7 @@ project/examples/*
 *.txt
 *.html
 *.csv
+*.xlsx
 
 # anything called "key" #
 #########################
