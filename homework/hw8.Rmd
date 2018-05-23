@@ -12,42 +12,29 @@ This assignment should be submitted on Canvas as a .pdf or Word document **by 5:
 
 Make sure you update the document header to reflect your name and the type of document you want to create (pdf_document or word_document). **Unedited R output, or code, in the body of your assignment is not acceptable.** Please round numerical values to 2--3 significant digits, and include your R code in a .R file uploaded as a separate document. See the "How to Write a Proper Homework" document on Canvas for additional guidelines.  
 
-If you give an honest attempt for all questions, you will receive credit for this assignment.
+You will receive full credit for this assignment if you attempt Problem 1 and your choice of Problem 2 or Problem 3 below. However, please do attempt all problems prior to the exam, as these questions are similar to the types of analyses that you will do in the future!
 
-# 1. Cerebral atrophy and mortality in US senior citizens
+# 1. Review the most recent version of the course lecture notes. Please find at least 4 typos, and write down: (a) which slide the typo is on, (b) why you think it is a typo, and (c) the corrected version of the relevant part of the slide (just give us enough to go off of so that we can find the typo easily).
+
+\newpage
+
+# 2. Cerebral atrophy and mortality in US senior citizens
 
 A government sponsored cohort study of adults aged 65 years and older was conducted to observe the incidence of cardiovascular disease (especially heart attacks and congestive heart failure) and cerebrovascular disease (especially strokes) in the elderly over an 11 year period, and to relate the incidence of those diseases to various risk factors measured in the population on a regular basis. These data contain information on 735 generally healthy adults taken from the Medicare rolls. After being followed for some time, the participants were asked to submit to magnetic resonance imaging (MRI) of their brains. 
 
 In imaging older people, it has been observed that brains tend to atrophy (shrink) with age, but it has not yet been established whether these changes should be viewed as part of the normal aging process, whether these changes are merely signs of other disease such as heart disease, or whether these changes are indicative of separate disease processes. 
 
-In this problem, you will investigate the association between **cerebral atrophy** and **mortality**. Additional variables include:
+In this problem, you will investigate the association between **cerebral atrophy** and **mortality**. Please consider only the following additional variables:
 
 * *age:* the participant's age at the time of MRI, in years 
 * *male:* an indicator of the participant's sex (1 = male, 0 = female)
 * *race:* the participant's race (1 = white, 2 = black, 3 = Asian, 4 = other)
-* *weight:* the participant's weight at the time of MRI, in pounds
-* *height:* the participant's height at the time of MRI, in centimeters
 * *packyrs:* participant smoking history in pack years (1 pack year = smoking 1 pack of cigarettes per day for 1 year; a participant who has never smoked has 0 pack years)
-* *yrsquit:* number of years since quitting smoking (a current smoker will have nonzero `packyrs` and zero `yrsquit`; a never smoker will have 0 `packyrs` and `yrsquit`)
 * *alcoh:* average alcohol intake for the participant for the two weeks prior to MRI (drinks per week, where 1 drink = 1 oz. whiskey, 4 oz. wine, or 12 oz. beer)
-* *physact:* physical activity for the participant in the week prior to MRI (measured in 1,000 kcal)
-* *chf:* indicator of whether the participant had been diagnosed with congestive heart failure prior to MRI (0 = no, 1 = yes)
-* *chd:* indicator of whether the participant had been diagnosed with coronary heart disease prior to MRI (0 = no, 1 = diagnosis of angina, 2 = diagnosis of myocardial infarction. Coronary heart disease is a condition where the arteries that supply blood to the heart muscle become blocked; if the blockage is not complete, the patient may suffer chest pain [angina], whereas if the blockage is complete and not treated promptly, some of the heart muscle may die [myocardial infarction, or heart attack])
 * *stroke:* indicator of whether the participant had been diagnosed with a cerebrovascular event prior to MRI (0 = no, 1 = transient ischemic attack, 2 = stroke. Cerebrovascular disease refers to the narrowing of blood vessels that supply the brain. In mild cases, the patient may experience a short period of weakness or paralysis, and then recover completely [transient ischemic attack]. In severe cases, a portion of the brain is deprived of oxygen and dies [a stroke])
 * *diabetes:* indicator of whether the participant had been diagnosed with diabetes prior to MRI (1 = yes, 0 = no)
-* *genhlth:* the participant's view of their own health (1 = excellent, 2 = very good, 3 = good, 4 = fair, 5 = poor)
-* *ldl:* LDL cholesterol (mg/dL)
-* *alb:* albumin protein in blood (g/L); low levels of albumin indicate poor liver function
-* *crt:* creatinine in blood (mg/dL); high levels of creatinine indicate poor kidney function or kidney disease
-* *plt:* platelets in blood (platelets per cubic millimeter); low levels indicate chronic disease
-* *sbp:* systolic blood pressure (mmHg); high blood pressure associated with risk of cardiovascular disease, cerebrovascular disease
-* *aai:* ratio of SBP in participant's arm to leg
-* *fev:* forced expiratory volume (L/sec)
 * *dsst:* score on a test of cognitive function (0 = low, 100 = high)
 * *atrophy:* measure of global brain atrophy; 0 = no atrophy, 100 = most severe atrophy
-* *whgrd:* white matter changes detected on MRI
-* *numinf:* number of regions on brain identified during MRI as dead due to oxygen deprivation 
-* *volinf:* a measure of total volume of these regions
 * *obstime:* the total time (in days) that the participant was observed on-study from date of MRI to death or September 16, 1997, whichever came first
 * *death:* indicator of death (1 = yes, 0 = no)
 
@@ -71,7 +58,7 @@ Download the MRI dataset from Canvas (`Files > Data > mri.txt`) prior to running
 
 ## i. Fit a Cox proportional hazards regression of time to death on cerebral atrophy, adjusted for the potential confounders and precision variables that you identified in (a). Interpret the coefficient estimate for your parameter of interest.
 
-## j. Which of the above analyses [linear regression (d), logistic regression (e), or Poisson regression (f), Cox proportional hazards regression (i)] would you have chosen prior to looking at the data, if your collaborator approached you with this scientific question?
+## j. Which of the above analyses [linear regression (d), logistic regression (e), Poisson regression (f), or Cox proportional hazards regression (i)] would you have chosen prior to looking at the data, if your collaborator approached you with this scientific question?
 
 ## k. Compare and contrast the results you obtained across the four regression analyses. Did you observe anything surprising?
 
@@ -79,7 +66,7 @@ Download the MRI dataset from Canvas (`Files > Data > mri.txt`) prior to running
 
 \newpage
 
-# 2. Complications of pregnancy in South Africa
+# 3. Complications of pregnancy in South Africa
 
 Over the past two centuries there have been enormous improvements in the incidence of perinatal morbidity and mortality (i.e., infant illness and death in the weeks just prior to and just after birth). Many of these gains have been attributed to the increase in adequate prenatal care that women receive during pregnancy. A major focus of that care is in the prevention of early delivery and low birthweight of babies: In one classification of United States data in a 2005 report, medical problems attributable to short gestation and low birthweight are the second leading cause of infant mortality (after congenital malformations).
 
@@ -106,14 +93,34 @@ Download the pregnancy dataset from Canvas (`Files > Data > pregout.txt`) prior 
 
 ## d. Create a new variable, `lbw` (1 = low birthweight [< 2500 g], 0 = not low birthweight). What proportion of babies are low birthweight in this sample?
 
-## e. FIt a linear regression of low birthweight on maternal age, adjusted for the potential confounders and precision variables you identified in (a). Interpret the coefficient estimate for your parameter of interest.
+## e. Fit a linear regression of low birthweight on maternal age, adjusted for the potential confounders and precision variables you identified in (a). Interpret the coefficient estimate for your parameter of interest.
 
-## f. FIt a logistic regression of low birthweight on maternal age, adjusted for the potential confounders and precision variables you identified in (a). Interpret the coefficient estimate for your parameter of interest.
+## f. Fit a logistic regression of low birthweight on maternal age, adjusted for the potential confounders and precision variables you identified in (a). Interpret the coefficient estimate for your parameter of interest.
 
-## g. FIt a Poisson regression of low birthweight on maternal age, adjusted for the potential confounders and precision variables you identified in (a). Interpret the coefficient estimate for your parameter of interest.
+## g. Fit a Poisson regression of low birthweight on maternal age, adjusted for the potential confounders and precision variables you identified in (a). Interpret the coefficient estimate for your parameter of interest.
 
-## h. Which of the above analyses [linear regression (c), logistic regression (e), or Poisson regression (f)] would you have chosen prior to looking at the data, if your collaborator approached you with this scientific question?
+## h. Which of the above analyses [linear regression with continuous birth weight as outcome (c), linear regression with binary low birth weight as outcome (e), logistic regression with binary low birthweight as outcome (f), or Poisson regression with binary low birth weight as outcome (g)] would you have chosen prior to looking at the data, if your collaborator approached you with this scientific question?
 
 ## i. Compare and contrast the results you obtained across the four regression analyses. Did you observe anything surprising?
 
 ## k. Discuss which assumptions are necessary for statistical inference based on your chosen analysis in (h) to be valid.
+
+\newpage
+
+# R Code
+
+Once you have completed your assignment, update (if needed) and run the `define-file-names` and `extract-code` code chunks to extract the R code from this .Rmd file and send it to a .R file. 
+
+```{r define-file-names, include = FALSE}
+##### STEP 1: Update these file names #####
+rmd.name <- 'hw8.Rmd' # name of this file; update if you changed the name of this file
+code.name <- 'hw8.R' # name of R code file; you can change if desired
+```
+
+```{r extract-code, eval = FALSE, include = FALSE}
+##### STEP 2: Run these commands #####
+library('knitr') 
+purl(input = rmd.name, output = code.name) # send your R code to code.name 
+```
+
+**Please upload the file `r code.name` along with your completed assignment.**

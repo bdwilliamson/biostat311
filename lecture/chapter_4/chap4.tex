@@ -1,5 +1,5 @@
 \documentclass[12pt, 
-hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
+hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan},dvipsnames]{beamer}
 \usetheme{default} 
 
 \setbeamertemplate{navigation symbols}{} %gets rid of navigation symbols
@@ -37,8 +37,8 @@ hyperref={colorlinks=true, linkcolor=blue, urlcolor=cyan}]{beamer}
 
 % make it 4.something
 \setbeamertemplate{footline}{%
-  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[10pt]{\scriptsize 4.\insertframenumber~~}}}}  \newcounter{chap1}{\value{1}}
-\setcounter{framenumber}{\value{chap1}}
+  \raisebox{5pt}{\makebox[\paperwidth]{\makebox[120pt]{\scriptsize Last updated \today}\hfill\makebox[20pt]{\scriptsize 4.\insertframenumber~~}}}}  \newcounter{chap4}{\value{1}}
+\setcounter{framenumber}{\value{chap4}}
 
 \begin{frame}
 \frametitle{CHAPTER 4: SPECIAL TOPICS}
@@ -47,14 +47,14 @@ At the end of this chapter, the typical student should be able to:
 \item describe why you might not want to use a parametric model,
 \item describe a nonparametric statistical model,
 \item describe a statistical parameter, 
-\item and other things related to Kelsey's work
+\item and other things (TBD)
 \end{itemize}
 \end{frame}
 
 \section{Nonparametric estimation and inference}
 \begin{frame}
 \frametitle{SECTION 1: {\small NONPARAMETRIC ESTIMATION AND INFERENCE}}
-\framesubtitle{(by Brian Williamson)}
+\framesubtitle{(by Brian)}
 
 So far, in this course, you have explored how to answer scientific questions related to: \vspace{-0.3cm}
 \begin{itemize}
@@ -67,6 +67,43 @@ using linear regression, logistic regression, or Cox proportional hazards regres
 You have also explored the necessary assumptions for these models to be valid.
 
 Fundamentally, however, these tools \textcolor{red}{all make potentially restrictive assumptions} on the true data-generating mechanism (i.e., the process that truly creates the data as we see it).
+\end{frame}
+
+% introduce the variable importance problem, in the context of HIV vaccine
+\begin{frame}
+\frametitle{Case study: variable importance}
+A new frontier in HIV-1 vaccine research studies \textcolor{blue}{broadly neutralizing antibodies}: HIV-1 is diverse and mutates quickly, so successful antibodies against HIV-1 must be able to recognize and neutralize many strains.
+
+VRC01: \vspace{-0.3cm}
+\begin{itemize}
+\item a broadly neutralizing antibody against HIV-1
+\item isolated from a donor chronically infected with HIV-1 for 15 years
+\item neutralizes over 80\% of $> 600$ viral strains tested
+\end{itemize}
+
+The Antibody Mediated Prevention (AMP) trials, expected to finish in 2020, \textcolor{blue}{assess the efficacy of VRC01 in preventing HIV-1 infection}.
+\end{frame}
+
+% variable importance
+\begin{frame}
+\frametitle{Case study: variable importance}
+Part of the pre-planned analysis of these data involves testing those viruses that do cause infection, even in the presence of VRC01.
+
+\textcolor{blue}{Differences in prevention efficacy based on features of these viruses give us information about how VRC01 works to prevent infection}, and give us \textcolor{ForestGreen}{clues about how to develop an effective vaccine.}
+
+I am primarily interested in features of the HIV-1 genotype, but there are \textcolor{red}{many ways} to define an HIV-1 genotype; this implies that \textcolor{red}{if we test each amino acid (AA) feature, and apply a multiple comparisons correction, it will be difficult to detect effects. }
+\end{frame}
+
+% variable importance!
+\begin{frame}
+\frametitle{Case study: variable importance}
+Fortunately, there are publicly available data on the neutralization sensitivity of HIV-1 viruses to VRC01. I am currently collaborating with researchers at the Fred Hutchinson Cancer Research Center to:
+\begin{itemize}
+\item develop an algorithm with \textcolor{ForestGreen}{good accuracy in predicting neutralization sensitivity} from HIV-1 AA features, and
+\item \textcolor{blue}{rank AA features by their importance in predicting neutralization sensitivity}, and advance the top ranked features to the AMP analysis
+\end{itemize}
+
+Fitting \textcolor{ForestGreen}{complex machine learning-based methods} achieves the first objective; the second objective is a \textcolor{blue}{bit more nuanced}.
 \end{frame}
 
 \begin{frame}
@@ -115,7 +152,7 @@ In the second two cases, \textcolor{olive}{we specify (some function of) the con
 Advantages to a finite parametric model: \vspace{-0.3cm}
 \begin{itemize}
 \item \textcolor{blue}{simple} (too complex can be bad)
-\item \textcolor{lime}{convenient} (we know how to fit them)
+\item \textcolor{Aquamarine}{convenient} (we know how to fit them)
 \end{itemize}
 
 \end{frame}
@@ -177,9 +214,10 @@ Traditional statistical modeling:
 \begin{tikzpicture}
 \node [left] at (0,1) {$Y$};
 \node [right] at (6, 1) {$X$};
-\draw [fill=white] (1,0) rectangle (5,1.5);
+\draw [fill=white] (1,0) rectangle (5,1.75);
 \node [above] at (3,1) {linear regression};
-\node [below] at (3,1) {logistic regression};
+\node at (3,1) {logistic regression};
+\node [below] at (3,1) {Poisson regression};
 \node [above] at (3,0) {Cox regression};
 \draw [<-] (5,1) -- (6,1);
 \draw [<-] (0,1) -- (1,1);
@@ -208,7 +246,7 @@ Algorithmic modeling:
 \frametitle{Statistical models, as I see them}
 Fundamentally, \textcolor{blue}{statistical models are collections of plausible probability distributions, and need not be indexed by a finite-dimensional parameter.}
 
-We should \textcolor{blue}{put as much knowledge as possible into choosing this model}, \textcolor{green}{but make sure that the true data-generating mechanism will be contained in it.} This is where we ``model'' nature!
+We should \textcolor{blue}{put as much knowledge as possible into choosing this model}, \textcolor{ForestGreen}{but make sure that the true data-generating mechanism will be contained in it.} This is where we ``model'' nature!
 \begin{center}
 \begin{tikzpicture}
 \draw (0,0) ellipse (2.5cm and 2cm);
@@ -262,7 +300,7 @@ Our goal, typically, is to estimate the \textbf{true parameter value} $\psi_0 :=
 \end{tikzpicture}
 \end{center}
 
-$\mathcal{M}$ \textcolor{green}{encodes our knowledge about nature.}
+$\mathcal{M}$ \textcolor{ForestGreen}{encodes our knowledge about nature.}
 
 $P_0$ \textcolor{cyan}{is the true data-generating mechanism (unknown).}
 
@@ -324,42 +362,6 @@ However, steps 2 and 3 involve work: once a useful parameter is defined, it must
 %\end{frame}
 
 
-% introduce the variable importance problem, in the context of HIV vaccine
-\begin{frame}
-\frametitle{Case study: variable importance}
-A new frontier in HIV-1 vaccine research studies \textcolor{blue}{broadly neutralizing antibodies}: HIV-1 is diverse and mutates quickly, so successful antibodies against HIV-1 must be able to recognize and neutralize many strains.
-
-VRC01: \vspace{-0.3cm}
-\begin{itemize}
-\item a broadly neutralizing antibody against HIV-1
-\item isolated from a donor chronically infected with HIV-1 for 15 years
-\item neutralizes over 80\% of $> 600$ viral strains tested
-\end{itemize}
-
-The Antibody Mediated Prevention (AMP) trials, expected to finish in 2020, \textcolor{blue}{assess the efficacy of VRC01 in preventing HIV-1 infection}.
-\end{frame}
-
-% variable importance
-\begin{frame}
-\frametitle{Case study: variable importance}
-Part of the pre-planned analysis of these data involves testing those viruses that do cause infection, even in the presence of VRC01.
-
-\textcolor{blue}{Differences in prevention efficacy based on features of these viruses give us information about how VRC01 works to prevent infection}, and give us \textcolor{green}{clues about how to develop an effective vaccine.}
-
-I am primarily interested in features of the HIV-1 genotype, but there are \textcolor{red}{many ways} to define an HIV-1 genotype; this implies that \textcolor{red}{if we test each amino acid feature, and apply a multiple comparisons correction, it will be difficult to detect effects. }
-\end{frame}
-
-% variable importance!
-\begin{frame}
-\frametitle{Case study: variable importance}
-Fortunately, there are publicly available data on the neutralization sensitivity of HIV-1 viruses to VRC01. I am currently collaborating with researchers at the Fred Hutchinson Cancer Research Center to:
-\begin{itemize}
-\item develop an algorithm that has \textcolor{green}{good accuracy in predicting neutralization sensitivity} from HIV-1 amino acid features, and
-\item \textcolor{blue}{rank amino acid features by their importance in predicting neutralization sensitivity}, and advance the top ranked features to the AMP analysis
-\end{itemize}
-
-Fitting \textcolor{green}{complex machine learning-based methods} achieves the first objective; the second objective is a \textcolor{blue}{bit more nuanced}.
-\end{frame}
 
 % how would we address this using linear regression?
 \begin{frame}
@@ -378,7 +380,7 @@ However, it is possible that our variables of interest are important in other wa
 % variable importance parameter
 \begin{frame}
 \frametitle{Case study: variable importance}
-In this context, we define variable importance using a nonparametric extension of $R^2$ or ANOVA-derived variable importance:
+In this context, we define variable importance using a nonparametric extension of $R^2$ variable importance (see 1.164--1.165):
 \begin{align*}
 \Psi_s(P) = &\ \frac{\int \{E_P(Y \mid X) - E_P(Y \mid X_{(-s)})\}^2 dP(x)}{var_P(Y)}
 \end{align*}
@@ -414,14 +416,15 @@ I need to estimate four objects:
 % ML tools
 \begin{frame}
 \frametitle{Estimating a conditional mean}
-So far, this quarter, we have studied three methods for estimating conditional means (also called \textcolor{blue}{regression functions}):
+So far, this quarter, we have studied four methods for estimating conditional means (also called \textcolor{blue}{regression functions}):
 \begin{itemize}
 \item linear regression,
-\item logistic regression, and
+\item logistic regression, 
+\item Poisson regression, and
 \item Cox proportional hazards regression.
 \end{itemize}
 
-Each of these tools makes the fundamental assumption that some function of the conditional mean is linear in the model parameters, which is potentially quite restrictive.
+Each of these tools makes the fundamental assumption that some function of the conditional mean is linear in the model parameters, which is \textcolor{red}{potentially quite restrictive}. 
 
 More model-agnostic regression techniques are known colloquially as ``machine learning'' tools.
 \end{frame}
@@ -429,19 +432,47 @@ More model-agnostic regression techniques are known colloquially as ``machine le
 % the bias-variance tradeoff
 \begin{frame}
 \frametitle{Estimating a conditional mean}
-Typically, machine learning-based methods involve 
+Typically, machine learning-based methods involve some sort of \textcolor{ForestGreen}{bias-variance tradeoff} (see slides 1.168--1.170): the idea is to \textcolor{red}{increase bias} a bit for \textcolor{blue}{decreased variance}, and possibly better predictions. 
+
+This means that, in particular, \textbf{inference based on machine learning techniques is difficult}; the added bias is often difficult to characterize, and classical statistical results (like the Central Limit Theorem) do not apply, in general.
+
+Many machine learning-based methods are implemented in \texttt{R}, and many of them use the same notation we have used throughout the quarter: \texttt{Y} $\sim$ \texttt{X\_1 + X\_2 + \dots}
 
 \end{frame}
 
-% why that's a problem for us
+\begin{frame}
+\frametitle{Estimating a conditional mean}
+You can already use one particular kind of machine learning algorithm, called \textbf{model stacking}. Here, we 
+\begin{enumerate}
+\item fit many types of regression (or other algorithm)
+\item average the fitted values from (1), yielding a final set of fitted values
+\end{enumerate}
+This removes some subjectivity from the process, and means that \textcolor{blue}{the more different algorithms we use, the more robust our results are to potential misspecification of one algorithm!}
+\end{frame}
 
-% how we get around it
+\begin{frame}
+\frametitle{Inference when using machine learning techniques}
 
-% simulation results showing how bad it can be not to account for it
+However, typically the bias-variance tradeoff we make for estimating the conditional mean is \textbf{not} the optimal bias-variance tradeoff for estimating our parameter of interest (e.g., variable importance).
 
-% results from the VRC01 study
+A large part of my research is focused on characterizing the properties of the parameter of interest, so that we can \textcolor{blue}{correct} for this non-optimal bias-variance tradeoff.
 
-% conclude
+At the end of the day, if I have done my job correctly, we have an estimator of the parameter of interest that has an asymptotic normal distribution by the Central Limit Theorem (just like our regression estimators!).
+
+In particular, this means that \textcolor{blue}{we can create confidence intervals and do hypothesis tests}, even though we have used flexible methods in estimation.
+\end{frame}
+
+\begin{frame}
+\frametitle{Nonparametric estimation and inference: summary}
+
+\textcolor{red}{Parametric models are potentially quite restrictive, and may lead us astray if the model is misspecified}. We often have no way of verifying if the model holds or not!
+
+\textcolor{ForestGreen}{Machine learning techniques offer a flexible alternative}: rather than specifying a model, we let the data tell us what the conditional mean looks like.
+
+However, \textcolor{Aquamarine}{we lose interpretability if we only use machine learning-based methods}. 
+
+Doing the work to define and understand the properties of \textbf{statistical parameters} can help here: \textcolor{blue}{we can use machine learning tools as an intermediate step to flexibly estimate a parameter of interest, and still develop confidence intervals and do hypothesis tests! }
+\end{frame}
 
 \section{Statistical genetics}
 
