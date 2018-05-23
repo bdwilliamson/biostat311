@@ -72,14 +72,14 @@ Fundamentally, however, these tools \textcolor{red}{all make potentially restric
 % introduce the variable importance problem, in the context of HIV vaccine
 \begin{frame}
 \frametitle{Case study: variable importance}
-A new frontier in HIV-1 vaccine research studies \textcolor{blue}{broadly neutralizing antibodies}: HIV-1 is diverse and mutates quickly, so successful antibodies against HIV-1 must be able to recognize and neutralize many strains.
+A new frontier in HIV-1 vaccine research studies \textcolor{blue}{broadly neutralizing antibodies}: HIV-1 is diverse and mutates quickly, so successful antibodies against HIV-1 must be able to recognize and neutralize many strains. \pause
 
 VRC01: \vspace{-0.3cm}
 \begin{itemize}
 \item a broadly neutralizing antibody against HIV-1
 \item isolated from a donor chronically infected with HIV-1 for 15 years
 \item neutralizes over 80\% of $> 600$ viral strains tested
-\end{itemize}
+\end{itemize} \pause
 
 The Antibody Mediated Prevention (AMP) trials, expected to finish in 2020, \textcolor{blue}{assess the efficacy of VRC01 in preventing HIV-1 infection}.
 \end{frame}
@@ -89,7 +89,7 @@ The Antibody Mediated Prevention (AMP) trials, expected to finish in 2020, \text
 \frametitle{Case study: variable importance}
 Part of the pre-planned analysis of these data involves testing those viruses that do cause infection, even in the presence of VRC01.
 
-\textcolor{blue}{Differences in prevention efficacy based on features of these viruses give us information about how VRC01 works to prevent infection}, and give us \textcolor{ForestGreen}{clues about how to develop an effective vaccine.}
+\textcolor{blue}{Differences in prevention efficacy based on features of these viruses give us information about how VRC01 works to prevent infection}, and give us \textcolor{ForestGreen}{clues about how to develop an effective vaccine.} \pause
 
 I am primarily interested in features of the HIV-1 genotype, but there are \textcolor{red}{many ways} to define an HIV-1 genotype; this implies that \textcolor{red}{if we test each amino acid (AA) feature, and apply a multiple comparisons correction, it will be difficult to detect effects. }
 \end{frame}
@@ -207,7 +207,7 @@ Disadvantages to a finite parametric model: \vspace{-0.3cm}
 \draw [<-] (3,1) -- (4,1);
 \draw [<-] (0,1) -- (1,1);
 \end{tikzpicture}
-\end{center}
+\end{center} \pause
 
 Traditional statistical modeling:
 \begin{center}
@@ -222,7 +222,7 @@ Traditional statistical modeling:
 \draw [<-] (5,1) -- (6,1);
 \draw [<-] (0,1) -- (1,1);
 \end{tikzpicture}
-\end{center}
+\end{center} \pause
 
 Algorithmic modeling:
 
@@ -263,7 +263,7 @@ We should \textcolor{blue}{put as much knowledge as possible into choosing this 
 A \textbf{finite-dimensional parameter} takes as input a probability distribution, and outputs a real number (or a vector). \vspace{-0.3cm}
 \begin{itemize}
 \item[] e.g.: mean, variance, correlation, $\dots$
-\end{itemize}
+\end{itemize} \pause
 
 \begin{center}
 \begin{tikzpicture}
@@ -278,7 +278,7 @@ A \textbf{finite-dimensional parameter} takes as input a probability distributio
 \draw [fill] (7, 0.5) circle [radius = 0.05];
 \node [below] at (4, -1.5) {$\Psi$};
 \end{tikzpicture}
-\end{center}
+\end{center} \pause
 
 Our goal, typically, is to estimate the \textbf{true parameter value} $\psi_0 := \Psi(P_0)$ based on observations drawn from $P_0$.
 \end{frame}
@@ -300,9 +300,9 @@ Our goal, typically, is to estimate the \textbf{true parameter value} $\psi_0 :=
 \end{tikzpicture}
 \end{center}
 
-$\mathcal{M}$ \textcolor{ForestGreen}{encodes our knowledge about nature.}
+$\mathcal{M}$ \textcolor{ForestGreen}{encodes our knowledge about nature.} \pause
 
-$P_0$ \textcolor{cyan}{is the true data-generating mechanism (unknown).}
+$P_0$ \textcolor{cyan}{is the true data-generating mechanism (unknown).} \pause
 
 $\Psi$ \textcolor{blue}{tells us about nature, and is something we can estimate.}
 \end{frame}
@@ -314,63 +314,22 @@ $\Psi$ \textcolor{blue}{tells us about nature, and is something we can estimate.
 
 Proposed workflow:
 \begin{enumerate}
-\item Define a statistical model (often nonparametric, or not indexed by a finite-dimensional parameter)
-\item Define statistical parameter of interest
+\item Define a statistical model (often nonparametric, or not indexed by a finite-dimensional parameter) \pause
+\item Define statistical parameter of interest \pause
 \item Choose an estimation procedure for this parameter
-\end{enumerate}
+\end{enumerate} \pause
 
 However, steps 2 and 3 involve work: once a useful parameter is defined, it must be studied so that we can estimate it unbiasedly and obtain valid inference for it.
 \end{frame}
 
-% the model as a collection of probability distributions
-%\begin{frame}
-%\frametitle{Statistical models}
-%Rather than restrict ourselves to a class of models that we can index by a finite parameter (e.g., regression coefficients), it is often useful to consider statistical models as more general objects.
-%
-%Statistical model: a group of probability distributions; should contain our true data-generating mechanism.
-%
-%\begin{tikzpicture}
-%
-%\end{tikzpicture}
-%
-%\end{frame}
-%
-%% the parameter as a map from the collection to the real line
-%\begin{frame}
-%\frametitle{Statistical parameters: more than just $\beta$s?}
-%Just like the parameters in our linear model, statistical parameters are functions of the true data-generating mechanism.
-%
-%However, now a statistical parameter is a function that takes as input a probability distribution, and outputs a real number.
-%
-%We can now define parameters of arbitrary distributions, without making any assumptions on the model!
-%
-%For example, the mean as a statistical parameter: $\mu(P) = \int x dP(x)$; or the conditional mean as a statistical parameter: $\mu_X(P) = E(Y \mid X) = \int y dP(Y \mid X)$.
-%\end{frame}
-%
-%% procedure that separates statistical model and parameter from estimation
-%\begin{frame}
-%\frametitle{New paradigm for estimation}
-%Defining a statistical parameter as a function of the statistical model, rather than the estimation procedure (e.g., linear regression), means that we can disassociate the two processes:
-%\begin{enumerate}
-%\item Define my statistical parameter
-%\item Estimate the relevant components using potentially complex methods
-%\item Plug these estimates into the form for the parameter
-%\item Correct the resulting estimate for the fact that flexible techniques were used
-%\end{enumerate}
-%
-%Fundamentally: \textcolor{blue}{the statistical parameter of interest doesn't have to be tied to your estimation technique.}
-%\end{frame}
-
-
-
 % how would we address this using linear regression?
 \begin{frame}
 \frametitle{Case study: variable importance}
-Variable importance in linear regression: e.g., $E(Y \mid X_1, X_2) = \beta_0 + \beta_1 X_1 + \beta_2 X_2$
+Variable importance in linear regression: e.g., $E(Y \mid X_1, X_2) = \beta_0 + \beta_1 X_1 + \beta_2 X_2$ \pause
 \begin{itemize}
-\item $\beta_1$: difference in mean $Y$ for two groups differing by one unit in $X_1$, with the same value of $X_2$
-\item $X_1$ has no effect on $Y$ if $\beta_1 = 0$ (i.e., is unimportant)
-\item estimate importance (i.e., deviation from the null) with $\lvert (\hat{\beta}_1 - 0)/SE(\hat{\beta}_1) \rvert$
+\item $\beta_1$: difference in mean $Y$ for two groups differing by one unit in $X_1$, with the same value of $X_2$ \pause
+\item $X_1$ has no effect on $Y$ if $\beta_1 = 0$ (i.e., is unimportant) \pause
+\item estimate importance (i.e., deviation from the null) with $\lvert (\hat{\beta}_1 - 0)/SE(\hat{\beta}_1) \rvert$ \pause
 \end{itemize}
 
 However, it is possible that our variables of interest are important in other ways besides the linear association. If the linear model doesn't hold, \textcolor{red}{then these variable importance estimates are meaningless.}
@@ -385,7 +344,7 @@ In this context, we define variable importance using a nonparametric extension o
 \Psi_s(P) = &\ \frac{\int \{E_P(Y \mid X) - E_P(Y \mid X_{(-s)})\}^2 dP(x)}{var_P(Y)}
 \end{align*}
 
-\textcolor{cyan}{This measures the additional proportion of the variability in the outcome explained by including the features $X_s$ in the regression} ($s$ can index a single feature or group of features).
+\textcolor{cyan}{This measures the additional proportion of the variability in the outcome explained by including the features $X_s$ in the regression} ($s$ can index a single feature or group of features). \pause
 
 \textcolor{red}{Coming up with a parameter can be hard work:} this particular parameter resulted from multiple consultations between statisticians and epidemiologists.
 
@@ -402,13 +361,13 @@ However, this work is worth it: at the end of the day, you are estimating someth
 \vspace{-0.4cm}
 I need to estimate four objects:
 \begin{itemize}
-\item the probability distribution of the $X$ data
-\item the conditional expectation given $X$
-\item the conditional expectation given $X_{(-s)}$
-\item the variance of $Y$
+\item the probability distribution of the $X$ data \pause
+\item the conditional expectation given $X$ \pause
+\item the conditional expectation given $X_{(-s)}$ \pause
+\item the variance of $Y$ \pause
 \end{itemize}
 
-\textcolor{blue}{The first and last components are easy}: take the empirical variance, and take a simple average once I have the middle two components.
+\textcolor{blue}{The first and last components are easy}: take the empirical variance, and take a simple average once I have the middle two components. \pause
 
 \textcolor{red}{The middle two components are where I can run into trouble if I make incorrect assumptions. }
 \end{frame}
@@ -432,9 +391,9 @@ More model-agnostic regression techniques are known colloquially as ``machine le
 % the bias-variance tradeoff
 \begin{frame}
 \frametitle{Estimating a conditional mean}
-Typically, machine learning-based methods involve some sort of \textcolor{ForestGreen}{bias-variance tradeoff} (see slides 1.168--1.170): the idea is to \textcolor{red}{increase bias} a bit for \textcolor{blue}{decreased variance}, and possibly better predictions. 
+Typically, machine learning-based methods involve some sort of \textcolor{ForestGreen}{bias-variance tradeoff} (see slides 1.168--1.170): the idea is to \textcolor{red}{increase bias} a bit for \textcolor{blue}{decreased variance}, and possibly better predictions. \pause
 
-This means that, in particular, \textbf{inference based on machine learning techniques is difficult}; the added bias is often difficult to characterize, and classical statistical results (like the Central Limit Theorem) do not apply, in general.
+This means that, in particular, \textbf{inference based on machine learning techniques is difficult}; the added bias is often difficult to characterize, and classical statistical results (like the Central Limit Theorem) do not apply, in general. \pause
 
 Many machine learning-based methods are implemented in \texttt{R}, and many of them use the same notation we have used throughout the quarter: \texttt{Y} $\sim$ \texttt{X\_1 + X\_2 + \dots}
 
@@ -465,11 +424,11 @@ In particular, this means that \textcolor{blue}{we can create confidence interva
 \begin{frame}
 \frametitle{Nonparametric estimation and inference: summary}
 
-\textcolor{red}{Parametric models are potentially quite restrictive, and may lead us astray if the model is misspecified}. We often have no way of verifying if the model holds or not!
+\textcolor{red}{Parametric models are potentially quite restrictive, and may lead us astray if the model is misspecified}. We often have no way of verifying if the model holds or not! \pause
 
-\textcolor{ForestGreen}{Machine learning techniques offer a flexible alternative}: rather than specifying a model, we let the data tell us what the conditional mean looks like.
+\textcolor{ForestGreen}{Machine learning techniques offer a flexible alternative}: rather than specifying a model, we let the data tell us what the conditional mean looks like. \pause
 
-However, \textcolor{Aquamarine}{we lose interpretability if we only use machine learning-based methods}. 
+However, \textcolor{Aquamarine}{we lose interpretability if we only use machine learning-based methods}. \pause
 
 Doing the work to define and understand the properties of \textbf{statistical parameters} can help here: \textcolor{blue}{we can use machine learning tools as an intermediate step to flexibly estimate a parameter of interest, and still develop confidence intervals and do hypothesis tests! }
 \end{frame}
