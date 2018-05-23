@@ -38,59 +38,40 @@ To receive full credit for this portion of the assignment, your first slide (tit
 - include the title of your study
 - include all group member names
 
-## Background and Introduction (4 points)
+## Background and Introduction (3 points)
 
-*Provide a brief description of your study and scientific area to give perspective into the importance of the problem and the situation under study; this section will be a brief synopsis of the corresponding section in your report. In particular, why were the data collected?*
+To receive full credit for this portion of the assignment, you should provide the relevant motivation to understand why your scientific question is interesting (approx. 1 slide).
 
-To receive full credit for this portion of the assignment, your background/introduction should include...
-
-- scientific background
-    - Set the stage for why this is an interesting overall scientific question to study
-    - Why is this an important/relevant outcome to look at?
-    - Why is this an important/relevant predictor/exposure to look at?
-    - What other variables might be related to your outcome and/or predictor?
-- description of study/data
-    - Who (is being studied)? 
-    - Where (was the study conducted/are your subjects from)? 
-    - When (was the data collected)?
-    - Where did you get your data (provide enough detail that someone else could go out and find it)
-
-## Scientific Questions (2 points)
-
-*In this section, you should lay out the scientific agenda of your analysis. In particular, you should state both the overall scientific goal and the specific scientific objectives.*
+## Scientific Questions (3 points)
 
 To receive full credit for this portion of the assignment, you should include...
 
 - your overall scientific goal
-- at least two specific scientific questions
+- one specific objective
 
-## Statistical Hypotheses (2 points)
+in approximately 1 slide (you may also briefly mention any other goals of your analysis, but this is not necessary).
 
-*Connect the scientific questions listed above with statistical hypotheses, that you can test using your statistical tools. Make sure to list all variables that you will use in each analysis.*
+## What did you do? (3 points)
 
-To receive full credit for this portion of the assignment, you should take each of your (2+) specific scientific questions and re-phrase them as a "statistical question" here. In particular, your statistical question should be a more precise version of your scientific question, which specifies:
+To receive full credit for this portion of the assignment, you should take your specific scientific question and tell us...
 
-- what is the outcome variable
-- what is the predictor of interest
-- what other variables will you adjust for
-- how are you defining association (e.g., difference in means via linear regression, ratio of odds via logisitic regression, ratio of hazards via proportional hazards regression)
+- what numerical or graphical descriptive analyses did you run 
+- what type of regression analysis did you use, along with:
+    - why you chose it,
+    - what your outcome is,
+    - and why you included the variables that you included
+    
+in approximately 1 slide.
 
-## Results (6 points)
+## Results (4 points)
 
-### Description of the study cohort (optional)
+### Descriptive analyses (2 points)
 
-*Report interesting features of your study population, if you have time.*
+To receive full credit for this portion of the assignment, you should show us the plot or numerical summaries that you mentioned in the previous section, and interpret them (approximately 1 slide); what does this summary tell us about your answer to your scientific question?
 
-### Inferential analyses
+### Inferential analyses (2 points)
 
-*Report and interpret the effect estimates, confidence intervals, and p-values corresponding to each scientific question that you address.*
-
-To receive full credit for this portion of the assignment, you should include...
-
-- the relevant estimates, CIs, p-values from your regression analyses
-- what type of regression was used for each question
-- interpretations of the estimate, confidence interval, and p-value
-- a conclusion tying these results back to the scientific question
+To receive full credit for this portion of the assignment, you should provide a full results summary for your chosen scientific question (approximately 1 slide).
 
 ## Discussion (3 points)
 
