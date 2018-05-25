@@ -488,11 +488,7 @@ Learning Objectives:
 \begin{frame}
 \frametitle{Genetic Association Studies: Regression Models}
 
-\textbf{Scientific Question:} is gene $X$ associated with trait $Y$?
-
-\begin{itemize}
-\item[] We often look at the genotype (GG GA AA)
-\end{itemize} \pause
+\textbf{Scientific Question:} is your genotype (e.g., GG, GA, AA) associated with trait $Y$? \pause
 
 \textcolor{blue}{Activity:} write down a linear regression model that we could use to answer this scientific question.
 
@@ -551,20 +547,39 @@ $$E[Y \mid \# \text{``rare" alleles at loc } j] = \beta_0 + \beta_{1,j} \left(\#
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Diversity of Genetic Studies}
+
+\centering
+\includegraphics[width=\textwidth]{figs/genetic_diversity}
+\begin{small} \href{https://www.nature.com/news/genomics-is-failing-on-diversity-1.20759}{Genomics is failing on diversity} \end{small}
+
+\end{frame}
+
 % intro to admixture mapping
 \begin{frame}
 \frametitle{Intro to Admixture Mapping}
 
-[overall goal]
-
-[how is it different from GWAS?]
+\begin{itemize}
+\item Disease prevalence and trait values often differ across ancestral groups
+\item Goal of \textbf{admixture mapping}: study populations with mixed ancestry to identify genetic variants driving diffs
+\item \textbf{Scientific Question:} is the trait $Y$ associated with...
+	\begin{itemize}
+	\item ... your genotype? (GWAS)
+	\item ... your local ancestry? (AM)
+	\end{itemize}
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Quick Detour: Ancestry Inference}
+\centering
 
-[My 23andMe results]
+\textit{AM: is local ancestry associated with the trait $Y$?} \pause
+
+What is local ancestry?
+\includegraphics[width=0.8\textwidth]{figs/lai_example_23andMe}
 
 \end{frame}
 
@@ -572,9 +587,9 @@ $$E[Y \mid \# \text{``rare" alleles at loc } j] = \beta_0 + \beta_{1,j} \left(\#
 \begin{frame}
 \frametitle{Admixture Mapping: Regression Models}
 
-\textbf{Scientific Question:} is local ancestry associated with trait?
+\textbf{Scientific Question:} is local ancestry associated with SBP?
 
-[Include picture with $K=3$ from general exam slides]
+\includegraphics[width=\textwidth]{figs/am_k3}
 
 \textcolor{blue}{Activity:} write down a linear regression model that we could use to answer this scientific question.
 
@@ -583,10 +598,19 @@ $$E[Y \mid \# \text{``rare" alleles at loc } j] = \beta_0 + \beta_{1,j} \left(\#
 \begin{frame}
 \frametitle{Admixture Mapping: Multiple Testing}
 
-[The topic of my dissertation!]
+$$E[Y \mid a_{j,k}] = \beta_0 + \beta_{1,j,k} a_{j,k},$$
+where $a_{j,k} = $ number of alleles you inherited from population $k$ at locus $j$
+
+\textbf{Genome-wide admixture mapping study:} repeat for all locations $j = 1, ..., m$ and all populations $k = 1, ..., K$
+
+\begin{itemize}
+\item In total: $m \times K$ hypothesis tests
+\item What significance threshold should we use? \pause 0.05/($m\times K$)? Or something else?
+\end{itemize}
+
+\textcolor{blue}{This is the topic of my dissertation!}
 
 \end{frame}
-
 
 
 % Minute Paper
