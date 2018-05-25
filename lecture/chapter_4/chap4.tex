@@ -434,6 +434,179 @@ Doing the work to define and understand the properties of \textbf{statistical pa
 \end{frame}
 
 \section{Statistical genetics}
+\begin{frame}
+\frametitle{SECTION 2: {\small REGRESSION IN STATISTICAL GENETICS}}
+\framesubtitle{(by Kelsey)}
+
+Learning Objectives:
+\begin{itemize}
+\item Write down a regression model for a genetic association study (GWAS or admixture mapping)
+\item Interpret results from a genetic association study (GWAS or admixture mapping)
+\item Explain why we can't use the p-value threshold 0.05 in GWAS or genome-wide admixture mapping studies to declare results ``statistically significant"
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Quick Detour: Project Presentations}
+
+\begin{itemize}
+\item We \textbf{will not} be evaluating your presentation or slide-making skills! (audience = classmates, not us)
+\item Share talking time equally among group members
+\item You have 10 minutes (including questions); goal = 8
+\item You can use up to 8 slides, but you only need 6:
+	\begin{enumerate}
+	\item Background
+	\item Scientific question (just pick one!)
+	\item What did you do? (descriptives, regression model)
+	\item What did you find? (plot or numerical summaries)
+	\item What did you find? (regression results)
+	\item Discussion (summary, implications, challenges)
+	\end{enumerate}
+\item Save slides as PDF, upload to Canvas by 10am Tues
+\item You'll present in order of Group \#'s 
+\end{itemize}
+
+\end{frame}
+
+% motivating examples
+\begin{frame}
+\frametitle{Motivating Examples}
+
+\textbf{Statistical genetics:} ``develop statistical methods for understanding the genetic basis of human diseases and traits"\footnote[frame]{https://www.hsph.harvard.edu/statistical-genetics/} \pause
+
+``Success" stories:\vspace{-0.3cm} 
+\begin{itemize}
+\item Huntington's disease and the \textit{Huntingtin} gene \pause
+\item \textit{\href{https://www.nytimes.com/2013/05/14/opinion/my-medical-choice.html}{BRCA1}, BRCA2} and breast cancer \pause
+\item \href{https://www.nature.com/articles/ncomms10448}{Are you a morning person?} (23andMe) \pause
+\item \href{https://www.soccergenomics.com/}{Soccer genomics}
+\end{itemize}
+\end{frame}
+
+% regression model for Y ~ genotype
+\begin{frame}
+\frametitle{Genetic Association Studies: Regression Models}
+
+\textbf{Scientific Question:} is gene $X$ associated with trait $Y$?
+
+\begin{itemize}
+\item[] We often look at the genotype (GG GA AA)
+\end{itemize} \pause
+
+\textcolor{blue}{Activity:} write down a linear regression model that we could use to answer this scientific question.
+
+\end{frame}
+
+% interpreting GWAS results
+\begin{frame}
+\frametitle{Genetic Association Studies: Interpretation}
+
+$$E[\text{Height (inches)} \mid \text{Number of A's}] = \beta_0 + \beta_1 \text{Number of A's}$$
+
+\textcolor{blue}{Activity:} interpret the coefficient estimate $\hat\beta_1 = 0.1$ \pause
+
+\hspace*{-1cm}
+\includegraphics[width=1.17\textwidth]{figs/23andMe_interp}
+
+What do you think of the interpretation from 23andMe?
+
+\end{frame}
+
+% intro to GWAS, motivate multiple testing problem
+\begin{frame}
+\frametitle{Genome-Wide Association Studies (GWAS)}
+
+$$E[Y \mid \# \text{``rare" alleles at loc } j] = \beta_0 + \beta_{1,j} \left(\# \text{``rare" alleles at loc } j\right)$$ \textbf{GWAS:} repeat for all locations across the genome $j = 1, ..., m$ \pause
+
+\begin{columns}
+\begin{column}{0.7\textwidth}
+\begin{itemize}
+\item In entire genome: $m \approx 3$ billion
+\item In most GWAS: thousands or millions
+\end{itemize}
+\end{column}
+
+\begin{column}{0.3\textwidth}
+\vspace{0.3cm}
+\includegraphics[angle=270,origin=c,width=\textwidth]{figs/bookcase}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{GWAS: Multiple Testing}
+\begin{itemize}
+\item What happens if we use the significance threshold 0.05? \pause
+	\begin{itemize}
+	\item 1 test: 5\% chance of type I error \begin{footnotesize}(incorrectly reject $H_0$) \end{footnotesize} \pause
+	\item 100 tests: expect to see 5 type I errors \pause
+	\item 1 million tests: expect to see ??? type I errors \pause
+	\end{itemize}
+\item What do we use instead? \pause \textcolor{red}{Bonferroni correction} 
+\end{itemize}
+
+\includegraphics[width=\textwidth]{figs/morning_manhattan}
+
+\end{frame}
+
+% intro to admixture mapping
+\begin{frame}
+\frametitle{Intro to Admixture Mapping}
+
+[overall goal]
+
+[how is it different from GWAS?]
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Quick Detour: Ancestry Inference}
+
+[My 23andMe results]
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Admixture Mapping: Regression Models}
+
+\textbf{Scientific Question:} is ancestry at locus $j$ associated with trait $Y$?
+
+[Include picture with $K=3$ from general exam slides]
+
+\textcolor{blue}{Activity:} write down a linear regression model that we could use to answer this scientific question.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Admixture Mapping: Multiple Testing}
+
+[The topic of my dissertation!]
+
+\end{frame}
+
+
+
+% Minute Paper
+\begin{frame}
+\frametitle{Index Card: Reflection}
+
+Please answer the following questions:
+\begin{enumerate}
+\item List something you've learned in this course (even better if it's something you're excited to have learned)
+\item List something you're still confused about and/or want to understand better before the end of the quarter
+\item If we held office hours during finals week, would you attend?
+	\begin{enumerate}
+	\item If yes, does Wednesday 2--4pm work for you? (Otherwise, please suggest a couple times that work better.)
+	\end{enumerate}
+\end{enumerate}
+
+\textcolor{blue}{Don't forget to complete the course evaluations by June 1!}
+
+\end{frame}
+
 
 \section{Correlated data}
 
