@@ -459,7 +459,7 @@ Learning Objectives:
 	\item Background
 	\item Scientific question (just pick one!)
 	\item What did you do? (descriptives, regression model)
-	\item What did you find? (plot or numerical summaries)
+	\item What did you find? (graphical or numerical summaries)
 	\item What did you find? (regression results)
 	\item Discussion (summary, implications, challenges)
 	\end{enumerate}
@@ -471,7 +471,7 @@ Learning Objectives:
 
 % motivating examples
 \begin{frame}
-\frametitle{Motivating Examples}
+\frametitle{Statistical Genetics}
 
 \textbf{Statistical genetics:} ``develop statistical methods for understanding the genetic basis of human diseases and traits"\footnote[frame]{https://www.hsph.harvard.edu/statistical-genetics/} \pause
 
@@ -488,7 +488,7 @@ Learning Objectives:
 \begin{frame}
 \frametitle{Genetic Association Studies: Regression Models}
 
-\textbf{Scientific Question:} is your genotype (e.g., GG, GA, AA) associated with trait $Y$? \pause
+\textbf{Scientific Question:} is your genotype (3 categories: GG, GA, AA) at a particular location associated with a trait $Y$? \pause
 
 \textcolor{blue}{Activity:} write down a linear regression model that we could use to answer this scientific question.
 
@@ -562,10 +562,10 @@ $$E[Y \mid \# \text{``rare" alleles at loc } j] = \beta_0 + \beta_{1,j} \left(\#
 
 \begin{itemize}
 \item Disease prevalence and trait values often differ across ancestral groups
-\item Goal of \textbf{admixture mapping}: study populations with mixed ancestry to identify genetic variants driving diffs
+\item Goal of \textbf{admixture mapping}: study populations with mixed ancestry to identify genetic variants driving those differences \pause
 \item \textbf{Scientific Question:} is the trait $Y$ associated with...
 	\begin{itemize}
-	\item ... your genotype? (GWAS)
+	\item ... your genotype? (GWAS) \pause
 	\item ... your local ancestry? (AM)
 	\end{itemize}
 \end{itemize}
@@ -573,12 +573,11 @@ $$E[Y \mid \# \text{``rare" alleles at loc } j] = \beta_0 + \beta_{1,j} \left(\#
 \end{frame}
 
 \begin{frame}
-\frametitle{Quick Detour: Ancestry Inference}
+\frametitle{Ancestry Inference}
 \centering
 
-\textit{AM: is local ancestry associated with the trait $Y$?} \pause
+\textit{AM: is \textcolor{blue}{local ancestry} associated with the trait $Y$?} \pause
 
-What is local ancestry?
 \includegraphics[width=0.8\textwidth]{figs/lai_example_23andMe}
 
 \end{frame}
@@ -598,14 +597,17 @@ What is local ancestry?
 \begin{frame}
 \frametitle{Admixture Mapping: Multiple Testing}
 
-$$E[Y \mid a_{j,k}] = \beta_0 + \beta_{1,j,k} a_{j,k},$$
-where $a_{j,k} = $ number of alleles you inherited from population $k$ at locus $j$
+$$E[Y \mid a_{jk}] = \beta_0 + \beta_{1jk} a_{jk}$$
 
 \textbf{Genome-wide admixture mapping study:} repeat for all locations $j = 1, ..., m$ and all populations $k = 1, ..., K$
 
 \begin{itemize}
 \item In total: $m \times K$ hypothesis tests
-\item What significance threshold should we use? \pause 0.05/($m\times K$)? Or something else?
+\item What significance threshold should we use? \pause
+	\begin{itemize}
+	\item 0.05/($m\times K$)? 
+	\item Or something else? \pause
+	\end{itemize}
 \end{itemize}
 
 \textcolor{blue}{This is the topic of my dissertation!}
